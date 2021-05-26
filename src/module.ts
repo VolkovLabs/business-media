@@ -1,40 +1,22 @@
 import { PanelPlugin } from '@grafana/data';
-import { SimpleOptions } from './types';
-import { SimplePanel } from './SimplePanel';
+import { ImagePanel } from './image-panel';
+import { ImageOptions } from './types';
 
-export const plugin = new PanelPlugin<SimpleOptions>(SimplePanel).setPanelOptions(builder => {
+/**
+ * Panel Plug-in
+ */
+export const plugin = new PanelPlugin<ImageOptions>(ImagePanel).setPanelOptions((builder) => {
   return builder
     .addTextInput({
-      path: 'text',
-      name: 'Simple text option',
-      description: 'Description of panel option',
-      defaultValue: 'Default value of text input option',
+      path: 'name',
+      name: 'Field name',
+      description: 'Name of the field with encoded image',
+      defaultValue: 'img',
     })
-    .addBooleanSwitch({
-      path: 'showSeriesCount',
-      name: 'Show series counter',
-      defaultValue: false,
-    })
-    .addRadio({
-      path: 'seriesCountSize',
-      defaultValue: 'sm',
-      name: 'Series counter size',
-      settings: {
-        options: [
-          {
-            value: 'sm',
-            label: 'Small',
-          },
-          {
-            value: 'md',
-            label: 'Medium',
-          },
-          {
-            value: 'lg',
-            label: 'Large',
-          },
-        ],
-      },
-      showIf: config => config.showSeriesCount,
+    .addTextInput({
+      path: 'type',
+      name: 'Data type',
+      description: 'MIME type',
+      defaultValue: 'image/jpeg',
     });
 });

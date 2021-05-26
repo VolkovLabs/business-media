@@ -27,5 +27,6 @@ ci/
 e2e-results/
 
 # Editors
+.DS_Store
 .idea
 

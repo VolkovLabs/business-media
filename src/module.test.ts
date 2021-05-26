@@ -1,6 +1,11 @@
-// Just a stub test
-describe('placeholder test', () => {
-  it('should return true', () => {
-    expect(true).toBeTruthy();
+import { PanelPlugin } from '@grafana/data';
+import { plugin } from './module';
+
+/*
+ Plugin
+ */
+describe('plugin', () => {
+  it('Should be instance of PanelPlugin', () => {
+    expect(plugin).toBeInstanceOf(PanelPlugin);
   });
 });

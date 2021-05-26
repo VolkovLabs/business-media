@@ -1,22 +1,26 @@
 {
-  "name": "volkovlabs-volkovlabs-image-panel",
+  "name": "volkovlabs-image-panel",
   "version": "1.0.0",
   "description": "Base64 Image renderer",
   "scripts": {
-    "build": "grafana-toolkit plugin:build",
-    "test": "grafana-toolkit plugin:test",
+    "build": "grafana-toolkit plugin:build --coverage",
     "dev": "grafana-toolkit plugin:dev",
-    "watch": "grafana-toolkit plugin:dev --watch",
+    "format": "prettier --write \"**\"",
     "sign": "grafana-toolkit plugin:sign",
-    "start": "yarn watch"
+    "start": "docker-compose pull && docker-compose up",
+    "stop": "docker-compose down",
+    "test": "grafana-toolkit plugin:test --coverage",
+    "upgrade": "yarn upgrade --latest",
+    "watch": "grafana-toolkit plugin:dev --watch"
   },
   "author": "Volkov Labs",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@grafana/data": "latest",
-    "@grafana/toolkit": "latest",
-    "@grafana/ui": "latest",
-    "emotion": "10.0.27"
+    "@grafana/data": "7.5.7",
+    "@grafana/toolkit": "7.5.7",
+    "@grafana/ui": "7.5.7",
+    "emotion": "10.0.27",
+    "js-base64": "^3.6.1"
   },
   "engines": {
     "node": ">=14"

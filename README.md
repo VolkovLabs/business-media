@@ -1,44 +1,47 @@
-# Grafana Panel Plugin Template
+# Image panel plugin for Grafana
 
-[![Build](https://github.com/grafana/grafana-starter-panel/workflows/CI/badge.svg)](https://github.com/grafana/grafana-starter-panel/actions?query=workflow%3A%22CI%22)
+![Image Panel](https://raw.githubusercontent.com/volkovlabs/grafana-image-panel/main/src/img/image-panel.png)
 
-This template is a starting point for building Grafana Panel Plugins in Grafana 7.0+
+[![Grafana 7](https://img.shields.io/badge/Grafana-7-orange)](https://www.grafana.com)
+![CI](https://github.com/volkovlabs/grafana-image-panel/workflows/CI/badge.svg)
 
-## What is Grafana Panel Plugin?
+## Summary
 
-Panels are the building blocks of Grafana. They allow you to visualize data in different ways. While Grafana has several types of panels already built-in, you can also build your own panel, to add support for other visualizations.
+- [**Introduction**](#introduction)
+- [**Getting Started**](#getting-started)
+- [**Feedback**](#feedback)
+- [**Contributing**](#contributing)
+- [**License**](#license)
 
-For more information about panels, refer to the documentation on [Panels](https://grafana.com/docs/grafana/latest/features/panels/panels/)
+## Introduction
 
-## Getting started
+The Image Panel is a plug-in for Grafana that displays raw and Base64 encoded images.
 
-1. Install dependencies
+### Requirements
 
-   ```bash
-   yarn install
-   ```
+Only **Grafana 7.1+** is supported.
 
-2. Build plugin in development mode or run in watch mode
+## Getting Started
 
-   ```bash
-   yarn dev
-   ```
+Use the `grafana-cli` tool to install from the command line:
 
-   or
+```bash
+grafana-cli plugins install volkovlabs-image-panel
+```
 
-   ```bash
-   yarn watch
-   ```
+## Feedback
 
-3. Build plugin in production mode
+We love to hear from users, developers, and the whole community interested in this plug-in. These are various ways to get in touch with us:
 
-   ```bash
-   yarn build
-   ```
+- Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/grafana-image-panel/issues/new/choose).
+- Star the repository to show your support.
 
-## Learn more
+## Contributing
 
-- [Build a panel plugin tutorial](https://grafana.com/tutorials/build-a-panel-plugin)
-- [Grafana documentation](https://grafana.com/docs/)
-- [Grafana Tutorials](https://grafana.com/tutorials/) - Grafana Tutorials are step-by-step guides that help you make the most of Grafana
-- [Grafana UI Library](https://developers.grafana.com/ui) - UI components to help you build interfaces using Grafana Design System
+- Fork the repository.
+- Find an issue to work on and submit a pull request.
+- Could not find an issue? Look for documentation, bugs, typos, and missing features.
+
+## License
+
+- Apache License Version 2.0, see [LICENSE](https://github.com/volkovlabs/grafana-image-panel/blob/main/LICENSE).
