@@ -1,15 +1,9 @@
 version: '3.4'
 
 services:
-  redis:
-    container_name: redismod
-    image: redislabs/redismod:latest
-    ports:
-      - 6379:6379/tcp
-
   grafana:
     container_name: grafana
-    image: ghcr.io/redisgrafana/redis-app:latest
+    image: grafana/grafana:latest
     ports:
       - 3000:3000/tcp
     environment:
@@ -18,6 +12,7 @@ services:
       - GF_AUTH_BASIC_ENABLED=false
       - GF_ENABLE_GZIP=true
       - GF_USERS_DEFAULT_THEME=light
+      - GF_INSTALL_PLUGINS=marcusolsson-static-datasource
     volumes:
       - ./dist:/var/lib/grafana/plugins/volkovlabs-image-panel
       - ./provisioning:/etc/grafana/provisioning
