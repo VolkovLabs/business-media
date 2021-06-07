@@ -4,6 +4,7 @@
 
 [![Grafana 7](https://img.shields.io/badge/Grafana-7-orange)](https://www.grafana.com)
 ![CI](https://github.com/volkovlabs/grafana-image-panel/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/VolkovLabs/grafana-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/grafana-image-panel)
 
 ## Summary
 
