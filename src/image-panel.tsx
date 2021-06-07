@@ -2,6 +2,7 @@ import { css, cx } from 'emotion';
 import { Base64 } from 'js-base64';
 import React from 'react';
 import { PanelProps } from '@grafana/data';
+import { ImageTypes, ImageTypesSymbols } from './constants';
 import { getStyles } from './styles';
 
 /**
@@ -19,7 +20,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
    * Find required field
    */
   let img = data.series
-    .map((series) => series.fields.find((field) => field.type === 'string' && field.name === options.name))
+    .map((series) =>
+      series.fields.find((field) => field.type === 'string' && (!options.name || field.name === options.name))
+    )
     .map((field) => field?.values.get(field.values.length - 1))
     .toString();
 
@@ -29,6 +32,12 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   if (!Base64.isValid(img)) {
     img = Base64.encode(img);
   }
+
+  /**
+   * Source
+   */
+  const type = ImageTypesSymbols[img.charAt(0) as any];
+  const src = type ? `data:${type};base64,${img}` : `data:;base64,${img}`;
 
   return (
     <div
@@ -40,7 +49,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
         `
       )}
     >
-      <img className={styles.img} width={width} height={height} src={`data:${options.type};base64,${img}`} />
+      {type === ImageTypes.PDF ? (
+        <iframe className={styles.img} width={width} height={height} src={src} />
+      ) : (
+        <img className={styles.img} width={width} height={height} src={src} />
+      )}
     </div>
   );
 };
