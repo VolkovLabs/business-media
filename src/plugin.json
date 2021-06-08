@@ -24,7 +24,16 @@
         "url": "https://github.com/volkovlabs/grafana-image-panel/blob/main/LICENSE"
       }
     ],
-    "screenshots": [],
+    "screenshots": [
+      {
+        "name": "Static Image Panel",
+        "path": "img/image-panel.png"
+      },
+      {
+        "name": "Redis Image Panel",
+        "path": "img/image-panel-redis.png"
+      }
+    ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },
