@@ -181,6 +181,48 @@
       ],
       "title": "PDF",
       "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "id": 6,
+      "options": {
+        "name": "img"
+      },
+      "pluginVersion": "7.5.7",
+      "targets": [
+        {
+          "frame": {
+            "fields": [
+              {
+                "config": {},
+                "name": "img",
+                "type": "string",
+                "values": [""]
+              },
+              {
+                "config": {},
+                "name": "test",
+                "type": "string",
+                "values": [""]
+              }
+            ],
+            "name": "JPEG"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Nothing",
+      "type": "volkovlabs-image-panel"
     }
   ],
   "schemaVersion": 27,

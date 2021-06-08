@@ -2,8 +2,8 @@ import { css, cx } from 'emotion';
 import { Base64 } from 'js-base64';
 import React from 'react';
 import { PanelProps } from '@grafana/data';
-import { ImageTypes, ImageTypesSymbols } from './constants';
-import { getStyles } from './styles';
+import { ImageTypes, ImageTypesSymbols } from '../constants';
+import { getStyles } from '../styles';
 
 /**
  * Properties
@@ -25,6 +25,25 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     )
     .map((field) => field?.values.get(field.values.length - 1))
     .toString();
+
+  /**
+   * No results
+   */
+  if (!img) {
+    return (
+      <div
+        className={cx(
+          styles.wrapper,
+          css`
+            width: ${width}px;
+            height: ${height}px;
+          `
+        )}
+      >
+        Nothing to display...
+      </div>
+    );
+  }
 
   /**
    * Encode to base64 if not

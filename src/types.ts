@@ -1,7 +1,7 @@
 /**
  * Options
  */
-export interface ImageOptions {
+export interface PanelOptions {
   /**
    * Field name
    *
