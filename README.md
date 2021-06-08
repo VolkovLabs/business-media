@@ -1,4 +1,4 @@
-# Image panel plugin for Grafana
+# Base64 Image/PDF panel plugin for Grafana
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/grafana-image-panel/main/src/img/image-panel.png)
 
@@ -16,7 +16,7 @@
 
 ## Introduction
 
-The Image Panel is a plug-in for Grafana that displays raw and Base64 encoded images.
+The Base 64 Image/PDF Panel is a plugin for Grafana that displays raw and Base64 encoded files in PNG, JPG, GIF, and PDF formats.
 
 ### Requirements
 
@@ -30,9 +30,15 @@ Use the `grafana-cli` tool to install from the command line:
 grafana-cli plugins install volkovlabs-image-panel
 ```
 
+## Features
+
+- The file type is determined automatically based on the first Base64 symbol.
+- If the data source returns more than one field with type `string`, you can specify the **Field Name** in the panel's display options.
+- If the data source returns multiple rows, the panel will display the image from the last row.
+
 ## Feedback
 
-We love to hear from users, developers, and the whole community interested in this plug-in. These are various ways to get in touch with us:
+We love to hear from users, developers, and the whole community interested in this plugin. These are various ways to get in touch with us:
 
 - Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/grafana-image-panel/issues/new/choose).
 - Star the repository to show your support.
