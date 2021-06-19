@@ -17,7 +17,7 @@
 
 ## Introduction
 
-The Base 64 Image/PDF Panel is a plugin for Grafana that displays raw and Base64 encoded files in PNG, JPG, GIF, and PDF formats.
+The Base64 Image/PDF Panel is a plugin for Grafana that displays raw and Base64 encoded files in PNG, JPG, GIF, and PDF formats.
 
 ### Requirements
 
