@@ -1,6 +1,6 @@
-import { css, cx } from 'emotion';
 import { Base64 } from 'js-base64';
 import React from 'react';
+import { css, cx } from '@emotion/css';
 import { PanelProps } from '@grafana/data';
 import { ImageTypes, ImageTypesSymbols } from '../constants';
 import { getStyles } from '../styles';

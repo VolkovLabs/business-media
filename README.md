@@ -2,7 +2,7 @@
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/grafana-image-panel/main/src/img/image-panel.png)
 
-[![Grafana 7](https://img.shields.io/badge/Grafana-7-orange)](https://www.grafana.com)
+[![Grafana 8](https://img.shields.io/badge/Grafana-8-orange)](https://www.grafana.com)
 ![CI](https://github.com/volkovlabs/grafana-image-panel/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/grafana-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/grafana-image-panel)
 
@@ -10,6 +10,7 @@
 
 - [**Introduction**](#introduction)
 - [**Getting Started**](#getting-started)
+- [**Features**](#features)
 - [**Feedback**](#feedback)
 - [**Contributing**](#contributing)
 - [**License**](#license)
@@ -20,7 +21,8 @@ The Base 64 Image/PDF Panel is a plugin for Grafana that displays raw and Base64
 
 ### Requirements
 
-Only **Grafana 7.1+** is supported.
+- **Grafana 8.0** is required for version 2.X.
+- **Grafana 7.1+** is required for version 1.X.
 
 ## Getting Started
 

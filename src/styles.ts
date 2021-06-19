@@ -1,10 +1,9 @@
-import { css } from 'emotion';
-import { stylesFactory } from '@grafana/ui';
+import { css } from '@emotion/css';
 
 /**
  * Styles
  */
-export const getStyles = stylesFactory(() => {
+export const getStyles = () => {
   return {
     wrapper: css`
       position: relative;
@@ -15,4 +14,4 @@ export const getStyles = stylesFactory(() => {
       left: 0;
     `,
   };
-});
+};
