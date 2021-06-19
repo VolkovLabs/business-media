@@ -45,18 +45,28 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     );
   }
 
-  /**
-   * Encode to base64 if not
-   */
-  if (!Base64.isValid(img)) {
-    img = Base64.encode(img);
-  }
+  let type;
 
   /**
-   * Source
+   * Check if returned value already has header
    */
-  const type = ImageTypesSymbols[img.charAt(0) as any];
-  const src = type ? `data:${type};base64,${img}` : `data:;base64,${img}`;
+  const m = img.match(/^data:(image|application\/\w+)/);
+  if (!m?.length) {
+    /**
+     * Encode to base64 if not
+     */
+    if (!Base64.isValid(img)) {
+      img = Base64.encode(img);
+    }
+
+    /**
+     * Set header
+     */
+    type = ImageTypesSymbols[img.charAt(0) as any];
+    img = type ? `data:${type};base64,${img}` : `data:;base64,${img}`;
+  } else if (m[1] === ImageTypes.PDF) {
+    type = ImageTypes.PDF;
+  }
 
   return (
     <div
@@ -69,9 +79,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
       )}
     >
       {type === ImageTypes.PDF ? (
-        <iframe className={styles.img} width={width} height={height} src={src} />
+        <iframe className={styles.img} width={width} height={height} src={img} />
       ) : (
-        <img className={styles.img} width={width} height={height} src={src} />
+        <img className={styles.img} width={width} height={height} src={img} />
       )}
     </div>
   );
