@@ -32,7 +32,8 @@ grafana-cli plugins install volkovlabs-image-panel
 
 ## Features
 
-- The file type is determined automatically based on the first Base64 symbol.
+- The returned value can contain base64 with or without definition like `data:image/jpg;base64,XXX` or `data:application/pdf;base64,XXX`.
+- The file type is determined automatically based on the first Base64 symbol if definition is not provided.
 - If the data source returns more than one field with type `string`, you can specify the **Field Name** in the panel's display options.
 - If the data source returns multiple rows, the panel will display the image from the last row.
 
