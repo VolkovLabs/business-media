@@ -5,6 +5,7 @@
 [![Grafana 8](https://img.shields.io/badge/Grafana-8-orange)](https://www.grafana.com)
 ![CI](https://github.com/volkovlabs/grafana-image-panel/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/grafana-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/grafana-image-panel)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/VolkovLabs/grafana-image-panel.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VolkovLabs/grafana-image-panel/context:javascript)
 
 ## Summary
 
