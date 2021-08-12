@@ -17,7 +17,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   const styles = getStyles();
 
   /**
-   * Find required field (string)
+   * Name field (string)
    */
   let img = data.series
     .map((series) =>
@@ -29,22 +29,28 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   /**
    * Height field (number)
    */
-  let heightField = data.series
-    .map((series) =>
-      series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
-    )
-    .map((field) => field?.values.get(field.values.length - 1))
-    .toString();
-  height = Number(heightField) ? Number(heightField) : height;
+  if (options.heightName) {
+    const heightField = data.series
+      .map((series) =>
+        series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
+      )
+      .map((field) => field?.values.get(field.values.length - 1))
+      .toString();
+    height = Number(heightField) ? Number(heightField) : height;
+  }
 
   /**
-   * Width field
+   * Width field (number)
    */
-  let widthField = data.series
-    .map((series) => series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName))
-    .map((field) => field?.values.get(field.values.length - 1))
-    .toString();
-  width = Number(widthField) ? Number(widthField) : width;
+  if (options.widthName) {
+    const widthField = data.series
+      .map((series) =>
+        series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName)
+      )
+      .map((field) => field?.values.get(field.values.length - 1))
+      .toString();
+    width = Number(widthField) ? Number(widthField) : width;
+  }
 
   /**
    * Custom Image width and height from Options

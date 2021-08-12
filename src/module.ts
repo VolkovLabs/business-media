@@ -3,7 +3,7 @@ import { ImagePanel } from './image-panel';
 import { PanelOptions } from './types';
 
 /**
- * Panel Plug-in
+ * Panel Plugin
  */
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions((builder) => {
   return builder
