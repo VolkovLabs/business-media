@@ -9,18 +9,20 @@ describe('plugin', () => {
     expect(plugin).toBeInstanceOf(PanelPlugin);
   });
 
-  it('Should add name input', () => {
+  it('Should add inputs', () => {
     /**
      * Builder
      */
     const builder: any = {
       addTextInput: jest.fn().mockImplementation(() => builder),
+      addNumberInput: jest.fn().mockImplementation(() => builder),
     };
 
     /**
-     * Name
+     * Inputs
      */
     plugin['registerOptionEditors'](builder);
     expect(builder.addTextInput).toHaveBeenCalled();
+    expect(builder.addNumberInput).toHaveBeenCalled();
   });
 });

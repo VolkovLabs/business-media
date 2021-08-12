@@ -19,3 +19,12 @@ export enum ImageTypesSymbols {
   'J' = ImageTypes.PDF,
   'A' = ImageTypes.HEIC,
 }
+
+/**
+ * Field names
+ */
+export enum ImageFields {
+  IMG = 'img',
+  HEIGHT = 'height',
+  WIDTH = 'width',
+}

@@ -8,4 +8,18 @@ export interface PanelOptions {
    * @type string
    */
   name: string;
+
+  /**
+   * Image width
+   *
+   * @type number
+   */
+  width: number;
+
+  /**
+   * Image height
+   *
+   * @type number
+   */
+  height: number;
 }
