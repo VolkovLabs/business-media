@@ -5,7 +5,8 @@
 ### Features / Enhancements
 
 - Update README (#10)
-- Upgrade to Grafana 8.1.1
+- Upgrade to Grafana 8.1.1 (#12)
+- Add Options and Fields to resize an image (#13)
 
 ## 2.0.0 (2021-06-19)
 

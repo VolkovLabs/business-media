@@ -1,7 +1,7 @@
 import { Base64 } from 'js-base64';
 import React from 'react';
 import { css, cx } from '@emotion/css';
-import { PanelProps } from '@grafana/data';
+import { FieldType, PanelProps } from '@grafana/data';
 import { ImageTypes, ImageTypesSymbols } from '../constants';
 import { getStyles } from '../styles';
 
@@ -17,14 +17,46 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   const styles = getStyles();
 
   /**
-   * Find required field
+   * Name field (string)
    */
   let img = data.series
     .map((series) =>
-      series.fields.find((field) => field.type === 'string' && (!options.name || field.name === options.name))
+      series.fields.find((field) => field.type === FieldType.string && (!options.name || field.name === options.name))
     )
     .map((field) => field?.values.get(field.values.length - 1))
     .toString();
+
+  /**
+   * Height field (number)
+   */
+  if (options.heightName) {
+    const heightField = data.series
+      .map((series) =>
+        series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
+      )
+      .map((field) => field?.values.get(field.values.length - 1))
+      .toString();
+    height = Number(heightField) ? Number(heightField) : height;
+  }
+
+  /**
+   * Width field (number)
+   */
+  if (options.widthName) {
+    const widthField = data.series
+      .map((series) =>
+        series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName)
+      )
+      .map((field) => field?.values.get(field.values.length - 1))
+      .toString();
+    width = Number(widthField) ? Number(widthField) : width;
+  }
+
+  /**
+   * Custom Image width and height from Options
+   */
+  height = options.height ? options.height : height;
+  width = options.width ? options.width : width;
 
   /**
    * No results

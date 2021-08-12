@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import { FieldType, toDataFrame } from '@grafana/data';
+import { ImageFields } from '../constants';
 import { ImagePanel } from './image-panel';
 
 /**
@@ -35,7 +36,7 @@ describe('Rendering', () => {
             fields: [
               {
                 type: FieldType.string,
-                name: 'img',
+                name: ImageFields.IMG,
                 values: ['/9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
               },
             ],
@@ -59,7 +60,7 @@ describe('Rendering', () => {
             fields: [
               {
                 type: FieldType.string,
-                name: 'img',
+                name: ImageFields.IMG,
                 values: ['JVBERi0xLjMKJcTl8uXrp/jQ0CiUlRU9GCg=='],
               },
             ],
@@ -83,7 +84,7 @@ describe('Rendering', () => {
             fields: [
               {
                 type: FieldType.string,
-                name: 'img',
+                name: ImageFields.IMG,
                 values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
               },
             ],
@@ -107,7 +108,7 @@ describe('Rendering', () => {
             fields: [
               {
                 type: FieldType.string,
-                name: 'img',
+                name: ImageFields.IMG,
                 values: ['data:application/pdf;base64,JVBERiiUlRU9GCg=='],
               },
             ],
@@ -147,7 +148,7 @@ describe('Rendering', () => {
   });
 
   it('Should render raw image', async () => {
-    const getComponent = ({ options = { name: 'img' }, ...restProps }: any) => {
+    const getComponent = ({ options = { name: ImageFields.IMG }, ...restProps }: any) => {
       const data = {
         series: [
           toDataFrame({
@@ -160,7 +161,7 @@ describe('Rendering', () => {
               },
               {
                 type: FieldType.string,
-                name: 'img',
+                name: ImageFields.IMG,
                 values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
               },
             ],
@@ -173,5 +174,93 @@ describe('Rendering', () => {
     const wrapper = shallow(getComponent({ date: { series: [] } }));
     expect(wrapper.find('div').exists()).toBeTruthy();
     expect(wrapper.find('img').exists()).toBeTruthy();
+  });
+
+  it('Should render image with custom size options', async () => {
+    const getComponent = ({
+      options = {
+        name: ImageFields.IMG,
+        widthName: ImageFields.WIDTH,
+        heightName: ImageFields.HEIGHT,
+        width: 20,
+        height: 20,
+      },
+      ...restProps
+    }: any) => {
+      const data = {
+        series: [
+          toDataFrame({
+            name: 'data',
+            fields: [
+              {
+                type: FieldType.string,
+                name: 'raw',
+                values: ['?PNGIHDR 3z??	pHYs'],
+              },
+              {
+                type: FieldType.string,
+                name: ImageFields.IMG,
+                values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+              },
+            ],
+          }),
+        ],
+      };
+      return <ImagePanel data={data} {...restProps} options={options} />;
+    };
+
+    const wrapper = shallow(getComponent({ date: { series: [] } }));
+    expect(wrapper.find('div').exists()).toBeTruthy();
+    expect(wrapper.find('img').exists()).toBeTruthy();
+
+    const img = wrapper.find('img').getElement();
+    expect(img.props.width).toBe(20);
+    expect(img.props.height).toBe(20);
+  });
+
+  it('Should render image with custom size fields', async () => {
+    const getComponent = ({
+      options = { name: ImageFields.IMG, widthName: ImageFields.WIDTH, heightName: ImageFields.HEIGHT },
+      ...restProps
+    }: any) => {
+      const data = {
+        series: [
+          toDataFrame({
+            name: 'data',
+            fields: [
+              {
+                type: FieldType.string,
+                name: 'raw',
+                values: ['?PNGIHDR 3z??	pHYs'],
+              },
+              {
+                type: FieldType.string,
+                name: ImageFields.IMG,
+                values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+              },
+              {
+                type: FieldType.number,
+                name: ImageFields.HEIGHT,
+                values: [20],
+              },
+              {
+                type: FieldType.number,
+                name: ImageFields.WIDTH,
+                values: [20],
+              },
+            ],
+          }),
+        ],
+      };
+      return <ImagePanel data={data} {...restProps} options={options} />;
+    };
+
+    const wrapper = shallow(getComponent({ date: { series: [] } }));
+    expect(wrapper.find('div').exists()).toBeTruthy();
+    expect(wrapper.find('img').exists()).toBeTruthy();
+
+    const img = wrapper.find('img').getElement();
+    expect(img.props.width).toBe(20);
+    expect(img.props.height).toBe(20);
   });
 });

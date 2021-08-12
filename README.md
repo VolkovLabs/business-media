@@ -38,8 +38,14 @@ grafana-cli plugins install volkovlabs-image-panel
 
 - The returned value can contain base64 with or without definition (`data:image/jpg;base64,XXX` or `data:application/pdf;base64,XXX`).
 - The file type is determined automatically based on the first Base64 symbol if definition is not provided.
-- If the data source returns more than one field with type `string`, you can specify the **Field Name** in the panel's display options.
+- If the data source returns more than one field with type `string`, you can select the **Field Name** in the panel's display options.
 - If the data source returns multiple rows, the panel will display the image from the last row.
+
+## Image Size
+
+- Image size auto-adjust to panel's size, unless custom width and/or height specified in the panel's display options.
+- If the data source returns fields with type `number`, you can select height and width and the image size will be set accordingly.
+- Panel's display options override returned values.
 
 ## Feedback
 
