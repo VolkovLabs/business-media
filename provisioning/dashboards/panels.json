@@ -21,7 +21,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "panels": [
     {
@@ -47,8 +46,10 @@
       "id": 6,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -87,8 +88,10 @@
       "id": 2,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -129,8 +132,10 @@
       "id": 3,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -165,8 +170,10 @@
       "id": 5,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -201,8 +208,10 @@
       "id": 4,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -257,8 +266,10 @@
       "id": 7,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -300,8 +311,10 @@
       "id": 8,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -351,8 +364,10 @@
       "id": 15,
       "options": {
         "height": 200,
+        "heightMode": "auto",
         "name": "img",
-        "width": 200
+        "width": 200,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -394,8 +409,10 @@
       "id": 16,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
-        "width": 100
+        "width": 100,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -437,8 +454,10 @@
       "id": 17,
       "options": {
         "height": 200,
+        "heightMode": "auto",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -494,9 +513,11 @@
       "id": 18,
       "options": {
         "height": 0,
+        "heightMode": "custom",
         "heightName": "width",
         "name": "img",
         "width": 0,
+        "widthMode": "custom",
         "widthName": "height"
       },
       "pluginVersion": "7.5.7",
@@ -551,8 +572,10 @@
       "id": 23,
       "options": {
         "height": 0,
+        "heightMode": "auto",
         "name": "img",
         "width": 0,
+        "widthMode": "custom",
         "widthName": "width"
       },
       "pluginVersion": "7.5.7",
@@ -601,9 +624,11 @@
       "id": 24,
       "options": {
         "height": 0,
+        "heightMode": "custom",
         "heightName": "height",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "auto"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -651,8 +676,10 @@
       "id": 25,
       "options": {
         "height": 100,
+        "heightMode": "custom",
         "name": "img",
-        "width": 100
+        "width": 100,
+        "widthMode": "custom"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -706,8 +733,11 @@
       "id": 26,
       "options": {
         "height": 100,
+        "heightMode": "custom",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthMode": "custom",
+        "widthName": "width"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -755,8 +785,11 @@
       "id": 27,
       "options": {
         "height": 0,
+        "heightMode": "custom",
+        "heightName": "height",
         "name": "img",
-        "width": 200
+        "width": 200,
+        "widthMode": "custom"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -808,5 +841,5 @@
   "timezone": "",
   "title": "Images",
   "uid": "O4tc_E6Gz",
-  "version": 8
+  "version": 1
 }

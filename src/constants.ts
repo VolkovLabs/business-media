@@ -28,3 +28,12 @@ export enum ImageFields {
   HEIGHT = 'height',
   WIDTH = 'width',
 }
+
+/**
+ * Size Modes
+ */
+export enum ImageSizeModes {
+  AUTO = 'auto',
+  ORIGINAL = 'original',
+  CUSTOM = 'custom',
+}

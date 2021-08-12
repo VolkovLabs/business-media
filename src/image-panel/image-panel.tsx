@@ -2,7 +2,7 @@ import { Base64 } from 'js-base64';
 import React from 'react';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { ImageTypes, ImageTypesSymbols } from '../constants';
+import { ImageSizeModes, ImageTypes, ImageTypesSymbols } from '../constants';
 import { getStyles } from '../styles';
 
 /**
@@ -27,36 +27,50 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     .toString();
 
   /**
-   * Height field (number)
+   * Keep auto-scale if Auto
    */
-  if (options.heightName) {
-    const heightField = data.series
-      .map((series) =>
-        series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
-      )
-      .map((field) => field?.values.get(field.values.length - 1))
-      .toString();
-    height = Number(heightField) ? Number(heightField) : height;
+  let imageHeight = options.heightMode === ImageSizeModes.AUTO ? height : 0;
+  let imageWidth = options.widthMode === ImageSizeModes.AUTO ? width : 0;
+
+  /**
+   * Height
+   */
+  if (options.heightMode === ImageSizeModes.CUSTOM) {
+    /**
+     * Field
+     */
+    if (options.heightName) {
+      const heightField = data.series
+        .map((series) =>
+          series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
+        )
+        .map((field) => field?.values.get(field.values.length - 1))
+        .toString();
+      imageHeight = Number(heightField) ? Number(heightField) : imageHeight;
+    }
+
+    imageHeight = options.height ? options.height : imageHeight;
   }
 
   /**
-   * Width field (number)
+   * Width
    */
-  if (options.widthName) {
-    const widthField = data.series
-      .map((series) =>
-        series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName)
-      )
-      .map((field) => field?.values.get(field.values.length - 1))
-      .toString();
-    width = Number(widthField) ? Number(widthField) : width;
-  }
+  if (options.widthMode === ImageSizeModes.CUSTOM) {
+    /**
+     * Field
+     */
+    if (options.widthName) {
+      const widthField = data.series
+        .map((series) =>
+          series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName)
+        )
+        .map((field) => field?.values.get(field.values.length - 1))
+        .toString();
+      imageWidth = Number(widthField) ? Number(widthField) : imageWidth;
+    }
 
-  /**
-   * Custom Image width and height from Options
-   */
-  height = options.height ? options.height : height;
-  width = options.width ? options.width : width;
+    imageWidth = options.width ? options.width : imageWidth;
+  }
 
   /**
    * No results
@@ -111,9 +125,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
       )}
     >
       {type === ImageTypes.PDF ? (
-        <iframe className={styles.img} width={width} height={height} src={img} />
+        <iframe className={styles.img} width={imageWidth || ''} height={imageHeight || ''} src={img} />
       ) : (
-        <img className={styles.img} width={width} height={height} src={img} />
+        <img className={styles.img} width={imageWidth || ''} height={imageHeight || ''} src={img} />
       )}
     </div>
   );
