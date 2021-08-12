@@ -177,7 +177,16 @@ describe('Rendering', () => {
   });
 
   it('Should render image with custom size options', async () => {
-    const getComponent = ({ options = { name: ImageFields.IMG, width: 20, height: 20 }, ...restProps }: any) => {
+    const getComponent = ({
+      options = {
+        name: ImageFields.IMG,
+        widthName: ImageFields.WIDTH,
+        heightName: ImageFields.HEIGHT,
+        width: 20,
+        height: 20,
+      },
+      ...restProps
+    }: any) => {
       const data = {
         series: [
           toDataFrame({
@@ -210,7 +219,10 @@ describe('Rendering', () => {
   });
 
   it('Should render image with custom size fields', async () => {
-    const getComponent = ({ options = { name: ImageFields.IMG }, ...restProps }: any) => {
+    const getComponent = ({
+      options = { name: ImageFields.IMG, widthName: ImageFields.WIDTH, heightName: ImageFields.HEIGHT },
+      ...restProps
+    }: any) => {
       const data = {
         series: [
           toDataFrame({

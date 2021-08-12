@@ -1,4 +1,4 @@
-import { PanelPlugin } from '@grafana/data';
+import { Field, FieldType, PanelPlugin } from '@grafana/data';
 import { ImagePanel } from './image-panel';
 import { PanelOptions } from './types';
 
@@ -7,11 +7,32 @@ import { PanelOptions } from './types';
  */
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions((builder) => {
   return builder
-    .addTextInput({
+    .addFieldNamePicker({
       path: 'name',
-      name: 'Field name',
+      name: 'Field name for Image',
       description: 'Name of the field with encoded image. If not specified, first field will be taken.',
-      defaultValue: '',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+    })
+    .addFieldNamePicker({
+      path: 'widthName',
+      name: 'Field name for image width',
+      description: 'Name of the field with image width in px.',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.number,
+        noFieldsMessage: 'No number fields found',
+      },
+    })
+    .addFieldNamePicker({
+      path: 'heightName',
+      name: 'Field name for image height',
+      description: 'Name of the field with image height in px.',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.number,
+        noFieldsMessage: 'No number fields found',
+      },
     })
     .addNumberInput({
       path: 'width',

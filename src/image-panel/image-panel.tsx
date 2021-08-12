@@ -2,7 +2,7 @@ import { Base64 } from 'js-base64';
 import React from 'react';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { ImageFields, ImageTypes, ImageTypesSymbols } from '../constants';
+import { ImageTypes, ImageTypesSymbols } from '../constants';
 import { getStyles } from '../styles';
 
 /**
@@ -31,7 +31,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
    */
   let heightField = data.series
     .map((series) =>
-      series.fields.find((field) => field.type === FieldType.number && field.name === ImageFields.HEIGHT)
+      series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
     )
     .map((field) => field?.values.get(field.values.length - 1))
     .toString();
@@ -41,7 +41,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
    * Width field
    */
   let widthField = data.series
-    .map((series) => series.fields.find((field) => field.type === FieldType.number && field.name === ImageFields.WIDTH))
+    .map((series) => series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName))
     .map((field) => field?.values.get(field.values.length - 1))
     .toString();
   width = Number(widthField) ? Number(widthField) : width;

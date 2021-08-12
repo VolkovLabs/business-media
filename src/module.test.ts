@@ -14,7 +14,7 @@ describe('plugin', () => {
      * Builder
      */
     const builder: any = {
-      addTextInput: jest.fn().mockImplementation(() => builder),
+      addFieldNamePicker: jest.fn().mockImplementation(() => builder),
       addNumberInput: jest.fn().mockImplementation(() => builder),
     };
 
@@ -22,7 +22,7 @@ describe('plugin', () => {
      * Inputs
      */
     plugin['registerOptionEditors'](builder);
-    expect(builder.addTextInput).toHaveBeenCalled();
+    expect(builder.addFieldNamePicker).toHaveBeenCalled();
     expect(builder.addNumberInput).toHaveBeenCalled();
   });
 });

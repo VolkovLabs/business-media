@@ -21,6 +21,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -493,8 +494,10 @@
       "id": 18,
       "options": {
         "height": 0,
+        "heightName": "width",
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthName": "height"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -549,7 +552,8 @@
       "options": {
         "height": 0,
         "name": "img",
-        "width": 0
+        "width": 0,
+        "widthName": "width"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -597,6 +601,7 @@
       "id": 24,
       "options": {
         "height": 0,
+        "heightName": "height",
         "name": "img",
         "width": 0
       },
@@ -672,13 +677,13 @@
                 "config": {},
                 "name": "height",
                 "type": "number",
-                "values": [200]
+                "values": [100]
               },
               {
                 "config": {},
                 "name": "width",
                 "type": "number",
-                "values": [200]
+                "values": [100]
               }
             ],
             "meta": {},
@@ -803,5 +808,5 @@
   "timezone": "",
   "title": "Images",
   "uid": "O4tc_E6Gz",
-  "version": 7
+  "version": 8
 }
