@@ -4,7 +4,8 @@
 
 ### Features / Enhancements
 
-- Update README
+- Update README (#10)
+- Upgrade to Grafana 8.1.1
 
 ## 2.0.0 (2021-06-19)
 
