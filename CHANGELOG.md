@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.1.0 (IN PROGRESS)
+## 2.1.0 (2021-08-12)
 
 ### Features / Enhancements
 
