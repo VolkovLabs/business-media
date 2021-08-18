@@ -37,13 +37,13 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
         filter: (f: Field) => f.type === FieldType.number,
         noFieldsMessage: 'No number fields found',
       },
-      showIf: (options: any) => options.widthMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
     })
     .addNumberInput({
       path: 'width',
       name: 'Custom width (px)',
       defaultValue: 0,
-      showIf: (options: any) => options.widthMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
     })
     .addRadio({
       path: 'heightMode',
@@ -65,12 +65,12 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
         filter: (f: Field) => f.type === FieldType.number,
         noFieldsMessage: 'No number fields found',
       },
-      showIf: (options: any) => options.heightMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
     })
     .addNumberInput({
       path: 'height',
       name: 'Custom height (px)',
       defaultValue: 0,
-      showIf: (options: any) => options.heightMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
     });
 });
