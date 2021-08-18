@@ -1,4 +1,5 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
+import { ImageSizeModes } from './constants';
 import { ImagePanel } from './image-panel';
 import { PanelOptions } from './types';
 
@@ -16,6 +17,18 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
         noFieldsMessage: 'No strings fields found',
       },
     })
+    .addRadio({
+      path: 'widthMode',
+      name: 'Width',
+      settings: {
+        options: [
+          { value: ImageSizeModes.AUTO, label: 'Panel', description: 'Based on panel size' },
+          { value: ImageSizeModes.ORIGINAL, label: 'Original' },
+          { value: ImageSizeModes.CUSTOM, label: 'Custom' },
+        ],
+      },
+      defaultValue: ImageSizeModes.AUTO,
+    })
     .addFieldNamePicker({
       path: 'widthName',
       name: 'Field name for image width',
@@ -24,6 +37,25 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
         filter: (f: Field) => f.type === FieldType.number,
         noFieldsMessage: 'No number fields found',
       },
+      showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
+    })
+    .addNumberInput({
+      path: 'width',
+      name: 'Custom width (px)',
+      defaultValue: 0,
+      showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
+    })
+    .addRadio({
+      path: 'heightMode',
+      name: 'Height',
+      settings: {
+        options: [
+          { value: ImageSizeModes.AUTO, label: 'Panel', description: 'Based on panel size' },
+          { value: ImageSizeModes.ORIGINAL, label: 'Original' },
+          { value: ImageSizeModes.CUSTOM, label: 'Custom' },
+        ],
+      },
+      defaultValue: ImageSizeModes.AUTO,
     })
     .addFieldNamePicker({
       path: 'heightName',
@@ -33,17 +65,12 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
         filter: (f: Field) => f.type === FieldType.number,
         noFieldsMessage: 'No number fields found',
       },
-    })
-    .addNumberInput({
-      path: 'width',
-      name: 'Width (px)',
-      description: 'Custom width for the image. If 0 (not specified), width will be auto adjust to the panel size.',
-      defaultValue: 0,
+      showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
     })
     .addNumberInput({
       path: 'height',
-      name: 'Height (px)',
-      description: 'Custom height for the image. If 9 (not specified), height will auto adjust to the panel size.',
+      name: 'Custom height (px)',
       defaultValue: 0,
+      showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
     });
 });

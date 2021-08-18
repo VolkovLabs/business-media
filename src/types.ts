@@ -1,3 +1,5 @@
+import { ImageSizeModes } from './constants';
+
 /**
  * Options
  */
@@ -8,6 +10,20 @@ export interface PanelOptions {
    * @type string
    */
   name: string;
+
+  /**
+   * Image width mode
+   *
+   * @type string
+   */
+  widthMode: ImageSizeModes;
+
+  /**
+   * Image height mode
+   *
+   * @type string
+   */
+  heightMode: ImageSizeModes;
 
   /**
    * Field name for image width

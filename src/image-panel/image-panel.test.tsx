@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import { FieldType, toDataFrame } from '@grafana/data';
-import { ImageFields } from '../constants';
+import { ImageFields, ImageSizeModes } from '../constants';
 import { ImagePanel } from './image-panel';
 
 /**
@@ -148,7 +148,12 @@ describe('Rendering', () => {
   });
 
   it('Should render raw image', async () => {
-    const getComponent = ({ options = { name: ImageFields.IMG }, ...restProps }: any) => {
+    const getComponent = ({
+      options = { name: ImageFields.IMG, widthMode: ImageSizeModes.AUTO, heightMode: ImageSizeModes.AUTO },
+      height = 50,
+      width = 50,
+      ...restProps
+    }: any) => {
       const data = {
         series: [
           toDataFrame({
@@ -168,18 +173,24 @@ describe('Rendering', () => {
           }),
         ],
       };
-      return <ImagePanel data={data} {...restProps} options={options} />;
+      return <ImagePanel data={data} {...restProps} options={options} height={height} width={width} />;
     };
 
     const wrapper = shallow(getComponent({ date: { series: [] } }));
     expect(wrapper.find('div').exists()).toBeTruthy();
     expect(wrapper.find('img').exists()).toBeTruthy();
+
+    const img = wrapper.find('img').getElement();
+    expect(img.props.width).toEqual(50);
+    expect(img.props.height).toEqual(50);
   });
 
   it('Should render image with custom size options', async () => {
     const getComponent = ({
       options = {
         name: ImageFields.IMG,
+        widthMode: ImageSizeModes.CUSTOM,
+        heightMode: ImageSizeModes.CUSTOM,
         widthName: ImageFields.WIDTH,
         heightName: ImageFields.HEIGHT,
         width: 20,
@@ -214,13 +225,61 @@ describe('Rendering', () => {
     expect(wrapper.find('img').exists()).toBeTruthy();
 
     const img = wrapper.find('img').getElement();
-    expect(img.props.width).toBe(20);
-    expect(img.props.height).toBe(20);
+    expect(img.props.width).toEqual(20);
+    expect(img.props.height).toEqual(20);
+  });
+
+  it('Should render image with custom size options', async () => {
+    const getComponent = ({
+      options = {
+        name: ImageFields.IMG,
+        widthMode: ImageSizeModes.CUSTOM,
+        heightMode: ImageSizeModes.CUSTOM,
+        width: 20,
+        height: 20,
+      },
+      ...restProps
+    }: any) => {
+      const data = {
+        series: [
+          toDataFrame({
+            name: 'data',
+            fields: [
+              {
+                type: FieldType.string,
+                name: 'raw',
+                values: ['?PNGIHDR 3z??	pHYs'],
+              },
+              {
+                type: FieldType.string,
+                name: ImageFields.IMG,
+                values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+              },
+            ],
+          }),
+        ],
+      };
+      return <ImagePanel data={data} {...restProps} options={options} />;
+    };
+
+    const wrapper = shallow(getComponent({ date: { series: [] } }));
+    expect(wrapper.find('div').exists()).toBeTruthy();
+    expect(wrapper.find('img').exists()).toBeTruthy();
+
+    const img = wrapper.find('img').getElement();
+    expect(img.props.width).toEqual(20);
+    expect(img.props.height).toEqual(20);
   });
 
   it('Should render image with custom size fields', async () => {
     const getComponent = ({
-      options = { name: ImageFields.IMG, widthName: ImageFields.WIDTH, heightName: ImageFields.HEIGHT },
+      options = {
+        name: ImageFields.IMG,
+        widthMode: ImageSizeModes.CUSTOM,
+        heightMode: ImageSizeModes.CUSTOM,
+        widthName: ImageFields.WIDTH,
+        heightName: ImageFields.HEIGHT,
+      },
       ...restProps
     }: any) => {
       const data = {
@@ -260,7 +319,47 @@ describe('Rendering', () => {
     expect(wrapper.find('img').exists()).toBeTruthy();
 
     const img = wrapper.find('img').getElement();
-    expect(img.props.width).toBe(20);
-    expect(img.props.height).toBe(20);
+    expect(img.props.width).toEqual(20);
+    expect(img.props.height).toEqual(20);
+  });
+
+  it('Should render image with original size', async () => {
+    const getComponent = ({
+      options = {
+        name: ImageFields.IMG,
+        widthMode: ImageSizeModes.ORIGINAL,
+        heightMode: ImageSizeModes.ORIGINAL,
+      },
+      ...restProps
+    }: any) => {
+      const data = {
+        series: [
+          toDataFrame({
+            name: 'data',
+            fields: [
+              {
+                type: FieldType.string,
+                name: 'raw',
+                values: ['?PNGIHDR 3z??	pHYs'],
+              },
+              {
+                type: FieldType.string,
+                name: ImageFields.IMG,
+                values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+              },
+            ],
+          }),
+        ],
+      };
+      return <ImagePanel data={data} {...restProps} options={options} />;
+    };
+
+    const wrapper = shallow(getComponent({ date: { series: [] } }));
+    expect(wrapper.find('div').exists()).toBeTruthy();
+    expect(wrapper.find('img').exists()).toBeTruthy();
+
+    const img = wrapper.find('img').getElement();
+    expect(img.props.width).toEqual('');
+    expect(img.props.height).toEqual('');
   });
 });
