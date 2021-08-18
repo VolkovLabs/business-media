@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.1 (2021-08-18)
+
+### Features / Enhancements
+
+- Add Radio to select Image Size modes (#14)
+
 ## 2.1.0 (2021-08-12)
 
 ### Features / Enhancements
