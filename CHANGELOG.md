@@ -4,7 +4,8 @@
 
 ### Features / Enhancements
 
-- Upgrade to Grafana 8.1.5
+- Upgrade to Grafana 8.1.5 (#16)
+- Upgrade to Grafana 8.2.0 (#17)
 
 ## 2.1.1 (2021-08-18)
 
