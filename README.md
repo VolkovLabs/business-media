@@ -21,6 +21,12 @@
 
 The Base64 Image/PDF Panel is a plugin for Grafana that displays raw and Base64 encoded files in PNG, JPG, GIF, and PDF formats.
 
+## Demo
+
+Demo is available on [demo.volkovlabs.io](https://demo.volkovlabs.io):
+
+- [Analyzing camera feed with AI dashboard](https://demo.volkovlabs.io/d/DtsbVE3Mk/analyzing-camera-feed-with-ai?orgId=1)
+
 ### Requirements
 
 - **Grafana 8.0** is required for version 2.X.
