@@ -1,11 +1,12 @@
 # Changelog
 
-## 2.2.0 (IN PROGRESS)
+## 2.2.0 (2021-11-02)
 
 ### Features / Enhancements
 
 - Upgrade to Grafana 8.1.5 (#16)
 - Upgrade to Grafana 8.2.0 (#17)
+- Upgrade to Grafana 8.2.2 (#18)
 
 ## 2.1.1 (2021-08-18)
 
