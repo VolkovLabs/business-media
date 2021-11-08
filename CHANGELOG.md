@@ -5,7 +5,7 @@
 ### Features / Enhancements
 
 - Navigate to another dashboard from image click (#19)
-- Upgrade to Grafana 8.2.3
+- Upgrade to Grafana 8.2.3 (#20)
 
 ## 2.2.0 (2021-11-02)
 
