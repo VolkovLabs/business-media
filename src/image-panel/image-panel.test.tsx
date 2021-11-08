@@ -147,6 +147,31 @@ describe('Rendering', () => {
     expect(wrapper.find('img').exists()).toBeTruthy();
   });
 
+  it('Should render raw image with URL', async () => {
+    const getComponent = ({ options = { name: '', url: 'test' }, ...restProps }: any) => {
+      const data = {
+        series: [
+          toDataFrame({
+            name: 'data',
+            fields: [
+              {
+                type: FieldType.string,
+                name: 'raw',
+                values: ['?PNGIHDR 3z??	pHYs'],
+              },
+            ],
+          }),
+        ],
+      };
+      return <ImagePanel data={data} {...restProps} options={options} />;
+    };
+
+    const wrapper = shallow(getComponent({ date: { series: [] } }));
+    expect(wrapper.find('div').exists()).toBeTruthy();
+    expect(wrapper.find('img').exists()).toBeTruthy();
+    expect(wrapper.find('a').exists()).toBeTruthy();
+  });
+
   it('Should render raw image', async () => {
     const getComponent = ({
       options = { name: ImageFields.IMG, widthMode: ImageSizeModes.AUTO, heightMode: ImageSizeModes.AUTO },

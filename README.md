@@ -38,6 +38,7 @@ grafana-cli plugins install volkovlabs-image-panel
 - If the data source returns more than one field with type `string`, you can select the **Field Name** in the panel's display options.
 - If the data source returns multiple rows, the panel will display the image from the last row.
 - Image height and width can be auto-adjusted to panel's size, kept original or customized base on the field's value or display's panel options.
+- Allows to add URL with title to navigate to other dashboard when clicking on the image.
 
 ## Feedback
 

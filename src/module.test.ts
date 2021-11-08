@@ -18,6 +18,7 @@ describe('plugin', () => {
       addFieldNamePicker: jest.fn().mockImplementation(() => builder),
       addNumberInput: jest.fn().mockImplementation(() => builder),
       addRadio: jest.fn().mockImplementation(() => builder),
+      addTextInput: jest.fn().mockImplementation(() => builder),
     };
 
     /**
@@ -32,6 +33,7 @@ describe('plugin', () => {
   it('Should show height input if custom', () => {
     const builder: any = {
       addFieldNamePicker: jest.fn().mockImplementation(() => builder),
+      addTextInput: jest.fn().mockImplementation(() => builder),
       addNumberInput: jest.fn().mockImplementation((config) => {
         return {
           ...builder,
