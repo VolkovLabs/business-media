@@ -52,4 +52,18 @@ export interface PanelOptions {
    * @type number
    */
   height: number;
+
+  /**
+   * URL
+   *
+   * @type string
+   */
+  url: string;
+
+  /**
+   * Title for URL
+   *
+   * @type string
+   */
+  title: string;
 }

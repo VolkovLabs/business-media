@@ -8,10 +8,5 @@ export const getStyles = () => {
     wrapper: css`
       position: relative;
     `,
-    img: css`
-      position: absolute;
-      top: 0;
-      left: 0;
-    `,
   };
 };

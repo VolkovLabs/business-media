@@ -114,6 +114,15 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     type = ImageTypes.PDF;
   }
 
+  let image = <img width={imageWidth || ''} height={imageHeight || ''} src={img} />;
+  if (options.url) {
+    image = (
+      <a href={options.url} title={options.title}>
+        {image}
+      </a>
+    );
+  }
+
   return (
     <div
       className={cx(
@@ -124,11 +133,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
         `
       )}
     >
-      {type === ImageTypes.PDF ? (
-        <iframe className={styles.img} width={imageWidth || ''} height={imageHeight || ''} src={img} />
-      ) : (
-        <img className={styles.img} width={imageWidth || ''} height={imageHeight || ''} src={img} />
-      )}
+      {type === ImageTypes.PDF ? <iframe width={imageWidth || ''} height={imageHeight || ''} src={img} /> : image}
     </div>
   );
 };
