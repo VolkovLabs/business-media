@@ -8,5 +8,8 @@ export const getStyles = () => {
     wrapper: css`
       position: relative;
     `,
+    url: css`
+      display: block;
+    `,
   };
 };
