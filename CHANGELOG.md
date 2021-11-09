@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.1 (2021-11-09)
+
+### Features / Enhancements
+
+- Add `display:block` to display href properly [https://github.com/grafana/grafana/issues/41445] ()
+
 ## 2.3.0 (2021-11-08)
 
 ### Features / Enhancements

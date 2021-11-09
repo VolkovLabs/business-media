@@ -117,7 +117,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   let image = <img width={imageWidth || ''} height={imageHeight || ''} src={img} />;
   if (options.url) {
     image = (
-      <a href={options.url} title={options.title}>
+      <a className={cx(styles.url)} href={options.url} title={options.title}>
         {image}
       </a>
     );

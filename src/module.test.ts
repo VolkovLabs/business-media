@@ -28,6 +28,7 @@ describe('plugin', () => {
     expect(builder.addFieldNamePicker).toHaveBeenCalled();
     expect(builder.addNumberInput).toHaveBeenCalled();
     expect(builder.addRadio).toHaveBeenCalled();
+    expect(builder.addTextInput).toHaveBeenCalled();
   });
 
   it('Should show height input if custom', () => {
