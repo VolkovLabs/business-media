@@ -1,6 +1,6 @@
 {
   "name": "volkovlabs-image-panel",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Base64 Image panel",
   "scripts": {
     "build": "grafana-toolkit plugin:build --coverage",
