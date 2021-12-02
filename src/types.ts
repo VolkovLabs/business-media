@@ -7,63 +7,63 @@ export interface PanelOptions {
   /**
    * Field name for image
    *
-   * @type string
+   * @type {string}
    */
   name: string;
 
   /**
    * Image width mode
    *
-   * @type string
+   * @type {string}
    */
   widthMode: ImageSizeModes;
 
   /**
    * Image height mode
    *
-   * @type string
+   * @type {string}
    */
   heightMode: ImageSizeModes;
 
   /**
    * Field name for image width
    *
-   * @type string
+   * @type {string}
    */
   widthName: string;
 
   /**
    * Field name for image height
    *
-   * @type string
+   * @type {string}
    */
   heightName: string;
 
   /**
    * Image width
    *
-   * @type number
+   * @type {number}
    */
   width: number;
 
   /**
    * Image height
    *
-   * @type number
+   * @type {number}
    */
   height: number;
 
   /**
    * URL
    *
-   * @type string
+   * @type {string}
    */
   url: string;
 
   /**
    * Title for URL
    *
-   * @type string
+   * @type {string}
    */
   title: string;
 }
