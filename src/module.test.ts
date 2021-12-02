@@ -22,9 +22,13 @@ describe('plugin', () => {
     };
 
     /**
+     * Supplier
+     */
+    plugin['optionsSupplier'](builder);
+
+    /**
      * Inputs
      */
-    plugin['registerOptionEditors'](builder);
     expect(builder.addFieldNamePicker).toHaveBeenCalled();
     expect(builder.addNumberInput).toHaveBeenCalled();
     expect(builder.addRadio).toHaveBeenCalled();
@@ -44,7 +48,10 @@ describe('plugin', () => {
       addRadio: jest.fn().mockImplementation(() => builder),
     };
 
-    const result = plugin['registerOptionEditors'](builder);
+    /**
+     * Supplier
+     */
+    const result = plugin['optionsSupplier'](builder);
 
     /**
      * Height

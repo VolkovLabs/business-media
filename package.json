@@ -17,9 +17,9 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@emotion/css": "11.5.0",
-    "@grafana/data": "8.2.5",
-    "@grafana/toolkit": "8.2.5",
-    "@grafana/ui": "8.2.5",
+    "@grafana/data": "8.3.0",
+    "@grafana/toolkit": "8.3.0",
+    "@grafana/ui": "8.3.0",
     "@types/enzyme": "^3.10.10",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "enzyme": "^3.11.0",
