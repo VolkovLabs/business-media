@@ -1,12 +1,12 @@
 # Base64 Image/PDF panel plugin for Grafana
 
-![Image Panel](https://raw.githubusercontent.com/volkovlabs/grafana-image-panel/main/src/img/image-panel.png)
+![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
 [![Grafana 8](https://img.shields.io/badge/Grafana-8-orange)](https://www.grafana.com)
 [![Base64 Image](https://img.shields.io/badge/dynamic/json?color=blue&label=Base64%20Image%20Panel&query=%24.version&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins%2Fvolkovlabs-image-panel)](https://grafana.com/grafana/plugins/volkovlabs-image-panel)
-![CI](https://github.com/volkovlabs/grafana-image-panel/workflows/CI/badge.svg)
-[![codecov](https://codecov.io/gh/VolkovLabs/grafana-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/grafana-image-panel)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/VolkovLabs/grafana-image-panel.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VolkovLabs/grafana-image-panel/context:javascript)
+![CI](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/VolkovLabs/volkovlabs-image-panel.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VolkovLabs/volkovlabs-image-panel/context:javascript)
 
 ## Introduction
 
@@ -44,7 +44,7 @@ grafana-cli plugins install volkovlabs-image-panel
 
 We love to hear from users, developers, and the whole community interested in this plugin. These are various ways to get in touch with us:
 
-- Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/grafana-image-panel/issues/new/choose).
+- Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/volkovlabs-image-panel/issues/new/choose).
 - Star the repository to show your support.
 
 ## Contributing
@@ -55,4 +55,4 @@ We love to hear from users, developers, and the whole community interested in th
 
 ## License
 
-- Apache License Version 2.0, see [LICENSE](https://github.com/volkovlabs/grafana-image-panel/blob/main/LICENSE).
+- Apache License Version 2.0, see [LICENSE](https://github.com/volkovlabs/volkovlabs-image-panel/blob/main/LICENSE).
