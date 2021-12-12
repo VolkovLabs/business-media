@@ -1,4 +1,20 @@
 {
+  "__inputs": [],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.3.2"
+    },
+    {
+      "type": "panel",
+      "id": "volkovlabs-image-panel",
+      "name": "Base64 Image/PDF",
+      "version": "2.4.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -20,13 +36,12 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "gnetId": null,
   "graphTooltip": 0,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -38,7 +53,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 4,
         "w": 4,
@@ -80,7 +94,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 10,
         "w": 4,
@@ -124,7 +137,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 10,
         "w": 5,
@@ -162,7 +174,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 10,
         "w": 11,
@@ -200,7 +211,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 6,
         "w": 4,
@@ -245,7 +255,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -258,7 +267,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -303,7 +311,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -343,7 +350,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -356,7 +362,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 8,
         "w": 8,
@@ -401,7 +406,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 8,
         "w": 7,
@@ -446,7 +450,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 8,
         "w": 9,
@@ -492,7 +495,6 @@
     },
     {
       "collapsed": false,
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -505,7 +507,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -567,7 +568,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -619,7 +619,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -671,7 +670,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -728,7 +726,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -780,7 +777,6 @@
       "type": "volkovlabs-image-panel"
     },
     {
-      "datasource": null,
       "gridPos": {
         "h": 7,
         "w": 8,
@@ -833,7 +829,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 31,
+  "schemaVersion": 33,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -847,5 +843,6 @@
   "timezone": "",
   "title": "Images",
   "uid": "O4tc_E6Gz",
-  "version": 3
+  "version": 1,
+  "weekStart": ""
 }
