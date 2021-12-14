@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import { FieldType, toDataFrame } from '@grafana/data';
-import { ImageFields, ImageSizeModes } from '../constants';
-import { ImagePanel } from './image-panel';
+import { ImageFields, ImageSizeModes } from '../../constants';
+import { ImagePanel } from './ImagePanel';
 
 /**
  * Rendering
