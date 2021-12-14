@@ -2,8 +2,8 @@ import { Base64 } from 'js-base64';
 import React from 'react';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { ImageSizeModes, ImageTypes, ImageTypesSymbols } from '../constants';
-import { getStyles } from '../styles';
+import { ImageSizeModes, ImageTypes, ImageTypesSymbols } from '../../constants';
+import { getStyles } from '../../styles';
 
 /**
  * Properties
