@@ -1,6 +1,16 @@
 version: '3.4'
 
 services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d
+
   grafana:
     container_name: grafana
     image: grafana/grafana:latest

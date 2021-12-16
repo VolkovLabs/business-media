@@ -8,6 +8,8 @@ import { ImagePanel } from './ImagePanel';
  * Rendering
  */
 describe('Rendering', () => {
+  window.URL.createObjectURL = jest.fn();
+
   it('Should output message', async () => {
     const getComponent = ({ options = { name: '' }, ...restProps }: any) => {
       const data = {
