@@ -1,12 +1,14 @@
 # Changelog
 
-## 2.4.0 (IN PROGRESS)
+## 2.4.0 (2021-12-16)
 
 ### Features / Enhancements
 
 - Upgrade to Grafana 8.2.5 (#22)
 - Upgrade to Grafana 8.3.0 (#23)
 - Update to Grafana 8.3.2 (#24)
+- Update Components naming (#25)
+- Supporting PDF documents more than 2Mb size (#26)
 
 ## 2.3.1 (2021-11-09)
 

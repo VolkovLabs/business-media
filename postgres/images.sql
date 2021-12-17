@@ -1,0 +1,1 @@
+CREATE TABLE images (name text, img bytea, UNIQUE(name));

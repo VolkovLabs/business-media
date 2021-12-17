@@ -4,6 +4,7 @@ import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
 import { ImageSizeModes, ImageTypes, ImageTypesSymbols } from '../../constants';
 import { getStyles } from '../../styles';
+import { base64toBlob } from '../../utils';
 
 /**
  * Properties
@@ -114,6 +115,17 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     type = ImageTypes.PDF;
   }
 
+  /**
+   * Convert PDF base64 to Blob
+   */
+  if (type === ImageTypes.PDF) {
+    const blob = base64toBlob(img, ImageTypes.PDF);
+    img = URL.createObjectURL(blob);
+  }
+
+  /**
+   * Add URL to Image
+   */
   let image = <img width={imageWidth || ''} height={imageHeight || ''} src={img} />;
   if (options.url) {
     image = (
