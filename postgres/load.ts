@@ -5,7 +5,7 @@ async function loadFile() {
   /**
    * Connect to Postgres
    */
-  const client = new Client({ user: 'postgres', password: 'postgres' });
+  const client = new Client({ user: '', password: '' });
   await client.connect();
 
   /**
