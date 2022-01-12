@@ -25,11 +25,13 @@ Demo is available on [demo.volkovlabs.io](https://demo.volkovlabs.io):
 
 ## Getting Started
 
-Use the `grafana-cli` tool to install from the command line:
+Base64 Image/PDF panel can be installed from the Grafana Marketplace or use the `grafana-cli` tool to install from the command line:
 
 ```bash
 grafana-cli plugins install volkovlabs-image-panel
 ```
+
+![Grafana Marketplace](https://raw.githubusercontent.com/VolkovLabs/volkovlabs-image-panel/main/src/img/grafana-marketplace.png)
 
 ## Features
 
