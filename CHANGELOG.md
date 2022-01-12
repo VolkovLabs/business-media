@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.5.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Update README to add Grafana Marketplace
+
 ## 2.4.0 (2021-12-16)
 
 ### Features / Enhancements
