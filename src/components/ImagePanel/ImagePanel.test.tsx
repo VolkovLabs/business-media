@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import { FieldType, toDataFrame } from '@grafana/data';
+import { Alert } from '@grafana/ui';
 import { ImageFields, ImageSizeModes } from '../../constants';
 import { ImagePanel } from './ImagePanel';
 
@@ -26,7 +27,7 @@ describe('Rendering', () => {
     const wrapper = shallow(getComponent({ date: { series: [] } }));
     const div = wrapper.find('div');
     expect(div.exists()).toBeTruthy();
-    expect(div.props()['children']).toBe('Nothing to display...');
+    expect(div.props()['children']).toStrictEqual(<Alert title="">Nothing to display...</Alert>);
   });
 
   it('Should render image', async () => {
