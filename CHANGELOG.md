@@ -4,7 +4,8 @@
 
 ### Features / Enhancements
 
-- Update README to add Grafana Marketplace
+- Update README to add Grafana Marketplace (#29)
+- Rebuild using 8.3.4 (#28)
 
 ## 2.4.0 (2021-12-16)
 
