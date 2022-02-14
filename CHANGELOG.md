@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.6.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Rebuild using 8.3.6
+
 ## 2.5.0 (2022-01-24)
 
 ### Features / Enhancements
