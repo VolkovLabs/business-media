@@ -1,19 +1,17 @@
 {
   "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
-  "type": "panel",
-  "name": "Base64 Image/PDF",
+  "dependencies": {
+    "grafanaDependency": ">=8.0.0",
+    "plugins": []
+  },
   "id": "volkovlabs-image-panel",
   "info": {
-    "description": "Base64 Image/PDF panel",
     "author": {
       "name": "Volkov Labs",
       "url": "https://volkovlabs.com"
     },
+    "description": "Base64 Image/PDF panel",
     "keywords": ["image", "base64", "jpg", "gif", "png", "pdf"],
-    "logos": {
-      "small": "img/logo.svg",
-      "large": "img/logo.svg"
-    },
     "links": [
       {
         "name": "Website",
@@ -24,6 +22,10 @@
         "url": "https://github.com/volkovlabs/volkovlabs-image-panel/blob/main/LICENSE"
       }
     ],
+    "logos": {
+      "large": "img/logo.svg",
+      "small": "img/logo.svg"
+    },
     "screenshots": [
       {
         "name": "Static Image Panel",
@@ -34,11 +36,9 @@
         "path": "img/image-panel-redis.png"
       }
     ],
-    "version": "%VERSION%",
-    "updated": "%TODAY%"
+    "updated": "%TODAY%",
+    "version": "%VERSION%"
   },
-  "dependencies": {
-    "grafanaDependency": ">=8.0.0",
-    "plugins": []
-  }
+  "name": "Base64 Image/PDF",
+  "type": "panel"
 }

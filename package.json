@@ -2,9 +2,9 @@
   "author": "Volkov Labs",
   "description": "Base64 Image panel",
   "devDependencies": {
-    "@grafana/data": "8.3.6",
-    "@grafana/toolkit": "8.3.6",
-    "@grafana/ui": "8.3.6",
+    "@grafana/data": "8.4.0",
+    "@grafana/toolkit": "8.4.0",
+    "@grafana/ui": "8.4.0",
     "@types/enzyme": "^3.10.11",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "enzyme": "^3.11.0",
