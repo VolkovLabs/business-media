@@ -4,7 +4,8 @@
 
 ### Features / Enhancements
 
-- Rebuild using 8.3.6
+- Rebuild using 8.3.6 (#32)
+- Rebuild using 8.4.0
 
 ## 2.5.0 (2022-01-24)
 
