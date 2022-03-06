@@ -2,9 +2,9 @@
   "author": "Volkov Labs",
   "description": "Base64 Image panel",
   "devDependencies": {
-    "@grafana/data": "8.4.0",
-    "@grafana/toolkit": "8.4.0",
-    "@grafana/ui": "8.4.0",
+    "@grafana/data": "8.4.3",
+    "@grafana/toolkit": "8.4.3",
+    "@grafana/ui": "8.4.3",
     "@types/enzyme": "^3.10.11",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "enzyme": "^3.11.0",
@@ -12,7 +12,7 @@
     "js-base64": "^3.7.2"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "license": "Apache-2.0",
   "name": "volkovlabs-image-panel",
