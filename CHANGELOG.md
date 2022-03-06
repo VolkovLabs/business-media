@@ -5,7 +5,8 @@
 ### Features / Enhancements
 
 - Rebuild using 8.3.6 (#32)
-- Rebuild using 8.4.0
+- Rebuild using 8.4.0 and use PluginCheck v2 (#33)
+- Rebuild using 8.4.3
 
 ## 2.5.0 (2022-01-24)
 
