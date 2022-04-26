@@ -1,12 +1,13 @@
 # Changelog
 
-## 2.6.0 (IN PROGRESS)
+## 2.6.0 (2022-04-26)
 
 ### Features / Enhancements
 
 - Rebuild using 8.3.6 (#32)
 - Rebuild using 8.4.0 and use PluginCheck v2 (#33)
-- Rebuild using 8.4.3
+- Rebuild using 8.4.3 (#34)
+- Based on Grafana 8.5.0 (#35)
 
 ## 2.5.0 (2022-01-24)
 
