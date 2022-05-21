@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.7.0 (IN PROGRESS)
+
+### Breaking changes
+
+- Requires Grafana 8.3.0 or newer.
+
+### Features / Enhancements
+
+- Rebuild based on 8.5.3
+
 ## 2.6.0 (2022-04-26)
 
 ### Features / Enhancements
