@@ -10,8 +10,9 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
   return builder
     .addFieldNamePicker({
       path: 'name',
-      name: 'Field name for Image',
-      description: 'Name of the field with encoded image. If not specified, first field will be taken.',
+      name: 'Field name',
+      description:
+        'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken.',
       settings: {
         filter: (f: Field) => f.type === FieldType.string,
         noFieldsMessage: 'No strings fields found',
@@ -39,7 +40,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
     .addFieldNamePicker({
       path: 'widthName',
       name: 'Field name',
-      description: 'Name of the field with image width in px.',
+      description: 'Name of the field with width in px.',
       settings: {
         filter: (f: Field) => f.type === FieldType.number,
         noFieldsMessage: 'No number fields found',
@@ -66,7 +67,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
     .addFieldNamePicker({
       path: 'heightName',
       name: 'Field name',
-      description: 'Name of the field with image height in px.',
+      description: 'Name of the field with height in px.',
       settings: {
         filter: (f: Field) => f.type === FieldType.number,
         noFieldsMessage: 'No number fields found',

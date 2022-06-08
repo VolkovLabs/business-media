@@ -418,4 +418,28 @@ describe('Rendering', () => {
     expect(wrapper.find('div').exists()).toBeTruthy();
     expect(wrapper.find('video').exists()).toBeTruthy();
   });
+
+  it('Should render audio with header', async () => {
+    const getComponent = ({ options = { name: '' }, ...restProps }: any) => {
+      const data = {
+        series: [
+          toDataFrame({
+            name: 'data',
+            fields: [
+              {
+                type: FieldType.string,
+                name: ImageFields.IMG,
+                values: ['data:audio/mp3;base64,JVBERiiUlRU9GCg=='],
+              },
+            ],
+          }),
+        ],
+      };
+      return <ImagePanel data={data} {...restProps} options={options} />;
+    };
+
+    const wrapper = shallow(getComponent({ date: { series: [] } }));
+    expect(wrapper.find('div').exists()).toBeTruthy();
+    expect(wrapper.find('audio').exists()).toBeTruthy();
+  });
 });
