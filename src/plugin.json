@@ -10,7 +10,7 @@
       "name": "Volkov Labs",
       "url": "https://volkovlabs.io"
     },
-    "description": "Base64 Image/PDF panel",
+    "description": "Base64 Image/Video/PDF panel",
     "keywords": ["image", "base64", "jpg", "gif", "png", "pdf"],
     "links": [
       {
@@ -39,6 +39,6 @@
     "updated": "%TODAY%",
     "version": "%VERSION%"
   },
-  "name": "Base64 Image/PDF",
+  "name": "Base64 Image/Video/PDF",
   "type": "panel"
 }

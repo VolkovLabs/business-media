@@ -9,7 +9,8 @@
 ### Features / Enhancements
 
 - Rebuild based on 9.0.0-beta3 (#36)
-- Update PDF loader to start in Docker (#37)
+- Update PDF loader to start in Docker (#38)
+- Support short Video encoded using Base64 (#39)
 
 ## 2.6.0 (2022-04-26)
 

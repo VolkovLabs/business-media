@@ -8,6 +8,7 @@ RUN yarn add pg
 COPY ./load.ts .
 COPY ./postgresql-14-US.pdf .
 COPY ./image-panel.png .
+COPY ./9.mp4 .
 
 # Run
 CMD [ "node", "./load.ts" ]

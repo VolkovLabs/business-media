@@ -394,4 +394,28 @@ describe('Rendering', () => {
     expect(img.props.width).toEqual('');
     expect(img.props.height).toEqual('');
   });
+
+  it('Should render video with header', async () => {
+    const getComponent = ({ options = { name: '' }, ...restProps }: any) => {
+      const data = {
+        series: [
+          toDataFrame({
+            name: 'data',
+            fields: [
+              {
+                type: FieldType.string,
+                name: ImageFields.IMG,
+                values: ['data:video/mp4;base64,JVBERiiUlRU9GCg=='],
+              },
+            ],
+          }),
+        ],
+      };
+      return <ImagePanel data={data} {...restProps} options={options} />;
+    };
+
+    const wrapper = shallow(getComponent({ date: { series: [] } }));
+    expect(wrapper.find('div').exists()).toBeTruthy();
+    expect(wrapper.find('video').exists()).toBeTruthy();
+  });
 });

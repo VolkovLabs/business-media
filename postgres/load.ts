@@ -28,9 +28,15 @@ async function loadFile() {
   await client.query('INSERT INTO images VALUES($1, $2)', ['image-panel', imgData]);
 
   /**
+   * Load Video to Postgres
+   */
+  const videoData = fs.readFileSync('./9.mp4');
+  await client.query('INSERT INTO videos VALUES($1, $2)', ['flow', videoData]);
+
+  /**
    * Check number of records
    */
-  const res = await client.query('Select count(1) from images');
+  const res = await client.query('Select count(1) from images union Select count(1) from videos');
   console.log('SELECT Result', res.rows);
 
   /**
