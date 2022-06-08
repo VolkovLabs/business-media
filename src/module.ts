@@ -7,7 +7,7 @@ import { PanelOptions } from './types';
  * Panel Plugin
  */
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions((builder) => {
-  builder
+  return builder
     .addFieldNamePicker({
       path: 'name',
       name: 'Field name for Image',
@@ -26,12 +26,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       path: 'title',
       name: 'Title',
       category: ['URL'],
-    });
-
-  /**
-   * Width
-   */
-  builder
+    })
     .addRadio({
       path: 'widthMode',
       name: 'Width',
@@ -58,12 +53,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       defaultValue: 0,
       category: ['Width'],
       showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
-    });
-
-  /**
-   * Height
-   */
-  builder
+    })
     .addRadio({
       path: 'heightMode',
       name: 'Height',
@@ -91,6 +81,4 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       category: ['Height'],
       showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
     });
-
-  return builder;
 });
