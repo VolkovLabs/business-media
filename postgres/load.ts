@@ -2,28 +2,11 @@ const fs = require('fs');
 const { Client } = require('pg');
 
 /**
- * Postgres Host
+ * Postgres
  */
-let host = process.env.POSTGRES_HOST;
-if (!host) {
-  host = 'host.docker.internal';
-}
-
-/**
- * Postgres User
- */
-let user = process.env.POSTGRES_USER;
-if (!user) {
-  user = 'postgres';
-}
-
-/**
- * Postgres Password
- */
-let password = process.env.POSTGRES_PASSWORD;
-if (!password) {
-  password = 'postgres';
-}
+const host = process.env.POSTGRES_HOST;
+const user = process.env.POSTGRES_USER;
+const password = process.env.POSTGRES_PASSWORD;
 
 async function loadFile() {
   /**
