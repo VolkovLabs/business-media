@@ -3,7 +3,7 @@ import React from 'react';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
 import { Alert } from '@grafana/ui';
-import { ImageSizeModes, ImageTypes, ImageTypesSymbols } from '../../constants';
+import { ImageSizeModes, ImageTypesSymbols, SupportedTypes } from '../../constants';
 import { getStyles } from '../../styles';
 import { base64toBlob } from '../../utils';
 
@@ -100,7 +100,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   /**
    * Check if returned value already has header
    */
-  const m = img.match(/^data:(image|application\/\w+)/);
+  const m = img.match(/^data:(video\/\w+|image|application\/\w+)/);
   if (!m?.length) {
     /**
      * Encode to base64 if not
@@ -114,16 +114,51 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
      */
     type = ImageTypesSymbols[img.charAt(0) as any];
     img = type ? `data:${type};base64,${img}` : `data:;base64,${img}`;
-  } else if (m[1] === ImageTypes.PDF) {
-    type = ImageTypes.PDF;
+  } else if (Object.values(SupportedTypes).includes(m[1] as any)) {
+    type = m[1];
   }
 
   /**
-   * Convert PDF base64 to Blob
+   * Convert PDF base64 to Blob and display
    */
-  if (type === ImageTypes.PDF) {
-    const blob = base64toBlob(img, ImageTypes.PDF);
+  if (type === SupportedTypes.PDF) {
+    const blob = base64toBlob(img, SupportedTypes.PDF);
     img = URL.createObjectURL(blob);
+
+    return (
+      <div
+        className={cx(
+          styles.wrapper,
+          css`
+            width: ${width}px;
+            height: ${height}px;
+          `
+        )}
+      >
+        <iframe width={imageWidth || ''} height={imageHeight || ''} src={img} />
+      </div>
+    );
+  }
+
+  /**
+   * Display Video MP4
+   */
+  if (type === SupportedTypes.MP4) {
+    return (
+      <div
+        className={cx(
+          styles.wrapper,
+          css`
+            width: ${width}px;
+            height: ${height}px;
+          `
+        )}
+      >
+        <video width={imageWidth || ''} height={imageHeight || ''} controls autoPlay>
+          <source src={img}></source>
+        </video>
+      </div>
+    );
   }
 
   /**
@@ -138,6 +173,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     );
   }
 
+  /**
+   * Display Image
+   */
   return (
     <div
       className={cx(
@@ -148,7 +186,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
         `
       )}
     >
-      {type === ImageTypes.PDF ? <iframe width={imageWidth || ''} height={imageHeight || ''} src={img} /> : image}
+      {image}
     </div>
   );
 };

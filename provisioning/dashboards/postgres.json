@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1654720851481,
+  "iteration": 1654723000806,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -34,8 +34,8 @@
         "uid": "$postgres"
       },
       "gridPos": {
-        "h": 30,
-        "w": 10,
+        "h": 24,
+        "w": 12,
         "x": 0,
         "y": 0
       },
@@ -86,9 +86,9 @@
         "uid": "$postgres"
       },
       "gridPos": {
-        "h": 30,
-        "w": 14,
-        "x": 10,
+        "h": 24,
+        "w": 12,
+        "x": 12,
         "y": 0
       },
       "id": 3,
@@ -131,8 +131,61 @@
       ],
       "title": "Image",
       "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "$postgres"
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 4,
+      "options": {
+        "height": 0,
+        "heightMode": "auto",
+        "name": "concat",
+        "width": 0,
+        "widthMode": "auto"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "$postgres"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT concat('data:video/mp4;base64,', encode(video, 'base64')) from videos where name='flow';",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Video",
+      "type": "volkovlabs-image-panel"
     }
   ],
+  "refresh": "",
   "schemaVersion": 36,
   "style": "dark",
   "tags": [],
@@ -166,6 +219,6 @@
   "timezone": "",
   "title": "Postgres PDF",
   "uid": "GATG3GTnz",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
