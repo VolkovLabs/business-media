@@ -9,6 +9,7 @@ datasources:
     editable: true
     url: host.docker.internal:5432
     user: postgres
+    uid: P1D2C73DC01F2359A
     editable: true
     jsonData:
       postgresVersion: 1200

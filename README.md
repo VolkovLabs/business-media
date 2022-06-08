@@ -1,4 +1,4 @@
-# Base64 Image/Video/PDF panel plugin for Grafana
+# Base64 Image/Video/Audio/PDF panel plugin for Grafana
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
@@ -10,7 +10,7 @@
 
 ## Introduction
 
-The Base64 Image/Video/PDF Panel is a plugin for Grafana that displays raw and Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, PDF formats.
+The Base64 Image/Video/Audio/PDF Panel is a plugin for Grafana that displays raw and Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, PDF formats.
 
 ### Demo
 
@@ -42,7 +42,8 @@ grafana-cli plugins install volkovlabs-image-panel
 - If the data source returns multiple rows, the panel will display the image from the last row.
 - Image height and width can be auto-adjusted to panel's size, kept original or customized base on the field's value or display's panel options.
 - Allows to add URL with title to navigate to other dashboard when clicking on the image.
-- Support Short MP4, WEBM video files with definition (`data:video/mp4;base64,XXX` and `data:video/webm;base64,XXX`)
+- Support MP4, WEBM video files with definition (`data:video/mp4;base64,XXX` and `data:video/webm;base64,XXX`)
+- Support MP3, OGG audio files with definition (`data:audio/mp3;base64,XXX` and `data:audio/ogg;base64,XXX`)
 
 ## Feedback
 
