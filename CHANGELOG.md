@@ -1,14 +1,14 @@
 # Changelog
 
-## 2.7.0 (IN PROGRESS)
+## 3.0.0 (IN PROGRESS)
 
 ### Breaking changes
 
-- Requires Grafana 8.3.0 or newer.
+- Required Grafana 9
 
 ### Features / Enhancements
 
-- Rebuild based on 8.5.3
+- Rebuild based on 9.0.0-beta3 (#36)
 
 ## 2.6.0 (2022-04-26)
 
