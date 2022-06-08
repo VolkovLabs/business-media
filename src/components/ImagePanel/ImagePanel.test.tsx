@@ -27,7 +27,11 @@ describe('Rendering', () => {
     const wrapper = shallow(getComponent({ date: { series: [] } }));
     const div = wrapper.find('div');
     expect(div.exists()).toBeTruthy();
-    expect(div.props()['children']).toStrictEqual(<Alert title="">Nothing to display...</Alert>);
+    expect(div.props()['children']).toStrictEqual(
+      <Alert severity="warning" title="">
+        Nothing to display...
+      </Alert>
+    );
   });
 
   it('Should render image', async () => {

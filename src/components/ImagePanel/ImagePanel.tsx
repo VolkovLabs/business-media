@@ -88,7 +88,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
           `
         )}
       >
-        <Alert title="">Nothing to display...</Alert>
+        <Alert severity="warning" title="">
+          Nothing to display...
+        </Alert>
       </div>
     );
   }

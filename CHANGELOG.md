@@ -4,11 +4,12 @@
 
 ### Breaking changes
 
-- Required Grafana 9
+- Requires Grafana 9
 
 ### Features / Enhancements
 
 - Rebuild based on 9.0.0-beta3 (#36)
+- Update PDF loader to start in Docker (#37)
 
 ## 2.6.0 (2022-04-26)
 

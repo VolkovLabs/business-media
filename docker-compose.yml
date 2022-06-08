@@ -2,14 +2,31 @@ version: '3.4'
 
 services:
   postgres:
+    container_name: postgres
     image: postgres
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
     ports:
       - 5432:5432
     volumes:
       - ./postgres:/docker-entrypoint-initdb.d
+
+  pdf-loader:
+    build: ./postgres
+    environment:
+      POSTGRES_HOST: host.docker.internal
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   grafana:
     container_name: grafana
