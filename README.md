@@ -2,7 +2,7 @@
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
-[![Grafana 8](https://img.shields.io/badge/Grafana-8-orange)](https://www.grafana.com)
+[![Grafana 9](https://img.shields.io/badge/Grafana-9-orange)](https://www.grafana.com)
 [![Base64 Image](https://img.shields.io/badge/dynamic/json?color=blue&label=Base64%20Image%20Panel&query=%24.version&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins%2Fvolkovlabs-image-panel)](https://grafana.com/grafana/plugins/volkovlabs-image-panel)
 ![CI](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel)
@@ -20,6 +20,7 @@ Demo is available on [demo.volkovlabs.io](https://demo.volkovlabs.io):
 
 ### Requirements
 
+- **Grafana 9.0** is required for version 3.X.
 - **Grafana 8.0** is required for version 2.X.
 - **Grafana 7.1+** is required for version 1.X.
 

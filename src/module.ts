@@ -1,6 +1,6 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 import { ImagePanel } from './components';
-import { ImageSizeModes } from './constants';
+import { ImageSizeModes, SizeModeOptions } from './constants';
 import { PanelOptions } from './types';
 
 /**
@@ -31,11 +31,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       path: 'widthMode',
       name: 'Width',
       settings: {
-        options: [
-          { value: ImageSizeModes.AUTO, label: 'Panel', description: 'Based on panel size' },
-          { value: ImageSizeModes.ORIGINAL, label: 'Original' },
-          { value: ImageSizeModes.CUSTOM, label: 'Custom' },
-        ],
+        options: SizeModeOptions,
       },
       category: ['Width'],
       defaultValue: ImageSizeModes.AUTO,
@@ -62,11 +58,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       path: 'heightMode',
       name: 'Height',
       settings: {
-        options: [
-          { value: ImageSizeModes.AUTO, label: 'Panel', description: 'Based on panel size' },
-          { value: ImageSizeModes.ORIGINAL, label: 'Original' },
-          { value: ImageSizeModes.CUSTOM, label: 'Custom' },
-        ],
+        options: SizeModeOptions,
       },
       category: ['Height'],
       defaultValue: ImageSizeModes.AUTO,

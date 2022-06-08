@@ -37,3 +37,12 @@ export enum ImageSizeModes {
   ORIGINAL = 'original',
   CUSTOM = 'custom',
 }
+
+/**
+ * Width and Height Mode Options
+ */
+export const SizeModeOptions = [
+  { value: ImageSizeModes.AUTO, label: 'Panel', description: 'Based on panel size' },
+  { value: ImageSizeModes.ORIGINAL, label: 'Original' },
+  { value: ImageSizeModes.CUSTOM, label: 'Custom' },
+];

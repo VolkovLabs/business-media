@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.0 (IN PROGRESS)
+
+### Breaking changes
+
+- Required Grafana 9
+
+### Features / Enhancements
+
+- Rebuild based on 9.0.0-beta3 (#36)
+
 ## 2.6.0 (2022-04-26)
 
 ### Features / Enhancements
