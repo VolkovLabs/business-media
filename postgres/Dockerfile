@@ -9,6 +9,7 @@ COPY ./load.ts .
 COPY ./postgresql-14-US.pdf .
 COPY ./image-panel.png .
 COPY ./9.mp4 .
+COPY ./call.mp3 .
 
 # Run
 CMD [ "node", "./load.ts" ]
