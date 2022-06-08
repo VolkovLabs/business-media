@@ -1,31 +1,12 @@
 {
-  "__inputs": [],
-  "__elements": [],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "8.3.3"
-    },
-    {
-      "type": "datasource",
-      "id": "postgres",
-      "name": "PostgreSQL",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "volkovlabs-image-panel",
-      "name": "Base64 Image/PDF",
-      "version": "2.4.0"
-    }
-  ],
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -43,8 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1639679229357,
+  "iteration": 1654720851481,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -153,7 +133,7 @@
       "type": "volkovlabs-image-panel"
     }
   ],
-  "schemaVersion": 34,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {

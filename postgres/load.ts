@@ -1,11 +1,18 @@
 const fs = require('fs');
 const { Client } = require('pg');
 
+/**
+ * Postgres
+ */
+const host = process.env.POSTGRES_HOST;
+const user = process.env.POSTGRES_USER;
+const password = process.env.POSTGRES_PASSWORD;
+
 async function loadFile() {
   /**
    * Connect to Postgres
    */
-  const client = new Client({ user: '', password: '' });
+  const client = new Client({ host, user, password });
   await client.connect();
 
   /**
@@ -17,7 +24,7 @@ async function loadFile() {
   /**
    * Load Image to Postgres
    */
-  const imgData = fs.readFileSync('../src/img/image-panel.png');
+  const imgData = fs.readFileSync('./image-panel.png');
   await client.query('INSERT INTO images VALUES($1, $2)', ['image-panel', imgData]);
 
   /**
