@@ -9,6 +9,8 @@ export enum SupportedTypes {
   HEIC = 'image/heic',
   MP4 = 'video/mp4',
   WEBM = 'video/webm',
+  OGG = 'audio/ogg',
+  MP3 = 'audio/mp3',
 }
 
 /**

@@ -100,7 +100,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   /**
    * Check if returned value already has header
    */
-  const m = img.match(/^data:(video\/\w+|image|application\/\w+)/);
+  const m = img.match(/^data:(video\/\w+|audio\/\w+|image|application\/\w+)/);
   if (!m?.length) {
     /**
      * Encode to base64 if not
@@ -141,9 +141,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   }
 
   /**
-   * Display Video MP4
+   * Display Video MP4 or WebM
    */
-  if (type === SupportedTypes.MP4) {
+  if (type === SupportedTypes.MP4 || type === SupportedTypes.WEBM) {
     return (
       <div
         className={cx(
@@ -157,6 +157,27 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
         <video width={imageWidth || ''} height={imageHeight || ''} controls autoPlay>
           <source src={img}></source>
         </video>
+      </div>
+    );
+  }
+
+  /**
+   * Display Audio OGG or MP3
+   */
+  if (type === SupportedTypes.MP3 || type === SupportedTypes.OGG) {
+    return (
+      <div
+        className={cx(
+          styles.wrapper,
+          css`
+            width: ${width}px;
+            height: ${height}px;
+          `
+        )}
+      >
+        <audio controls autoPlay>
+          <source src={img}></source>
+        </audio>
       </div>
     );
   }

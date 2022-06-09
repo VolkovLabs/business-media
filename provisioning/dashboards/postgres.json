@@ -24,14 +24,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1654723000806,
+  "iteration": 1654732000072,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "postgres",
-        "uid": "$postgres"
+        "uid": "P1D2C73DC01F2359A"
       },
       "gridPos": {
         "h": 24,
@@ -83,7 +83,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "$postgres"
+        "uid": "P1D2C73DC01F2359A"
       },
       "gridPos": {
         "h": 24,
@@ -135,7 +135,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "$postgres"
+        "uid": "P1D2C73DC01F2359A"
       },
       "gridPos": {
         "h": 15,
@@ -183,42 +183,73 @@
       ],
       "title": "Video",
       "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P1D2C73DC01F2359A"
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 5,
+      "options": {
+        "height": 0,
+        "heightMode": "auto",
+        "name": "concat",
+        "width": 0,
+        "widthMode": "auto"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "$postgres"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT concat('data:audio/mp3;base64,', encode(audio, 'base64')) from audios where name='call';",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Audio",
+      "type": "volkovlabs-image-panel"
     }
   ],
   "refresh": "",
   "schemaVersion": 36,
   "style": "dark",
   "tags": [],
-  "templating": {
-    "list": [
-      {
-        "current": {
-          "selected": false,
-          "text": "PostgreSQL",
-          "value": "PostgreSQL"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": "Postgres",
-        "multi": false,
-        "name": "postgres",
-        "options": [],
-        "query": "postgres",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "type": "datasource"
-      }
-    ]
-  },
+  "templating": {},
   "time": {
     "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Postgres PDF",
+  "title": "Postgres",
   "uid": "GATG3GTnz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

@@ -34,9 +34,17 @@ async function loadFile() {
   await client.query('INSERT INTO videos VALUES($1, $2)', ['flow', videoData]);
 
   /**
+   * Load Audio to Postgres
+   */
+  const audioData = fs.readFileSync('./call.mp3');
+  await client.query('INSERT INTO audios VALUES($1, $2)', ['call', audioData]);
+
+  /**
    * Check number of records
    */
-  const res = await client.query('Select count(1) from images union Select count(1) from videos');
+  const res = await client.query(
+    'select count(1) from images union select count(1) from videos union select count(1) from audios'
+  );
   console.log('SELECT Result', res.rows);
 
   /**

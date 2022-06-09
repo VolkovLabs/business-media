@@ -5,6 +5,7 @@ datasources:
     type: marcusolsson-static-datasource
     access: proxy
     isDefault: true
+    uid: P1D2C73DC01F2359B
     orgId: 1
     version: 1
     editable: true
