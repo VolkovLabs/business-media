@@ -66,4 +66,18 @@ export interface PanelOptions {
    * @type {string}
    */
   title: string;
+
+  /**
+   * Controls
+   *
+   * @type {boolean}
+   */
+  controls: boolean;
+
+  /**
+   * Auto Play
+   *
+   * @type {boolean}
+   */
+  autoPlay: boolean;
 }

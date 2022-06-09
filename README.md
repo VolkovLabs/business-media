@@ -20,8 +20,8 @@ Demo is available on [demo.volkovlabs.io](https://demo.volkovlabs.io):
 
 ### Requirements
 
-- **Grafana 9.0** is required for version 3.X.
-- **Grafana 8.0** is required for version 2.X.
+- **Grafana 8.5+**, **Grafana 9.0+** is required for version 3.X.
+- **Grafana 8.0+** is required for version 2.X.
 - **Grafana 7.1+** is required for version 1.X.
 
 ## Getting Started
