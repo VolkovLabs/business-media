@@ -10,7 +10,7 @@
 
 ## Introduction
 
-The Base64 Image/Video/Audio/PDF Panel is a plugin for Grafana that displays raw and Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, PDF formats.
+The Base64 Image/Video/Audio/PDF Panel is a plugin for Grafana that displays raw and Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, MP3, OGG, PDF formats.
 
 ### Demo
 
