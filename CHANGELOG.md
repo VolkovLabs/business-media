@@ -4,13 +4,14 @@
 
 ### Breaking changes
 
-- Requires Grafana 9
+- Requires Grafana 8,5 and 9
 
 ### Features / Enhancements
 
 - Rebuild based on 9.0.0-beta3 (#36)
 - Update PDF loader to start in Docker (#38)
 - Support short Video encoded using Base64 (#39)
+- Add Options for Video/Audio Controls and Auto Play (#40)
 
 ## 2.6.0 (2022-04-26)
 

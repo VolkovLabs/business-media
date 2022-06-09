@@ -7,7 +7,7 @@ import { PanelOptions } from './types';
  * Panel Plugin
  */
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions((builder) => {
-  return builder
+  builder
     .addFieldNamePicker({
       path: 'name',
       name: 'Field name',
@@ -27,7 +27,12 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       path: 'title',
       name: 'Title',
       category: ['URL'],
-    })
+    });
+
+  /**
+   * Width
+   */
+  builder
     .addRadio({
       path: 'widthMode',
       name: 'Width',
@@ -54,7 +59,12 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       defaultValue: 0,
       category: ['Width'],
       showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
-    })
+    });
+
+  /**
+   * Height
+   */
+  builder
     .addRadio({
       path: 'heightMode',
       name: 'Height',
@@ -82,4 +92,37 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       category: ['Height'],
       showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
     });
+
+  /**
+   * Video / Audio
+   */
+  builder
+    .addRadio({
+      path: 'controls',
+      name: 'Controls',
+      description: 'When enabled, it specifies that video and audio controls should be displayed.',
+      settings: {
+        options: [
+          { value: true, label: 'Enabled' },
+          { value: false, label: 'Disabled' },
+        ],
+      },
+      category: ['Video/Audio'],
+      defaultValue: true,
+    })
+    .addRadio({
+      path: 'autoPlay',
+      name: 'Auto Play',
+      description: 'When enabled, the video and audio will automatically start playing.',
+      settings: {
+        options: [
+          { value: true, label: 'Enabled' },
+          { value: false, label: 'Disabled' },
+        ],
+      },
+      category: ['Video/Audio'],
+      defaultValue: true,
+    });
+
+  return builder;
 });

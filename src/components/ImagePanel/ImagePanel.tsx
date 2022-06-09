@@ -154,7 +154,12 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
           `
         )}
       >
-        <video width={imageWidth || ''} height={imageHeight || ''} controls autoPlay>
+        <video
+          width={imageWidth || ''}
+          height={imageHeight || ''}
+          controls={options.controls}
+          autoPlay={options.autoPlay}
+        >
           <source src={img}></source>
         </video>
       </div>
@@ -175,7 +180,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
           `
         )}
       >
-        <audio controls autoPlay>
+        <audio controls={options.controls} autoPlay={options.autoPlay}>
           <source src={img}></source>
         </audio>
       </div>
