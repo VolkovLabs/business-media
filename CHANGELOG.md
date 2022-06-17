@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0 (IN PROGRESS)
+## 3.0.0 (2022-06-16)
 
 ### Breaking changes
 
@@ -13,6 +13,7 @@
 - Support short Video encoded using Base64 (#39)
 - Support MP3, OGG Audio playback in Base64 (#40)
 - Add Options for Video/Audio Controls and Auto Play (#41)
+- Rebuild based on 9.0.0 (#42)
 
 ## 2.6.0 (2022-04-26)
 
