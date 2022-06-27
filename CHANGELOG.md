@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Update README and Provisioning dashboards (#43)
+
 ## 3.0.0 (2022-06-16)
 
 ### Breaking changes

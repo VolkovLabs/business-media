@@ -24,24 +24,22 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": ["image"],
+      "targetBlank": false,
+      "title": "Image",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
-    {
-      "datasource": {
-        "type": "marcusolsson-static-datasource",
-        "uid": "P1D2C73DC01F2359B"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 20,
-      "title": "Row title",
-      "type": "row"
-    },
     {
       "datasource": {
         "type": "marcusolsson-static-datasource",
@@ -51,10 +49,12 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 1
+        "y": 0
       },
       "id": 6,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -96,10 +96,12 @@
         "h": 10,
         "w": 4,
         "x": 4,
-        "y": 1
+        "y": 0
       },
       "id": 2,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -143,10 +145,12 @@
         "h": 10,
         "w": 5,
         "x": 8,
-        "y": 1
+        "y": 0
       },
       "id": 3,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -184,10 +188,12 @@
         "h": 10,
         "w": 11,
         "x": 13,
-        "y": 1
+        "y": 0
       },
       "id": 5,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -225,10 +231,12 @@
         "h": 6,
         "w": 4,
         "x": 0,
-        "y": 5
+        "y": 4
       },
       "id": 4,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -273,7 +281,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 10
       },
       "id": 10,
       "panels": [],
@@ -289,10 +297,12 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 12
+        "y": 11
       },
       "id": 7,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -337,10 +347,12 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 12
+        "y": 11
       },
       "id": 8,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -380,7 +392,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 20
       },
       "id": 14,
       "panels": [],
@@ -396,10 +408,12 @@
         "h": 8,
         "w": 8,
         "x": 0,
-        "y": 22
+        "y": 21
       },
       "id": 15,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 200,
         "heightMode": "auto",
         "name": "img",
@@ -444,10 +458,12 @@
         "h": 8,
         "w": 7,
         "x": 8,
-        "y": 22
+        "y": 21
       },
       "id": 16,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -492,10 +508,12 @@
         "h": 8,
         "w": 9,
         "x": 15,
-        "y": 22
+        "y": 21
       },
       "id": 17,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 200,
         "heightMode": "auto",
         "name": "img",
@@ -541,7 +559,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 29
       },
       "id": 22,
       "panels": [],
@@ -557,10 +575,12 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 31
+        "y": 30
       },
       "id": 18,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "custom",
         "heightName": "width",
@@ -622,10 +642,12 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 31
+        "y": 30
       },
       "id": 23,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "img",
@@ -677,10 +699,12 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 31
+        "y": 30
       },
       "id": 24,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "custom",
         "heightName": "height",
@@ -732,10 +756,12 @@
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 38
+        "y": 37
       },
       "id": 25,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 100,
         "heightMode": "custom",
         "name": "img",
@@ -792,10 +818,12 @@
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 38
+        "y": 37
       },
       "id": 26,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 100,
         "heightMode": "custom",
         "name": "img",
@@ -847,10 +875,12 @@
         "h": 7,
         "w": 8,
         "x": 16,
-        "y": 38
+        "y": 37
       },
       "id": 27,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "custom",
         "heightName": "height",
@@ -897,7 +927,7 @@
   "refresh": "",
   "schemaVersion": 36,
   "style": "dark",
-  "tags": [],
+  "tags": ["image"],
   "templating": {
     "list": []
   },
@@ -909,6 +939,6 @@
   "timezone": "",
   "title": "Images",
   "uid": "O4tc_E6Gz",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
