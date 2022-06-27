@@ -4,7 +4,7 @@
 
 ### Features / Enhancements
 
-- Update README and Provisioning dashboards
+- Update README and Provisioning dashboards (#43)
 
 ## 3.0.0 (2022-06-16)
 
