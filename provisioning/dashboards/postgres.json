@@ -24,8 +24,20 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1654732000072,
-  "links": [],
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": ["image"],
+      "targetBlank": false,
+      "title": "Image",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "liveNow": false,
   "panels": [
     {
@@ -41,6 +53,8 @@
       },
       "id": 2,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "encode",
@@ -93,6 +107,8 @@
       },
       "id": 3,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "encode",
@@ -145,6 +161,8 @@
       },
       "id": 4,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "concat",
@@ -197,6 +215,8 @@
       },
       "id": 5,
       "options": {
+        "autoPlay": true,
+        "controls": true,
         "height": 0,
         "heightMode": "auto",
         "name": "concat",
@@ -240,8 +260,10 @@
   "refresh": "",
   "schemaVersion": 36,
   "style": "dark",
-  "tags": [],
-  "templating": {},
+  "tags": ["image"],
+  "templating": {
+    "list": []
+  },
   "time": {
     "from": "now-6h",
     "to": "now"
