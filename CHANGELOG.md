@@ -5,6 +5,7 @@
 ### Features / Enhancements
 
 - Update README and Provisioning dashboards (#43)
+- Add YouTube video in README (#44)
 
 ## 3.0.0 (2022-06-16)
 
@@ -51,7 +52,7 @@
 
 ### Features / Enhancements
 
-- Add `display:block` to display href properly [https://github.com/grafana/grafana/issues/41445] ()
+- Add `display:block` to display href properly [https://github.com/grafana/grafana/issues/41445] (#21)
 
 ## 2.3.0 (2021-11-08)
 
@@ -90,20 +91,21 @@
 
 ### Features / Enhancements
 
-- Based on Grafana 8.0.2
+- Based on Grafana 8.0.2 (#9)
 
 ## 1.1.0 (2021-06-19)
 
 ### Features / Enhancements
 
-- Display base64 image with header #7 (Display base64 Image from InfluxDB #6)
-- Increase tests coverage #4
+- Display base64 image with header (#7)
+- Display base64 Image from InfluxDB (#6)
+- Increase tests coverage (#4)
 
 ## 1.0.1 (2021-06-07)
 
 ### Features / Enhancements
 
-- Add screenshots for Static and Redis data sources
+- Add screenshots for Static and Redis data sources (#5)
 
 ## 1.0.0 (2021-06-07)
 
