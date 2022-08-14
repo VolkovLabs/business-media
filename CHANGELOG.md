@@ -1,11 +1,12 @@
 # Changelog
 
-## 3.1.0 (IN PROGRESS)
+## 3.1.0 (2022-08-13)
 
 ### Features / Enhancements
 
 - Update README and Provisioning dashboards (#43)
 - Add YouTube video in README (#44)
+- Rebuild based on 9.0.7
 
 ## 3.0.0 (2022-06-16)
 
