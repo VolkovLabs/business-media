@@ -20,7 +20,8 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
     })
     .addTextInput({
       path: 'url',
-      name: 'URL',
+      name: 'Image URL',
+      description: 'Specifies the URL of the page the click on image goes to.',
       category: ['URL'],
     })
     .addTextInput({
