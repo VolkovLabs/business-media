@@ -1,12 +1,19 @@
 # Changelog
 
+## 3.2.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Update to Grafana 9.1.4 (#47)
+
 ## 3.1.0 (2022-08-13)
 
 ### Features / Enhancements
 
 - Update README and Provisioning dashboards (#43)
 - Add YouTube video in README (#44)
-- Rebuild based on 9.0.7
+- Rebuild based on 9.0.7 (#45)
+- Update Grafana Marketplace image (#46)
 
 ## 3.0.0 (2022-06-16)
 

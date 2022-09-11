@@ -2,8 +2,8 @@
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
-[![Grafana 9](https://img.shields.io/badge/Grafana-9.0.7-orange)](https://www.grafana.com)
-[![Base64 Image](https://img.shields.io/badge/dynamic/json?color=blue&label=Base64%20Image%20Panel&query=%24.version&url=https%3A%2F%2Fgrafana.com%2Fapi%2Fplugins%2Fvolkovlabs-image-panel)](https://grafana.com/grafana/plugins/volkovlabs-image-panel)
+[![Grafana 9](https://img.shields.io/badge/Grafana-9.1.4-orange)](https://www.grafana.com)
+[![YouTube](https://img.shields.io/badge/YouTube-Playlist-red)](https://youtube.com/playlist?list=PLPow72ygztmQjZ19D7wKHc_6VG3dCjkwo)
 ![CI](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/VolkovLabs/volkovlabs-image-panel.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VolkovLabs/volkovlabs-image-panel/context:javascript)
@@ -28,8 +28,6 @@ Base64 Image/Video/PDF panel can be installed from the Grafana Marketplace or us
 grafana-cli plugins install volkovlabs-image-panel
 ```
 
-![Grafana Marketplace](https://raw.githubusercontent.com/VolkovLabs/volkovlabs-image-panel/main/src/img/grafana-marketplace.png)
-
 ## Features
 
 - The returned value can contain base64 with or without definition (`data:image/jpg;base64,XXX` or `data:application/pdf;base64,XXX`).
@@ -47,12 +45,6 @@ We love to hear from users, developers, and the whole community interested in th
 
 - Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/volkovlabs-image-panel/issues/new/choose).
 - Star the repository to show your support.
-
-## Contributing
-
-- Fork the repository.
-- Find an issue to work on and submit a pull request.
-- Could not find an issue? Look for documentation, bugs, typos, and missing features.
 
 ## License
 
