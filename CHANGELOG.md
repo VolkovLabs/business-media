@@ -5,6 +5,7 @@
 ### Features / Enhancements
 
 - Update to Grafana 9.1.4 (#47)
+- Add Compatibility Check Workflow (#48)
 
 ## 3.1.0 (2022-08-13)
 
