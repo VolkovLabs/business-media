@@ -6,6 +6,7 @@
 
 - Update to Grafana 9.1.4 (#47)
 - Add Compatibility Check Workflow (#48)
+- Add option to disable PDF Toolbar (#50)
 
 ## 3.1.0 (2022-08-13)
 
