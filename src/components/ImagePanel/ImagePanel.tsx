@@ -125,6 +125,13 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     const blob = base64toBlob(img, SupportedTypes.PDF);
     img = URL.createObjectURL(blob);
 
+    /**
+     * Disable toolbar
+     */
+    if (!options.toolbar) {
+      img += '#toolbar=0';
+    }
+
     return (
       <div
         className={cx(

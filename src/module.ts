@@ -125,5 +125,22 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions(
       defaultValue: true,
     });
 
+  /**
+   * Video / Audio
+   */
+  builder.addRadio({
+    path: 'toolbar',
+    name: 'Toolbar',
+    description: 'When disabled, toolbar will be hidden if supported by browser.',
+    settings: {
+      options: [
+        { value: true, label: 'Enabled' },
+        { value: false, label: 'Disabled' },
+      ],
+    },
+    category: ['PDF'],
+    defaultValue: true,
+  });
+
   return builder;
 });
