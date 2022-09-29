@@ -80,4 +80,11 @@ export interface PanelOptions {
    * @type {boolean}
    */
   autoPlay: boolean;
+
+  /**
+   * Toolbar
+   *
+   * @type {boolean}
+   */
+  toolbar: boolean;
 }
