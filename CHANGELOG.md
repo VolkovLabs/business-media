@@ -1,12 +1,13 @@
 # Changelog
 
-## 3.2.0 (IN PROGRESS)
+## 3.2.0 (2022-10-05)
 
 ### Features / Enhancements
 
 - Update to Grafana 9.1.4 (#47)
 - Add Compatibility Check Workflow (#48)
 - Add option to disable PDF Toolbar (#50)
+- Update to Grafana 9.1.7 (#51)
 
 ## 3.1.0 (2022-08-13)
 
