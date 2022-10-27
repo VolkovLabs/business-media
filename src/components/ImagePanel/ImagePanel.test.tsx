@@ -155,7 +155,11 @@ describe('Rendering', () => {
   });
 
   it('Should render raw image with URL', async () => {
-    const getComponent = ({ options = { name: '', url: 'test' }, ...restProps }: any) => {
+    const getComponent = ({
+      options = { name: '', url: 'test' },
+      replaceVariables = (str: string) => str,
+      ...restProps
+    }: any) => {
       const data = {
         series: [
           toDataFrame({
@@ -170,7 +174,7 @@ describe('Rendering', () => {
           }),
         ],
       };
-      return <ImagePanel data={data} {...restProps} options={options} />;
+      return <ImagePanel data={data} {...restProps} options={options} replaceVariables={replaceVariables} />;
     };
 
     const wrapper = shallow(getComponent({ date: { series: [] } }));

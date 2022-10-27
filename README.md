@@ -21,7 +21,7 @@ The Base64 Image/Video/Audio/PDF Panel is a plugin for Grafana that displays Bas
 
 ## Getting Started
 
-Base64 Image/Video/PDF panel can be installed from the Grafana Catalog or use the `grafana-cli` tool to install from the command line:
+Base64 Image/Video/PDF panel can be installed from the [Grafana Catalog](https://grafana.com/grafana/plugins/volkovlabs-image-panel/) or use the `grafana-cli` tool to install from the command line:
 
 ```bash
 grafana-cli plugins install volkovlabs-image-panel
@@ -34,7 +34,7 @@ grafana-cli plugins install volkovlabs-image-panel
 - If the data source returns more than one field with type `string`, you can select the **Field Name** in the panel's display options.
 - If the data source returns multiple rows, the panel will display the image from the last row.
 - Image height and width can be auto-adjusted to panel's size, kept original or customized base on the field's value or display's panel options.
-- Allows to add URL with title to navigate to other dashboard when clicking on the image.
+- Allows to add URL with title to navigate to other dashboard when clicking on the image. URL supports dashboard variables.
 - Support MP4, WEBM video files with definition (`data:video/mp4;base64,XXX` and `data:video/webm;base64,XXX`)
 - Support MP3, OGG audio files with definition (`data:audio/mp3;base64,XXX` and `data:audio/ogg;base64,XXX`)
 
@@ -43,6 +43,7 @@ grafana-cli plugins install volkovlabs-image-panel
 We love to hear from users, developers, and the whole community interested in this plugin. These are various ways to get in touch with us:
 
 - Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/volkovlabs-image-panel/issues/new/choose).
+- Sponsor our open-source plugins for Grafana with [GitHub Sponsor](https://github.com/sponsors/VolkovLabs)
 - Star the repository to show your support.
 
 ## License

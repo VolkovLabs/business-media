@@ -7,17 +7,21 @@ import { PanelOptions } from './types';
  * Panel Plugin
  */
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions((builder) => {
+  builder.addFieldNamePicker({
+    path: 'name',
+    name: 'Field name',
+    description:
+      'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken.',
+    settings: {
+      filter: (f: Field) => f.type === FieldType.string,
+      noFieldsMessage: 'No strings fields found',
+    },
+  });
+
+  /**
+   * URL
+   */
   builder
-    .addFieldNamePicker({
-      path: 'name',
-      name: 'Field name',
-      description:
-        'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken.',
-      settings: {
-        filter: (f: Field) => f.type === FieldType.string,
-        noFieldsMessage: 'No strings fields found',
-      },
-    })
     .addTextInput({
       path: 'url',
       name: 'Image URL',

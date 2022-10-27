@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
   "links": [
     {
       "asDropdown": false,
@@ -59,6 +58,7 @@
         "height": 0,
         "heightMode": "auto",
         "name": "encode",
+        "toolbar": true,
         "width": 0,
         "widthMode": "auto"
       },
@@ -113,6 +113,7 @@
         "height": 0,
         "heightMode": "auto",
         "name": "encode",
+        "toolbar": true,
         "width": 0,
         "widthMode": "auto"
       },
@@ -167,6 +168,7 @@
         "height": 0,
         "heightMode": "auto",
         "name": "concat",
+        "toolbar": true,
         "width": 0,
         "widthMode": "auto"
       },
@@ -221,6 +223,7 @@
         "height": 0,
         "heightMode": "auto",
         "name": "concat",
+        "toolbar": true,
         "width": 0,
         "widthMode": "auto"
       },

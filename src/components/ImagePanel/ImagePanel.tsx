@@ -15,7 +15,7 @@ interface Props extends PanelProps {}
 /**
  * Image Panel
  */
-export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) => {
+export const ImagePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
   const styles = getStyles();
 
   /**
@@ -199,8 +199,10 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
    */
   let image = <img width={imageWidth || ''} height={imageHeight || ''} src={img} />;
   if (options.url) {
+    const url = replaceVariables(options.url);
+
     image = (
-      <a className={cx(styles.url)} href={options.url} title={options.title}>
+      <a className={cx(styles.url)} href={url} title={options.title}>
         {image}
       </a>
     );
