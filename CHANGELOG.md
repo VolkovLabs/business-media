@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Support for sanitized variables in URL field (#53)
+
 ## 3.2.0 (2022-10-05)
 
 ### Features / Enhancements

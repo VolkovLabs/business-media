@@ -43,6 +43,7 @@ grafana-cli plugins install volkovlabs-image-panel
 We love to hear from users, developers, and the whole community interested in this plugin. These are various ways to get in touch with us:
 
 - Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/volkovlabs-image-panel/issues/new/choose).
+- Sponsor our open-source plugins for Grafana with [GitHub Sponsor](https://github.com/sponsors/VolkovLabs)
 - Star the repository to show your support.
 
 ## License
