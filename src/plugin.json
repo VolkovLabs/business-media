@@ -34,10 +34,6 @@
       {
         "name": "Static Image Panel",
         "path": "img/image-panel.png"
-      },
-      {
-        "name": "Redis Image Panel",
-        "path": "img/image-panel-redis.png"
       }
     ],
     "updated": "%TODAY%",
