@@ -1,10 +1,11 @@
 # Changelog
 
-## 3.3.0 (IN PROGRESS)
+## 3.3.0 (2022-10-30) "Halloween" edition
 
 ### Features / Enhancements
 
 - Support for sanitized variables in URL field (#53)
+- Update CI to Node 16 and Synchronize with Release workflow (#55)
 
 ## 3.2.0 (2022-10-05)
 
