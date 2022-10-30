@@ -6,6 +6,7 @@
 
 - Support for sanitized variables in URL field (#53)
 - Update CI to Node 16 and Synchronize with Release workflow (#55)
+- Update to Grafana 9.2.2 (#56)
 
 ## 3.2.0 (2022-10-05)
 
