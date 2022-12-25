@@ -14,16 +14,16 @@
     "keywords": ["image", "base64", "jpg", "gif", "png", "pdf"],
     "links": [
       {
+        "name": "Documentation",
+        "url": "https://volkovlabs.io/plugins/volkovlabs-image-panel/"
+      },
+      {
         "name": "GitHub",
         "url": "https://github.com/volkovlabs/volkovlabs-image-panel"
       },
       {
         "name": "YouTube Playlist",
         "url": "https://youtube.com/playlist?list=PLPow72ygztmQjZ19D7wKHc_6VG3dCjkwo"
-      },
-      {
-        "name": "Website",
-        "url": "https://volkovlabs.io"
       }
     ],
     "logos": {
