@@ -4,7 +4,8 @@
 
 ### Features / Enhancements
 
-- Update to Grafana 9.3.2 (#)
+- Update to Grafana 9.3.2 (#60)
+- Add Documentation links (#61)
 
 ## 3.3.0 (2022-10-30) "Halloween" edition
 
