@@ -39,6 +39,12 @@ grafana-cli plugins install volkovlabs-image-panel
 - Support MP4, WEBM video files with definition (`data:video/mp4;base64,XXX` and `data:video/webm;base64,XXX`)
 - Support MP3, OGG audio files with definition (`data:audio/mp3;base64,XXX` and `data:audio/ogg;base64,XXX`)
 
+## Documentation
+
+ - [Data Sources](https://volkovlabs.io/plugins/volkovlabs-image-panel/datasources)
+ - [Supported formats](https://volkovlabs.io/plugins/volkovlabs-image-panel/formats)
+ - [Variables](https://volkovlabs.io/plugins/volkovlabs-image-panel/variables)
+
 ## Feedback
 
 We love to hear from users, developers, and the whole community interested in this plugin. These are various ways to get in touch with us:
