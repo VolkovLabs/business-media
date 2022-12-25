@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.4.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Update to Grafana 9.3.2 (#)
+
 ## 3.3.0 (2022-10-30) "Halloween" edition
 
 ### Features / Enhancements
