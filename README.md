@@ -10,7 +10,7 @@
 
 ## Introduction
 
-The Base64 Image/Video/Audio/PDF Panel is a plugin for Grafana that displays Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, MP3, OGG, PDF formats.
+The Base64 Image/Video/Audio/PDF visualization panel is a plugin for Grafana that displays Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, MP3, OGG, PDF formats.
 
 [![Images, PDFs, Video, Live Camera Feed on Grafana Dashboard! You will need Base64 Image/PDF Plugin](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/img/video.png)](https://youtu.be/1_bgLSehjhg)
 
@@ -22,7 +22,7 @@ The Base64 Image/Video/Audio/PDF Panel is a plugin for Grafana that displays Bas
 
 ## Getting Started
 
-Base64 Image/Video/PDF panel can be installed from the [Grafana Catalog](https://grafana.com/grafana/plugins/volkovlabs-image-panel/) or use the `grafana-cli` tool to install from the command line:
+Base64 Image/Video/Audio/PDF visualization panel can be installed from the [Grafana Catalog](https://grafana.com/grafana/plugins/volkovlabs-image-panel/) or utilizing the Grafana command line tool. For the latter, use the following command:
 
 ```bash
 grafana-cli plugins install volkovlabs-image-panel
@@ -30,24 +30,26 @@ grafana-cli plugins install volkovlabs-image-panel
 
 ## Features
 
-- The returned value can contain base64 with or without definition (`data:image/jpg;base64,XXX` or `data:application/pdf;base64,XXX`).
+- The returned value can contain base64 with or without definition (`data:image/jpg;base64,ENCODED-CONTENT` or `data:application/pdf;base64,ENCODED-CONTENT`).
 - The file type is determined automatically based on the first Base64 symbol if definition is not provided.
 - If the data source returns more than one field with type `string`, you can select the **Field Name** in the panel's display options.
 - If the data source returns multiple rows, the panel will display the image from the last row.
 - Image height and width can be auto-adjusted to panel's size, kept original or customized base on the field's value or display's panel options.
 - Allows to add URL with title to navigate to other dashboard when clicking on the image. URL supports dashboard variables.
-- Support MP4, WEBM video files with definition (`data:video/mp4;base64,XXX` and `data:video/webm;base64,XXX`)
-- Support MP3, OGG audio files with definition (`data:audio/mp3;base64,XXX` and `data:audio/ogg;base64,XXX`)
+- Support MP4, WEBM video files with definition (`data:video/mp4;base64,ENCODED-CONTENT` and `data:video/webm;base64,ENCODED-CONTENT`)
+- Support MP3, OGG audio files with definition (`data:audio/mp3;base64,ENCODED-CONTENT` and `data:audio/ogg;base64,ENCODED-CONTENT`)
 
 ## Documentation
 
- - [Data Sources](https://volkovlabs.io/plugins/volkovlabs-image-panel/datasources)
- - [Supported formats](https://volkovlabs.io/plugins/volkovlabs-image-panel/formats)
- - [Variables](https://volkovlabs.io/plugins/volkovlabs-image-panel/variables)
+| Section | Description |
+| -- | -- |
+| [Data Sources](https://volkovlabs.io/plugins/volkovlabs-image-panel/datasources) | Demonstrates how to retrieve data from data sources. |
+| [Supported formats](https://volkovlabs.io/plugins/volkovlabs-image-panel/formats) | Explains what formats are supported and how to display media files. |
+| [Variables](https://volkovlabs.io/plugins/volkovlabs-image-panel/variables) | Explains how to use Dashboard and Global variables. |
 
 ## Feedback
 
-We love to hear from users, developers, and the whole community interested in this plugin. These are various ways to get in touch with us:
+We love to hear from you. There are various ways to get in touch with us:
 
 - Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/volkovlabs-image-panel/issues/new/choose).
 - Sponsor our open-source plugins for Grafana with [GitHub Sponsor](https://github.com/sponsors/VolkovLabs).
