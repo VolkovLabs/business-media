@@ -1,11 +1,12 @@
 # Changelog
 
-## 3.4.0 (IN PROGRESS)
+## 3.4.0 (2022-01-08) "New Year" edition
 
 ### Features / Enhancements
 
 - Update to Grafana 9.3.2 (#60)
 - Add Documentation links (#61)
+- Update README and documentation (#62)
 
 ## 3.3.0 (2022-10-30) "Halloween" edition
 
