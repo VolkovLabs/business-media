@@ -2,7 +2,7 @@ import { Base64 } from 'js-base64';
 import React from 'react';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { Alert } from '@grafana/ui';
+import { Alert, useStyles2 } from '@grafana/ui';
 import { ImageSizeModes, ImageTypesSymbols, SupportedTypes } from '../../constants';
 import { getStyles } from '../../styles';
 import { base64toBlob } from '../../utils';
@@ -16,7 +16,10 @@ interface Props extends PanelProps {}
  * Image Panel
  */
 export const ImagePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
-  const styles = getStyles();
+  /**
+   * Styles
+   */
+  const styles = useStyles2(getStyles);
 
   /**
    * Name field (string)
