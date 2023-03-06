@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.5.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Update CI and Release workflows (#64)
+
+
 ## 3.4.0 (2022-01-08) "New Year" edition
 
 ### Features / Enhancements
