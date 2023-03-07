@@ -6,7 +6,7 @@ import { PanelOptions } from './types';
 /**
  * Panel Plugin
  */
-export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setPanelOptions((builder) => {
+export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().setPanelOptions((builder) => {
   builder.addFieldNamePicker({
     path: 'name',
     name: 'Field name',
