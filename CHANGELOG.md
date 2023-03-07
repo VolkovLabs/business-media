@@ -6,9 +6,9 @@
 
 - Update CI and Release workflows (#64)
 - Update to Grafana 9.4.3 (#65)
-- Set NoPadding to use panel corner to corner (#67)
+- Set NoPadding to use panel corner to corner (#66)
 
-## 3.4.0 (2022-01-08) "New Year" edition
+## 3.4.0 (2023-01-08) "New Year" edition
 
 ### Features / Enhancements
 
