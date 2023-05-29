@@ -2,7 +2,7 @@
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
-[![Grafana 9](https://img.shields.io/badge/Grafana-9.4.3-orange)](https://www.grafana.com)
+[![Grafana 9](https://img.shields.io/badge/Grafana-9.5.2-orange)](https://www.grafana.com)
 ![CI](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/CI/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel)
 [![CodeQL](https://github.com/VolkovLabs/volkovlabs-image-panel/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/VolkovLabs/volkovlabs-image-panel/actions/workflows/codeql-analysis.yml)
@@ -15,9 +15,9 @@ The Base64 Image/Video/Audio/PDF visualization panel is a plugin for Grafana tha
 
 ### Requirements
 
-- **Grafana 8.5+**, **Grafana 9.0+** is required for version 3.X.
-- **Grafana 8.0+** is required for version 2.X.
-- **Grafana 7.1+** is required for version 1.X.
+- **Grafana 8.5+**, **Grafana 9.0+** is required for major version 3.
+- **Grafana 8.0+** is required for major version 2.
+- **Grafana 7.1+** is required for major version 1.
 
 ## Getting Started
 
@@ -29,7 +29,7 @@ For the latter, use the following command.
 grafana-cli plugins install volkovlabs-image-panel
 ```
 
-## Features
+## Highlights
 
 - The returned value can contain base64 with or without definition (`data:image/jpg;base64,ENCODED-CONTENT` or `data:application/pdf;base64,ENCODED-CONTENT`).
 - The file type is determined automatically based on the first Base64 symbol if definition is not provided.
@@ -42,20 +42,27 @@ grafana-cli plugins install volkovlabs-image-panel
 
 ## Documentation
 
-| Section | Description |
-| -- | -- |
-| [Data Sources](https://volkovlabs.io/plugins/volkovlabs-image-panel/datasources) | Demonstrates how to retrieve data from data sources. |
-| [Supported formats](https://volkovlabs.io/plugins/volkovlabs-image-panel/formats) | Explains what formats are supported and how to display media files. |
-| [Variables](https://volkovlabs.io/plugins/volkovlabs-image-panel/variables) | Explains how to use Dashboard and Global variables. |
+| Section                      | Description                                                         |
+| ---------------------------- | ------------------------------------------------------------------- |
+| [Supported formats](https://volkovlabs.io/plugins/volkovlabs-image-panel/formats/) | Explains what formats are supported and how to display media files. |
+| [Release Notes](https://volkovlabs.io/plugins/volkovlabs-image-panel/release/)     | Stay up to date with the latest features and updates.               |
+
+### Features
+
+| Section                     | Description                                          |
+| --------------------------- | ---------------------------------------------------- |
+| [Data Sources](https://volkovlabs.io/plugins/volkovlabs-image-panel/datasources/) | Demonstrates how to retrieve data from data sources. |
+| [Variables](https://volkovlabs.io/plugins/volkovlabs-image-panel/variables/)      | Explains how to use Dashboard and Global variables.  |
 
 ## Feedback
 
-We love to hear from you. There are various ways to get in touch with us:
+We love to hear from you. There are various ways to get in touch with us.
 
 - Ask a question, request a new feature, and file a bug with [GitHub issues](https://github.com/volkovlabs/volkovlabs-image-panel/issues/new/choose).
+- Subscribe to our [YouTube Channel](https://www.youtube.com/@volkovlabs) and add a comment.
 - Sponsor our open-source plugins for Grafana with [GitHub Sponsor](https://github.com/sponsors/VolkovLabs).
 - Star the repository to show your support.
 
 ## License
 
-- Apache License Version 2.0, see [LICENSE](https://github.com/volkovlabs/volkovlabs-image-panel/blob/main/LICENSE).
+Apache License Version 2.0, see [LICENSE](https://github.com/volkovlabs/volkovlabs-image-panel/blob/main/LICENSE).

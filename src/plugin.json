@@ -10,7 +10,7 @@
       "name": "Volkov Labs",
       "url": "https://volkovlabs.io"
     },
-    "description": "Base64 Image/Video/Audio/PDF panel",
+    "description": "Display Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, MP3, OGG, PDF formats",
     "keywords": ["image", "base64", "jpg", "gif", "png", "pdf"],
     "links": [
       {
