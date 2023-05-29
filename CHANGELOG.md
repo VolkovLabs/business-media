@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.6.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Update to Grafana 9.5.2 (#70)
+
 ## 3.5.0 (2023-03-07)
 
 ### Features / Enhancements

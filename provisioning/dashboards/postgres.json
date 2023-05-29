@@ -66,7 +66,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "$postgres"
+            "uid": "P1D2C73DC01F2359A"
           },
           "format": "table",
           "group": [],
@@ -121,7 +121,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "$postgres"
+            "uid": "P1D2C73DC01F2359A"
           },
           "format": "table",
           "group": [],
@@ -176,7 +176,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "$postgres"
+            "uid": "P1D2C73DC01F2359A"
           },
           "format": "table",
           "group": [],
@@ -231,7 +231,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "$postgres"
+            "uid": "P1D2C73DC01F2359A"
           },
           "format": "table",
           "group": [],
