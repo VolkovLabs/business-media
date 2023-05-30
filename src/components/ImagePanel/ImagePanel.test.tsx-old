@@ -1,4 +1,3 @@
-import { shallow } from 'enzyme';
 import React from 'react';
 import { FieldType, toDataFrame } from '@grafana/data';
 import { Alert } from '@grafana/ui';
