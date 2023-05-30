@@ -5,7 +5,7 @@ import { TestIds } from '../../src/constants';
  * Dashboard
  */
 const json = require('../../provisioning/dashboards/panels.json');
-const testedPanel = json.panels[2];
+const testedPanel = json.panels[3];
 
 /**
  * Selector
