@@ -5,6 +5,7 @@
 ### Features / Enhancements
 
 - Update to Grafana 9.5.2 (#70)
+- Add E2E Cypress testing (#71)
 
 ## 3.5.0 (2023-03-07)
 

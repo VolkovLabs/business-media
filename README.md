@@ -2,8 +2,9 @@
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
-[![Grafana 9](https://img.shields.io/badge/Grafana-9.5.2-orange)](https://www.grafana.com)
+![Grafana 9](https://img.shields.io/badge/Grafana-9.5.2-orange)
 ![CI](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/CI/badge.svg)
+![E2E](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/E2E/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel)
 [![CodeQL](https://github.com/VolkovLabs/volkovlabs-image-panel/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/VolkovLabs/volkovlabs-image-panel/actions/workflows/codeql-analysis.yml)
 
