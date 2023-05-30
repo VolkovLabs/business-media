@@ -30,3 +30,7 @@ e2e-results/
 .DS_Store
 .idea
 
+# Cypress
+cypress/report.json
+cypress/videos/
+cypress/screenshots/actual
