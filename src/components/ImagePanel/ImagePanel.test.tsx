@@ -1,7 +1,7 @@
 import React from 'react';
+import { render, screen } from '@testing-library/react';
 import { FieldType, toDataFrame } from '@grafana/data';
-import { Alert } from '@grafana/ui';
-import { ImageFields, ImageSizeModes } from '../../constants';
+import { ImageFields, ImageSizeModes, TestIds } from '../../constants';
 import { ImagePanel } from './ImagePanel';
 
 /**
@@ -23,14 +23,10 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    const div = wrapper.find('div');
-    expect(div.exists()).toBeTruthy();
-    expect(div.props()['children']).toStrictEqual(
-      <Alert severity="warning" title="">
-        Nothing to display...
-      </Alert>
-    );
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.warning)).toBeInTheDocument();
   });
 
   it('Should render image', async () => {
@@ -52,9 +48,10 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
   });
 
   it('Should render application', async () => {
@@ -76,9 +73,10 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('iframe').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.iframe)).toBeInTheDocument();
   });
 
   it('Should render image with header', async () => {
@@ -100,9 +98,10 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
   });
 
   it('Should render application with header', async () => {
@@ -124,9 +123,10 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('iframe').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.iframe)).toBeInTheDocument();
   });
 
   it('Should render raw image', async () => {
@@ -148,9 +148,10 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
   });
 
   it('Should render raw image with URL', async () => {
@@ -176,10 +177,11 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} replaceVariables={replaceVariables} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
-    expect(wrapper.find('a').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.imageLink)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
   });
 
   it('Should render raw image', async () => {
@@ -211,13 +213,13 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} height={height} width={width} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
 
-    const img = wrapper.find('img').getElement();
-    expect(img.props.width).toEqual(50);
-    expect(img.props.height).toEqual(50);
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '50');
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '50');
   });
 
   it('Should render image with custom size options', async () => {
@@ -255,13 +257,13 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
 
-    const img = wrapper.find('img').getElement();
-    expect(img.props.width).toEqual(20);
-    expect(img.props.height).toEqual(20);
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
   });
 
   it('Should render image with custom size options', async () => {
@@ -297,13 +299,13 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
 
-    const img = wrapper.find('img').getElement();
-    expect(img.props.width).toEqual(20);
-    expect(img.props.height).toEqual(20);
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
   });
 
   it('Should render image with custom size fields', async () => {
@@ -349,13 +351,13 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
 
-    const img = wrapper.find('img').getElement();
-    expect(img.props.width).toEqual(20);
-    expect(img.props.height).toEqual(20);
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
   });
 
   it('Should render image with original size', async () => {
@@ -389,13 +391,13 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('img').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
 
-    const img = wrapper.find('img').getElement();
-    expect(img.props.width).toEqual('');
-    expect(img.props.height).toEqual('');
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '');
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '');
   });
 
   it('Should render video with header', async () => {
@@ -417,9 +419,10 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('video').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.video)).toBeInTheDocument();
   });
 
   it('Should render audio with header', async () => {
@@ -441,8 +444,9 @@ describe('Rendering', () => {
       return <ImagePanel data={data} {...restProps} options={options} />;
     };
 
-    const wrapper = shallow(getComponent({ date: { series: [] } }));
-    expect(wrapper.find('div').exists()).toBeTruthy();
-    expect(wrapper.find('audio').exists()).toBeTruthy();
+    render(getComponent({ date: { series: [] } }));
+
+    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TestIds.panel.audio)).toBeInTheDocument();
   });
 });
