@@ -1,5 +1,5 @@
 import { Base64 } from 'js-base64';
-import React from 'react';
+import React, { JSX } from 'react';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
 import { Alert, useStyles2 } from '@grafana/ui';
@@ -78,23 +78,31 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }
 
   /**
+   * Root Container
+   */
+  const renderContainer = (child: JSX.Element) => (
+    <div
+      data-testid={TestIds.panel.root}
+      className={cx(
+        styles.wrapper,
+        css`
+          width: ${width}px;
+          height: ${height}px;
+        `
+      )}
+    >
+      {child}
+    </div>
+  );
+
+  /**
    * No results
    */
   if (!img) {
-    return (
-      <div
-        className={cx(
-          styles.wrapper,
-          css`
-            width: ${width}px;
-            height: ${height}px;
-          `
-        )}
-      >
-        <Alert severity="warning" title="">
-          Nothing to display...
-        </Alert>
-      </div>
+    return renderContainer(
+      <Alert severity="warning" title="" data-testid={TestIds.panel.warning}>
+        Nothing to display...
+      </Alert>
     );
   }
 
@@ -135,18 +143,8 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       img += '#toolbar=0';
     }
 
-    return (
-      <div
-        className={cx(
-          styles.wrapper,
-          css`
-            width: ${width}px;
-            height: ${height}px;
-          `
-        )}
-      >
-        <iframe width={imageWidth || ''} height={imageHeight || ''} src={img} />
-      </div>
+    return renderContainer(
+      <iframe width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TestIds.panel.iframe} />
     );
   }
 
@@ -154,25 +152,16 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    * Display Video MP4 or WebM
    */
   if (type === SupportedTypes.MP4 || type === SupportedTypes.WEBM) {
-    return (
-      <div
-        className={cx(
-          styles.wrapper,
-          css`
-            width: ${width}px;
-            height: ${height}px;
-          `
-        )}
+    return renderContainer(
+      <video
+        width={imageWidth || ''}
+        height={imageHeight || ''}
+        controls={options.controls}
+        autoPlay={options.autoPlay}
+        data-testid={TestIds.panel.video}
       >
-        <video
-          width={imageWidth || ''}
-          height={imageHeight || ''}
-          controls={options.controls}
-          autoPlay={options.autoPlay}
-        >
-          <source src={img}></source>
-        </video>
-      </div>
+        <source src={img} />
+      </video>
     );
   }
 
@@ -180,32 +169,22 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    * Display Audio OGG or MP3
    */
   if (type === SupportedTypes.MP3 || type === SupportedTypes.OGG) {
-    return (
-      <div
-        className={cx(
-          styles.wrapper,
-          css`
-            width: ${width}px;
-            height: ${height}px;
-          `
-        )}
-      >
-        <audio controls={options.controls} autoPlay={options.autoPlay}>
-          <source src={img}></source>
-        </audio>
-      </div>
+    return renderContainer(
+      <audio controls={options.controls} autoPlay={options.autoPlay} data-testid={TestIds.panel.audio}>
+        <source src={img} />
+      </audio>
     );
   }
 
   /**
    * Add URL to Image
    */
-  let image = <img width={imageWidth || ''} height={imageHeight || ''} src={img} />;
+  let image = <img width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TestIds.panel.image} />;
   if (options.url) {
     const url = replaceVariables(options.url);
 
     image = (
-      <a className={cx(styles.url)} href={url} title={options.title}>
+      <a className={cx(styles.url)} href={url} title={options.title} data-testid={TestIds.panel.imageLink}>
         {image}
       </a>
     );
@@ -214,18 +193,5 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Display Image
    */
-  return (
-    <div
-      data-testid={TestIds.panel.root}
-      className={cx(
-        styles.wrapper,
-        css`
-          width: ${width}px;
-          height: ${height}px;
-        `
-      )}
-    >
-      {image}
-    </div>
-  );
+  return renderContainer(image);
 };

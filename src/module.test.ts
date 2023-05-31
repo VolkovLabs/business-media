@@ -1,25 +1,26 @@
 import { PanelPlugin } from '@grafana/data';
+import { ImageSizeModes } from './constants';
 import { plugin } from './module';
 
 /*
  Plugin
  */
 describe('plugin', () => {
+  /**
+   * Builder
+   */
+  const builder: any = {
+    addFieldNamePicker: jest.fn().mockImplementation(() => builder),
+    addNumberInput: jest.fn().mockImplementation(() => builder),
+    addRadio: jest.fn().mockImplementation(() => builder),
+    addTextInput: jest.fn().mockImplementation(() => builder),
+  };
+
   it('Should be instance of PanelPlugin', () => {
     expect(plugin).toBeInstanceOf(PanelPlugin);
   });
 
   it('Should add inputs', () => {
-    /**
-     * Builder
-     */
-    const builder: any = {
-      addFieldNamePicker: jest.fn().mockImplementation(() => builder),
-      addNumberInput: jest.fn().mockImplementation(() => builder),
-      addRadio: jest.fn().mockImplementation(() => builder),
-      addTextInput: jest.fn().mockImplementation(() => builder),
-    };
-
     /**
      * Supplier
      */
@@ -32,5 +33,89 @@ describe('plugin', () => {
     expect(builder.addNumberInput).toHaveBeenCalled();
     expect(builder.addRadio).toHaveBeenCalled();
     expect(builder.addTextInput).toHaveBeenCalled();
+  });
+
+  describe('Input Visibility', () => {
+    beforeEach(() => {
+      builder.addFieldNamePicker.mockClear();
+      builder.addNumberInput.mockClear();
+    });
+
+    /**
+     * Add Input Implementation
+     * @param config
+     * @param result
+     */
+    const addInputImplementation =
+      (config: { widthMode?: ImageSizeModes; heightMode?: ImageSizeModes }, result: string[]) => (input: any) => {
+        if (input.showIf) {
+          if (input.showIf(config)) {
+            result.push(input.path);
+          }
+        } else {
+          result.push(input.path);
+        }
+        return builder;
+      };
+
+    it('Should show widthName and width inputs only for widthMode=CUSTOM', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(
+        addInputImplementation({ widthMode: ImageSizeModes.CUSTOM }, shownOptionsPaths)
+      );
+      builder.addNumberInput.mockImplementation(
+        addInputImplementation({ widthMode: ImageSizeModes.CUSTOM }, shownOptionsPaths)
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['widthName', 'width']));
+    });
+
+    it('Should not show widthName and width inputs for widthMode!=CUSTOM', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(
+        addInputImplementation({ widthMode: ImageSizeModes.AUTO }, shownOptionsPaths)
+      );
+      builder.addNumberInput.mockImplementation(
+        addInputImplementation({ widthMode: ImageSizeModes.AUTO }, shownOptionsPaths)
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).not.toEqual(expect.arrayContaining(['widthName', 'width']));
+    });
+
+    it('Should show heightName and height inputs only for heightMode=CUSTOM', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(
+        addInputImplementation({ heightMode: ImageSizeModes.CUSTOM }, shownOptionsPaths)
+      );
+      builder.addNumberInput.mockImplementation(
+        addInputImplementation({ heightMode: ImageSizeModes.CUSTOM }, shownOptionsPaths)
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['heightName', 'height']));
+    });
+
+    it('Should not show heightName and height inputs only for heightMode!=CUSTOM', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(
+        addInputImplementation({ heightMode: ImageSizeModes.AUTO }, shownOptionsPaths)
+      );
+      builder.addNumberInput.mockImplementation(
+        addInputImplementation({ heightMode: ImageSizeModes.AUTO }, shownOptionsPaths)
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).not.toEqual(expect.arrayContaining(['heightName', 'height']));
+    });
   });
 });
