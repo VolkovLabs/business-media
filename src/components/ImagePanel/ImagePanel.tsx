@@ -77,6 +77,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     imageWidth = options.width ? options.width : imageWidth;
   }
 
+  /**
+   * Root Container
+   */
   const renderContainer = (child: JSX.Element) => (
     <div
       data-testid={TestIds.panel.root}

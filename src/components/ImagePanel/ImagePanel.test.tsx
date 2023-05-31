@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
 import { FieldType, toDataFrame } from '@grafana/data';
+import { render, screen } from '@testing-library/react';
 import { ImageFields, ImageSizeModes, TestIds } from '../../constants';
 import { ImagePanel } from './ImagePanel';
 
