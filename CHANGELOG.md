@@ -6,7 +6,7 @@
 
 - Update to Grafana 9.5.2 (#70)
 - Add E2E Cypress testing (#71)
-- Migrate to Plugin Tools 1.5.0 (#72)
+- Migrate to Plugin Tools 1.5.2 (#72, #73)
 - Update to Node 18 (#72)
 - Increase Test Coverage (#72)
 
