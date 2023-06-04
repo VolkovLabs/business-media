@@ -7,16 +7,29 @@ import { PanelOptions } from './types';
  * Panel Plugin
  */
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().setPanelOptions((builder) => {
-  builder.addFieldNamePicker({
-    path: 'name',
-    name: 'Field name',
-    description:
-      'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken.',
-    settings: {
-      filter: (f: Field) => f.type === FieldType.string,
-      noFieldsMessage: 'No strings fields found',
-    },
-  });
+  builder
+    .addFieldNamePicker({
+      path: 'name',
+      name: 'Field name',
+      description:
+        'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken.',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+    })
+    .addRadio({
+      path: 'toolbar',
+      name: 'Toolbar',
+      description: 'Display toolbar for images and PDF files.',
+      settings: {
+        options: [
+          { value: true, label: 'Enabled' },
+          { value: false, label: 'Disabled' },
+        ],
+      },
+      defaultValue: true,
+    });
 
   /**
    * URL
@@ -128,23 +141,6 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       category: ['Video/Audio'],
       defaultValue: true,
     });
-
-  /**
-   * Video / Audio
-   */
-  builder.addRadio({
-    path: 'toolbar',
-    name: 'Toolbar',
-    description: 'When disabled, toolbar will be hidden if supported by browser.',
-    settings: {
-      options: [
-        { value: true, label: 'Enabled' },
-        { value: false, label: 'Disabled' },
-      ],
-    },
-    category: ['PDF'],
-    defaultValue: true,
-  });
 
   return builder;
 });

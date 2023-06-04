@@ -1,8 +1,9 @@
+import saveAs from 'file-saver';
 import { Base64 } from 'js-base64';
 import React, { JSX } from 'react';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { Alert, useStyles2 } from '@grafana/ui';
+import { Alert, ButtonGroup, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../../constants';
 import { getStyles } from '../../styles';
 import { base64toBlob } from '../../utils';
@@ -193,5 +194,23 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Display Image
    */
-  return renderContainer(image);
+  return renderContainer(
+    <>
+      {options.toolbar && (
+        <PageToolbar>
+          <ButtonGroup>
+            <ToolbarButton
+              icon="save"
+              onClick={() => {
+                saveAs(img);
+              }}
+            >
+              Download
+            </ToolbarButton>
+          </ButtonGroup>
+        </PageToolbar>
+      )}
+      {image}
+    </>
+  );
 };
