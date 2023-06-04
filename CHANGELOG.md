@@ -9,6 +9,7 @@
 - Migrate to Plugin Tools 1.5.2 (#72, #73)
 - Update to Node 18 (#72)
 - Increase Test Coverage (#72)
+- Tested with Grafana 10 Preview (#74)
 
 ## 3.5.0 (2023-03-07)
 
