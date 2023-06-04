@@ -3,9 +3,10 @@ import { Base64 } from 'js-base64';
 import React, { JSX } from 'react';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { Alert, ButtonGroup, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
+import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../../constants';
 import { getStyles } from '../../styles';
+import { ButtonType } from '../../types';
 import { base64toBlob } from '../../utils';
 
 /**
@@ -192,13 +193,13 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }
 
   /**
-   * Display Image
+   * Display Image with Toolbar
    */
-  return renderContainer(
-    <>
-      {options.toolbar && (
+  if (options.toolbar && options.buttons.length) {
+    return renderContainer(
+      <>
         <PageToolbar>
-          <ButtonGroup>
+          {options.buttons.includes(ButtonType.DOWNLOAD) && (
             <ToolbarButton
               icon="save"
               onClick={() => {
@@ -207,10 +208,15 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
             >
               Download
             </ToolbarButton>
-          </ButtonGroup>
+          )}
         </PageToolbar>
-      )}
-      {image}
-    </>
-  );
+        {image}
+      </>
+    );
+  }
+
+  /**
+   * Display Image
+   */
+  return renderContainer(image);
 };

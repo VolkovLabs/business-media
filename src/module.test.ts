@@ -14,6 +14,7 @@ describe('plugin', () => {
     addNumberInput: jest.fn().mockImplementation(() => builder),
     addRadio: jest.fn().mockImplementation(() => builder),
     addTextInput: jest.fn().mockImplementation(() => builder),
+    addMultiSelect: jest.fn().mockImplementation(() => builder),
   };
 
   it('Should be instance of PanelPlugin', () => {
@@ -33,6 +34,7 @@ describe('plugin', () => {
     expect(builder.addNumberInput).toHaveBeenCalled();
     expect(builder.addRadio).toHaveBeenCalled();
     expect(builder.addTextInput).toHaveBeenCalled();
+    expect(builder.addMultiSelect).toHaveBeenCalled();
   });
 
   describe('Input Visibility', () => {
