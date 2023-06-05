@@ -205,6 +205,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
               onClick={() => {
                 saveAs(img);
               }}
+              data-testid={TestIds.panel.buttonDownload}
             >
               Download
             </ToolbarButton>

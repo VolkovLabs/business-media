@@ -1,5 +1,6 @@
 import { PanelPlugin } from '@grafana/data';
 import { ImageSizeModes } from './constants';
+import { PanelOptions } from './types';
 import { plugin } from './module';
 
 /*
@@ -48,17 +49,16 @@ describe('plugin', () => {
      * @param config
      * @param result
      */
-    const addInputImplementation =
-      (config: { widthMode?: ImageSizeModes; heightMode?: ImageSizeModes }, result: string[]) => (input: any) => {
-        if (input.showIf) {
-          if (input.showIf(config)) {
-            result.push(input.path);
-          }
-        } else {
+    const addInputImplementation = (config: Partial<PanelOptions>, result: string[]) => (input: any) => {
+      if (input.showIf) {
+        if (input.showIf(config)) {
           result.push(input.path);
         }
-        return builder;
-      };
+      } else {
+        result.push(input.path);
+      }
+      return builder;
+    };
 
     it('Should show widthName and width inputs only for widthMode=CUSTOM', () => {
       const shownOptionsPaths: string[] = [];
@@ -118,6 +118,16 @@ describe('plugin', () => {
       plugin['optionsSupplier'](builder);
 
       expect(shownOptionsPaths).not.toEqual(expect.arrayContaining(['heightName', 'height']));
+    });
+
+    it('Should show buttons field if toolbar enabled', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addMultiSelect.mockImplementation(addInputImplementation({ toolbar: true }, shownOptionsPaths));
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['buttons']));
     });
   });
 });
