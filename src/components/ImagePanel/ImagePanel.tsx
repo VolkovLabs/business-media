@@ -27,12 +27,17 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    * Image values
    */
   const values = useMemo(() => {
-    return data.series
-      .map((series) =>
-        series.fields.find((field) => field.type === FieldType.string && (!options.name || field.name === options.name))
-      )
-      .map((field) => field?.values)
-      .filter((item) => !!item)[0];
+    return (
+      data.series
+        .map((series) =>
+          series.fields.find(
+            (field) => field.type === FieldType.string && (!options.name || field.name === options.name)
+          )
+        )
+        .map((field) => field?.values)
+        .filter((item) => !!item)[0]
+        ?.toArray() || []
+    );
   }, [data.series, options.name]);
 
   /**
@@ -44,11 +49,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       if (dir === 'prev') {
         nextIndex = currentIndex - 1;
         if (nextIndex < 0) {
-          nextIndex = (values?.length || 1) - 1;
+          nextIndex = values.length - 1;
         }
       } else {
         nextIndex = currentIndex + 1;
-        if (nextIndex > (values?.length || 1) - 1) {
+        if (nextIndex > values.length - 1) {
           nextIndex = 0;
         }
       }
@@ -65,7 +70,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Name field (string)
    */
-  let img = values?.get(currentIndex);
+  let img = values[currentIndex];
 
   /**
    * Keep auto-scale if Auto
