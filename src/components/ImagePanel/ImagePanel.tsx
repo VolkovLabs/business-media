@@ -1,6 +1,7 @@
+import 'react-medium-image-zoom/dist/styles.css';
 import saveAs from 'file-saver';
 import { Base64 } from 'js-base64';
-import React, { JSX, useState, useCallback, useMemo } from 'react';
+import React, { JSX, useCallback, useMemo, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
@@ -9,7 +10,6 @@ import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../.
 import { getStyles } from '../../styles';
 import { ButtonType } from '../../types';
 import { base64toBlob } from '../../utils';
-import 'react-medium-image-zoom/dist/styles.css';
 
 /**
  * Properties
@@ -247,6 +247,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   onChangeCurrentIndex('prev');
                 }}
                 data-testid={TestIds.panel.buttonPrevious}
+                disabled={Math.max(values.length, 1) === 1}
               >
                 Previous
               </ToolbarButton>,
@@ -260,6 +261,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   onChangeCurrentIndex('next');
                 }}
                 data-testid={TestIds.panel.buttonNext}
+                disabled={Math.max(values.length, 1) === 1}
               >
                 Next
               </ToolbarButton>,

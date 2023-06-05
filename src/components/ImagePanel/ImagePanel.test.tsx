@@ -1,7 +1,7 @@
+import saveAs from 'file-saver';
 import React from 'react';
 import { FieldType, toDataFrame } from '@grafana/data';
-import { render, screen, fireEvent } from '@testing-library/react';
-import saveAs from 'file-saver';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { ImageFields, ImageSizeModes, TestIds } from '../../constants';
 import { ButtonType } from '../../types';
 import { ImagePanel } from './ImagePanel';
@@ -459,6 +459,9 @@ describe('Rendering', () => {
     expect(screen.getByTestId(TestIds.panel.audio)).toBeInTheDocument();
   });
 
+  /**
+   * Toolbar
+   */
   describe('Toolbar', () => {
     it('Should show download button for image', () => {
       const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
