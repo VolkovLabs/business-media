@@ -71,12 +71,16 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    * Name field (string)
    * Use first element if Navigation enabled, otherwise last
    */
-  let img = options.buttons?.includes(ButtonType.NAVIGATION) ? values[currentIndex] : values[values.length - 1];
+  let img =
+    options.toolbar && options.buttons?.includes(ButtonType.NAVIGATION)
+      ? values[currentIndex]
+      : values[values.length - 1];
 
   /**
    * Keep auto-scale if Auto
    */
-  let imageHeight = options.heightMode === ImageSizeModes.AUTO ? height : 0;
+  const toolbarHeight = options.toolbar && options.buttons?.length ? 56 : 0;
+  let imageHeight = options.heightMode === ImageSizeModes.AUTO ? height - toolbarHeight : 0;
   let imageWidth = options.widthMode === ImageSizeModes.AUTO ? width : 0;
 
   /**
