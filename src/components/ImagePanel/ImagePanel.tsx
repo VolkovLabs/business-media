@@ -7,7 +7,7 @@ import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
 import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../../constants';
-import { getStyles } from '../../styles';
+import { Styles } from '../../styles';
 import { ButtonType } from '../../types';
 import { base64toBlob } from '../../utils';
 
@@ -65,7 +65,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Styles
    */
-  const styles = useStyles2(getStyles);
+  const styles = useStyles2(Styles);
 
   /**
    * Name field (string)
@@ -298,6 +298,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
             alt: '',
             src: img,
           }}
+          classDialog={styles.zoom}
         >
           {image}
         </ControlledZoom>
