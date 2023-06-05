@@ -11,7 +11,14 @@ import { ImagePanel } from './ImagePanel';
  */
 jest.mock('@grafana/ui', () => ({
   ...jest.requireActual('@grafana/ui'),
-  PageToolbar: jest.fn(({ children }) => children),
+  PageToolbar: jest.fn(({ leftItems, children }) => {
+    return (
+      <>
+        {leftItems}
+        {children}
+      </>
+    );
+  }),
 }));
 
 /**

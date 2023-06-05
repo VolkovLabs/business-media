@@ -237,7 +237,35 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   if (options.toolbar && options.buttons.length) {
     return renderContainer(
       <>
-        <PageToolbar>
+        <PageToolbar
+          leftItems={
+            options.buttons.includes(ButtonType.NAVIGATION) && [
+              <ToolbarButton
+                key="previous"
+                icon="backward"
+                onClick={() => {
+                  onChangeCurrentIndex('prev');
+                }}
+                data-testid={TestIds.panel.buttonPrevious}
+              >
+                Previous
+              </ToolbarButton>,
+              <div key="current">
+                {currentIndex + 1} of {Math.max(values.length, 1)}
+              </div>,
+              <ToolbarButton
+                key="next"
+                icon="forward"
+                onClick={() => {
+                  onChangeCurrentIndex('next');
+                }}
+                data-testid={TestIds.panel.buttonNext}
+              >
+                Next
+              </ToolbarButton>,
+            ]
+          }
+        >
           {options.buttons.includes(ButtonType.DOWNLOAD) && (
             <ToolbarButton
               icon="save"
@@ -258,28 +286,6 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
               data-testid={TestIds.panel.buttonZoom}
             >
               Zoom
-            </ToolbarButton>
-          )}
-          {options.buttons.includes(ButtonType.NAVIGATION) && (
-            <ToolbarButton
-              icon="backward"
-              onClick={() => {
-                onChangeCurrentIndex('prev');
-              }}
-              data-testid={TestIds.panel.buttonPrevious}
-            >
-              Previous
-            </ToolbarButton>
-          )}
-          {options.buttons.includes(ButtonType.NAVIGATION) && (
-            <ToolbarButton
-              icon="forward"
-              onClick={() => {
-                onChangeCurrentIndex('next');
-              }}
-              data-testid={TestIds.panel.buttonNext}
-            >
-              Next
             </ToolbarButton>
           )}
         </PageToolbar>
