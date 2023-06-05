@@ -20,6 +20,15 @@ jest.mock('@grafana/ui', () => ({
 jest.mock('file-saver', () => jest.fn());
 
 /**
+ * Mock react-medium-image-zoom
+ */
+jest.mock('react-medium-image-zoom', () => ({
+  Controlled: jest.fn(({ isZoomed, children, zoomImg }) => {
+    return isZoomed ? <img data-testid={TestIds.panel.zoomedImage} src={zoomImg.src} alt="" /> : null;
+  }),
+}));
+
+/**
  * Rendering
  */
 describe('Rendering', () => {
@@ -495,6 +504,36 @@ describe('Rendering', () => {
       );
 
       expect(screen.queryByTestId(TestIds.panel.buttonDownload)).not.toBeInTheDocument();
+    });
+
+    it('Should show zoom button for image', () => {
+      const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageFields.IMG,
+                    values: [image],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: { toolbar: true, buttons: [ButtonType.ZOOM] },
+        })
+      );
+
+      expect(screen.getByTestId(TestIds.panel.buttonZoom)).toBeInTheDocument();
+      expect(screen.queryByTestId(TestIds.panel.zoomedImage)).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoom));
+
+      expect(screen.getByTestId(TestIds.panel.zoomedImage)).toBeInTheDocument();
     });
   });
 });

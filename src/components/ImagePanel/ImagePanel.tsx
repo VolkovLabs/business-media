@@ -1,6 +1,7 @@
 import saveAs from 'file-saver';
 import { Base64 } from 'js-base64';
-import React, { JSX } from 'react';
+import React, { JSX, useState, useCallback } from 'react';
+import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
 import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
@@ -8,6 +9,7 @@ import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../.
 import { getStyles } from '../../styles';
 import { ButtonType } from '../../types';
 import { base64toBlob } from '../../utils';
+import 'react-medium-image-zoom/dist/styles.css';
 
 /**
  * Properties
@@ -18,6 +20,12 @@ interface Props extends PanelProps {}
  * Image Panel
  */
 export const ImagePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  const onZoomChange = useCallback((shouldZoom: boolean) => {
+    setIsZoomed(shouldZoom);
+  }, []);
+
   /**
    * Styles
    */
@@ -210,8 +218,28 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
               Download
             </ToolbarButton>
           )}
+          {options.buttons.includes(ButtonType.ZOOM) && (
+            <ToolbarButton
+              icon="search-plus"
+              onClick={() => {
+                onZoomChange(true);
+              }}
+              data-testid={TestIds.panel.buttonZoom}
+            >
+              Zoom
+            </ToolbarButton>
+          )}
         </PageToolbar>
-        {image}
+        <ControlledZoom
+          isZoomed={isZoomed}
+          onZoomChange={onZoomChange}
+          zoomImg={{
+            alt: '',
+            src: img,
+          }}
+        >
+          {image}
+        </ControlledZoom>
       </>
     );
   }

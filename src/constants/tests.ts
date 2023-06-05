@@ -10,6 +10,8 @@ export const TestIds = {
     audio: 'data-testid panel audio',
     image: 'data-testid panel image',
     imageLink: 'data-testid panel image-link',
+    zoomedImage: 'data-testid panel zoomed-image',
     buttonDownload: 'data-testid panel button-download',
+    buttonZoom: 'data-testid panel button-zoom',
   },
 };
