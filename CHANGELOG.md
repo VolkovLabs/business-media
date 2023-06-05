@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.6.0 (IN PROGRESS)
+## 3.6.0 (2023-06-05)
 
 ### Features / Enhancements
 
@@ -10,6 +10,7 @@
 - Update to Node 18 (#72)
 - Increase Test Coverage (#72)
 - Tested with Grafana 10 Preview (#74)
+- Add Toolbar to Download, Zoom and Navigation between images (#75)
 
 ## 3.5.0 (2023-03-07)
 
