@@ -8,6 +8,13 @@ import { plugin } from './module';
  */
 type TestField = Pick<Field, 'name' | 'type'>;
 
+/**
+ * Mock react-medium-image-zoom
+ */
+jest.mock('react-medium-image-zoom', () => ({
+  Controlled: jest.fn(),
+}));
+
 /*
  Plugin
  */
