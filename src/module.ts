@@ -1,22 +1,44 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 import { ImagePanel } from './components';
-import { ImageSizeModes, SizeModeOptions } from './constants';
+import { ButtonsOptions, DefaultOptions, ImageSizeModes, SizeModeOptions } from './constants';
 import { PanelOptions } from './types';
 
 /**
  * Panel Plugin
  */
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().setPanelOptions((builder) => {
-  builder.addFieldNamePicker({
-    path: 'name',
-    name: 'Field name',
-    description:
-      'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken.',
-    settings: {
-      filter: (f: Field) => f.type === FieldType.string,
-      noFieldsMessage: 'No strings fields found',
-    },
-  });
+  builder
+    .addFieldNamePicker({
+      path: 'name',
+      name: 'Field name',
+      description:
+        'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken.',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+    })
+    .addRadio({
+      path: 'toolbar',
+      name: 'Toolbar',
+      description: 'Display toolbar for images and PDF files.',
+      settings: {
+        options: [
+          { value: true, label: 'Enabled' },
+          { value: false, label: 'Disabled' },
+        ],
+      },
+      defaultValue: DefaultOptions.toolbar,
+    })
+    .addMultiSelect({
+      path: 'buttons',
+      name: 'Select buttons to display on toolbar.',
+      settings: {
+        options: ButtonsOptions as any,
+      },
+      defaultValue: DefaultOptions.buttons,
+      showIf: (options: PanelOptions) => options.toolbar,
+    });
 
   /**
    * URL
@@ -45,7 +67,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         options: SizeModeOptions,
       },
       category: ['Width'],
-      defaultValue: ImageSizeModes.AUTO,
+      defaultValue: DefaultOptions.widthMode,
     })
     .addFieldNamePicker({
       path: 'widthName',
@@ -61,7 +83,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     .addNumberInput({
       path: 'width',
       name: 'Custom width (px)',
-      defaultValue: 0,
+      defaultValue: DefaultOptions.width,
       category: ['Width'],
       showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
     });
@@ -77,7 +99,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         options: SizeModeOptions,
       },
       category: ['Height'],
-      defaultValue: ImageSizeModes.AUTO,
+      defaultValue: DefaultOptions.heightMode,
     })
     .addFieldNamePicker({
       path: 'heightName',
@@ -93,7 +115,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     .addNumberInput({
       path: 'height',
       name: 'Custom height (px)',
-      defaultValue: 0,
+      defaultValue: DefaultOptions.height,
       category: ['Height'],
       showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
     });
@@ -113,7 +135,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         ],
       },
       category: ['Video/Audio'],
-      defaultValue: true,
+      defaultValue: DefaultOptions.controls,
     })
     .addRadio({
       path: 'autoPlay',
@@ -126,25 +148,8 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         ],
       },
       category: ['Video/Audio'],
-      defaultValue: true,
+      defaultValue: DefaultOptions.autoPlay,
     });
-
-  /**
-   * Video / Audio
-   */
-  builder.addRadio({
-    path: 'toolbar',
-    name: 'Toolbar',
-    description: 'When disabled, toolbar will be hidden if supported by browser.',
-    settings: {
-      options: [
-        { value: true, label: 'Enabled' },
-        { value: false, label: 'Disabled' },
-      ],
-    },
-    category: ['PDF'],
-    defaultValue: true,
-  });
 
   return builder;
 });

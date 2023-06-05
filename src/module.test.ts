@@ -1,6 +1,19 @@
-import { PanelPlugin } from '@grafana/data';
+import { PanelPlugin, Field, FieldType } from '@grafana/data';
 import { ImageSizeModes } from './constants';
+import { PanelOptions } from './types';
 import { plugin } from './module';
+
+/**
+ * Test Field
+ */
+type TestField = Pick<Field, 'name' | 'type'>;
+
+/**
+ * Mock react-medium-image-zoom
+ */
+jest.mock('react-medium-image-zoom', () => ({
+  Controlled: jest.fn(),
+}));
 
 /*
  Plugin
@@ -14,6 +27,7 @@ describe('plugin', () => {
     addNumberInput: jest.fn().mockImplementation(() => builder),
     addRadio: jest.fn().mockImplementation(() => builder),
     addTextInput: jest.fn().mockImplementation(() => builder),
+    addMultiSelect: jest.fn().mockImplementation(() => builder),
   };
 
   it('Should be instance of PanelPlugin', () => {
@@ -33,6 +47,7 @@ describe('plugin', () => {
     expect(builder.addNumberInput).toHaveBeenCalled();
     expect(builder.addRadio).toHaveBeenCalled();
     expect(builder.addTextInput).toHaveBeenCalled();
+    expect(builder.addMultiSelect).toHaveBeenCalled();
   });
 
   describe('Input Visibility', () => {
@@ -46,17 +61,16 @@ describe('plugin', () => {
      * @param config
      * @param result
      */
-    const addInputImplementation =
-      (config: { widthMode?: ImageSizeModes; heightMode?: ImageSizeModes }, result: string[]) => (input: any) => {
-        if (input.showIf) {
-          if (input.showIf(config)) {
-            result.push(input.path);
-          }
-        } else {
+    const addInputImplementation = (config: Partial<PanelOptions>, result: string[]) => (input: any) => {
+      if (input.showIf) {
+        if (input.showIf(config)) {
           result.push(input.path);
         }
-        return builder;
-      };
+      } else {
+        result.push(input.path);
+      }
+      return builder;
+    };
 
     it('Should show widthName and width inputs only for widthMode=CUSTOM', () => {
       const shownOptionsPaths: string[] = [];
@@ -116,6 +130,69 @@ describe('plugin', () => {
       plugin['optionsSupplier'](builder);
 
       expect(shownOptionsPaths).not.toEqual(expect.arrayContaining(['heightName', 'height']));
+    });
+
+    it('Should show buttons field if toolbar enabled', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addMultiSelect.mockImplementation(addInputImplementation({ toolbar: true }, shownOptionsPaths));
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['buttons']));
+    });
+  });
+
+  describe('Settings', () => {
+    const addFieldNameImplementation =
+      (optionPath: string, allFields: TestField[], shownFields: TestField[]) => (input: any) => {
+        if (optionPath === input.path) {
+          const fields = allFields.filter(input.settings.filter);
+          shownFields.push(...fields);
+        }
+        return builder;
+      };
+
+    it('Should return only string fields for name', () => {
+      const fields: TestField[] = [
+        { name: 'string', type: FieldType.string },
+        { name: 'number', type: FieldType.number },
+      ];
+      const shownFields: TestField[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(addFieldNameImplementation('name', fields, shownFields));
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownFields).toEqual([{ name: 'string', type: FieldType.string }]);
+    });
+
+    it('Should return only number fields for widthName', () => {
+      const fields: TestField[] = [
+        { name: 'string', type: FieldType.string },
+        { name: 'number', type: FieldType.number },
+      ];
+      const shownFields: TestField[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(addFieldNameImplementation('widthName', fields, shownFields));
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownFields).toEqual([{ name: 'number', type: FieldType.number }]);
+    });
+
+    it('Should return only number fields for heightName', () => {
+      const fields: TestField[] = [
+        { name: 'string', type: FieldType.string },
+        { name: 'number', type: FieldType.number },
+      ];
+      const shownFields: TestField[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(addFieldNameImplementation('heightName', fields, shownFields));
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownFields).toEqual([{ name: 'number', type: FieldType.number }]);
     });
   });
 });

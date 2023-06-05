@@ -1,4 +1,5 @@
-import { ImageSizeModes } from './constants';
+import { ImageSizeModes } from '../constants';
+import { ButtonType } from './toolbar';
 
 /**
  * Options
@@ -87,4 +88,11 @@ export interface PanelOptions {
    * @type {boolean}
    */
   toolbar: boolean;
+
+  /**
+   * Buttons to Display on Toolbar
+   *
+   * @type {ButtonType[]}
+   */
+  buttons: ButtonType[];
 }
