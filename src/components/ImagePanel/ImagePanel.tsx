@@ -69,8 +69,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
 
   /**
    * Name field (string)
+   * Use first element if Navigation enabled, otherwise last
    */
-  let img = values[currentIndex];
+  let img = options.buttons.includes(ButtonType.NAVIGATION) ? values[currentIndex] : values[values.length - 1];
 
   /**
    * Keep auto-scale if Auto
