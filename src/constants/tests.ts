@@ -13,5 +13,7 @@ export const TestIds = {
     zoomedImage: 'data-testid panel zoomed-image',
     buttonDownload: 'data-testid panel button-download',
     buttonZoom: 'data-testid panel button-zoom',
+    buttonPrevious: 'data-testid panel button-previous',
+    buttonNext: 'data-testid panel button-next',
   },
 };

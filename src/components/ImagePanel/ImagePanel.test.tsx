@@ -24,7 +24,7 @@ jest.mock('file-saver', () => jest.fn());
  */
 jest.mock('react-medium-image-zoom', () => ({
   Controlled: jest.fn(({ isZoomed, children, zoomImg }) => {
-    return isZoomed ? <img data-testid={TestIds.panel.zoomedImage} src={zoomImg.src} alt="" /> : null;
+    return isZoomed ? <img data-testid={TestIds.panel.zoomedImage} src={zoomImg.src} alt="" /> : children;
   }),
 }));
 
@@ -534,6 +534,65 @@ describe('Rendering', () => {
       fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoom));
 
       expect(screen.getByTestId(TestIds.panel.zoomedImage)).toBeInTheDocument();
+    });
+
+    it('Should change current image', () => {
+      const image1 = 'abc';
+      const image2 = 'bar';
+      const image3 = 'baz';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageFields.IMG,
+                    values: [image1, image2, image3],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: { toolbar: true, buttons: [ButtonType.NAVIGATION] },
+        })
+      );
+
+      /**
+       * Check if first value is rendered
+       */
+      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+
+      /**
+       * Check if second value is rendered
+       */
+      fireEvent.click(screen.getByTestId(TestIds.panel.buttonNext));
+
+      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
+
+      /**
+       * Check if first value is rendered again
+       */
+      fireEvent.click(screen.getByTestId(TestIds.panel.buttonPrevious));
+
+      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+
+      /**
+       * Check if previous button moves to last image
+       */
+      fireEvent.click(screen.getByTestId(TestIds.panel.buttonPrevious));
+
+      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+
+      /**
+       * Check if next button moves to first image
+       */
+      fireEvent.click(screen.getByTestId(TestIds.panel.buttonNext));
+
+      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
     });
   });
 });

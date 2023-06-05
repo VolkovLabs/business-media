@@ -1,6 +1,6 @@
 import saveAs from 'file-saver';
 import { Base64 } from 'js-base64';
-import React, { JSX, useState, useCallback } from 'react';
+import React, { JSX, useState, useCallback, useMemo } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
@@ -21,10 +21,41 @@ interface Props extends PanelProps {}
  */
 export const ImagePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
   const [isZoomed, setIsZoomed] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const onZoomChange = useCallback((shouldZoom: boolean) => {
-    setIsZoomed(shouldZoom);
-  }, []);
+  /**
+   * Image values
+   */
+  const values = useMemo(() => {
+    return data.series
+      .map((series) =>
+        series.fields.find((field) => field.type === FieldType.string && (!options.name || field.name === options.name))
+      )
+      .map((field) => field?.values)
+      .filter((item) => !!item)[0];
+  }, [data.series, options.name]);
+
+  /**
+   * Change Current Image
+   */
+  const onChangeCurrentIndex = useCallback(
+    (dir: 'prev' | 'next') => {
+      let nextIndex;
+      if (dir === 'prev') {
+        nextIndex = currentIndex - 1;
+        if (nextIndex < 0) {
+          nextIndex = (values?.length || 1) - 1;
+        }
+      } else {
+        nextIndex = currentIndex + 1;
+        if (nextIndex > (values?.length || 1) - 1) {
+          nextIndex = 0;
+        }
+      }
+      setCurrentIndex(nextIndex);
+    },
+    [values?.length, currentIndex]
+  );
 
   /**
    * Styles
@@ -34,12 +65,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Name field (string)
    */
-  let img = data.series
-    .map((series) =>
-      series.fields.find((field) => field.type === FieldType.string && (!options.name || field.name === options.name))
-    )
-    .map((field) => field?.values.get(field.values.length - 1))
-    .toString();
+  let img = values?.get(currentIndex);
 
   /**
    * Keep auto-scale if Auto
@@ -222,17 +248,39 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
             <ToolbarButton
               icon="search-plus"
               onClick={() => {
-                onZoomChange(true);
+                setIsZoomed(true);
               }}
               data-testid={TestIds.panel.buttonZoom}
             >
               Zoom
             </ToolbarButton>
           )}
+          {options.buttons.includes(ButtonType.NAVIGATION) && (
+            <ToolbarButton
+              icon="backward"
+              onClick={() => {
+                onChangeCurrentIndex('prev');
+              }}
+              data-testid={TestIds.panel.buttonPrevious}
+            >
+              Previous
+            </ToolbarButton>
+          )}
+          {options.buttons.includes(ButtonType.NAVIGATION) && (
+            <ToolbarButton
+              icon="forward"
+              onClick={() => {
+                onChangeCurrentIndex('next');
+              }}
+              data-testid={TestIds.panel.buttonNext}
+            >
+              Next
+            </ToolbarButton>
+          )}
         </PageToolbar>
         <ControlledZoom
           isZoomed={isZoomed}
-          onZoomChange={onZoomChange}
+          onZoomChange={setIsZoomed}
           zoomImg={{
             alt: '',
             src: img,
