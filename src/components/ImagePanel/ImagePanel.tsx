@@ -260,6 +260,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       <>
         <div ref={toolbarRef}>
           <PageToolbar
+            forceShowLeftItems={options.buttons.includes(ButtonType.NAVIGATION)}
             leftItems={
               options.buttons.includes(ButtonType.NAVIGATION) && [
                 <ToolbarButton
