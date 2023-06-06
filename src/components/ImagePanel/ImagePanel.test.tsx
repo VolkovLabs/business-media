@@ -45,6 +45,10 @@ describe('Rendering', () => {
     return <ImagePanel data={data} {...restProps} options={options} />;
   };
 
+  beforeAll(() => {
+    Object.defineProperty(HTMLElement.prototype, 'clientHeight', { configurable: true, value: 123 });
+  });
+
   it('Should output message', async () => {
     render(
       getComponent({
@@ -243,6 +247,46 @@ describe('Rendering', () => {
 
     expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '50');
     expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '50');
+  });
+
+  it('Should remove toolbar height from image height', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: 'raw',
+                  values: ['?PNGIHDR 3z??	pHYs'],
+                },
+                {
+                  type: FieldType.string,
+                  name: ImageFields.IMG,
+                  values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+                },
+              ],
+            }),
+          ],
+        },
+        options: {
+          name: ImageFields.IMG,
+          widthMode: ImageSizeModes.AUTO,
+          heightMode: ImageSizeModes.AUTO,
+          toolbar: true,
+          buttons: [ButtonType.DOWNLOAD],
+        },
+        height: 200,
+        width: 200,
+      })
+    );
+
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - 123).toString());
   });
 
   it('Should render image with custom size options', async () => {
