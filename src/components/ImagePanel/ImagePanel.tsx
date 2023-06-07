@@ -1,7 +1,7 @@
 import 'react-medium-image-zoom/dist/styles.css';
 import saveAs from 'file-saver';
 import { Base64 } from 'js-base64';
-import React, { JSX, useCallback, useMemo, useState } from 'react';
+import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
@@ -20,8 +20,17 @@ interface Props extends PanelProps {}
  * Image Panel
  */
 export const ImagePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
+  /**
+   * States
+   */
   const [isZoomed, setIsZoomed] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [toolbarHeight, setToolbarHeight] = useState(0);
+
+  /**
+   * Toolbar ref
+   */
+  const toolbarRef = useRef<HTMLDivElement>(null);
 
   /**
    * Image values
@@ -63,6 +72,13 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   );
 
   /**
+   * Calculate toolbar height when panel width, height or toolbar visibility changed
+   */
+  useEffect(() => {
+    setToolbarHeight(toolbarRef.current?.clientHeight || 0);
+  }, [width, height, options.toolbar, options.buttons]);
+
+  /**
    * Styles
    */
   const styles = useStyles2(Styles);
@@ -71,12 +87,15 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    * Name field (string)
    * Use first element if Navigation enabled, otherwise last
    */
-  let img = options.buttons?.includes(ButtonType.NAVIGATION) ? values[currentIndex] : values[values.length - 1];
+  let img =
+    options.toolbar && options.buttons?.includes(ButtonType.NAVIGATION)
+      ? values[currentIndex]
+      : values[values.length - 1];
 
   /**
    * Keep auto-scale if Auto
    */
-  let imageHeight = options.heightMode === ImageSizeModes.AUTO ? height : 0;
+  let imageHeight = options.heightMode === ImageSizeModes.AUTO ? height - toolbarHeight : 0;
   let imageWidth = options.widthMode === ImageSizeModes.AUTO ? width : 0;
 
   /**
@@ -238,60 +257,63 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   if (options.toolbar && options.buttons.length) {
     return renderContainer(
       <>
-        <PageToolbar
-          leftItems={
-            options.buttons.includes(ButtonType.NAVIGATION) && [
+        <div ref={toolbarRef}>
+          <PageToolbar
+            forceShowLeftItems={options.buttons.includes(ButtonType.NAVIGATION)}
+            leftItems={
+              options.buttons.includes(ButtonType.NAVIGATION) && [
+                <ToolbarButton
+                  key="previous"
+                  icon="backward"
+                  onClick={() => {
+                    onChangeCurrentIndex('prev');
+                  }}
+                  data-testid={TestIds.panel.buttonPrevious}
+                  disabled={Math.max(values.length, 1) === 1}
+                >
+                  Previous
+                </ToolbarButton>,
+                <div key="current">
+                  {currentIndex + 1} of {Math.max(values.length, 1)}
+                </div>,
+                <ToolbarButton
+                  key="next"
+                  icon="forward"
+                  onClick={() => {
+                    onChangeCurrentIndex('next');
+                  }}
+                  data-testid={TestIds.panel.buttonNext}
+                  disabled={Math.max(values.length, 1) === 1}
+                >
+                  Next
+                </ToolbarButton>,
+              ]
+            }
+          >
+            {options.buttons.includes(ButtonType.DOWNLOAD) && (
               <ToolbarButton
-                key="previous"
-                icon="backward"
+                icon="save"
                 onClick={() => {
-                  onChangeCurrentIndex('prev');
+                  saveAs(img);
                 }}
-                data-testid={TestIds.panel.buttonPrevious}
-                disabled={Math.max(values.length, 1) === 1}
+                data-testid={TestIds.panel.buttonDownload}
               >
-                Previous
-              </ToolbarButton>,
-              <div key="current">
-                {currentIndex + 1} of {Math.max(values.length, 1)}
-              </div>,
+                Download
+              </ToolbarButton>
+            )}
+            {options.buttons.includes(ButtonType.ZOOM) && (
               <ToolbarButton
-                key="next"
-                icon="forward"
+                icon="search-plus"
                 onClick={() => {
-                  onChangeCurrentIndex('next');
+                  setIsZoomed(true);
                 }}
-                data-testid={TestIds.panel.buttonNext}
-                disabled={Math.max(values.length, 1) === 1}
+                data-testid={TestIds.panel.buttonZoom}
               >
-                Next
-              </ToolbarButton>,
-            ]
-          }
-        >
-          {options.buttons.includes(ButtonType.DOWNLOAD) && (
-            <ToolbarButton
-              icon="save"
-              onClick={() => {
-                saveAs(img);
-              }}
-              data-testid={TestIds.panel.buttonDownload}
-            >
-              Download
-            </ToolbarButton>
-          )}
-          {options.buttons.includes(ButtonType.ZOOM) && (
-            <ToolbarButton
-              icon="search-plus"
-              onClick={() => {
-                setIsZoomed(true);
-              }}
-              data-testid={TestIds.panel.buttonZoom}
-            >
-              Zoom
-            </ToolbarButton>
-          )}
-        </PageToolbar>
+                Zoom
+              </ToolbarButton>
+            )}
+          </PageToolbar>
+        </div>
         <ControlledZoom
           isZoomed={isZoomed}
           onZoomChange={setIsZoomed}
