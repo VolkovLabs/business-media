@@ -1,7 +1,7 @@
 import 'react-medium-image-zoom/dist/styles.css';
 import saveAs from 'file-saver';
 import { Base64 } from 'js-base64';
-import React, { JSX, useCallback, useMemo, useState, useRef, useEffect } from 'react';
+import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
@@ -20,18 +20,17 @@ interface Props extends PanelProps {}
  * Image Panel
  */
 export const ImagePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
+  /**
+   * States
+   */
   const [isZoomed, setIsZoomed] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [toolbarHeight, setToolbarHeight] = useState(0);
 
   /**
    * Toolbar ref
    */
   const toolbarRef = useRef<HTMLDivElement>(null);
-
-  /**
-   * Calculated Toolbar height
-   */
-  const [toolbarHeight, setToolbarHeight] = useState(0);
 
   /**
    * Image values
@@ -73,7 +72,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   );
 
   /**
-   * Calc toolbar height when panel width, height or toolbar visibility changed
+   * Calculate toolbar height when panel width, height or toolbar visibility changed
    */
   useEffect(() => {
     setToolbarHeight(toolbarRef.current?.clientHeight || 0);
