@@ -1,11 +1,10 @@
-import 'react-medium-image-zoom/dist/styles.css';
 import saveAs from 'file-saver';
 import { Base64 } from 'js-base64';
 import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
+import { TransformWrapper, TransformComponent, ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
+import { Alert, PageToolbar, ToolbarButton, useStyles2, Button, ButtonGroup } from '@grafana/ui';
 import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../../constants';
 import { Styles } from '../../styles';
 import { ButtonType } from '../../types';
@@ -23,7 +22,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * States
    */
-  const [isZoomed, setIsZoomed] = useState(false);
+  const zoomComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [toolbarHeight, setToolbarHeight] = useState(0);
 
@@ -49,6 +48,27 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     );
   }, [data.series, options.name]);
 
+  const isToolbarShown = useMemo(() => {
+    return options.toolbar
+      ? options.buttons.filter((button: ButtonType) => button !== ButtonType.ZOOM).length > 0
+      : false;
+  }, [options.toolbar, options.buttons]);
+
+  /**
+   * Zoom handlers
+   */
+  const onZoomIn = useCallback(() => {
+    zoomComponentRef.current?.zoomIn();
+  }, []);
+
+  const onZoomOut = useCallback(() => {
+    zoomComponentRef.current?.zoomOut();
+  }, []);
+
+  const onResetZoom = useCallback(() => {
+    zoomComponentRef.current?.resetTransform();
+  }, []);
+
   /**
    * Change Current Image
    */
@@ -67,8 +87,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         }
       }
       setCurrentIndex(nextIndex);
+      onResetZoom();
     },
-    [values?.length, currentIndex]
+    [values?.length, currentIndex, onResetZoom]
   );
 
   /**
@@ -77,6 +98,10 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   useEffect(() => {
     setToolbarHeight(toolbarRef.current?.clientHeight || 0);
   }, [width, height, options.toolbar, options.buttons]);
+
+  useEffect(() => {
+    onResetZoom();
+  }, [width, height, onResetZoom]);
 
   /**
    * Styles
@@ -240,7 +265,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Add URL to Image
    */
-  let image = <img width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TestIds.panel.image} />;
+  let image = (
+    <img width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TestIds.panel.image} alt="" />
+  );
   if (options.url) {
     const url = replaceVariables(options.url);
 
@@ -257,74 +284,88 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   if (options.toolbar && options.buttons.length) {
     return renderContainer(
       <>
-        <div ref={toolbarRef}>
-          <PageToolbar
-            forceShowLeftItems={options.buttons.includes(ButtonType.NAVIGATION)}
-            leftItems={
-              options.buttons.includes(ButtonType.NAVIGATION) && [
+        {isToolbarShown && (
+          <div ref={toolbarRef}>
+            <PageToolbar
+              forceShowLeftItems={options.buttons.includes(ButtonType.NAVIGATION)}
+              leftItems={
+                options.buttons.includes(ButtonType.NAVIGATION) && [
+                  <ToolbarButton
+                    key="previous"
+                    icon="backward"
+                    onClick={() => {
+                      onChangeCurrentIndex('prev');
+                    }}
+                    data-testid={TestIds.panel.buttonPrevious}
+                    disabled={Math.max(values.length, 1) === 1}
+                  >
+                    Previous
+                  </ToolbarButton>,
+                  <div key="current">
+                    {currentIndex + 1} of {Math.max(values.length, 1)}
+                  </div>,
+                  <ToolbarButton
+                    key="next"
+                    icon="forward"
+                    onClick={() => {
+                      onChangeCurrentIndex('next');
+                    }}
+                    data-testid={TestIds.panel.buttonNext}
+                    disabled={Math.max(values.length, 1) === 1}
+                  >
+                    Next
+                  </ToolbarButton>,
+                ]
+              }
+            >
+              {options.buttons.includes(ButtonType.DOWNLOAD) && (
                 <ToolbarButton
-                  key="previous"
-                  icon="backward"
+                  icon="save"
                   onClick={() => {
-                    onChangeCurrentIndex('prev');
+                    saveAs(img);
                   }}
-                  data-testid={TestIds.panel.buttonPrevious}
-                  disabled={Math.max(values.length, 1) === 1}
+                  data-testid={TestIds.panel.buttonDownload}
                 >
-                  Previous
-                </ToolbarButton>,
-                <div key="current">
-                  {currentIndex + 1} of {Math.max(values.length, 1)}
-                </div>,
-                <ToolbarButton
-                  key="next"
-                  icon="forward"
-                  onClick={() => {
-                    onChangeCurrentIndex('next');
-                  }}
-                  data-testid={TestIds.panel.buttonNext}
-                  disabled={Math.max(values.length, 1) === 1}
-                >
-                  Next
-                </ToolbarButton>,
-              ]
-            }
+                  Download
+                </ToolbarButton>
+              )}
+            </PageToolbar>
+          </div>
+        )}
+        {options.buttons.includes(ButtonType.ZOOM) ? (
+          <TransformWrapper
+            ref={zoomComponentRef}
+            disablePadding={true}
+            wheel={{ touchPadDisabled: true, wheelDisabled: true }}
           >
-            {options.buttons.includes(ButtonType.DOWNLOAD) && (
-              <ToolbarButton
-                icon="save"
-                onClick={() => {
-                  saveAs(img);
-                }}
-                data-testid={TestIds.panel.buttonDownload}
-              >
-                Download
-              </ToolbarButton>
-            )}
-            {options.buttons.includes(ButtonType.ZOOM) && (
-              <ToolbarButton
+            <ButtonGroup className={styles.zoomControls} data-testid={TestIds.panel.zoomControls}>
+              <Button
                 icon="search-plus"
-                onClick={() => {
-                  setIsZoomed(true);
-                }}
-                data-testid={TestIds.panel.buttonZoom}
-              >
-                Zoom
-              </ToolbarButton>
-            )}
-          </PageToolbar>
-        </div>
-        <ControlledZoom
-          isZoomed={isZoomed}
-          onZoomChange={setIsZoomed}
-          zoomImg={{
-            alt: '',
-            src: img,
-          }}
-          classDialog={styles.zoom}
-        >
-          {image}
-        </ControlledZoom>
+                onClick={onZoomIn}
+                data-testid={TestIds.panel.buttonZoomIn}
+                variant="secondary"
+                title="Zoom In"
+              />
+              <Button
+                icon="search-minus"
+                onClick={onZoomOut}
+                data-testid={TestIds.panel.buttonZoomOut}
+                variant="secondary"
+                title="Zoom Out"
+              />
+              <Button
+                icon="times-circle"
+                onClick={onResetZoom}
+                data-testid={TestIds.panel.buttonZoomReset}
+                variant="secondary"
+                title="Reset Zoom"
+              />
+            </ButtonGroup>
+            <TransformComponent>{image}</TransformComponent>
+          </TransformWrapper>
+        ) : (
+          image
+        )}
       </>
     );
   }

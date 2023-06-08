@@ -27,15 +27,6 @@ jest.mock('@grafana/ui', () => ({
 jest.mock('file-saver', () => jest.fn());
 
 /**
- * Mock react-medium-image-zoom
- */
-jest.mock('react-medium-image-zoom', () => ({
-  Controlled: jest.fn(({ isZoomed, children, zoomImg }) => {
-    return isZoomed ? <img data-testid={TestIds.panel.zoomedImage} src={zoomImg.src} alt="" /> : children;
-  }),
-}));
-
-/**
  * Rendering
  */
 describe('Rendering', () => {
@@ -287,6 +278,46 @@ describe('Rendering', () => {
 
     expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
     expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - 123).toString());
+  });
+
+  it('Should not remove toolbar height if toolbar is hidden', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: 'raw',
+                  values: ['?PNGIHDR 3z??	pHYs'],
+                },
+                {
+                  type: FieldType.string,
+                  name: ImageFields.IMG,
+                  values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+                },
+              ],
+            }),
+          ],
+        },
+        options: {
+          name: ImageFields.IMG,
+          widthMode: ImageSizeModes.AUTO,
+          heightMode: ImageSizeModes.AUTO,
+          toolbar: true,
+          buttons: [ButtonType.ZOOM],
+        },
+        height: 200,
+        width: 200,
+      })
+    );
+
+    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
+    expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '200');
   });
 
   it('Should render image with custom size options', async () => {
@@ -560,7 +591,7 @@ describe('Rendering', () => {
       expect(screen.queryByTestId(TestIds.panel.buttonDownload)).not.toBeInTheDocument();
     });
 
-    it('Should show zoom button for image', () => {
+    it('Should show zoom controls for image', () => {
       const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
       render(
         getComponent({
@@ -582,12 +613,40 @@ describe('Rendering', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.buttonZoom)).toBeInTheDocument();
-      expect(screen.queryByTestId(TestIds.panel.zoomedImage)).not.toBeInTheDocument();
+      expect(screen.getByTestId(TestIds.panel.zoomControls)).toBeInTheDocument();
+    });
 
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoom));
+    it('Should zoom image', () => {
+      const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageFields.IMG,
+                    values: [image],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: { toolbar: true, buttons: [ButtonType.ZOOM] },
+        })
+      );
 
-      expect(screen.getByTestId(TestIds.panel.zoomedImage)).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomIn));
+      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomOut));
+      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomReset));
+
+      /**
+       * Unable to check zooming through unit tests because mocking ref causes warnings
+       * so just check if image is rendered after zooming
+       */
+      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
     });
 
     it('Should change current image', () => {

@@ -1,10 +1,9 @@
 import { css } from '@emotion/css';
-import { GrafanaTheme2 } from '@grafana/data';
 
 /**
  * Styles
  */
-export const Styles = (theme: GrafanaTheme2) => {
+export const Styles = () => {
   return {
     wrapper: css`
       position: relative;
@@ -12,10 +11,10 @@ export const Styles = (theme: GrafanaTheme2) => {
     url: css`
       display: block;
     `,
-    zoom: css`
-      [data-rmiz-modal-overlay='visible'] {
-        background-color: ${theme.colors.background.primary};
-      }
+    zoomControls: css`
+      padding: 4px;
+      position: absolute;
+      z-index: 1;
     `,
   };
 };
