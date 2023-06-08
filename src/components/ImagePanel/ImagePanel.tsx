@@ -87,6 +87,10 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         }
       }
       setCurrentIndex(nextIndex);
+
+      /**
+       * Reset zoom to avoid wrong image transform if zoom in
+       */
       onResetZoom();
     },
     [values?.length, currentIndex, onResetZoom]
@@ -99,6 +103,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     setToolbarHeight(toolbarRef.current?.clientHeight || 0);
   }, [width, height, options.toolbar, options.buttons]);
 
+  /**
+   * Reset zoom when panel size is changed to avoid wrong image transform if zoom in
+   */
   useEffect(() => {
     onResetZoom();
   }, [width, height, onResetZoom]);
