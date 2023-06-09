@@ -1,12 +1,19 @@
-import { PanelPlugin, Field, FieldType } from '@grafana/data';
+import { Field, FieldType, PanelPlugin } from '@grafana/data';
 import { ImageSizeModes } from './constants';
-import { PanelOptions } from './types';
+import { ButtonType, PanelOptions } from './types';
 import { plugin } from './module';
 
 /**
  * Test Field
  */
 type TestField = Pick<Field, 'name' | 'type'>;
+
+/**
+ * Mock react-medium-image-zoom
+ */
+jest.mock('react-medium-image-zoom', () => ({
+  Controlled: jest.fn(),
+}));
 
 /*
  Plugin
@@ -133,6 +140,18 @@ describe('plugin', () => {
       plugin['optionsSupplier'](builder);
 
       expect(shownOptionsPaths).toEqual(expect.arrayContaining(['buttons']));
+    });
+
+    it('Should show zoom type field if toolbar and zoom enabled', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addRadio.mockImplementation(
+        addInputImplementation({ toolbar: true, buttons: [ButtonType.ZOOM] }, shownOptionsPaths)
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['zoomType']));
     });
   });
 

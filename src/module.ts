@@ -1,7 +1,7 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 import { ImagePanel } from './components';
-import { ButtonsOptions, DefaultOptions, ImageSizeModes, SizeModeOptions } from './constants';
-import { PanelOptions } from './types';
+import { ButtonsOptions, DefaultOptions, ImageSizeModes, SizeModeOptions, ZoomOptions } from './constants';
+import { PanelOptions, ButtonType } from './types';
 
 /**
  * Panel Plugin
@@ -38,6 +38,15 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       },
       defaultValue: DefaultOptions.buttons,
       showIf: (options: PanelOptions) => options.toolbar,
+    })
+    .addRadio({
+      path: 'zoomType',
+      name: 'Select zoom type.',
+      settings: {
+        options: ZoomOptions,
+      },
+      defaultValue: DefaultOptions.zoomType,
+      showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.ZOOM),
     });
 
   /**

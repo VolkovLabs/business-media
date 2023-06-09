@@ -1,5 +1,5 @@
 import { ImageSizeModes } from '../constants';
-import { ButtonType } from './toolbar';
+import { ButtonType, ZoomType } from './toolbar';
 
 /**
  * Options
@@ -95,4 +95,11 @@ export interface PanelOptions {
    * @type {ButtonType[]}
    */
   buttons: ButtonType[];
+
+  /**
+   * Zoom type
+   *
+   * @type {ZoomType}
+   */
+  zoomType: ZoomType;
 }

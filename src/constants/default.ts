@@ -1,4 +1,4 @@
-import { PanelOptions } from 'types/panel';
+import { PanelOptions, ZoomType } from '../types';
 import { ImageSizeModes } from './image';
 
 /**
@@ -18,4 +18,5 @@ export const DefaultOptions: PanelOptions = {
   width: 0,
   widthMode: ImageSizeModes.AUTO,
   widthName: '',
+  zoomType: ZoomType.DEFAULT,
 };
