@@ -6,3 +6,11 @@ export enum ButtonType {
   NAVIGATION = 'navigation',
   ZOOM = 'zoom',
 }
+
+/**
+ * Zoom Types
+ */
+export enum ZoomType {
+  DEFAULT = 'default',
+  PANPINCH = 'panpinch',
+}

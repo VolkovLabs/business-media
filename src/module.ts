@@ -1,7 +1,7 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 import { ImagePanel } from './components';
-import { ButtonsOptions, DefaultOptions, ImageSizeModes, SizeModeOptions } from './constants';
-import { PanelOptions } from './types';
+import { ButtonsOptions, DefaultOptions, ImageSizeModes, SizeModeOptions, ZoomOptions } from './constants';
+import { ButtonType, PanelOptions } from './types';
 
 /**
  * Panel Plugin
@@ -20,24 +20,35 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     })
     .addRadio({
       path: 'toolbar',
-      name: 'Toolbar',
-      description: 'Display toolbar for images and PDF files.',
+      name: 'Images and PDF only.',
       settings: {
         options: [
           { value: true, label: 'Enabled' },
           { value: false, label: 'Disabled' },
         ],
       },
+      category: ['Toolbar'],
       defaultValue: DefaultOptions.toolbar,
     })
     .addMultiSelect({
       path: 'buttons',
-      name: 'Select buttons to display on toolbar.',
+      name: 'Select buttons to display on toolbar. Images only.',
       settings: {
         options: ButtonsOptions as any,
       },
       defaultValue: DefaultOptions.buttons,
+      category: ['Toolbar'],
       showIf: (options: PanelOptions) => options.toolbar,
+    })
+    .addRadio({
+      path: 'zoomType',
+      name: 'Select zoom mode.',
+      settings: {
+        options: ZoomOptions,
+      },
+      defaultValue: DefaultOptions.zoomType,
+      category: ['Toolbar'],
+      showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.ZOOM),
     });
 
   /**

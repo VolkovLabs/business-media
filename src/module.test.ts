@@ -1,7 +1,7 @@
-import { PanelPlugin, Field, FieldType } from '@grafana/data';
+import { Field, FieldType, PanelPlugin } from '@grafana/data';
 import { ImageSizeModes } from './constants';
-import { PanelOptions } from './types';
 import { plugin } from './module';
+import { ButtonType, PanelOptions } from './types';
 
 /**
  * Test Field
@@ -140,6 +140,18 @@ describe('plugin', () => {
       plugin['optionsSupplier'](builder);
 
       expect(shownOptionsPaths).toEqual(expect.arrayContaining(['buttons']));
+    });
+
+    it('Should show zoom type field if toolbar and zoom enabled', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addRadio.mockImplementation(
+        addInputImplementation({ toolbar: true, buttons: [ButtonType.ZOOM] }, shownOptionsPaths)
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['zoomType']));
     });
   });
 

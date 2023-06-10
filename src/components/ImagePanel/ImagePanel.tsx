@@ -3,18 +3,19 @@ import saveAs from 'file-saver';
 import { Base64 } from 'js-base64';
 import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
+import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
+import { Alert, Button, ButtonGroup, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../../constants';
 import { Styles } from '../../styles';
-import { ButtonType } from '../../types';
+import { ButtonType, PanelOptions, ZoomType } from '../../types';
 import { base64toBlob } from '../../utils';
 
 /**
  * Properties
  */
-interface Props extends PanelProps {}
+interface Props extends PanelProps<PanelOptions> {}
 
 /**
  * Image Panel
@@ -26,6 +27,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   const [isZoomed, setIsZoomed] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [toolbarHeight, setToolbarHeight] = useState(0);
+
+  /**
+   * Zoom Pan Pinch ref
+   */
+  const zoomPanPinchRef = useRef<ReactZoomPanPinchRef | null>(null);
 
   /**
    * Toolbar ref
@@ -50,6 +56,44 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }, [data.series, options.name]);
 
   /**
+   * Is Toolbar Shown
+   */
+  const isToolbarShown = useMemo(() => {
+    if (options.toolbar) {
+      const nonZoomOptions = options.buttons.filter((button: ButtonType) => button !== ButtonType.ZOOM);
+
+      /**
+       * If other options are enabled, toolbar is shown
+       */
+      if (nonZoomOptions.length > 0) {
+        return true;
+      }
+
+      /**
+       * If only zoom option is enabled, toolbar should be shown only for default zoom type
+       */
+      return options.zoomType !== ZoomType.PANPINCH;
+    }
+
+    return false;
+  }, [options.zoomType, options.toolbar, options.buttons]);
+
+  /**
+   * Zoom Pan Pinch handlers
+   */
+  const onZoomPanPinchIn = useCallback(() => {
+    zoomPanPinchRef.current?.zoomIn();
+  }, []);
+
+  const onZoomPanPinchOut = useCallback(() => {
+    zoomPanPinchRef.current?.zoomOut();
+  }, []);
+
+  const onResetZoomPanPinch = useCallback(() => {
+    zoomPanPinchRef.current?.resetTransform();
+  }, []);
+
+  /**
    * Change Current Image
    */
   const onChangeCurrentIndex = useCallback(
@@ -67,8 +111,13 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         }
       }
       setCurrentIndex(nextIndex);
+
+      /**
+       * Reset zoom to avoid wrong image transform if zoom in
+       */
+      onResetZoomPanPinch();
     },
-    [values?.length, currentIndex]
+    [values?.length, currentIndex, onResetZoomPanPinch]
   );
 
   /**
@@ -76,7 +125,14 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    */
   useEffect(() => {
     setToolbarHeight(toolbarRef.current?.clientHeight || 0);
-  }, [width, height, options.toolbar, options.buttons]);
+  }, [width, height, options.toolbar, options.buttons, options.zoomType]);
+
+  /**
+   * Reset zoom when panel size is changed to avoid wrong image transform if zoom in
+   */
+  useEffect(() => {
+    onResetZoomPanPinch();
+  }, [width, height, onResetZoomPanPinch]);
 
   /**
    * Styles
@@ -240,7 +296,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Add URL to Image
    */
-  let image = <img width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TestIds.panel.image} />;
+  let image = (
+    <img width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TestIds.panel.image} alt="" />
+  );
   if (options.url) {
     const url = replaceVariables(options.url);
 
@@ -252,68 +310,46 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }
 
   /**
-   * Display Image with Toolbar
+   * Render Zoom Image
    */
   if (options.toolbar && options.buttons.length) {
-    return renderContainer(
-      <>
-        <div ref={toolbarRef}>
-          <PageToolbar
-            forceShowLeftItems={options.buttons.includes(ButtonType.NAVIGATION)}
-            leftItems={
-              options.buttons.includes(ButtonType.NAVIGATION) && [
-                <ToolbarButton
-                  key="previous"
-                  icon="backward"
-                  onClick={() => {
-                    onChangeCurrentIndex('prev');
-                  }}
-                  data-testid={TestIds.panel.buttonPrevious}
-                  disabled={Math.max(values.length, 1) === 1}
-                >
-                  Previous
-                </ToolbarButton>,
-                <div key="current">
-                  {currentIndex + 1} of {Math.max(values.length, 1)}
-                </div>,
-                <ToolbarButton
-                  key="next"
-                  icon="forward"
-                  onClick={() => {
-                    onChangeCurrentIndex('next');
-                  }}
-                  data-testid={TestIds.panel.buttonNext}
-                  disabled={Math.max(values.length, 1) === 1}
-                >
-                  Next
-                </ToolbarButton>,
-              ]
-            }
+    const renderZoomImage = () => {
+      if (options.zoomType === ZoomType.PANPINCH) {
+        return (
+          <TransformWrapper
+            ref={zoomPanPinchRef}
+            disablePadding={true}
+            wheel={{ touchPadDisabled: true, wheelDisabled: true }}
           >
-            {options.buttons.includes(ButtonType.DOWNLOAD) && (
-              <ToolbarButton
-                icon="save"
-                onClick={() => {
-                  saveAs(img);
-                }}
-                data-testid={TestIds.panel.buttonDownload}
-              >
-                Download
-              </ToolbarButton>
-            )}
-            {options.buttons.includes(ButtonType.ZOOM) && (
-              <ToolbarButton
+            <ButtonGroup className={styles.zoomPanPinchControls} data-testid={TestIds.panel.zoomPanPinchControls}>
+              <Button
                 icon="search-plus"
-                onClick={() => {
-                  setIsZoomed(true);
-                }}
-                data-testid={TestIds.panel.buttonZoom}
-              >
-                Zoom
-              </ToolbarButton>
-            )}
-          </PageToolbar>
-        </div>
+                onClick={onZoomPanPinchIn}
+                data-testid={TestIds.panel.buttonZoomPanPinchIn}
+                variant="secondary"
+                title="Zoom In"
+              />
+              <Button
+                icon="search-minus"
+                onClick={onZoomPanPinchOut}
+                data-testid={TestIds.panel.buttonZoomPanPinchOut}
+                variant="secondary"
+                title="Zoom Out"
+              />
+              <Button
+                icon="times-circle"
+                onClick={onResetZoomPanPinch}
+                data-testid={TestIds.panel.buttonZoomPanPinchReset}
+                variant="secondary"
+                title="Reset Zoom"
+              />
+            </ButtonGroup>
+            <TransformComponent>{image}</TransformComponent>
+          </TransformWrapper>
+        );
+      }
+
+      return (
         <ControlledZoom
           isZoomed={isZoomed}
           onZoomChange={setIsZoomed}
@@ -325,6 +361,78 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         >
           {image}
         </ControlledZoom>
+      );
+    };
+
+    /**
+     * Display Image with Toolbar
+     */
+    return renderContainer(
+      <>
+        {isToolbarShown && (
+          <div ref={toolbarRef}>
+            <PageToolbar
+              forceShowLeftItems={options.buttons.includes(ButtonType.NAVIGATION)}
+              leftItems={
+                options.buttons.includes(ButtonType.NAVIGATION)
+                  ? [
+                      <ToolbarButton
+                        key="previous"
+                        icon="backward"
+                        onClick={() => {
+                          onChangeCurrentIndex('prev');
+                        }}
+                        data-testid={TestIds.panel.buttonPrevious}
+                        disabled={Math.max(values.length, 1) === 1}
+                      >
+                        Previous
+                      </ToolbarButton>,
+                      <div key="current">
+                        {currentIndex + 1} of {Math.max(values.length, 1)}
+                      </div>,
+                      <ToolbarButton
+                        key="next"
+                        icon="forward"
+                        onClick={() => {
+                          onChangeCurrentIndex('next');
+                        }}
+                        data-testid={TestIds.panel.buttonNext}
+                        disabled={Math.max(values.length, 1) === 1}
+                      >
+                        Next
+                      </ToolbarButton>,
+                    ]
+                  : undefined
+              }
+            >
+              {options.buttons.includes(ButtonType.DOWNLOAD) && (
+                <ToolbarButton
+                  icon="save"
+                  onClick={() => {
+                    saveAs(img);
+                  }}
+                  data-testid={TestIds.panel.buttonDownload}
+                >
+                  Download
+                </ToolbarButton>
+              )}
+
+              {options.buttons.includes(ButtonType.ZOOM) && options.zoomType !== ZoomType.PANPINCH && (
+                <ToolbarButton
+                  icon="search-plus"
+                  onClick={() => {
+                    setIsZoomed(true);
+                  }}
+                  data-testid={TestIds.panel.buttonZoom}
+                >
+                  Zoom
+                </ToolbarButton>
+              )}
+            </PageToolbar>
+          </div>
+        )}
+
+        {options.buttons.includes(ButtonType.ZOOM) ? renderZoomImage() : image}
       </>
     );
   }
