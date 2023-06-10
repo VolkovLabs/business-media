@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.7.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Add pan and pinch zooming option (#78)
+
 ## 3.6.0 (2023-06-06)
 
 ### Features / Enhancements

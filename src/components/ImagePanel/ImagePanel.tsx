@@ -310,7 +310,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }
 
   /**
-   * Display Image with Toolbar
+   * Render Zoom Image
    */
   if (options.toolbar && options.buttons.length) {
     const renderZoomImage = () => {
@@ -363,6 +363,10 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         </ControlledZoom>
       );
     };
+
+    /**
+     * Display Image with Toolbar
+     */
     return renderContainer(
       <>
         {isToolbarShown && (
@@ -412,6 +416,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   Download
                 </ToolbarButton>
               )}
+
               {options.buttons.includes(ButtonType.ZOOM) && options.zoomType !== ZoomType.PANPINCH && (
                 <ToolbarButton
                   icon="search-plus"
@@ -426,6 +431,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
             </PageToolbar>
           </div>
         )}
+
         {options.buttons.includes(ButtonType.ZOOM) ? renderZoomImage() : image}
       </>
     );
