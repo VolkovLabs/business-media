@@ -13,6 +13,6 @@ export const ButtonsOptions = [
  * Zoom Options
  */
 export const ZoomOptions = [
-  { value: ZoomType.DEFAULT, label: 'Default' },
+  { value: ZoomType.DEFAULT, label: 'Full Screen' },
   { value: ZoomType.PANPINCH, label: 'Pan and Pinch' },
 ];
