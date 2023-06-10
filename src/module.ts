@@ -42,7 +42,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     })
     .addRadio({
       path: 'zoomType',
-      name: 'Select zoom type.',
+      name: 'Select zoom mode.',
       settings: {
         options: ZoomOptions,
       },

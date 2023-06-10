@@ -47,14 +47,8 @@ grafana-cli plugins install volkovlabs-image-panel
 | Section                      | Description                                                         |
 | ---------------------------- | ------------------------------------------------------------------- |
 | [Supported formats](https://volkovlabs.io/plugins/volkovlabs-image-panel/formats/) | Explains what formats are supported and how to display media files. |
+| [Features](https://volkovlabs.io/plugins/volkovlabs-image-panel/features/)         | Demonstrates panel features.                                        |
 | [Release Notes](https://volkovlabs.io/plugins/volkovlabs-image-panel/release/)     | Stay up to date with the latest features and updates.               |
-
-### Features
-
-| Section                     | Description                                          |
-| --------------------------- | ---------------------------------------------------- |
-| [Data Sources](https://volkovlabs.io/plugins/volkovlabs-image-panel/datasources/) | Demonstrates how to retrieve data from data sources. |
-| [Variables](https://volkovlabs.io/plugins/volkovlabs-image-panel/variables/)      | Explains how to use Dashboard and Global variables.  |
 
 ## Feedback
 
