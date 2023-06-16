@@ -18,6 +18,5 @@ export const TestIds = {
     video: 'data-testid panel video',
     warning: 'data-testid panel warning',
     zoomedImage: 'data-testid panel zoomed-image',
-    zoomPanPinchControls: 'data-testid panel zoom-pan-pinch-controls',
   },
 };
