@@ -6,6 +6,7 @@
 
 - Add pan and pinch zooming option (#78)
 - Move pan pinch buttons to toolbar (#79)
+- Update to Grafana 10.0.0 (#80)
 
 ## 3.6.0 (2023-06-06)
 
