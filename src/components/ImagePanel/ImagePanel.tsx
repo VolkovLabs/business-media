@@ -6,7 +6,7 @@ import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
-import { Alert, Button, ButtonGroup, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
+import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../../constants';
 import { Styles } from '../../styles';
 import { ButtonType, PanelOptions, ZoomType } from '../../types';
@@ -59,24 +59,8 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    * Is Toolbar Shown
    */
   const isToolbarShown = useMemo(() => {
-    if (options.toolbar) {
-      const nonZoomOptions = options.buttons.filter((button: ButtonType) => button !== ButtonType.ZOOM);
-
-      /**
-       * If other options are enabled, toolbar is shown
-       */
-      if (nonZoomOptions.length > 0) {
-        return true;
-      }
-
-      /**
-       * If only zoom option is enabled, toolbar should be shown only for default zoom type
-       */
-      return options.zoomType !== ZoomType.PANPINCH;
-    }
-
-    return false;
-  }, [options.zoomType, options.toolbar, options.buttons]);
+    return options.toolbar && options.buttons.length > 0;
+  }, [options.toolbar, options.buttons]);
 
   /**
    * Zoom Pan Pinch handlers
@@ -321,29 +305,6 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
             disablePadding={true}
             wheel={{ touchPadDisabled: true, wheelDisabled: true }}
           >
-            <ButtonGroup className={styles.zoomPanPinchControls} data-testid={TestIds.panel.zoomPanPinchControls}>
-              <Button
-                icon="search-plus"
-                onClick={onZoomPanPinchIn}
-                data-testid={TestIds.panel.buttonZoomPanPinchIn}
-                variant="secondary"
-                title="Zoom In"
-              />
-              <Button
-                icon="search-minus"
-                onClick={onZoomPanPinchOut}
-                data-testid={TestIds.panel.buttonZoomPanPinchOut}
-                variant="secondary"
-                title="Zoom Out"
-              />
-              <Button
-                icon="times-circle"
-                onClick={onResetZoomPanPinch}
-                data-testid={TestIds.panel.buttonZoomPanPinchReset}
-                variant="secondary"
-                title="Reset Zoom"
-              />
-            </ButtonGroup>
             <TransformComponent>{image}</TransformComponent>
           </TransformWrapper>
         );
@@ -424,9 +385,26 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                     setIsZoomed(true);
                   }}
                   data-testid={TestIds.panel.buttonZoom}
-                >
-                  Zoom
-                </ToolbarButton>
+                />
+              )}
+              {options.buttons.includes(ButtonType.ZOOM) && options.zoomType === ZoomType.PANPINCH && (
+                <>
+                  <ToolbarButton
+                    icon="search-plus"
+                    onClick={onZoomPanPinchIn}
+                    data-testid={TestIds.panel.buttonZoomPanPinchIn}
+                  />
+                  <ToolbarButton
+                    icon="search-minus"
+                    onClick={onZoomPanPinchOut}
+                    data-testid={TestIds.panel.buttonZoomPanPinchOut}
+                  />
+                  <ToolbarButton
+                    icon="times-circle"
+                    onClick={onResetZoomPanPinch}
+                    data-testid={TestIds.panel.buttonZoomPanPinchReset}
+                  />
+                </>
               )}
             </PageToolbar>
           </div>
