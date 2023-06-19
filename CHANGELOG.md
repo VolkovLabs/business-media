@@ -5,6 +5,7 @@
 ### Features / Enhancements
 
 - Add pan and pinch zooming option (#78)
+- Move pan pinch buttons to toolbar (#79)
 
 ## 3.6.0 (2023-06-06)
 
