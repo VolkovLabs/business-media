@@ -13,6 +13,13 @@ export interface PanelOptions {
   name: string;
 
   /**
+   * Field description for image
+   *
+   * @type {string}
+   */
+  description: string;
+
+  /**
    * Image width mode
    *
    * @type {string}

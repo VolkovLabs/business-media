@@ -27,6 +27,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   const [isZoomed, setIsZoomed] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [toolbarHeight, setToolbarHeight] = useState(0);
+  const [descriptionHeight, setDescriptionHeight] = useState(0);
 
   /**
    * Zoom Pan Pinch ref
@@ -37,6 +38,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    * Toolbar ref
    */
   const toolbarRef = useRef<HTMLDivElement>(null);
+
+  /**
+   * Description ref
+   */
+  const descriptionRef = useRef<HTMLDivElement>(null);
 
   /**
    * Image values
@@ -54,6 +60,23 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         ?.toArray() || []
     );
   }, [data.series, options.name]);
+
+  /**
+   * Image descriptions
+   */
+  const descriptions = useMemo(() => {
+    if (!options.description) {
+      return [];
+    }
+
+    return (
+      data.series
+        .map((series) => series.fields.find((field) => field.name === options.description))
+        .map((field) => field?.values)
+        .filter((item) => !!item)[0]
+        ?.toArray() || []
+    );
+  }, [data.series, options.description]);
 
   /**
    * Is Toolbar Shown
@@ -112,6 +135,18 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }, [width, height, options.toolbar, options.buttons, options.zoomType]);
 
   /**
+   * If Navigation Shown
+   */
+  const navigationShown = options.toolbar && options.buttons?.includes(ButtonType.NAVIGATION);
+
+  /**
+   * Calculate description height when panel width, height, descriptions or description field changed
+   */
+  useEffect(() => {
+    setDescriptionHeight(descriptionRef.current?.clientHeight || 0);
+  }, [width, height, options.description, descriptions, currentIndex, navigationShown]);
+
+  /**
    * Reset zoom when panel size is changed to avoid wrong image transform if zoom in
    */
   useEffect(() => {
@@ -124,18 +159,18 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   const styles = useStyles2(Styles);
 
   /**
-   * Name field (string)
+   * Name and description field (string)
    * Use first element if Navigation enabled, otherwise last
    */
-  let img =
-    options.toolbar && options.buttons?.includes(ButtonType.NAVIGATION)
-      ? values[currentIndex]
-      : values[values.length - 1];
+  const resultIndex = navigationShown ? currentIndex : values.length - 1;
+
+  let img = values[resultIndex];
+  const description = descriptions[resultIndex];
 
   /**
    * Keep auto-scale if Auto
    */
-  let imageHeight = options.heightMode === ImageSizeModes.AUTO ? height - toolbarHeight : 0;
+  let imageHeight = options.heightMode === ImageSizeModes.AUTO ? height - toolbarHeight - descriptionHeight : 0;
   let imageWidth = options.widthMode === ImageSizeModes.AUTO ? width : 0;
 
   /**
@@ -193,6 +228,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       )}
     >
       {child}
+      {description && (
+        <div ref={descriptionRef} className={styles.description}>
+          {description}
+        </div>
+      )}
     </div>
   );
 
