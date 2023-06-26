@@ -19,4 +19,5 @@ export const DefaultOptions: PanelOptions = {
   widthMode: ImageSizeModes.AUTO,
   widthName: '',
   zoomType: ZoomType.DEFAULT,
+  description: '',
 };
