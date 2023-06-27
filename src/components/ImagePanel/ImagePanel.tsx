@@ -30,18 +30,10 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   const [descriptionHeight, setDescriptionHeight] = useState(0);
 
   /**
-   * Zoom Pan Pinch ref
+   * References
    */
   const zoomPanPinchRef = useRef<ReactZoomPanPinchRef | null>(null);
-
-  /**
-   * Toolbar ref
-   */
   const toolbarRef = useRef<HTMLDivElement>(null);
-
-  /**
-   * Description ref
-   */
   const descriptionRef = useRef<HTMLDivElement>(null);
 
   /**

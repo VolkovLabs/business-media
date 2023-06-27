@@ -8,6 +8,7 @@ export const DefaultOptions: PanelOptions = {
   autoPlay: true,
   buttons: [],
   controls: true,
+  description: '',
   height: 0,
   heightMode: ImageSizeModes.AUTO,
   heightName: '',
@@ -19,5 +20,4 @@ export const DefaultOptions: PanelOptions = {
   widthMode: ImageSizeModes.AUTO,
   widthName: '',
   zoomType: ZoomType.DEFAULT,
-  description: '',
 };

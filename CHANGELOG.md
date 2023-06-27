@@ -1,12 +1,13 @@
 # Changelog
 
-## 3.7.0 (IN PROGRESS)
+## 4.0.0 (IN PROGRESS)
 
 ### Features / Enhancements
 
 - Add pan and pinch zooming option (#78)
 - Move pan pinch buttons to the toolbar (#79)
 - Update to Grafana 10.0.0 (#80)
+- Add description label (#82)
 
 ## 3.6.0 (2023-06-06)
 
