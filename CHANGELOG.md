@@ -1,6 +1,10 @@
 # Changelog
 
-## 4.0.0 (IN PROGRESS)
+## 4.0.0 (2023-06-26)
+
+### Breaking changes
+
+- Requires Grafana 9 and Grafana 10
 
 ### Features / Enhancements
 
@@ -8,6 +12,7 @@
 - Move pan pinch buttons to the toolbar (#79)
 - Update to Grafana 10.0.0 (#80)
 - Add description label (#82)
+- Remove Grafana 8.5 support (#83)
 
 ## 3.6.0 (2023-06-06)
 

@@ -10,15 +10,16 @@
 
 ## Introduction
 
-The Base64 Image/Video/Audio/PDF visualization panel is a plugin for Grafana that displays Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, MP3, OGG, PDF formats.
+The Base64 Image/Video/Audio/PDF visualization panel is a plugin for Grafana that displays Base64 encoded files in PNG, JPG, GIF, MP4, WEBM, MP3, OGG, and PDF formats.
 
 [![Images, PDFs, Video, Live Camera Feed on Grafana Dashboard! You will need Base64 Image/PDF Plugin](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/img/video.png)](https://youtu.be/1_bgLSehjhg)
 
 ### Requirements
 
-- **Grafana 8.5+**, **Grafana 9.0+** is required for major version 3.
-- **Grafana 8.0+** is required for major version 2.
-- **Grafana 7.1+** is required for major version 1.
+- **Grafana 9** and **Grafana 10** are required for major version 4.
+- **Grafana 8.5** and **Grafana 9** are required for major version 3.
+- **Grafana 8** is required for major version 2.
+- **Grafana 7.1** is required for major version 1.
 
 ## Getting Started
 
