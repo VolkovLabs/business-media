@@ -74,7 +74,8 @@
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -123,7 +124,8 @@
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -174,7 +176,8 @@
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -219,7 +222,8 @@
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -264,7 +268,8 @@
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -327,12 +332,14 @@
         "autoPlay": true,
         "buttons": ["download", "navigation", "zoom"],
         "controls": true,
+        "description": "test",
         "height": 0,
         "heightMode": "auto",
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -389,7 +396,8 @@
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -452,7 +460,8 @@
         "name": "img",
         "toolbar": true,
         "width": 200,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -504,7 +513,8 @@
         "name": "img",
         "toolbar": true,
         "width": 100,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -556,7 +566,8 @@
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -618,6 +629,7 @@
       "id": 18,
       "options": {
         "autoPlay": true,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "custom",
@@ -628,7 +640,8 @@
         "url": "d/O4tc_E6Gz",
         "width": 0,
         "widthMode": "custom",
-        "widthName": "height"
+        "widthName": "height",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -686,6 +699,7 @@
       "id": 23,
       "options": {
         "autoPlay": true,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
@@ -693,7 +707,8 @@
         "toolbar": true,
         "width": 0,
         "widthMode": "custom",
-        "widthName": "width"
+        "widthName": "width",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -744,6 +759,7 @@
       "id": 24,
       "options": {
         "autoPlay": true,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "custom",
@@ -751,7 +767,8 @@
         "name": "img",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [

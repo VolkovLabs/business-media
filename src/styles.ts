@@ -16,5 +16,9 @@ export const Styles = (theme: GrafanaTheme2) => {
       [data-rmiz-modal-overlay='visible'] {
         background-color: ${theme.colors.background.primary};
     `,
+    description: css`
+      text-align: center;
+      padding: ${theme.spacing(0.5)};
+    `,
   };
 };

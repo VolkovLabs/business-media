@@ -18,6 +18,15 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         noFieldsMessage: 'No strings fields found',
       },
     })
+    .addFieldNamePicker({
+      path: 'description',
+      name: 'Field description',
+      description: `Name of the field with file description. If not specified, the description won't be shown.`,
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+    })
     .addRadio({
       path: 'toolbar',
       name: 'Images and PDF only.',

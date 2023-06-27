@@ -179,6 +179,20 @@ describe('plugin', () => {
       expect(shownFields).toEqual([{ name: 'string', type: FieldType.string }]);
     });
 
+    it('Should return only string fields for description', () => {
+      const fields: TestField[] = [
+        { name: 'string', type: FieldType.string },
+        { name: 'number', type: FieldType.number },
+      ];
+      const shownFields: TestField[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(addFieldNameImplementation('description', fields, shownFields));
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownFields).toEqual([{ name: 'string', type: FieldType.string }]);
+    });
+
     it('Should return only number fields for widthName', () => {
       const fields: TestField[] = [
         { name: 'string', type: FieldType.string },

@@ -6,11 +6,18 @@ import { ButtonType, ZoomType } from './toolbar';
  */
 export interface PanelOptions {
   /**
-   * Field name for image
+   * Field name
    *
    * @type {string}
    */
   name: string;
+
+  /**
+   * Field description
+   *
+   * @type {string}
+   */
+  description: string;
 
   /**
    * Image width mode
