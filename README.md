@@ -37,7 +37,7 @@ grafana-cli plugins install volkovlabs-image-panel
 
 - The returned value can include base64 encoded content with or without a specified definition. The formats for the definition can look like `data:image/jpg;base64,ENCODED-CONTENT` or `data:application/pdf;base64,ENCODED-CONTENT`.
 - The file type is automatically determined based on the first Base64 symbol if no definition is provided.
-- If the data source returns more than one field of the `string` type, you can select the **Field Name** in the panel's display options.
+- If the data source returns more than one field of the `string` type, you can select the Field Name in the panel's display options.
 - You can fit image dimensions to the panel size, keep the original values, or adjust dimensions based on the manually supplied values.
 - Allows adding a URL with a title to navigate to other dashboards when clicking the image. URL supports dashboard variables.
 - Support for MP4 and WEBM video files with the definitions (`data:video/mp4;base64,ENCODED-CONTENT` and `data:video/webm;base64,ENCODED-CONTENT`)
