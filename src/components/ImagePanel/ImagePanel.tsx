@@ -313,7 +313,14 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    * Add URL to Image
    */
   let image = (
-    <img width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TestIds.panel.image} alt="" />
+    <img
+      width={imageWidth || ''}
+      height={imageHeight || ''}
+      src={img}
+      data-testid={TestIds.panel.image}
+      alt=""
+      style={{ imageRendering: options.scale }}
+    />
   );
   if (options.url) {
     const url = replaceVariables(options.url);
