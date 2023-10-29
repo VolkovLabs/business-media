@@ -8,9 +8,9 @@ import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
 import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../../constants';
-import { Styles } from '../../styles';
 import { ButtonType, PanelOptions, ZoomType } from '../../types';
 import { base64toBlob } from '../../utils';
+import { Styles } from './ImagePanel.styles';
 
 /**
  * Properties
