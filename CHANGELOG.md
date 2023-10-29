@@ -1,11 +1,14 @@
 # Changelog
 
-## 4.1.0 (IN PROGRESS)
+## 4.1.0 (2023-10-29)
 
 ### Features / Enhancements
 
 - Update ESLint configuration (#84)
 - Add Image Scale Algorithm option (#89)
+- Update to Plugin Tools 2.1.1 (#90)
+- Use Grafana Access Policy to sign plugin (#90)
+- Update to Grafana 10.1.5 (#90)
 
 ## 4.0.0 (2023-06-26)
 

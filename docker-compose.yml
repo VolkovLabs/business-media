@@ -21,7 +21,7 @@ services:
   pdf-loader:
     build: ./postgres
     environment:
-      POSTGRES_HOST: host.docker.internal
+      POSTGRES_HOST: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     depends_on:
