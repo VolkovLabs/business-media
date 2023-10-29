@@ -256,7 +256,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     /**
      * Set header
      */
-    type = ImageTypesSymbols[img.charAt(0) as any];
+    type = ImageTypesSymbols[img.charAt(0)];
     img = type ? `data:${type};base64,${img}` : `data:;base64,${img}`;
   } else if (Object.values(SupportedTypes).includes(m[1] as any)) {
     type = m[1];

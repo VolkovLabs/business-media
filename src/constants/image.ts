@@ -18,13 +18,13 @@ export enum SupportedTypes {
 /**
  * Base64 symbols for Image Types
  */
-export enum ImageTypesSymbols {
-  '/' = SupportedTypes.JPEG,
-  'R' = SupportedTypes.GIF,
-  'i' = SupportedTypes.PNG,
-  'J' = SupportedTypes.PDF,
-  'A' = SupportedTypes.HEIC,
-}
+export const ImageTypesSymbols: { [id: string]: string } = {
+  '/': SupportedTypes.JPEG,
+  R: SupportedTypes.GIF,
+  i: SupportedTypes.PNG,
+  J: SupportedTypes.PDF,
+  A: SupportedTypes.HEIC,
+};
 
 /**
  * Field names
