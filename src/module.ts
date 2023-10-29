@@ -1,6 +1,13 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 import { ImagePanel } from './components';
-import { ButtonsOptions, DefaultOptions, ImageSizeModes, SizeModeOptions, ZoomOptions } from './constants';
+import {
+  ButtonsOptions,
+  DefaultOptions,
+  ImageScaleOptions,
+  ImageSizeModes,
+  SizeModeOptions,
+  ZoomOptions,
+} from './constants';
 import { ButtonType, PanelOptions } from './types';
 
 /**
@@ -26,7 +33,12 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         filter: (f: Field) => f.type === FieldType.string,
         noFieldsMessage: 'No strings fields found',
       },
-    })
+    });
+
+  /**
+   * ToolBar
+   */
+  builder
     .addRadio({
       path: 'toolbar',
       name: 'Images and PDF only.',
@@ -139,6 +151,19 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       category: ['Height'],
       showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
     });
+
+  /**
+   * Image
+   */
+  builder.addSelect({
+    path: 'scale',
+    name: 'Scale Algorithm',
+    category: ['Image'],
+    settings: {
+      options: ImageScaleOptions,
+    },
+    defaultValue: DefaultOptions.scale,
+  });
 
   /**
    * Video / Audio

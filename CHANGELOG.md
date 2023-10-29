@@ -5,6 +5,7 @@
 ### Features / Enhancements
 
 - Update ESLint configuration (#84)
+- Add Image Scale Algorithm option (#89)
 
 ## 4.0.0 (2023-06-26)
 

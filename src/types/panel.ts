@@ -2,6 +2,15 @@ import { ImageSizeModes } from '../constants';
 import { ButtonType, ZoomType } from './toolbar';
 
 /**
+ * Image Scale
+ */
+export enum ImageScale {
+  AUTO = 'auto',
+  CRISP_EDGES = 'crisp-edges',
+  PIXELATED = 'pixelated',
+}
+
+/**
  * Options
  */
 export interface PanelOptions {
@@ -109,4 +118,11 @@ export interface PanelOptions {
    * @type {ZoomType}
    */
   zoomType: ZoomType;
+
+  /**
+   * Scale
+   *
+   * @type {ImageScale}
+   */
+  scale: ImageScale;
 }
