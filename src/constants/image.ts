@@ -60,7 +60,7 @@ export const ImageScaleOptions = [
   { value: ImageScale.AUTO, label: 'Auto' },
   {
     value: ImageScale.CRISP_EDGES,
-    label: 'Crisp-Edges',
+    label: 'Crisp Edges',
     description:
       'The image is scaled with an algorithm that preserves contrast and edges in the image. Generally intended for images such as pixel art or line drawings, no blurring or color smoothing occurs.',
   },
