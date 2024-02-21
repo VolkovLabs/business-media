@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import saveAs from 'file-saver';
 import React from 'react';
 
-import { ImageFields, ImageSizeModes, TestIds } from '../../constants';
+import { ImageFields, ImageSizeModes, TEST_IDS } from '../../constants';
 import { ButtonType, ZoomType } from '../../types';
 import { ImagePanel } from './ImagePanel';
 
@@ -32,7 +32,7 @@ jest.mock('file-saver', () => jest.fn());
  */
 jest.mock('react-medium-image-zoom', () => ({
   Controlled: jest.fn(({ isZoomed, children, zoomImg }) => {
-    return isZoomed ? <img data-testid={TestIds.panel.zoomedImage} src={zoomImg.src} alt="" /> : children;
+    return isZoomed ? <img data-testid={TEST_IDS.panel.zoomedImage} src={zoomImg.src} alt="" /> : children;
   }),
 }));
 
@@ -66,8 +66,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
   });
 
   it('Should render image', async () => {
@@ -90,8 +90,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   it('Should render application', async () => {
@@ -114,8 +114,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.iframe)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.iframe)).toBeInTheDocument();
   });
 
   it('Should render image with header', async () => {
@@ -138,8 +138,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   it('Should render application with header', async () => {
@@ -162,8 +162,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.iframe)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.iframe)).toBeInTheDocument();
   });
 
   it('Should render raw image', async () => {
@@ -186,8 +186,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   it('Should render raw image with URL', async () => {
@@ -212,9 +212,9 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.imageLink)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.imageLink)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   describe('Image height', () => {
@@ -246,11 +246,11 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '50');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '50');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '50');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '50');
     });
 
     it('Should remove toolbar height from image height', async () => {
@@ -287,10 +287,10 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
     });
 
     it('Should remove description height from image height', async () => {
@@ -328,10 +328,10 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight * 2).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight * 2).toString());
     });
 
     it('Should not remove description height if no description', async () => {
@@ -364,10 +364,10 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
     });
 
     describe('Image height updates', () => {
@@ -408,10 +408,10 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
 
         /**
          * Rerender with updated panel size
@@ -425,7 +425,7 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (300 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (300 - elementHeight).toString());
       });
 
       it('Should update image height if toolbar hidden', async () => {
@@ -438,10 +438,10 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
 
         /**
          * Rerender with hidden toolbar
@@ -458,7 +458,7 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200).toString());
       });
 
       it('Should update image height if only zoom enabled and it type changed', async () => {
@@ -476,10 +476,10 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
 
         /**
          * Rerender with pan pinch zoom type
@@ -497,7 +497,7 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
       });
     });
 
@@ -535,11 +535,11 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
     });
 
     it('Should render image with custom size options', async () => {
@@ -574,11 +574,11 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
     });
 
     it('Should render image with custom size fields', async () => {
@@ -623,11 +623,11 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
     });
 
     it('Should render image with original size', async () => {
@@ -660,11 +660,11 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '');
     });
   });
 
@@ -688,8 +688,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.video)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
   });
 
   it('Should render audio with header', async () => {
@@ -712,8 +712,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.audio)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.audio)).toBeInTheDocument();
   });
 
   /**
@@ -742,9 +742,9 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.buttonDownload)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonDownload)).toBeInTheDocument();
 
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonDownload));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonDownload));
 
       expect(saveAs).toHaveBeenCalledWith(`data:image/jpeg;base64,${image}`);
     });
@@ -770,7 +770,7 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.queryByTestId(TestIds.panel.buttonDownload)).not.toBeInTheDocument();
+      expect(screen.queryByTestId(TEST_IDS.panel.buttonDownload)).not.toBeInTheDocument();
     });
 
     it('Should show zoom button for image', () => {
@@ -795,12 +795,12 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.buttonZoom)).toBeInTheDocument();
-      expect(screen.queryByTestId(TestIds.panel.zoomedImage)).not.toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonZoom)).toBeInTheDocument();
+      expect(screen.queryByTestId(TEST_IDS.panel.zoomedImage)).not.toBeInTheDocument();
 
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoom));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoom));
 
-      expect(screen.getByTestId(TestIds.panel.zoomedImage)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.zoomedImage)).toBeInTheDocument();
     });
 
     it('Should show pan pinch zoom controls for image', () => {
@@ -825,7 +825,7 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.buttonZoomPanPinchIn)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonZoomPanPinchIn)).toBeInTheDocument();
     });
 
     it('Should pan pinch zoom image', () => {
@@ -850,15 +850,15 @@ describe('Image Panel', () => {
         })
       );
 
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomPanPinchIn));
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomPanPinchOut));
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomPanPinchReset));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoomPanPinchIn));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoomPanPinchOut));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoomPanPinchReset));
 
       /**
        * Unable to check zooming through unit tests because mocking ref causes warnings
        * so just check if image is rendered after zooming
        */
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
     });
 
     it('Should change current image', () => {
@@ -888,36 +888,36 @@ describe('Image Panel', () => {
       /**
        * Check if first value is rendered
        */
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
 
       /**
        * Check if second value is rendered
        */
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonNext));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
 
       /**
        * Check if first value is rendered again
        */
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonPrevious));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonPrevious));
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
 
       /**
        * Check if previous button moves to last image
        */
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonPrevious));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonPrevious));
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
 
       /**
        * Check if next button moves to first image
        */
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonNext));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
     });
   });
 });

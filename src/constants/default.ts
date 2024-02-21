@@ -4,7 +4,7 @@ import { ImageSizeModes } from './image';
 /**
  * Default Options
  */
-export const DefaultOptions: PanelOptions = {
+export const DEFAULT_OPTIONS: PanelOptions = {
   autoPlay: true,
   buttons: [],
   controls: true,

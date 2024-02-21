@@ -13,6 +13,7 @@ type TestField = Pick<Field, 'name' | 'type'>;
  * Mock react-medium-image-zoom
  */
 jest.mock('react-medium-image-zoom', () => ({
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   Controlled: jest.fn(),
 }));
 

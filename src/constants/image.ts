@@ -18,7 +18,7 @@ export enum SupportedTypes {
 /**
  * Base64 symbols for Image Types
  */
-export const ImageTypesSymbols: { [id: string]: string } = {
+export const IMAGE_TYPES_SYMBOLS: { [id: string]: string } = {
   '/': SupportedTypes.JPEG,
   R: SupportedTypes.GIF,
   i: SupportedTypes.PNG,
@@ -47,7 +47,7 @@ export enum ImageSizeModes {
 /**
  * Width and Height Mode Options
  */
-export const SizeModeOptions = [
+export const SIZE_MODE_OPTIONS = [
   { value: ImageSizeModes.AUTO, label: 'Panel', description: 'Based on panel size' },
   { value: ImageSizeModes.ORIGINAL, label: 'Original' },
   { value: ImageSizeModes.CUSTOM, label: 'Custom' },
@@ -56,7 +56,7 @@ export const SizeModeOptions = [
 /**
  * Image Scale Options
  */
-export const ImageScaleOptions = [
+export const IMAGE_SCALE_OPTIONS = [
   { value: ImageScale.AUTO, label: 'Auto' },
   {
     value: ImageScale.CRISP_EDGES,

@@ -9,7 +9,7 @@ import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'r
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
-import { ImageSizeModes, ImageTypesSymbols, SupportedTypes, TestIds } from '../../constants';
+import { IMAGE_TYPES_SYMBOLS, ImageSizeModes, SupportedTypes, TEST_IDS } from '../../constants';
 import { ButtonType, PanelOptions, ZoomType } from '../../types';
 import { base64toBlob } from '../../utils';
 import { getStyles } from './ImagePanel.styles';
@@ -50,8 +50,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
           )
         )
         .map((field) => field?.values)
-        .filter((item) => !!item)[0]
-        ?.toArray() || []
+        .filter((item) => !!item)[0] || []
     );
   }, [data.series, options.name]);
 
@@ -67,8 +66,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       data.series
         .map((series) => series.fields.find((field) => field.name === options.description))
         .map((field) => field?.values)
-        .filter((item) => !!item)[0]
-        ?.toArray() || []
+        .filter((item) => !!item)[0] || []
     );
   }, [data.series, options.description]);
 
@@ -179,7 +177,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         .map((series) =>
           series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
         )
-        .map((field) => field?.values.get(field.values.length - 1))
+        .map((field) => field?.values[field.values.length - 1])
         .toString();
       imageHeight = Number(heightField) ? Number(heightField) : imageHeight;
     }
@@ -199,7 +197,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         .map((series) =>
           series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName)
         )
-        .map((field) => field?.values.get(field.values.length - 1))
+        .map((field) => field?.values[field.values.length - 1])
         .toString();
       imageWidth = Number(widthField) ? Number(widthField) : imageWidth;
     }
@@ -212,7 +210,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    */
   const renderContainer = (child: JSX.Element) => (
     <div
-      data-testid={TestIds.panel.root}
+      data-testid={TEST_IDS.panel.root}
       className={cx(
         styles.wrapper,
         css`
@@ -235,7 +233,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    */
   if (!img) {
     return renderContainer(
-      <Alert severity="warning" title="" data-testid={TestIds.panel.warning}>
+      <Alert severity="warning" title="" data-testid={TEST_IDS.panel.warning}>
         Nothing to display...
       </Alert>
     );
@@ -258,9 +256,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     /**
      * Set header
      */
-    type = ImageTypesSymbols[img.charAt(0)];
+    type = IMAGE_TYPES_SYMBOLS[img.charAt(0)];
     img = type ? `data:${type};base64,${img}` : `data:;base64,${img}`;
-  } else if (Object.values(SupportedTypes).includes(m[1] as any)) {
+  } else if (Object.values(SupportedTypes).includes(m[1] as SupportedTypes)) {
     type = m[1];
   }
 
@@ -279,7 +277,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     }
 
     return renderContainer(
-      <iframe width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TestIds.panel.iframe} />
+      <iframe width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TEST_IDS.panel.iframe} />
     );
   }
 
@@ -293,7 +291,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         height={imageHeight || ''}
         controls={options.controls}
         autoPlay={options.autoPlay}
-        data-testid={TestIds.panel.video}
+        data-testid={TEST_IDS.panel.video}
       >
         <source src={img} />
       </video>
@@ -305,7 +303,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    */
   if (type === SupportedTypes.MP3 || type === SupportedTypes.OGG) {
     return renderContainer(
-      <audio controls={options.controls} autoPlay={options.autoPlay} data-testid={TestIds.panel.audio}>
+      <audio controls={options.controls} autoPlay={options.autoPlay} data-testid={TEST_IDS.panel.audio}>
         <source src={img} />
       </audio>
     );
@@ -319,7 +317,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       width={imageWidth || ''}
       height={imageHeight || ''}
       src={img}
-      data-testid={TestIds.panel.image}
+      data-testid={TEST_IDS.panel.image}
       alt=""
       style={{ imageRendering: options.scale }}
     />
@@ -328,7 +326,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     const url = replaceVariables(options.url);
 
     image = (
-      <a className={cx(styles.url)} href={url} title={options.title} data-testid={TestIds.panel.imageLink}>
+      <a className={cx(styles.url)} href={url} title={options.title} data-testid={TEST_IDS.panel.imageLink}>
         {image}
       </a>
     );
@@ -384,7 +382,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                         onClick={() => {
                           onChangeCurrentIndex('prev');
                         }}
-                        data-testid={TestIds.panel.buttonPrevious}
+                        data-testid={TEST_IDS.panel.buttonPrevious}
                         disabled={Math.max(values.length, 1) === 1}
                       >
                         Previous
@@ -398,7 +396,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                         onClick={() => {
                           onChangeCurrentIndex('next');
                         }}
-                        data-testid={TestIds.panel.buttonNext}
+                        data-testid={TEST_IDS.panel.buttonNext}
                         disabled={Math.max(values.length, 1) === 1}
                       >
                         Next
@@ -413,7 +411,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   onClick={() => {
                     saveAs(img);
                   }}
-                  data-testid={TestIds.panel.buttonDownload}
+                  data-testid={TEST_IDS.panel.buttonDownload}
                 >
                   Download
                 </ToolbarButton>
@@ -425,7 +423,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   onClick={() => {
                     setIsZoomed(true);
                   }}
-                  data-testid={TestIds.panel.buttonZoom}
+                  data-testid={TEST_IDS.panel.buttonZoom}
                 />
               )}
               {options.buttons.includes(ButtonType.ZOOM) && options.zoomType === ZoomType.PANPINCH && (
@@ -433,17 +431,17 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   <ToolbarButton
                     icon="search-plus"
                     onClick={onZoomPanPinchIn}
-                    data-testid={TestIds.panel.buttonZoomPanPinchIn}
+                    data-testid={TEST_IDS.panel.buttonZoomPanPinchIn}
                   />
                   <ToolbarButton
                     icon="search-minus"
                     onClick={onZoomPanPinchOut}
-                    data-testid={TestIds.panel.buttonZoomPanPinchOut}
+                    data-testid={TEST_IDS.panel.buttonZoomPanPinchOut}
                   />
                   <ToolbarButton
                     icon="times-circle"
                     onClick={onResetZoomPanPinch}
-                    data-testid={TestIds.panel.buttonZoomPanPinchReset}
+                    data-testid={TEST_IDS.panel.buttonZoomPanPinchReset}
                   />
                 </>
               )}
