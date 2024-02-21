@@ -1,7 +1,8 @@
-import saveAs from 'file-saver';
-import React from 'react';
 import { FieldType, toDataFrame } from '@grafana/data';
 import { fireEvent, render, screen } from '@testing-library/react';
+import saveAs from 'file-saver';
+import React from 'react';
+
 import { ImageFields, ImageSizeModes, TestIds } from '../../constants';
 import { ButtonType, ZoomType } from '../../types';
 import { ImagePanel } from './ImagePanel';

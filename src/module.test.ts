@@ -1,4 +1,5 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
+
 import { ImageSizeModes } from './constants';
 import { plugin } from './module';
 import { ButtonType, PanelOptions } from './types';

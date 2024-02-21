@@ -1,4 +1,5 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
+
 import { ImagePanel } from './components';
 import {
   ButtonsOptions,
