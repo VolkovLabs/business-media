@@ -1,15 +1,8 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 
 import { ImagePanel } from './components';
-import {
-  BUTTONS_OPTIONS,
-  DEFAULT_OPTIONS,
-  IMAGE_SCALE_OPTIONS,
-  ImageSizeModes,
-  SIZE_MODE_OPTIONS,
-  ZOOM_OPTIONS,
-} from './constants';
-import { ButtonType, PanelOptions } from './types';
+import { BUTTONS_OPTIONS, DEFAULT_OPTIONS, IMAGE_SCALE_OPTIONS, SIZE_MODE_OPTIONS, ZOOM_OPTIONS } from './constants';
+import { ButtonType, ImageSizeMode, PanelOptions } from './types';
 
 /**
  * Panel Plugin
@@ -111,14 +104,14 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         noFieldsMessage: 'No number fields found',
       },
       category: ['Width'],
-      showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.widthMode === ImageSizeMode.CUSTOM,
     })
     .addNumberInput({
       path: 'width',
       name: 'Custom width (px)',
       defaultValue: DEFAULT_OPTIONS.width,
       category: ['Width'],
-      showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.widthMode === ImageSizeMode.CUSTOM,
     });
 
   /**
@@ -143,14 +136,14 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         noFieldsMessage: 'No number fields found',
       },
       category: ['Height'],
-      showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.heightMode === ImageSizeMode.CUSTOM,
     })
     .addNumberInput({
       path: 'height',
       name: 'Custom height (px)',
       defaultValue: DEFAULT_OPTIONS.height,
       category: ['Height'],
-      showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.heightMode === ImageSizeMode.CUSTOM,
     });
 
   /**

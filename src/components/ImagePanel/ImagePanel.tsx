@@ -9,8 +9,8 @@ import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'r
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
-import { IMAGE_TYPES_SYMBOLS, ImageSizeModes, SupportedTypes, TEST_IDS } from '../../constants';
-import { ButtonType, PanelOptions, ZoomType } from '../../types';
+import { IMAGE_TYPES_SYMBOLS, TEST_IDS } from '../../constants';
+import { ButtonType, ImageSizeMode, PanelOptions, SupportedFileType, ZoomType } from '../../types';
 import { base64toBlob } from '../../utils';
 import { getStyles } from './ImagePanel.styles';
 
@@ -164,13 +164,13 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Keep auto-scale if Auto
    */
-  let imageHeight = options.heightMode === ImageSizeModes.AUTO ? height - toolbarHeight - descriptionHeight : 0;
-  let imageWidth = options.widthMode === ImageSizeModes.AUTO ? width : 0;
+  let imageHeight = options.heightMode === ImageSizeMode.AUTO ? height - toolbarHeight - descriptionHeight : 0;
+  let imageWidth = options.widthMode === ImageSizeMode.AUTO ? width : 0;
 
   /**
    * Height
    */
-  if (options.heightMode === ImageSizeModes.CUSTOM) {
+  if (options.heightMode === ImageSizeMode.CUSTOM) {
     /**
      * Field
      */
@@ -190,7 +190,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Width
    */
-  if (options.widthMode === ImageSizeModes.CUSTOM) {
+  if (options.widthMode === ImageSizeMode.CUSTOM) {
     /**
      * Field
      */
@@ -260,15 +260,15 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
      */
     type = IMAGE_TYPES_SYMBOLS[img.charAt(0)];
     img = type ? `data:${type};base64,${img}` : `data:;base64,${img}`;
-  } else if (Object.values(SupportedTypes).includes(m[1] as SupportedTypes)) {
+  } else if (Object.values(SupportedFileType).includes(m[1] as SupportedFileType)) {
     type = m[1];
   }
 
   /**
    * Convert PDF base64 to Blob and display
    */
-  if (type === SupportedTypes.PDF) {
-    const blob = base64toBlob(img, SupportedTypes.PDF);
+  if (type === SupportedFileType.PDF) {
+    const blob = base64toBlob(img, SupportedFileType.PDF);
     img = URL.createObjectURL(blob);
 
     /**
@@ -286,7 +286,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Display Video MP4 or WebM
    */
-  if (type === SupportedTypes.MP4 || type === SupportedTypes.WEBM) {
+  if (type === SupportedFileType.MP4 || type === SupportedFileType.WEBM) {
     return renderContainer(
       <video
         width={imageWidth || ''}
@@ -303,7 +303,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Display Audio OGG or MP3
    */
-  if (type === SupportedTypes.MP3 || type === SupportedTypes.OGG) {
+  if (type === SupportedFileType.MP3 || type === SupportedFileType.OGG) {
     return renderContainer(
       <audio controls={options.controls} autoPlay={options.autoPlay} data-testid={TEST_IDS.panel.audio}>
         <source src={img} />

@@ -1,8 +1,7 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 
-import { ImageSizeModes } from './constants';
 import { plugin } from './module';
-import { ButtonType, PanelOptions } from './types';
+import { ButtonType, ImageSizeMode, PanelOptions } from './types';
 
 /**
  * Test Field
@@ -79,10 +78,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeModes.CUSTOM }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeModes.CUSTOM }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -94,10 +93,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeModes.AUTO }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.AUTO }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeModes.AUTO }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.AUTO }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -109,10 +108,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeModes.CUSTOM }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeModes.CUSTOM }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -124,10 +123,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeModes.AUTO }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.AUTO }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeModes.AUTO }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.AUTO }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);

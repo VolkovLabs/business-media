@@ -3,8 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import saveAs from 'file-saver';
 import React from 'react';
 
-import { ImageFields, ImageSizeModes, TEST_IDS } from '../../constants';
-import { ButtonType, ZoomType } from '../../types';
+import { TEST_IDS } from '../../constants';
+import { ButtonType, ImageField, ImageSizeMode, ZoomType } from '../../types';
 import { ImagePanel } from './ImagePanel';
 
 /**
@@ -80,7 +80,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['/9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
                 },
               ],
@@ -104,7 +104,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['JVBERi0xLjMKJcTl8uXrp/jQ0CiUlRU9GCg=='],
                 },
               ],
@@ -128,7 +128,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                 },
               ],
@@ -152,7 +152,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['data:application/pdf;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -233,14 +233,14 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
               }),
             ],
           },
-          options: { name: ImageFields.IMG, widthMode: ImageSizeModes.AUTO, heightMode: ImageSizeModes.AUTO },
+          options: { name: ImageField.IMG, widthMode: ImageSizeMode.AUTO, heightMode: ImageSizeMode.AUTO },
           height: 50,
           width: 50,
         })
@@ -268,7 +268,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -276,9 +276,9 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.AUTO,
-            heightMode: ImageSizeModes.AUTO,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.AUTO,
+            heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
           },
@@ -308,7 +308,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -316,10 +316,10 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
+            name: ImageField.IMG,
             description: 'imageDescription',
-            widthMode: ImageSizeModes.AUTO,
-            heightMode: ImageSizeModes.AUTO,
+            widthMode: ImageSizeMode.AUTO,
+            heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
           },
@@ -344,7 +344,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -352,10 +352,10 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
+            name: ImageField.IMG,
             description: 'imageDescription',
-            widthMode: ImageSizeModes.AUTO,
-            heightMode: ImageSizeModes.AUTO,
+            widthMode: ImageSizeMode.AUTO,
+            heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
           },
@@ -383,7 +383,7 @@ describe('Image Panel', () => {
               },
               {
                 type: FieldType.string,
-                name: ImageFields.IMG,
+                name: ImageField.IMG,
                 values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
               },
             ],
@@ -391,9 +391,9 @@ describe('Image Panel', () => {
         ],
       };
       const options = {
-        name: ImageFields.IMG,
-        widthMode: ImageSizeModes.AUTO,
-        heightMode: ImageSizeModes.AUTO,
+        name: ImageField.IMG,
+        widthMode: ImageSizeMode.AUTO,
+        heightMode: ImageSizeMode.AUTO,
         toolbar: true,
         buttons: [ButtonType.DOWNLOAD],
       };
@@ -516,7 +516,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -524,11 +524,11 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.CUSTOM,
-            heightMode: ImageSizeModes.CUSTOM,
-            widthName: ImageFields.WIDTH,
-            heightName: ImageFields.HEIGHT,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.CUSTOM,
+            heightMode: ImageSizeMode.CUSTOM,
+            widthName: ImageField.WIDTH,
+            heightName: ImageField.HEIGHT,
             width: 20,
             height: 20,
           },
@@ -557,7 +557,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -565,9 +565,9 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.CUSTOM,
-            heightMode: ImageSizeModes.CUSTOM,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.CUSTOM,
+            heightMode: ImageSizeMode.CUSTOM,
             width: 20,
             height: 20,
           },
@@ -596,17 +596,17 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                   {
                     type: FieldType.number,
-                    name: ImageFields.HEIGHT,
+                    name: ImageField.HEIGHT,
                     values: [20],
                   },
                   {
                     type: FieldType.number,
-                    name: ImageFields.WIDTH,
+                    name: ImageField.WIDTH,
                     values: [20],
                   },
                 ],
@@ -614,11 +614,11 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.CUSTOM,
-            heightMode: ImageSizeModes.CUSTOM,
-            widthName: ImageFields.WIDTH,
-            heightName: ImageFields.HEIGHT,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.CUSTOM,
+            heightMode: ImageSizeMode.CUSTOM,
+            widthName: ImageField.WIDTH,
+            heightName: ImageField.HEIGHT,
           },
         })
       );
@@ -645,7 +645,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -653,9 +653,9 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.ORIGINAL,
-            heightMode: ImageSizeModes.ORIGINAL,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.ORIGINAL,
+            heightMode: ImageSizeMode.ORIGINAL,
           },
         })
       );
@@ -678,7 +678,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['data:video/mp4;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -702,7 +702,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['data:audio/mp3;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -731,7 +731,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image],
                   },
                 ],
@@ -759,7 +759,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['/9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
                   },
                 ],
@@ -784,7 +784,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image],
                   },
                 ],
@@ -814,7 +814,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image],
                   },
                 ],
@@ -839,7 +839,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image],
                   },
                 ],
@@ -874,7 +874,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image1, image2, image3],
                   },
                 ],
