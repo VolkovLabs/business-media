@@ -287,7 +287,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   if (type === SupportedTypes.MP4 || type === SupportedTypes.WEBM) {
     return renderContainer(
       <video
-        muted
+        muted={options.autoPlay}
         width={imageWidth || ''}
         height={imageHeight || ''}
         controls={options.controls}
