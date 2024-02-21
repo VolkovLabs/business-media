@@ -50,7 +50,8 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
           )
         )
         .map((field) => field?.values)
-        .filter((item) => !!item)[0] || []
+        .filter((item) => !!item)[0]
+        ?.toArray() || []
     );
   }, [data.series, options.name]);
 
@@ -66,7 +67,8 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       data.series
         .map((series) => series.fields.find((field) => field.name === options.description))
         .map((field) => field?.values)
-        .filter((item) => !!item)[0] || []
+        .filter((item) => !!item)[0]
+        ?.toArray() || []
     );
   }, [data.series, options.description]);
 
@@ -177,7 +179,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         .map((series) =>
           series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
         )
-        .map((field) => field?.values[field.values.length - 1])
+        .map((field) => field?.values.get(field.values.length - 1))
         .toString();
       imageHeight = Number(heightField) ? Number(heightField) : imageHeight;
     }
@@ -197,7 +199,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         .map((series) =>
           series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName)
         )
-        .map((field) => field?.values[field.values.length - 1])
+        .map((field) => field?.values.get(field.values.length - 1))
         .toString();
       imageWidth = Number(widthField) ? Number(widthField) : imageWidth;
     }
