@@ -6,6 +6,7 @@ import { ImageSizeModes } from './image';
  */
 export const DefaultOptions: PanelOptions = {
   autoPlay: true,
+  infinityPlay: false,
   buttons: [],
   controls: true,
   description: '',

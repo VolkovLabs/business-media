@@ -99,6 +99,13 @@ export interface PanelOptions {
   autoPlay: boolean;
 
   /**
+   * Infinity Play
+   *
+   * @type {boolean}
+   */
+  infinityPlay: boolean;
+
+  /**
    * Toolbar
    *
    * @type {boolean}
