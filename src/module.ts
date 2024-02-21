@@ -1,4 +1,4 @@
-import { Field, FieldType, PanelPlugin, SelectableValue } from '@grafana/data';
+import { Field, FieldType, PanelPlugin } from '@grafana/data';
 
 import { ImagePanel } from './components';
 import {
@@ -56,9 +56,9 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       path: 'buttons',
       name: 'Select buttons to display on toolbar. Images only.',
       settings: {
-        options: BUTTONS_OPTIONS as Array<SelectableValue<ButtonType[]>>,
+        options: BUTTONS_OPTIONS,
       },
-      defaultValue: DEFAULT_OPTIONS.buttons,
+      defaultValue: DEFAULT_OPTIONS.buttons as unknown,
       category: ['Toolbar'],
       showIf: (options: PanelOptions) => options.toolbar,
     })

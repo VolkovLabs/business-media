@@ -1,14 +1,12 @@
-import { SelectableValue } from '@grafana/data';
-
 import { ButtonType, ZoomType } from '../types';
 
 /**
  * Buttons Options
  */
-export const BUTTONS_OPTIONS: Array<SelectableValue<ButtonType[]>> = [
-  { value: [ButtonType.DOWNLOAD], label: 'Download' },
-  { value: [ButtonType.NAVIGATION], label: 'Navigation' },
-  { value: [ButtonType.ZOOM], label: 'Zoom' },
+export const BUTTONS_OPTIONS = [
+  { value: ButtonType.DOWNLOAD, label: 'Download' },
+  { value: ButtonType.NAVIGATION, label: 'Navigation' },
+  { value: ButtonType.ZOOM, label: 'Zoom' },
 ];
 
 /**
