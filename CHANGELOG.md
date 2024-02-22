@@ -5,9 +5,8 @@
 ### Features / Enhancements
 
 - Update ESLint configuration and refactoring (#92)
-- Add infinity play option (#93)
 - Update dependencies and Actions (#94)
-- Update ESLint configuration and refactoring (#92)
+- Add infinity play option (#93)
 
 ## 4.1.0 (2023-10-29)
 
