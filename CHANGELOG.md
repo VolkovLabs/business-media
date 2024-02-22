@@ -2,7 +2,10 @@
 
 ## 4.2.0 (IN PROGRESS)
 
-- Update ESLint configuration and refactoring
+### Features / Enhancements
+
+- Update ESLint configuration and refactoring (#92)
+- Update dependencies and Actions (#94)
 
 ## 4.1.0 (2023-10-29)
 
