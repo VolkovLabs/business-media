@@ -1,23 +1,22 @@
-import { ImageScale, PanelOptions, ZoomType } from '../types';
-import { ImageSizeModes } from './image';
+import { ImageScale, ImageSizeMode, PanelOptions, ZoomType } from '../types';
 
 /**
  * Default Options
  */
-export const DefaultOptions: PanelOptions = {
+export const DEFAULT_OPTIONS: PanelOptions = {
   autoPlay: true,
   buttons: [],
   controls: true,
   description: '',
   height: 0,
-  heightMode: ImageSizeModes.AUTO,
+  heightMode: ImageSizeMode.AUTO,
   heightName: '',
   name: '',
   title: '',
   toolbar: true,
   url: '',
   width: 0,
-  widthMode: ImageSizeModes.AUTO,
+  widthMode: ImageSizeMode.AUTO,
   widthName: '',
   zoomType: ZoomType.DEFAULT,
   scale: ImageScale.AUTO,

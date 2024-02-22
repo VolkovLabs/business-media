@@ -1,14 +1,8 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
+
 import { ImagePanel } from './components';
-import {
-  ButtonsOptions,
-  DefaultOptions,
-  ImageScaleOptions,
-  ImageSizeModes,
-  SizeModeOptions,
-  ZoomOptions,
-} from './constants';
-import { ButtonType, PanelOptions } from './types';
+import { BUTTONS_OPTIONS, DEFAULT_OPTIONS, IMAGE_SCALE_OPTIONS, SIZE_MODE_OPTIONS, ZOOM_OPTIONS } from './constants';
+import { ButtonType, ImageSizeMode, PanelOptions } from './types';
 
 /**
  * Panel Plugin
@@ -49,15 +43,15 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         ],
       },
       category: ['Toolbar'],
-      defaultValue: DefaultOptions.toolbar,
+      defaultValue: DEFAULT_OPTIONS.toolbar,
     })
     .addMultiSelect({
       path: 'buttons',
       name: 'Select buttons to display on toolbar. Images only.',
       settings: {
-        options: ButtonsOptions as any,
+        options: BUTTONS_OPTIONS,
       },
-      defaultValue: DefaultOptions.buttons,
+      defaultValue: DEFAULT_OPTIONS.buttons as unknown,
       category: ['Toolbar'],
       showIf: (options: PanelOptions) => options.toolbar,
     })
@@ -65,9 +59,9 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       path: 'zoomType',
       name: 'Select zoom mode.',
       settings: {
-        options: ZoomOptions,
+        options: ZOOM_OPTIONS,
       },
-      defaultValue: DefaultOptions.zoomType,
+      defaultValue: DEFAULT_OPTIONS.zoomType,
       category: ['Toolbar'],
       showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.ZOOM),
     });
@@ -96,10 +90,10 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       path: 'widthMode',
       name: 'Width',
       settings: {
-        options: SizeModeOptions,
+        options: SIZE_MODE_OPTIONS,
       },
       category: ['Width'],
-      defaultValue: DefaultOptions.widthMode,
+      defaultValue: DEFAULT_OPTIONS.widthMode,
     })
     .addFieldNamePicker({
       path: 'widthName',
@@ -110,14 +104,14 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         noFieldsMessage: 'No number fields found',
       },
       category: ['Width'],
-      showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.widthMode === ImageSizeMode.CUSTOM,
     })
     .addNumberInput({
       path: 'width',
       name: 'Custom width (px)',
-      defaultValue: DefaultOptions.width,
+      defaultValue: DEFAULT_OPTIONS.width,
       category: ['Width'],
-      showIf: (options: PanelOptions) => options.widthMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.widthMode === ImageSizeMode.CUSTOM,
     });
 
   /**
@@ -128,10 +122,10 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       path: 'heightMode',
       name: 'Height',
       settings: {
-        options: SizeModeOptions,
+        options: SIZE_MODE_OPTIONS,
       },
       category: ['Height'],
-      defaultValue: DefaultOptions.heightMode,
+      defaultValue: DEFAULT_OPTIONS.heightMode,
     })
     .addFieldNamePicker({
       path: 'heightName',
@@ -142,14 +136,14 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         noFieldsMessage: 'No number fields found',
       },
       category: ['Height'],
-      showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.heightMode === ImageSizeMode.CUSTOM,
     })
     .addNumberInput({
       path: 'height',
       name: 'Custom height (px)',
-      defaultValue: DefaultOptions.height,
+      defaultValue: DEFAULT_OPTIONS.height,
       category: ['Height'],
-      showIf: (options: PanelOptions) => options.heightMode === ImageSizeModes.CUSTOM,
+      showIf: (options: PanelOptions) => options.heightMode === ImageSizeMode.CUSTOM,
     });
 
   /**
@@ -160,9 +154,9 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     name: 'Scale Algorithm',
     category: ['Image'],
     settings: {
-      options: ImageScaleOptions,
+      options: IMAGE_SCALE_OPTIONS,
     },
-    defaultValue: DefaultOptions.scale,
+    defaultValue: DEFAULT_OPTIONS.scale,
   });
 
   /**
@@ -180,7 +174,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         ],
       },
       category: ['Video/Audio'],
-      defaultValue: DefaultOptions.controls,
+      defaultValue: DEFAULT_OPTIONS.controls,
     })
     .addRadio({
       path: 'autoPlay',
@@ -193,7 +187,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         ],
       },
       category: ['Video/Audio'],
-      defaultValue: DefaultOptions.autoPlay,
+      defaultValue: DEFAULT_OPTIONS.autoPlay,
     });
 
   return builder;

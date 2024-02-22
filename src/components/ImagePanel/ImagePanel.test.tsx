@@ -1,9 +1,10 @@
-import saveAs from 'file-saver';
-import React from 'react';
 import { FieldType, toDataFrame } from '@grafana/data';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { ImageFields, ImageSizeModes, TestIds } from '../../constants';
-import { ButtonType, ZoomType } from '../../types';
+import saveAs from 'file-saver';
+import React from 'react';
+
+import { TEST_IDS } from '../../constants';
+import { ButtonType, ImageField, ImageSizeMode, ZoomType } from '../../types';
 import { ImagePanel } from './ImagePanel';
 
 /**
@@ -31,7 +32,7 @@ jest.mock('file-saver', () => jest.fn());
  */
 jest.mock('react-medium-image-zoom', () => ({
   Controlled: jest.fn(({ isZoomed, children, zoomImg }) => {
-    return isZoomed ? <img data-testid={TestIds.panel.zoomedImage} src={zoomImg.src} alt="" /> : children;
+    return isZoomed ? <img data-testid={TEST_IDS.panel.zoomedImage} src={zoomImg.src} alt="" /> : children;
   }),
 }));
 
@@ -65,8 +66,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
   });
 
   it('Should render image', async () => {
@@ -79,7 +80,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['/9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
                 },
               ],
@@ -89,8 +90,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   it('Should render application', async () => {
@@ -103,7 +104,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['JVBERi0xLjMKJcTl8uXrp/jQ0CiUlRU9GCg=='],
                 },
               ],
@@ -113,8 +114,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.iframe)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.iframe)).toBeInTheDocument();
   });
 
   it('Should render image with header', async () => {
@@ -127,7 +128,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                 },
               ],
@@ -137,8 +138,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   it('Should render application with header', async () => {
@@ -151,7 +152,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['data:application/pdf;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -161,8 +162,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.iframe)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.iframe)).toBeInTheDocument();
   });
 
   it('Should render raw image', async () => {
@@ -185,8 +186,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   it('Should render raw image with URL', async () => {
@@ -211,9 +212,9 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.imageLink)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.imageLink)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   describe('Image height', () => {
@@ -232,24 +233,24 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
               }),
             ],
           },
-          options: { name: ImageFields.IMG, widthMode: ImageSizeModes.AUTO, heightMode: ImageSizeModes.AUTO },
+          options: { name: ImageField.IMG, widthMode: ImageSizeMode.AUTO, heightMode: ImageSizeMode.AUTO },
           height: 50,
           width: 50,
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '50');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '50');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '50');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '50');
     });
 
     it('Should remove toolbar height from image height', async () => {
@@ -267,7 +268,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -275,9 +276,9 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.AUTO,
-            heightMode: ImageSizeModes.AUTO,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.AUTO,
+            heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
           },
@@ -286,10 +287,10 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
     });
 
     it('Should remove description height from image height', async () => {
@@ -307,7 +308,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -315,10 +316,10 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
+            name: ImageField.IMG,
             description: 'imageDescription',
-            widthMode: ImageSizeModes.AUTO,
-            heightMode: ImageSizeModes.AUTO,
+            widthMode: ImageSizeMode.AUTO,
+            heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
           },
@@ -327,10 +328,10 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight * 2).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight * 2).toString());
     });
 
     it('Should not remove description height if no description', async () => {
@@ -343,7 +344,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -351,10 +352,10 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
+            name: ImageField.IMG,
             description: 'imageDescription',
-            widthMode: ImageSizeModes.AUTO,
-            heightMode: ImageSizeModes.AUTO,
+            widthMode: ImageSizeMode.AUTO,
+            heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
           },
@@ -363,10 +364,10 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
     });
 
     describe('Image height updates', () => {
@@ -382,7 +383,7 @@ describe('Image Panel', () => {
               },
               {
                 type: FieldType.string,
-                name: ImageFields.IMG,
+                name: ImageField.IMG,
                 values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
               },
             ],
@@ -390,9 +391,9 @@ describe('Image Panel', () => {
         ],
       };
       const options = {
-        name: ImageFields.IMG,
-        widthMode: ImageSizeModes.AUTO,
-        heightMode: ImageSizeModes.AUTO,
+        name: ImageField.IMG,
+        widthMode: ImageSizeMode.AUTO,
+        heightMode: ImageSizeMode.AUTO,
         toolbar: true,
         buttons: [ButtonType.DOWNLOAD],
       };
@@ -407,10 +408,10 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
 
         /**
          * Rerender with updated panel size
@@ -424,7 +425,7 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (300 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (300 - elementHeight).toString());
       });
 
       it('Should update image height if toolbar hidden', async () => {
@@ -437,10 +438,10 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
 
         /**
          * Rerender with hidden toolbar
@@ -457,7 +458,7 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200).toString());
       });
 
       it('Should update image height if only zoom enabled and it type changed', async () => {
@@ -475,10 +476,10 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
 
         /**
          * Rerender with pan pinch zoom type
@@ -496,7 +497,7 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
       });
     });
 
@@ -515,7 +516,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -523,22 +524,22 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.CUSTOM,
-            heightMode: ImageSizeModes.CUSTOM,
-            widthName: ImageFields.WIDTH,
-            heightName: ImageFields.HEIGHT,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.CUSTOM,
+            heightMode: ImageSizeMode.CUSTOM,
+            widthName: ImageField.WIDTH,
+            heightName: ImageField.HEIGHT,
             width: 20,
             height: 20,
           },
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
     });
 
     it('Should render image with custom size options', async () => {
@@ -556,7 +557,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -564,20 +565,20 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.CUSTOM,
-            heightMode: ImageSizeModes.CUSTOM,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.CUSTOM,
+            heightMode: ImageSizeMode.CUSTOM,
             width: 20,
             height: 20,
           },
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
     });
 
     it('Should render image with custom size fields', async () => {
@@ -595,17 +596,17 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                   {
                     type: FieldType.number,
-                    name: ImageFields.HEIGHT,
+                    name: ImageField.HEIGHT,
                     values: [20],
                   },
                   {
                     type: FieldType.number,
-                    name: ImageFields.WIDTH,
+                    name: ImageField.WIDTH,
                     values: [20],
                   },
                 ],
@@ -613,20 +614,20 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.CUSTOM,
-            heightMode: ImageSizeModes.CUSTOM,
-            widthName: ImageFields.WIDTH,
-            heightName: ImageFields.HEIGHT,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.CUSTOM,
+            heightMode: ImageSizeMode.CUSTOM,
+            widthName: ImageField.WIDTH,
+            heightName: ImageField.HEIGHT,
           },
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
     });
 
     it('Should render image with original size', async () => {
@@ -644,7 +645,7 @@ describe('Image Panel', () => {
                   },
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
                   },
                 ],
@@ -652,18 +653,18 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageFields.IMG,
-            widthMode: ImageSizeModes.ORIGINAL,
-            heightMode: ImageSizeModes.ORIGINAL,
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.ORIGINAL,
+            heightMode: ImageSizeMode.ORIGINAL,
           },
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('width', '');
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('height', '');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '');
     });
   });
 
@@ -677,7 +678,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['data:video/mp4;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -687,8 +688,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.video)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
   });
 
   it('Should render audio with header', async () => {
@@ -701,7 +702,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageFields.IMG,
+                  name: ImageField.IMG,
                   values: ['data:audio/mp3;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -711,8 +712,8 @@ describe('Image Panel', () => {
       })
     );
 
-    expect(screen.getByTestId(TestIds.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TestIds.panel.audio)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.audio)).toBeInTheDocument();
   });
 
   /**
@@ -730,7 +731,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image],
                   },
                 ],
@@ -741,9 +742,9 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.buttonDownload)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonDownload)).toBeInTheDocument();
 
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonDownload));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonDownload));
 
       expect(saveAs).toHaveBeenCalledWith(`data:image/jpeg;base64,${image}`);
     });
@@ -758,7 +759,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: ['/9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
                   },
                 ],
@@ -769,7 +770,7 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.queryByTestId(TestIds.panel.buttonDownload)).not.toBeInTheDocument();
+      expect(screen.queryByTestId(TEST_IDS.panel.buttonDownload)).not.toBeInTheDocument();
     });
 
     it('Should show zoom button for image', () => {
@@ -783,7 +784,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image],
                   },
                 ],
@@ -794,12 +795,12 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.buttonZoom)).toBeInTheDocument();
-      expect(screen.queryByTestId(TestIds.panel.zoomedImage)).not.toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonZoom)).toBeInTheDocument();
+      expect(screen.queryByTestId(TEST_IDS.panel.zoomedImage)).not.toBeInTheDocument();
 
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoom));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoom));
 
-      expect(screen.getByTestId(TestIds.panel.zoomedImage)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.zoomedImage)).toBeInTheDocument();
     });
 
     it('Should show pan pinch zoom controls for image', () => {
@@ -813,7 +814,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image],
                   },
                 ],
@@ -824,7 +825,7 @@ describe('Image Panel', () => {
         })
       );
 
-      expect(screen.getByTestId(TestIds.panel.buttonZoomPanPinchIn)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonZoomPanPinchIn)).toBeInTheDocument();
     });
 
     it('Should pan pinch zoom image', () => {
@@ -838,7 +839,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image],
                   },
                 ],
@@ -849,15 +850,15 @@ describe('Image Panel', () => {
         })
       );
 
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomPanPinchIn));
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomPanPinchOut));
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonZoomPanPinchReset));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoomPanPinchIn));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoomPanPinchOut));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoomPanPinchReset));
 
       /**
        * Unable to check zooming through unit tests because mocking ref causes warnings
        * so just check if image is rendered after zooming
        */
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
     });
 
     it('Should change current image', () => {
@@ -873,7 +874,7 @@ describe('Image Panel', () => {
                 fields: [
                   {
                     type: FieldType.string,
-                    name: ImageFields.IMG,
+                    name: ImageField.IMG,
                     values: [image1, image2, image3],
                   },
                 ],
@@ -887,36 +888,36 @@ describe('Image Panel', () => {
       /**
        * Check if first value is rendered
        */
-      expect(screen.getByTestId(TestIds.panel.image)).toBeInTheDocument();
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
 
       /**
        * Check if second value is rendered
        */
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonNext));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
 
       /**
        * Check if first value is rendered again
        */
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonPrevious));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonPrevious));
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
 
       /**
        * Check if previous button moves to last image
        */
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonPrevious));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonPrevious));
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
 
       /**
        * Check if next button moves to first image
        */
-      fireEvent.click(screen.getByTestId(TestIds.panel.buttonNext));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
 
-      expect(screen.getByTestId(TestIds.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
     });
   });
 });

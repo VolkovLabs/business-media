@@ -3,7 +3,7 @@ import { ButtonType, ZoomType } from '../types';
 /**
  * Buttons Options
  */
-export const ButtonsOptions = [
+export const BUTTONS_OPTIONS = [
   { value: ButtonType.DOWNLOAD, label: 'Download' },
   { value: ButtonType.NAVIGATION, label: 'Navigation' },
   { value: ButtonType.ZOOM, label: 'Zoom' },
@@ -12,7 +12,7 @@ export const ButtonsOptions = [
 /**
  * Zoom Options
  */
-export const ZoomOptions = [
+export const ZOOM_OPTIONS = [
   { value: ZoomType.DEFAULT, label: 'Full Screen' },
   { value: ZoomType.PANPINCH, label: 'Pan and Pinch' },
 ];
