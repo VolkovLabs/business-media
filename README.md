@@ -2,7 +2,7 @@
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
-![Grafana](https://img.shields.io/badge/Grafana-10.1-orange)
+![Grafana](https://img.shields.io/badge/Grafana-10.3-orange)
 ![CI](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/CI/badge.svg)
 ![E2E](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/E2E/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel)
@@ -46,10 +46,10 @@ grafana-cli plugins install volkovlabs-image-panel
 
 ## Documentation
 
-| Section                      | Description                                                         |
-| ---------------------------- | ------------------------------------------------------------------- |
+| Section                                                                            | Description                                                         |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
 | [Supported formats](https://volkovlabs.io/plugins/volkovlabs-image-panel/formats/) | Explains what formats are supported and how to display media files. |
-| [Features](https://volkovlabs.io/plugins/volkovlabs-image-panel/features/)         | Demonstrates panel capabilities.                                          |
+| [Features](https://volkovlabs.io/plugins/volkovlabs-image-panel/features/)         | Demonstrates panel capabilities.                                    |
 | [Release Notes](https://volkovlabs.io/plugins/volkovlabs-image-panel/release/)     | Stay up to date with the latest features and updates.               |
 
 ## Feedback
