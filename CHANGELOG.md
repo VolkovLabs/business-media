@@ -2,7 +2,8 @@
 
 ## 4.2.0 (IN PROGRESS)
 
-- Update ESLint configuration and refactoring
+- Update ESLint configuration and refactoring (#92)
+- Add infinity play option (#93)
 
 ## 4.1.0 (2023-10-29)
 
