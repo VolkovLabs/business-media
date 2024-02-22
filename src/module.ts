@@ -179,7 +179,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     .addRadio({
       path: 'autoPlay',
       name: 'Auto Play',
-      description: 'When enabled, the video and audio will automatically start playing.',
+      description: 'When enabled, the video and audio will automatically start playing without sound.',
       settings: {
         options: [
           { value: true, label: 'Enabled' },
