@@ -1,7 +1,7 @@
 /**
  * Tests Identifiers
  */
-export const TestIds = {
+export const TEST_IDS = {
   panel: {
     audio: 'data-testid panel audio',
     buttonDownload: 'data-testid panel button-download',

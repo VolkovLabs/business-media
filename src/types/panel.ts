@@ -1,4 +1,4 @@
-import { ImageSizeModes } from '../constants';
+import { ImageSizeMode } from './image';
 import { ButtonType, ZoomType } from './toolbar';
 
 /**
@@ -33,14 +33,14 @@ export interface PanelOptions {
    *
    * @type {string}
    */
-  widthMode: ImageSizeModes;
+  widthMode: ImageSizeMode;
 
   /**
    * Image height mode
    *
    * @type {string}
    */
-  heightMode: ImageSizeModes;
+  heightMode: ImageSizeMode;
 
   /**
    * Field name for image width

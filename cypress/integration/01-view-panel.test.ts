@@ -1,5 +1,5 @@
 import { e2e } from '@grafana/e2e';
-import { TestIds } from '../../src/constants';
+import { TEST_IDS } from '../../src/constants';
 
 /**
  * Dashboard
@@ -29,7 +29,7 @@ describe('Viewing a panel with an Image', () => {
     /**
      * Image
      */
-    const image = currentPanel.find(getTestIdSelector(TestIds.panel.root));
+    const image = currentPanel.find(getTestIdSelector(TEST_IDS.panel.root));
     image.should('be.visible');
 
     /**
