@@ -289,9 +289,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   if (type === SupportedFileType.MP4 || type === SupportedFileType.WEBM) {
     return renderContainer(
       <video
+        muted={options.autoPlay}
         width={imageWidth || ''}
         height={imageHeight || ''}
         controls={options.controls}
+        loop={options.infinityPlay}
         autoPlay={options.autoPlay}
         data-testid={TEST_IDS.panel.video}
       >
@@ -305,7 +307,12 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    */
   if (type === SupportedFileType.MP3 || type === SupportedFileType.OGG) {
     return renderContainer(
-      <audio controls={options.controls} autoPlay={options.autoPlay} data-testid={TEST_IDS.panel.audio}>
+      <audio
+        controls={options.controls}
+        autoPlay={options.autoPlay}
+        data-testid={TEST_IDS.panel.audio}
+        loop={options.infinityPlay}
+      >
         <source src={img} />
       </audio>
     );

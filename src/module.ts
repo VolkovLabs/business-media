@@ -179,7 +179,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     .addRadio({
       path: 'autoPlay',
       name: 'Auto Play',
-      description: 'When enabled, the video and audio will automatically start playing.',
+      description: 'When enabled, the video and audio will automatically start playing without sound.',
       settings: {
         options: [
           { value: true, label: 'Enabled' },
@@ -188,6 +188,19 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       },
       category: ['Video/Audio'],
       defaultValue: DEFAULT_OPTIONS.autoPlay,
+    })
+    .addRadio({
+      path: 'infinityPlay',
+      name: 'Infinity Play',
+      description: 'When enabled, the video and audio will be played back repeatedly.',
+      settings: {
+        options: [
+          { value: true, label: 'Enabled' },
+          { value: false, label: 'Disabled' },
+        ],
+      },
+      category: ['Video/Audio'],
+      defaultValue: DEFAULT_OPTIONS.infinityPlay,
     });
 
   return builder;
