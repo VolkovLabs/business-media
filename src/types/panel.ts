@@ -132,4 +132,11 @@ export interface PanelOptions {
    * @type {ImageScale}
    */
   scale: ImageScale;
+
+  /**
+   * Alert Message
+   *
+   * @type {string}
+   */
+  alertMessage: string;
 }
