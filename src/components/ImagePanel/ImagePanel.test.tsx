@@ -63,11 +63,15 @@ describe('Image Panel', () => {
             }),
           ],
         },
+        options: {
+          noResultsMessage: 'No results...',
+        },
       })
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent('No results...');
   });
 
   it('Should render image', async () => {

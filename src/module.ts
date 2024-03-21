@@ -33,11 +33,10 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
    * Alert Message
    */
   builder.addTextInput({
-    path: 'alertMessage',
-    name: 'Message',
-    description: 'Specifies a warning message if nothing is displayed',
-    defaultValue: DEFAULT_OPTIONS.alertMessage,
-    category: ['Alert Message'],
+    path: 'noResultsMessage',
+    name: 'No Results Message',
+    description: 'Specifies no results message text.',
+    defaultValue: DEFAULT_OPTIONS.noResultsMessage,
   });
 
   /**

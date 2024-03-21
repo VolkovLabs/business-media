@@ -5,7 +5,7 @@ import { ImageScale, ImageSizeMode, PanelOptions, ZoomType } from '../types';
  */
 export const DEFAULT_OPTIONS: PanelOptions = {
   autoPlay: true,
-  alertMessage: 'Nothing to display...',
+  noResultsMessage: 'Nothing to display...',
   infinityPlay: false,
   buttons: [],
   controls: true,
