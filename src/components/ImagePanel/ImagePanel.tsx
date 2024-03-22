@@ -236,7 +236,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   if (!img) {
     return renderContainer(
       <Alert severity="warning" title="" data-testid={TEST_IDS.panel.warning}>
-        Nothing to display...
+        {options.noResultsMessage}
       </Alert>
     );
   }

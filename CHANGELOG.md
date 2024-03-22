@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.3.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Added the ability to customize the alert message (#96)
+
 ## 4.2.0 (2024-02-22)
 
 ### Features / Enhancements
