@@ -1,6 +1,6 @@
 import { FieldType, toDataFrame } from '@grafana/data';
 import { fireEvent, render, screen } from '@testing-library/react';
-import saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 import React from 'react';
 
 import { TEST_IDS } from '../../constants';

@@ -3,7 +3,7 @@ import 'react-medium-image-zoom/dist/styles.css';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
 import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
-import saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 import { Base64 } from 'js-base64';
 import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
