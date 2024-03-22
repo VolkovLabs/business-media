@@ -25,7 +25,9 @@ jest.mock('@grafana/ui', () => ({
 /**
  * Mock file-saver
  */
-jest.mock('file-saver', () => jest.fn());
+jest.mock('file-saver', () => ({
+  saveAs: jest.fn(),
+}));
 
 /**
  * Mock react-medium-image-zoom
