@@ -18,10 +18,10 @@ Base64 Image/Video/Audio/PDF Panel is a Grafana plugin that renders PNG, JPG, GI
 
 The Base64 Image/Video/Audio/PDF Panel version requirements for Grafana are as follows:
 
-- Version 4.X requires **Grafana 9** or **Grafana 10**.
-- Version 3.X requires **Grafana 8.5** or **Grafana 9**.
-- Version 2.X requires **Grafana 8**.
-- Version 1.X requires **Grafana 7.1**.
+- Base64 Panel 4.X requires **Grafana 9** or **Grafana 10**.
+- Base64 Panel 3.X requires **Grafana 8.5** or **Grafana 9**.
+- Base64 Panel 2.X requires **Grafana 8**.
+- Base64 Panel 1.X requires **Grafana 7.1**.
 
 ## Getting Started
 
