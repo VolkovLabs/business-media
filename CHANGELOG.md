@@ -1,10 +1,15 @@
 # Changelog
 
-## 4.3.0 (IN PROGRESS)
+## 5.0.0 (2024-03-22)
+
+### Breaking changes
+
+- Requires Grafana 10 and Grafana 11
 
 ### Features / Enhancements
 
 - Added the ability to customize the alert message (#96)
+- Updated to Grafana 10.4.1 (#97)
 
 ## 4.2.0 (2024-02-22)
 
