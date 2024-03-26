@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.0.0 (2024-03-22)
+## 5.0.0 (2024-03-25)
 
 ### Breaking changes
 
@@ -10,6 +10,7 @@
 
 - Added the ability to customize the alert message (#96)
 - Updated to Grafana 10.4.1 (#97)
+- Remove ArrayVector deprecated in Grafana 11 (#99)
 
 ## 4.2.0 (2024-02-22)
 
