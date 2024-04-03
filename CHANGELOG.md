@@ -4,7 +4,7 @@
 
 ### Features / Enhancements
 
-- Update video overview ()
+- Update video overview (#100)
 
 ## 5.0.0 (2024-03-25)
 
