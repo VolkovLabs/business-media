@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Update video overview ()
+
 ## 5.0.0 (2024-03-25)
 
 ### Breaking changes

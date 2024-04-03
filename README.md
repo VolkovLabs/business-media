@@ -12,7 +12,7 @@
 
 Base64 Image/Video/Audio/PDF Panel is a Grafana plugin that renders PNG, JPG, GIF, MP4, WEBM, MP3, OGG, and PDF files encoded in the Base64 format.
 
-[![Images, PDFs, Video, Live Camera Feed on Grafana Dashboard! You will need Base64 Image/PDF Plugin](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/img/video.png)](https://youtu.be/1_bgLSehjhg)
+[![Display images and PDF on Grafana using Base64 Image/Video/Audio/PDF panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/img/overview.png)](https://youtu.be/hLMtsCWPOg8)
 
 ## Requirements
 
@@ -57,7 +57,7 @@ grafana-cli plugins install volkovlabs-image-panel
 
 We're looking forward to hearing from you. You can use different ways to get in touch with us.
 
-- Ask a question, request a new feature, or report an issue at [GitHub issues](https://github.com/volkovlabs/volkovlabs-image-panel/issues/new/choose).
+- Ask a question, request a new feature, or report an issue at [GitHub issues](https://github.com/volkovlabs/volkovlabs-image-panel/issues/).
 - Subscribe to our [YouTube Channel](https://www.youtube.com/@volkovlabs) and leave your comments.
 - Sponsor our open-source plugins for Grafana at [GitHub Sponsor](https://github.com/sponsors/VolkovLabs).
 - Support our project by starring the repository.
