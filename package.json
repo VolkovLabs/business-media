@@ -5,6 +5,7 @@
     "@grafana/data": "^10.4.1",
     "@grafana/runtime": "^10.4.1",
     "@grafana/ui": "^10.4.1",
+    "buffer": "^6.0.3",
     "file-saver": "^2.0.5",
     "js-base64": "^3.7.7",
     "react": "^18.2.0",
