@@ -19,7 +19,7 @@ test.describe('panel-datalinks panel', () => {
      * Alert text should be
      */
     await expect(panelEditPage.panel.locator.getByTestId('data-testid Alert warning')).toContainText(
-      'Nothing to display...'
+      'Nothing to display... test'
     );
   });
 
