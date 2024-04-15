@@ -3,7 +3,7 @@ import 'react-medium-image-zoom/dist/styles.css';
 import { css, cx } from '@emotion/css';
 import { FieldType, PanelProps } from '@grafana/data';
 import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
-import saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 import { Base64 } from 'js-base64';
 import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
@@ -50,8 +50,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
           )
         )
         .map((field) => field?.values)
-        .filter((item) => !!item)[0]
-        ?.toArray() || []
+        .filter((item) => !!item)[0] || []
     );
   }, [data.series, options.name]);
 
@@ -67,8 +66,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       data.series
         .map((series) => series.fields.find((field) => field.name === options.description))
         .map((field) => field?.values)
-        .filter((item) => !!item)[0]
-        ?.toArray() || []
+        .filter((item) => !!item)[0] || []
     );
   }, [data.series, options.description]);
 
@@ -179,7 +177,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         .map((series) =>
           series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
         )
-        .map((field) => field?.values.get(field.values.length - 1))
+        .map((field) => field?.values[field.values.length - 1])
         .toString();
       imageHeight = Number(heightField) ? Number(heightField) : imageHeight;
     }
@@ -199,7 +197,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         .map((series) =>
           series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName)
         )
-        .map((field) => field?.values.get(field.values.length - 1))
+        .map((field) => field?.values[field.values.length - 1])
         .toString();
       imageWidth = Number(widthField) ? Number(widthField) : imageWidth;
     }
@@ -236,7 +234,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   if (!img) {
     return renderContainer(
       <Alert severity="warning" title="" data-testid={TEST_IDS.panel.warning}>
-        Nothing to display...
+        {options.noResultsMessage}
       </Alert>
     );
   }

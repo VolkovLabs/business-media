@@ -27,6 +27,12 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
         filter: (f: Field) => f.type === FieldType.string,
         noFieldsMessage: 'No strings fields found',
       },
+    })
+    .addTextInput({
+      path: 'noResultsMessage',
+      name: 'No Results Message',
+      description: 'Specifies no results message text.',
+      defaultValue: DEFAULT_OPTIONS.noResultsMessage,
     });
 
   /**

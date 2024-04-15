@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.1.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Update video overview (#100)
+
+## 5.0.0 (2024-03-25)
+
+### Breaking changes
+
+- Requires Grafana 10 and Grafana 11
+
+### Features / Enhancements
+
+- Added the ability to customize the alert message (#96)
+- Updated to Grafana 10.4.1 (#97)
+- Remove ArrayVector deprecated in Grafana 11 (#99)
+
 ## 4.2.0 (2024-02-22)
 
 ### Features / Enhancements

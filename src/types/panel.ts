@@ -132,4 +132,11 @@ export interface PanelOptions {
    * @type {ImageScale}
    */
   scale: ImageScale;
+
+  /**
+   * No Results Message
+   *
+   * @type {string}
+   */
+  noResultsMessage: string;
 }

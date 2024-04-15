@@ -1,6 +1,6 @@
 import { FieldType, toDataFrame } from '@grafana/data';
 import { fireEvent, render, screen } from '@testing-library/react';
-import saveAs from 'file-saver';
+import { saveAs } from 'file-saver';
 import React from 'react';
 
 import { TEST_IDS } from '../../constants';
@@ -25,7 +25,9 @@ jest.mock('@grafana/ui', () => ({
 /**
  * Mock file-saver
  */
-jest.mock('file-saver', () => jest.fn());
+jest.mock('file-saver', () => ({
+  saveAs: jest.fn(),
+}));
 
 /**
  * Mock react-medium-image-zoom
@@ -63,11 +65,15 @@ describe('Image Panel', () => {
             }),
           ],
         },
+        options: {
+          noResultsMessage: 'No results...',
+        },
       })
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent('No results...');
   });
 
   it('Should render image', async () => {
