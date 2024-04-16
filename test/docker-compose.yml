@@ -7,6 +7,7 @@ services:
     ports:
       - 3000:3000/tcp
     environment:
+      - GF_USERS_DEFAULT_THEME=light
       - GF_INSTALL_PLUGINS=marcusolsson-static-datasource
     volumes:
       - ../dist:/var/lib/grafana/plugins/volkovlabs-image-panel
