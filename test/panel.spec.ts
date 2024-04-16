@@ -32,7 +32,7 @@ test.describe('Base64 Image/PDF panel', () => {
     /**
      * Go to Dashboards
      */
-    await page.getByRole('link', { name: 'Dashboards' }).click();
+    await page.getByTestId('data-testid navigation mega-menu').getByRole('link', { name: 'Dashboards' }).click();
 
     /**
      * Go to E2E dashboard
