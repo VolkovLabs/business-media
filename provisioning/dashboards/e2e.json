@@ -28,10 +28,39 @@
         "uid": "P1D2C73DC01F2359B"
       },
       "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "autoPlay": true,
+        "buttons": [],
+        "controls": true,
+        "height": 0,
+        "heightMode": "auto",
+        "infinityPlay": false,
+        "noResultsMessage": "Nothing to display...",
+        "scale": "auto",
+        "toolbar": true,
+        "width": 0,
+        "widthMode": "auto",
+        "zoomType": "default"
+      },
+      "title": "Empty",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-static-datasource",
+        "uid": "P1D2C73DC01F2359B"
+      },
+      "gridPos": {
         "h": 15,
         "w": 10,
         "x": 0,
-        "y": 0
+        "y": 8
       },
       "id": 1,
       "options": {
@@ -40,10 +69,14 @@
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -69,8 +102,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": []
@@ -83,6 +115,6 @@
   "timezone": "",
   "title": "E2E",
   "uid": "c8ee435b-d16b-4b27-9304-7062724c1feb",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
