@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+  workflow_dispatch:
+
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -22,6 +24,11 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Sign plugin
+        run: npm run sign
+        env:
+          GRAFANA_ACCESS_POLICY_TOKEN: ${{ secrets.GRAFANA_ACCESS_POLICY_TOKEN }}
 
       - name: Setup playwright browser
         run: npx playwright install --with-deps chromium
