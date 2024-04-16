@@ -1,6 +1,6 @@
 import { test, expect } from '@grafana/plugin-e2e';
 
-test.describe('panel-datalinks panel', () => {
+test.describe('Base64 Image/PDF panel', () => {
   test('should display message in case panel data is empty', async ({
     gotoPanelEditPage,
     readProvisionedDashboard,
