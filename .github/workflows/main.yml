@@ -1,6 +1,10 @@
 name: Daily E2E using Grafana Main
 
 on:
+  push:
+    branches:
+      - main
+
   schedule:
     - cron: '0 0 * * *'
 
