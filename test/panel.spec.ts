@@ -1,52 +1,44 @@
 import { test, expect } from '@grafana/plugin-e2e';
+import { TEST_IDS } from '../src/constants';
 
 test.describe('Base64 Image/PDF panel', () => {
-  test('should display message in case panel data is empty', async ({
-    gotoPanelEditPage,
-    readProvisionedDashboard,
-  }) => {
+  test('should display message in case panel data is empty', async ({ gotoDashboardPage, dashboardPage }) => {
     /**
-     * Use e2e.json dashboard
+     * Go To E2E dashboard
+     * return dashboardPage
      */
-    const dashboard = await readProvisionedDashboard({ fileName: 'e2e.json' });
+    await gotoDashboardPage({ uid: 'c8ee435b-d16b-4b27-9304-7062724c1feb' });
 
     /**
-     * Go to panel Edit page
+     * Find panel by title with no data
+     * Should be visible
      */
-    const panelEditPage = await gotoPanelEditPage({ dashboard, id: '2' });
+    await expect(dashboardPage.getPanelByTitle('Empty').locator).toBeVisible();
 
     /**
-     * Alert text should be
+     * No Results Message should be visible
      */
-    await expect(panelEditPage.panel.locator.getByTestId('data-testid Alert warning')).toContainText(
-      'Nothing to display...'
-    );
+    await expect(dashboardPage.getPanelByTitle('Empty').locator).toContainText('Nothing to display...');
   });
 
-  test('should display image', async ({ page }) => {
+  test('should display image', async ({ gotoDashboardPage, dashboardPage }) => {
     /**
-     * Load page and open menu
+     * Go To E2E dashboard
+     * return dashboardPage
      */
-    await page.getByTestId('data-testid Toggle menu').click();
+    await gotoDashboardPage({ uid: 'c8ee435b-d16b-4b27-9304-7062724c1feb' });
 
     /**
-     * Go to Dashboards
+     * Find panel with image
+     * Should be visible
      */
-    await page.getByTestId('data-testid navigation mega-menu').getByRole('link', { name: 'Dashboards' }).click();
+    await expect(dashboardPage.getPanelByTitle('PNG').locator).toBeVisible();
 
     /**
-     * Go to E2E dashboard
+     * Check and compare image
      */
-    await page.getByRole('link', { name: 'E2E' }).click();
-
-    /**
-     * Check screenshot
-     */
-    // await expect(page).toHaveScreenshot('actual-screenshot.png');
-
-    /**
-     * Compare screenshot actual
-     */
-    // await expect(await page.screenshot()).toMatchSnapshot('actual-screenshot.png', { threshold: 0.3 });
+    await expect(dashboardPage.getPanelByTitle('PNG').locator.getByTestId(TEST_IDS.panel.image)).toHaveScreenshot(
+      'actual-screenshot.png'
+    );
   });
 });
