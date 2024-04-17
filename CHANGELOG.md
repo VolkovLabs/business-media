@@ -5,7 +5,7 @@
 ### Features / Enhancements
 
 - Update video overview (#100)
-- Add plugin e2e tests and remove cypress (#101, #102, #103)
+- Add plugin e2e tests and remove cypress (#101, #102, #103, #105)
 
 ## 5.0.0 (2024-03-25)
 
