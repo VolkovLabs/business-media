@@ -11,8 +11,8 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
   builder
     .addFieldNamePicker({
       path: 'videoUrl',
-      name: 'Video url',
-      description: 'Video url. If not specified, base64 field will be taken. First priority',
+      name: 'Video URL',
+      description: 'Video URL. If not specified, base64 field will be taken. First priority',
       settings: {
         filter: (f: Field) => f.type === FieldType.string,
         noFieldsMessage: 'No strings fields found',
@@ -20,8 +20,8 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     })
     .addFieldNamePicker({
       path: 'imageUrl',
-      name: 'Image url',
-      description: 'Image url. If not specified, base64 field will be taken. Second priority',
+      name: 'Image URL',
+      description: 'Image URL. If not specified, base64 field will be taken. Second priority',
       settings: {
         filter: (f: Field) => f.type === FieldType.string,
         noFieldsMessage: 'No strings fields found',
