@@ -752,7 +752,7 @@ describe('Image Panel', () => {
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toBeInTheDocument();
   });
 
   it('Should render image from url', async () => {

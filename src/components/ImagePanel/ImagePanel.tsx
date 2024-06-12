@@ -281,7 +281,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         controls={options.controls}
         loop={options.infinityPlay}
         autoPlay={options.autoPlay}
-        data-testid={TEST_IDS.panel.video}
+        data-testid={TEST_IDS.panel.videoUrl}
       >
         <source src={videoUrl} />
       </video>
