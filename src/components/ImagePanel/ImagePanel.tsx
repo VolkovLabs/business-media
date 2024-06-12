@@ -30,9 +30,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   const [currentIndex, setCurrentIndex] = useState(0);
   const [toolbarHeight, setToolbarHeight] = useState(0);
   const [descriptionHeight, setDescriptionHeight] = useState(0);
-  console.log('console >>>> options ', options);
-  console.log('console >>>> data ', data);
-  console.log('console >>>> fields ', data.series[0].fields);
+
   /**
    * References
    */
@@ -201,10 +199,6 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    */
   let img = values[resultIndex];
   const description = descriptions[resultIndex];
-
-  console.log('console >>>> videoUrl ', videoUrl);
-  console.log('console >>>> imageUrl ', imageUrl);
-  console.log('console >>>> img ', img);
 
   /**
    * Keep auto-scale if Auto
