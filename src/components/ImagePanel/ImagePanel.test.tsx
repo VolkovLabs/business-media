@@ -722,6 +722,78 @@ describe('Image Panel', () => {
     expect(screen.getByTestId(TEST_IDS.panel.audio)).toBeInTheDocument();
   });
 
+  it('Should render video from url', async () => {
+    render(
+      getComponent({
+        options: {
+          videoUrl: 'videoUrl',
+          name: '',
+        },
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:audio/mp3;base64,JVBERiiUlRU9GCg=='],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'videoUrl',
+                  values: ['https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'],
+                },
+              ],
+            }),
+          ],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
+  });
+
+  it('Should render image from url', async () => {
+    render(
+      getComponent({
+        options: {
+          videoUrl: '',
+          name: '',
+          imageUrl: 'imageUrl',
+        },
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:audio/mp3;base64,JVBERiiUlRU9GCg=='],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'videoUrl',
+                  values: ['https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'imageUrl',
+                  values: ['https://volkovlabs.io/img/index/main.svg'],
+                },
+              ],
+            }),
+          ],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.imageUrl)).toBeInTheDocument();
+  });
+
   /**
    * Toolbar
    */

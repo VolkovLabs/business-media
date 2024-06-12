@@ -15,6 +15,20 @@ export enum ImageScale {
  */
 export interface PanelOptions {
   /**
+   * Video url
+   *
+   * @type {string}
+   */
+  videoUrl: string;
+
+  /**
+   * Image url
+   *
+   * @type {string}
+   */
+  imageUrl: string;
+
+  /**
    * Field name
    *
    * @type {string}

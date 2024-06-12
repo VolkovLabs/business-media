@@ -22,4 +22,6 @@ export const DEFAULT_OPTIONS: PanelOptions = {
   widthName: '',
   zoomType: ZoomType.DEFAULT,
   scale: ImageScale.AUTO,
+  videoUrl: '',
+  imageUrl: '',
 };

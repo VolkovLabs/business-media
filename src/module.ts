@@ -10,10 +10,28 @@ import { ButtonType, ImageSizeMode, PanelOptions } from './types';
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().setPanelOptions((builder) => {
   builder
     .addFieldNamePicker({
+      path: 'videoUrl',
+      name: 'Video url',
+      description: 'Video url. If not specified, base64 field will be taken. First priority',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+    })
+    .addFieldNamePicker({
+      path: 'imageUrl',
+      name: 'Image url',
+      description: 'Image url. If not specified, base64 field will be taken. Second priority',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+    })
+    .addFieldNamePicker({
       path: 'name',
       name: 'Field name',
       description:
-        'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken.',
+        'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken. Third priority',
       settings: {
         filter: (f: Field) => f.type === FieldType.string,
         noFieldsMessage: 'No strings fields found',

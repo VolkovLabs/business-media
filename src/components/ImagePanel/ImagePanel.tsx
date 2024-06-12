@@ -30,7 +30,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   const [currentIndex, setCurrentIndex] = useState(0);
   const [toolbarHeight, setToolbarHeight] = useState(0);
   const [descriptionHeight, setDescriptionHeight] = useState(0);
-
+  console.log('console >>>> options ', options);
+  console.log('console >>>> data ', data);
+  console.log('console >>>> fields ', data.series[0].fields);
   /**
    * References
    */
@@ -53,6 +55,34 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         .filter((item) => !!item)[0] || []
     );
   }, [data.series, options.name]);
+
+  /**
+   * Video urls
+   */
+  const videoUrls = useMemo(() => {
+    return (
+      data.series
+        .map((series) =>
+          series.fields.find((field) => field.type === FieldType.string && field.name === options.videoUrl)
+        )
+        .map((field) => field?.values)
+        .filter((item) => !!item)[0] || []
+    );
+  }, [data.series, options.videoUrl]);
+
+  /**
+   * Image urls
+   */
+  const imageUrls = useMemo(() => {
+    return (
+      data.series
+        .map((series) =>
+          series.fields.find((field) => field.type === FieldType.string && field.name === options.imageUrl)
+        )
+        .map((field) => field?.values)
+        .filter((item) => !!item)[0] || []
+    );
+  }, [data.series, options.imageUrl]);
 
   /**
    * Image descriptions
@@ -156,8 +186,25 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    */
   const resultIndex = navigationShown ? currentIndex : values.length - 1;
 
+  /**
+   * First priority
+   */
+  const videoUrl = videoUrls[resultIndex];
+
+  /**
+   * Second priority
+   */
+  const imageUrl = imageUrls[resultIndex];
+
+  /**
+   * Third priority
+   */
   let img = values[resultIndex];
   const description = descriptions[resultIndex];
+
+  console.log('console >>>> videoUrl ', videoUrl);
+  console.log('console >>>> imageUrl ', imageUrl);
+  console.log('console >>>> img ', img);
 
   /**
    * Keep auto-scale if Auto
@@ -229,6 +276,25 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   );
 
   /**
+   * Display Video via url
+   */
+  if (videoUrl) {
+    return renderContainer(
+      <video
+        muted={options.autoPlay}
+        width={imageWidth || ''}
+        height={imageHeight || ''}
+        controls={options.controls}
+        loop={options.infinityPlay}
+        autoPlay={options.autoPlay}
+        data-testid={TEST_IDS.panel.video}
+      >
+        <source src={videoUrl} />
+      </video>
+    );
+  }
+
+  /**
    * No results
    */
   if (!img) {
@@ -265,7 +331,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Convert PDF base64 to Blob and display
    */
-  if (type === SupportedFileType.PDF) {
+  if (type === SupportedFileType.PDF && !imageUrl) {
     const blob = base64toBlob(img, SupportedFileType.PDF);
     img = URL.createObjectURL(blob);
 
@@ -284,7 +350,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Display Video MP4 or WebM
    */
-  if (type === SupportedFileType.MP4 || type === SupportedFileType.WEBM) {
+  if (!imageUrl && (type === SupportedFileType.MP4 || type === SupportedFileType.WEBM)) {
     return renderContainer(
       <video
         muted={options.autoPlay}
@@ -303,7 +369,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Display Audio OGG or MP3
    */
-  if (type === SupportedFileType.MP3 || type === SupportedFileType.OGG) {
+  if (!imageUrl && (type === SupportedFileType.MP3 || type === SupportedFileType.OGG)) {
     return renderContainer(
       <audio
         controls={options.controls}
@@ -323,8 +389,8 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     <img
       width={imageWidth || ''}
       height={imageHeight || ''}
-      src={img}
-      data-testid={TEST_IDS.panel.image}
+      src={imageUrl || img}
+      data-testid={imageUrl ? TEST_IDS.panel.imageUrl : TEST_IDS.panel.image}
       alt=""
       style={{ imageRendering: options.scale }}
     />
