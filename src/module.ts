@@ -1,42 +1,38 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 
 import { ImagePanel } from './components';
-import { BUTTONS_OPTIONS, DEFAULT_OPTIONS, IMAGE_SCALE_OPTIONS, SIZE_MODE_OPTIONS, ZOOM_OPTIONS } from './constants';
-import { ButtonType, ImageSizeMode, PanelOptions } from './types';
+import {
+  BOOLEAN_OPTIONS,
+  BUTTONS_OPTIONS,
+  DEFAULT_OPTIONS,
+  IMAGE_SCALE_OPTIONS,
+  SIZE_MODE_OPTIONS,
+  SUPPORT_FORMATS_OPTIONS,
+  ZOOM_OPTIONS,
+} from './constants';
+import { ButtonType, ImageSizeMode, PanelOptions, SupportFormats } from './types';
 
 /**
  * Panel Plugin
  */
 export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().setPanelOptions((builder) => {
+  /**
+   * Visibility
+   */
+  const showForAudioFormat = (config: PanelOptions) => config.formats?.includes(SupportFormats.AUDIO);
+  const showForImageFormat = (config: PanelOptions) => config.formats?.includes(SupportFormats.IMAGE);
+  const showVideoFormat = (config: PanelOptions) => config.formats?.includes(SupportFormats.VIDEO);
+
   builder
-    .addFieldNamePicker({
-      path: 'videoUrl',
-      name: 'Video URL',
-      description: 'Video URL. If not specified, base64 field will be taken. First priority',
+    .addMultiSelect({
+      path: 'formats',
+      name: 'Select support media formats',
       settings: {
-        filter: (f: Field) => f.type === FieldType.string,
-        noFieldsMessage: 'No strings fields found',
+        options: SUPPORT_FORMATS_OPTIONS,
       },
+      defaultValue: DEFAULT_OPTIONS.formats as unknown,
     })
-    .addFieldNamePicker({
-      path: 'imageUrl',
-      name: 'Image URL',
-      description: 'Image URL. If not specified, base64 field will be taken. Second priority',
-      settings: {
-        filter: (f: Field) => f.type === FieldType.string,
-        noFieldsMessage: 'No strings fields found',
-      },
-    })
-    .addFieldNamePicker({
-      path: 'name',
-      name: 'Field name',
-      description:
-        'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken. Third priority',
-      settings: {
-        filter: (f: Field) => f.type === FieldType.string,
-        noFieldsMessage: 'No strings fields found',
-      },
-    })
+
     .addFieldNamePicker({
       path: 'description',
       name: 'Field description',
@@ -54,17 +50,52 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     });
 
   /**
+   * Source
+   */
+  builder
+    .addFieldNamePicker({
+      path: 'videoUrl',
+      name: 'Video URL',
+      description: 'Use URL for video instead base64. If not specified, base64 field will be taken. First priority',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+      category: ['Source'],
+      showIf: (config) => showVideoFormat(config),
+    })
+    .addFieldNamePicker({
+      path: 'imageUrl',
+      name: 'Image URL',
+      description: 'Use URL for image instead base64. If not specified, base64 field will be taken. Second priority',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+      category: ['Source'],
+      showIf: (config) => showForImageFormat(config),
+    })
+    .addFieldNamePicker({
+      path: 'name',
+      name: 'Field name',
+      description:
+        'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken. Third priority',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+      category: ['Source'],
+    });
+
+  /**
    * ToolBar
    */
   builder
     .addRadio({
       path: 'toolbar',
-      name: 'Images and PDF only.',
+      name: 'Set appropriate controls. The default toolbar of the reader is used for PDF',
       settings: {
-        options: [
-          { value: true, label: 'Enabled' },
-          { value: false, label: 'Disabled' },
-        ],
+        options: BOOLEAN_OPTIONS,
       },
       category: ['Toolbar'],
       defaultValue: DEFAULT_OPTIONS.toolbar,
@@ -91,19 +122,67 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
     });
 
   /**
-   * URL
+   * Image Options
    */
   builder
+    .addSelect({
+      path: 'scale',
+      name: 'Scale Algorithm',
+      category: ['Image Options'],
+      settings: {
+        options: IMAGE_SCALE_OPTIONS,
+      },
+      defaultValue: DEFAULT_OPTIONS.scale,
+      showIf: (config) => showForImageFormat(config),
+    })
     .addTextInput({
       path: 'url',
-      name: 'Image URL',
+      name: 'Image Data Link',
       description: 'Specifies the URL of the page the click on image goes to.',
-      category: ['URL'],
+      category: ['Image Options'],
     })
     .addTextInput({
       path: 'title',
-      name: 'Title',
-      category: ['URL'],
+      name: 'Image Data Title',
+      category: ['Image Options'],
+    });
+
+  /**
+   * Video / Audio Options
+   */
+  builder
+    .addRadio({
+      path: 'controls',
+      name: 'Controls',
+      description: 'When enabled, it specifies that video and audio controls should be displayed.',
+      settings: {
+        options: BOOLEAN_OPTIONS,
+      },
+      category: ['Video/Audio options'],
+      defaultValue: DEFAULT_OPTIONS.controls,
+      showIf: (config) => showVideoFormat(config) || showForAudioFormat(config),
+    })
+    .addRadio({
+      path: 'autoPlay',
+      name: 'Auto Play',
+      description: 'When enabled, the video and audio will automatically start playing without sound.',
+      settings: {
+        options: BOOLEAN_OPTIONS,
+      },
+      category: ['Video/Audio options'],
+      defaultValue: DEFAULT_OPTIONS.autoPlay,
+      showIf: (config) => showVideoFormat(config) || showForAudioFormat(config),
+    })
+    .addRadio({
+      path: 'infinityPlay',
+      name: 'Infinity Play',
+      description: 'When enabled, the video and audio will be played back repeatedly.',
+      settings: {
+        options: BOOLEAN_OPTIONS,
+      },
+      category: ['Video/Audio options'],
+      defaultValue: DEFAULT_OPTIONS.infinityPlay,
+      showIf: (config) => showVideoFormat(config) || showForAudioFormat(config),
     });
 
   /**
@@ -168,63 +247,6 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       defaultValue: DEFAULT_OPTIONS.height,
       category: ['Height'],
       showIf: (options: PanelOptions) => options.heightMode === ImageSizeMode.CUSTOM,
-    });
-
-  /**
-   * Image
-   */
-  builder.addSelect({
-    path: 'scale',
-    name: 'Scale Algorithm',
-    category: ['Image'],
-    settings: {
-      options: IMAGE_SCALE_OPTIONS,
-    },
-    defaultValue: DEFAULT_OPTIONS.scale,
-  });
-
-  /**
-   * Video / Audio
-   */
-  builder
-    .addRadio({
-      path: 'controls',
-      name: 'Controls',
-      description: 'When enabled, it specifies that video and audio controls should be displayed.',
-      settings: {
-        options: [
-          { value: true, label: 'Enabled' },
-          { value: false, label: 'Disabled' },
-        ],
-      },
-      category: ['Video/Audio'],
-      defaultValue: DEFAULT_OPTIONS.controls,
-    })
-    .addRadio({
-      path: 'autoPlay',
-      name: 'Auto Play',
-      description: 'When enabled, the video and audio will automatically start playing without sound.',
-      settings: {
-        options: [
-          { value: true, label: 'Enabled' },
-          { value: false, label: 'Disabled' },
-        ],
-      },
-      category: ['Video/Audio'],
-      defaultValue: DEFAULT_OPTIONS.autoPlay,
-    })
-    .addRadio({
-      path: 'infinityPlay',
-      name: 'Infinity Play',
-      description: 'When enabled, the video and audio will be played back repeatedly.',
-      settings: {
-        options: [
-          { value: true, label: 'Enabled' },
-          { value: false, label: 'Disabled' },
-        ],
-      },
-      category: ['Video/Audio'],
-      defaultValue: DEFAULT_OPTIONS.infinityPlay,
     });
 
   return builder;

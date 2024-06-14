@@ -1,7 +1,8 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 
+import { DEFAULT_OPTIONS } from './constants';
 import { plugin } from './module';
-import { ButtonType, ImageSizeMode, PanelOptions } from './types';
+import { ButtonType, ImageSizeMode, PanelOptions, SupportFormats } from './types';
 
 /**
  * Test Field
@@ -154,6 +155,33 @@ describe('plugin', () => {
       plugin['optionsSupplier'](builder);
 
       expect(shownOptionsPaths).toEqual(expect.arrayContaining(['zoomType']));
+    });
+
+    it('Should show the scale input', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addSelect.mockImplementation(
+        addInputImplementation({ formats: DEFAULT_OPTIONS.formats }, shownOptionsPaths)
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['scale']));
+    });
+
+    it('Should show the scale input only for image format', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addSelect.mockImplementation(
+        addInputImplementation(
+          { formats: [SupportFormats.AUDIO, SupportFormats.PDF, SupportFormats.VIDEO] },
+          shownOptionsPaths
+        )
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).not.toEqual(expect.arrayContaining(['scale']));
     });
   });
 

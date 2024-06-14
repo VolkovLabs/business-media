@@ -74,6 +74,8 @@
         "noResultsMessage": "Nothing to display...",
         "scale": "auto",
         "toolbar": true,
+        "url": "https://volkovlabs.io/plugins/volkovlabs-dynamictext-panel/code/",
+        "title": "Link Title",
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"

@@ -1,4 +1,4 @@
-import { ImageScale, ImageSizeMode, SupportedFileType } from '../types';
+import { ImageScale, ImageSizeMode, SupportedFileType, SupportFormats } from '../types';
 
 /**
  * Base64 symbols for Image Types
@@ -36,5 +36,29 @@ export const IMAGE_SCALE_OPTIONS = [
     label: 'Pixelated',
     description:
       'The image is scaled with the "nearest neighbor" or similar algorithm, preserving a "pixelated" look as the image changes in size.',
+  },
+];
+
+/**
+ * SUPPORT FORMATS OPTIONS
+ */
+export const SUPPORT_FORMATS_OPTIONS = [
+  { value: SupportFormats.AUDIO, label: 'Audio', description: 'ogg, mp3' },
+  { value: SupportFormats.IMAGE, label: 'Image', description: 'jpeg, png, gif, heic' },
+  { value: SupportFormats.PDF, label: 'PDF', description: 'pdf' },
+  { value: SupportFormats.VIDEO, label: 'Video', description: 'mp4, webm' },
+];
+
+/**
+ * Boolean Options
+ */
+export const BOOLEAN_OPTIONS = [
+  {
+    value: true,
+    label: 'Enabled',
+  },
+  {
+    value: false,
+    label: 'Disabled',
   },
 ];
