@@ -1,10 +1,10 @@
 import { FieldType, PanelData } from '@grafana/data';
 import { Base64 } from 'js-base64';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { getMediaData } from 'utils';
 
-import { IMAGE_TYPES_SYMBOLS } from '../constants';
-import { ButtonType, PanelOptions, SupportedFileType, SupportFormats } from '../types';
+import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from '../constants';
+import { ButtonType, MediaFormat,PanelOptions, SupportedFileType } from '../types';
 
 /**
  * Use media data hook
@@ -19,17 +19,19 @@ export const useMediaData = ({
   currentIndex: number;
 }) => {
   /**
-   * Selected support media formats
+   * Has format support
    */
-  const isAudioSupport = useMemo(() => options.formats?.includes(SupportFormats.AUDIO), [options.formats]);
-  const isImageSupport = useMemo(() => options.formats?.includes(SupportFormats.IMAGE), [options.formats]);
-  const isPdfSupport = useMemo(() => options.formats?.includes(SupportFormats.PDF), [options.formats]);
-  const isVideoSupport = useMemo(() => options.formats?.includes(SupportFormats.VIDEO), [options.formats]);
+  const hasFormatSupport = useCallback(
+    (format: MediaFormat): boolean => {
+      return options.formats.includes(format);
+    },
+    [options.formats]
+  );
 
   /**
-   * If Navigation Shown
+   * Is Navigation Shown
    */
-  const navigationShown = useMemo(
+  const isNavigationShown = useMemo(
     () => options.toolbar && options.buttons?.includes(ButtonType.NAVIGATION),
     [options.buttons, options.toolbar]
   );
@@ -75,8 +77,8 @@ export const useMediaData = ({
    * Use first element if Navigation enabled, otherwise last
    */
   const resultIndex = useMemo(
-    () => (navigationShown ? currentIndex : values.length - 1),
-    [currentIndex, navigationShown, values.length]
+    () => (isNavigationShown ? currentIndex : values.length - 1),
+    [currentIndex, isNavigationShown, values.length]
   );
 
   /**
@@ -98,7 +100,7 @@ export const useMediaData = ({
   let media = useMemo(() => values[resultIndex], [resultIndex, values]);
 
   /**
-   *Description for media
+   * Description for media
    */
   const description = useMemo(() => descriptions[resultIndex], [resultIndex, descriptions]);
 
@@ -111,7 +113,7 @@ export const useMediaData = ({
    * Check if returned value already has header
    */
   if (media) {
-    const mediaMatch = media.match(/^data:(video\/\w+|audio\/\w+|image|application\/\w+)/);
+    const mediaMatch = media.match(BASE64_MEDIA_HEADER_REGEX);
     if (!mediaMatch?.length) {
       /**
        * Encode to base64 if not
@@ -134,12 +136,9 @@ export const useMediaData = ({
   return {
     description,
     imageUrl,
-    isAudioSupport,
-    isImageSupport,
-    isPdfSupport,
-    isVideoSupport,
+    hasFormatSupport,
     media,
-    navigationShown,
+    isNavigationShown,
     type,
     values,
     videoUrl,

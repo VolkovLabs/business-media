@@ -2,7 +2,7 @@ import { FieldType } from '@grafana/data';
 import { renderHook } from '@testing-library/react';
 import { Base64 } from 'js-base64';
 
-import { SupportFormats } from '../types';
+import { MediaFormat } from '../types';
 import { useMediaData } from './useMediaData';
 
 /**
@@ -28,7 +28,7 @@ describe('useMediaData', () => {
     const invalidBase64Value = 'not_a_valid_base64_string';
 
     const options = {
-      formats: [SupportFormats.IMAGE],
+      formats: [MediaFormat.IMAGE],
       imageUrl: 'imageUrl',
     } as any;
     const data = {
@@ -58,7 +58,7 @@ describe('useMediaData', () => {
     const validBase64Value = 'data:application/pdf;base64,JVBERiiUlRU9GCg==';
 
     const options = {
-      formats: [SupportFormats.IMAGE],
+      formats: [MediaFormat.IMAGE],
       imageUrl: 'imageUrl',
     } as any;
     const data = {

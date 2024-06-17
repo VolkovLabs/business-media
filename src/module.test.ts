@@ -2,7 +2,7 @@ import { Field, FieldType, PanelPlugin } from '@grafana/data';
 
 import { DEFAULT_OPTIONS } from './constants';
 import { plugin } from './module';
-import { ButtonType, ImageSizeMode, PanelOptions, SupportFormats } from './types';
+import { ButtonType, ImageSizeMode, MediaFormat,PanelOptions } from './types';
 
 /**
  * Test Field
@@ -79,10 +79,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM, formats: [] }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM, formats: [] }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -94,10 +94,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeMode.AUTO }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.AUTO, formats: [] }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeMode.AUTO }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.AUTO, formats: [] }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -109,10 +109,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM, formats: [] }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM, formats: [] }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -124,10 +124,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeMode.AUTO }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.AUTO, formats: [] }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeMode.AUTO }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.AUTO, formats: [] }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -138,7 +138,9 @@ describe('plugin', () => {
     it('Should show buttons field if toolbar enabled', () => {
       const shownOptionsPaths: string[] = [];
 
-      builder.addMultiSelect.mockImplementation(addInputImplementation({ toolbar: true }, shownOptionsPaths));
+      builder.addMultiSelect.mockImplementation(
+        addInputImplementation({ toolbar: true, formats: [] }, shownOptionsPaths)
+      );
 
       plugin['optionsSupplier'](builder);
 
@@ -149,7 +151,7 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addRadio.mockImplementation(
-        addInputImplementation({ toolbar: true, buttons: [ButtonType.ZOOM] }, shownOptionsPaths)
+        addInputImplementation({ toolbar: true, buttons: [ButtonType.ZOOM], formats: [] }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -173,10 +175,7 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addSelect.mockImplementation(
-        addInputImplementation(
-          { formats: [SupportFormats.AUDIO, SupportFormats.PDF, SupportFormats.VIDEO] },
-          shownOptionsPaths
-        )
+        addInputImplementation({ formats: [MediaFormat.AUDIO, MediaFormat.PDF, MediaFormat.VIDEO] }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);

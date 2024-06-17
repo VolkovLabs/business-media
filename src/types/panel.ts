@@ -1,4 +1,4 @@
-import { ImageSizeMode, SupportFormats } from './image';
+import { ImageSizeMode, MediaFormat } from './image';
 import { ButtonType, ZoomType } from './toolbar';
 
 /**
@@ -17,9 +17,9 @@ export interface PanelOptions {
   /**
    * Formats
    *
-   * @type {SupportFormats}
+   * @type {MediaFormat}
    */
-  formats: SupportFormats[];
+  formats: MediaFormat[];
 
   /**
    * Video url

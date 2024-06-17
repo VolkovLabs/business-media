@@ -4,7 +4,7 @@ import { saveAs } from 'file-saver';
 import React from 'react';
 
 import { DEFAULT_OPTIONS, TEST_IDS } from '../../constants';
-import { ButtonType, ImageField, ImageSizeMode, SupportFormats, ZoomType } from '../../types';
+import { ButtonType, ImageField, ImageSizeMode, MediaFormat, ZoomType } from '../../types';
 import { ImagePanel } from './ImagePanel';
 
 /**
@@ -118,7 +118,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: [SupportFormats.AUDIO, SupportFormats.IMAGE, SupportFormats.VIDEO],
+          formats: [MediaFormat.AUDIO, MediaFormat.IMAGE, MediaFormat.VIDEO],
         },
       })
     );
@@ -175,7 +175,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: [SupportFormats.AUDIO, SupportFormats.VIDEO],
+          formats: [MediaFormat.AUDIO, MediaFormat.VIDEO],
         },
       })
     );
@@ -937,7 +937,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: [SupportFormats.AUDIO, SupportFormats.IMAGE],
+          formats: [MediaFormat.AUDIO, MediaFormat.IMAGE],
         },
       })
     );
@@ -967,7 +967,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: [SupportFormats.VIDEO, SupportFormats.IMAGE],
+          formats: [MediaFormat.VIDEO, MediaFormat.IMAGE],
         },
       })
     );

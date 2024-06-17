@@ -32,9 +32,9 @@ export enum ImageSizeMode {
 }
 
 /**
- * Support Formats
+ * Media Format
  */
-export enum SupportFormats {
+export enum MediaFormat {
   IMAGE = 'image',
   VIDEO = 'video',
   AUDIO = 'audio',

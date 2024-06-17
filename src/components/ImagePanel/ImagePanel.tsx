@@ -10,7 +10,7 @@ import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { TEST_IDS } from '../../constants';
-import { ButtonType, ImageSizeMode, PanelOptions, SupportedFileType, ZoomType } from '../../types';
+import { ButtonType, ImageSizeMode, MediaFormat, PanelOptions, SupportedFileType, ZoomType } from '../../types';
 import { base64toBlob, getSizeField } from '../../utils';
 import { getStyles } from './ImagePanel.styles';
 
@@ -46,19 +46,16 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Use media data
    */
-  const {
-    description,
-    imageUrl,
-    isAudioSupport,
-    isImageSupport,
-    isPdfSupport,
-    isVideoSupport,
-    media,
-    navigationShown,
-    type,
-    values,
-    videoUrl,
-  } = useMediaData({ options, data, currentIndex });
+  const { description, imageUrl, hasFormatSupport, media, isNavigationShown, type, values, videoUrl } = useMediaData({
+    options,
+    data,
+    currentIndex,
+  });
+
+  /**
+   * Is Image Supported
+   */
+  const isImageSupported = hasFormatSupport(MediaFormat.IMAGE);
 
   /**
    * Is Toolbar Shown
@@ -121,7 +118,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
    */
   useEffect(() => {
     setDescriptionHeight(descriptionRef.current?.clientHeight || 0);
-  }, [width, height, options.description, description, currentIndex, navigationShown]);
+  }, [width, height, options.description, description, currentIndex, isNavigationShown]);
 
   /**
    * Reset zoom when panel size is changed to avoid wrong image transform if zoom in
@@ -231,7 +228,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     /**
      * Return message if pdf was not selected
      */
-    if (!isPdfSupport) {
+    if (!hasFormatSupport(MediaFormat.PDF)) {
       return renderContainer(renderAlertMessage('PDF was not selected as a supported media format.'));
     }
 
@@ -252,7 +249,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     /**
      * Return message if audio was not selected
      */
-    if (!isAudioSupport) {
+    if (!hasFormatSupport(MediaFormat.AUDIO)) {
       return renderContainer(renderAlertMessage('Audio was not selected as a supported media format.'));
     }
 
@@ -280,7 +277,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     /**
      * Return message if video was not selected
      */
-    if (!isVideoSupport) {
+    if (!hasFormatSupport(MediaFormat.VIDEO)) {
       video = renderAlertMessage('Video was not selected as a supported media format.');
     } else {
       video = (
@@ -325,7 +322,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Return message if image was not selected
    */
-  if (!isImageSupport) {
+  if (!isImageSupported) {
     image = renderAlertMessage('Image was not selected as a supported media format.');
   }
 
@@ -402,7 +399,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   : undefined
               }
             >
-              {!isThisVideo && isImageSupport && options.buttons.includes(ButtonType.DOWNLOAD) && (
+              {!isThisVideo && isImageSupported && options.buttons.includes(ButtonType.DOWNLOAD) && (
                 <ToolbarButton
                   icon="save"
                   onClick={() => {
@@ -415,7 +412,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
               )}
 
               {!isThisVideo &&
-                isImageSupport &&
+                isImageSupported &&
                 options.buttons.includes(ButtonType.ZOOM) &&
                 options.zoomType !== ZoomType.PANPINCH && (
                   <ToolbarButton
@@ -427,7 +424,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   />
                 )}
               {!isThisVideo &&
-                isImageSupport &&
+                isImageSupported &&
                 options.buttons.includes(ButtonType.ZOOM) &&
                 options.zoomType === ZoomType.PANPINCH && (
                   <>

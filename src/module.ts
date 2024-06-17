@@ -10,7 +10,7 @@ import {
   SUPPORT_FORMATS_OPTIONS,
   ZOOM_OPTIONS,
 } from './constants';
-import { ButtonType, ImageSizeMode, PanelOptions, SupportFormats } from './types';
+import { ButtonType, ImageSizeMode, MediaFormat,PanelOptions } from './types';
 
 /**
  * Panel Plugin
@@ -19,9 +19,9 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
   /**
    * Visibility
    */
-  const showForAudioFormat = (config: PanelOptions) => config.formats?.includes(SupportFormats.AUDIO);
-  const showForImageFormat = (config: PanelOptions) => config.formats?.includes(SupportFormats.IMAGE);
-  const showVideoFormat = (config: PanelOptions) => config.formats?.includes(SupportFormats.VIDEO);
+  const showForAudioFormat = (config: PanelOptions) => config.formats.includes(MediaFormat.AUDIO);
+  const showForImageFormat = (config: PanelOptions) => config.formats.includes(MediaFormat.IMAGE);
+  const showVideoFormat = (config: PanelOptions) => config.formats.includes(MediaFormat.VIDEO);
 
   builder
     .addMultiSelect({

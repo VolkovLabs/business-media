@@ -1,4 +1,4 @@
-import { ImageScale, ImageSizeMode, SupportedFileType, SupportFormats } from '../types';
+import { ImageScale, ImageSizeMode, MediaFormat,SupportedFileType } from '../types';
 
 /**
  * Base64 symbols for Image Types
@@ -40,13 +40,13 @@ export const IMAGE_SCALE_OPTIONS = [
 ];
 
 /**
- * SUPPORT FORMATS OPTIONS
+ * Support Formats Options
  */
 export const SUPPORT_FORMATS_OPTIONS = [
-  { value: SupportFormats.AUDIO, label: 'Audio', description: 'ogg, mp3' },
-  { value: SupportFormats.IMAGE, label: 'Image', description: 'jpeg, png, gif, heic' },
-  { value: SupportFormats.PDF, label: 'PDF', description: 'pdf' },
-  { value: SupportFormats.VIDEO, label: 'Video', description: 'mp4, webm' },
+  { value: MediaFormat.AUDIO, label: 'Audio', description: 'ogg, mp3' },
+  { value: MediaFormat.IMAGE, label: 'Image', description: 'jpeg, png, gif, heic' },
+  { value: MediaFormat.PDF, label: 'PDF', description: 'pdf' },
+  { value: MediaFormat.VIDEO, label: 'Video', description: 'mp4, webm' },
 ];
 
 /**
@@ -62,3 +62,8 @@ export const BOOLEAN_OPTIONS = [
     label: 'Disabled',
   },
 ];
+
+/**
+ * Base64 media header regex
+ */
+export const BASE64_MEDIA_HEADER_REGEX = /^data:(video\/\w+|audio\/\w+|image|application\/\w+)/;

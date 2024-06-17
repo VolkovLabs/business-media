@@ -1,4 +1,4 @@
-import { ImageScale, ImageSizeMode, PanelOptions, SupportFormats, ZoomType } from '../types';
+import { ImageScale, ImageSizeMode, MediaFormat, PanelOptions, ZoomType } from '../types';
 
 /**
  * Default Options
@@ -8,7 +8,7 @@ export const DEFAULT_OPTIONS: PanelOptions = {
   buttons: [],
   controls: true,
   description: '',
-  formats: [SupportFormats.AUDIO, SupportFormats.IMAGE, SupportFormats.PDF, SupportFormats.VIDEO],
+  formats: [MediaFormat.AUDIO, MediaFormat.IMAGE, MediaFormat.PDF, MediaFormat.VIDEO],
   height: 0,
   heightMode: ImageSizeMode.AUTO,
   heightName: '',
