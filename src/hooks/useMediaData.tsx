@@ -87,24 +87,24 @@ export const useMediaData = ({
    * First priority
    * Url for video
    */
-  const videoUrl = useMemo(() => videoUrls[resultIndex], [resultIndex, videoUrls]);
+  const videoUrl = useMemo((): string | undefined => videoUrls[resultIndex], [resultIndex, videoUrls]);
 
   /**
    * Second priority
    * Url for image
    */
-  const imageUrl = useMemo(() => imageUrls[resultIndex], [resultIndex, imageUrls]);
+  const imageUrl = useMemo((): string | undefined => imageUrls[resultIndex], [resultIndex, imageUrls]);
 
   /**
    * Third priority
    * Media (base64)
    */
-  let media = useMemo(() => values[resultIndex], [resultIndex, values]);
+  let media = useMemo((): string | undefined => values[resultIndex], [resultIndex, values]);
 
   /**
    * Description for media
    */
-  const description = useMemo(() => descriptions[resultIndex], [resultIndex, descriptions]);
+  const description = useMemo((): string | undefined => descriptions[resultIndex], [resultIndex, descriptions]);
 
   /**
    * Type

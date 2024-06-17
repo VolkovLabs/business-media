@@ -214,7 +214,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Convert PDF base64 to Blob and display
    */
-  if (type === SupportedFileType.PDF) {
+  if (type === SupportedFileType.PDF && media) {
     const blob = base64toBlob(media, SupportedFileType.PDF);
     let currentPdfMedia = URL.createObjectURL(blob);
 
@@ -399,7 +399,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   : undefined
               }
             >
-              {!isThisVideo && isImageSupported && options.buttons.includes(ButtonType.DOWNLOAD) && (
+              {!isThisVideo && isImageSupported && options.buttons.includes(ButtonType.DOWNLOAD) && media && (
                 <ToolbarButton
                   icon="save"
                   onClick={() => {
