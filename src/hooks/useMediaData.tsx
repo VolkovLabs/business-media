@@ -1,10 +1,10 @@
 import { FieldType, PanelData } from '@grafana/data';
 import { Base64 } from 'js-base64';
 import { useCallback, useMemo } from 'react';
-import { getMediaData } from 'utils';
 
 import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from '../constants';
-import { ButtonType, MediaFormat,PanelOptions, SupportedFileType } from '../types';
+import { ButtonType, MediaFormat, PanelOptions, SupportedFileType } from '../types';
+import { findField, getFieldValues } from '../utils';
 
 /**
  * Use media data hook
@@ -39,28 +39,30 @@ export const useMediaData = ({
   /**
    * Image values
    */
-  const values = useMemo(() => {
+  const values = useMemo((): string[] => {
     return (
-      data.series
-        .map((series) =>
-          series.fields.find(
-            (field) => field.type === FieldType.string && (!options.name || field.name === options.name)
-          )
-        )
-        .map((field) => field?.values)
-        .filter((item) => !!item)[0] || []
+      findField<string>(
+        data.series,
+        (field) => field.type === FieldType.string && (!options.name || field.name === options.name)
+      )?.values || []
     );
   }, [data.series, options.name]);
 
   /**
    * Video urls
    */
-  const videoUrls = useMemo(() => getMediaData(data.series, options.videoUrl), [data.series, options.videoUrl]);
+  const videoUrls = useMemo(
+    () => getFieldValues<string>(data.series, options.videoUrl, FieldType.string),
+    [data.series, options.videoUrl]
+  );
 
   /**
    * Image urls
    */
-  const imageUrls = useMemo(() => getMediaData(data.series, options.imageUrl), [data.series, options.imageUrl]);
+  const imageUrls = useMemo(
+    () => getFieldValues<string>(data.series, options.imageUrl, FieldType.string),
+    [data.series, options.imageUrl]
+  );
 
   /**
    * Image descriptions
@@ -70,7 +72,7 @@ export const useMediaData = ({
       return [];
     }
 
-    return getMediaData(data.series, options.description);
+    return getFieldValues<string>(data.series, options.description, FieldType.string);
   }, [data.series, options.description]);
 
   /**

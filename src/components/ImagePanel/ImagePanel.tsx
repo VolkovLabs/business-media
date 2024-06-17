@@ -11,7 +11,7 @@ import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'reac
 
 import { TEST_IDS } from '../../constants';
 import { ButtonType, ImageSizeMode, MediaFormat, PanelOptions, SupportedFileType, ZoomType } from '../../types';
-import { base64toBlob, getSizeField } from '../../utils';
+import { base64toBlob, getLastFieldValue } from '../../utils';
 import { getStyles } from './ImagePanel.styles';
 
 /**
@@ -175,7 +175,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
      * Field
      */
     if (options.heightName) {
-      const heightField = getSizeField(data.series, options.heightName);
+      const heightField = getLastFieldValue(data.series, options.heightName);
       imageHeight = Number(heightField) ? Number(heightField) : imageHeight;
     }
 
@@ -190,7 +190,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
      * Field
      */
     if (options.widthName) {
-      const widthField = getSizeField(data.series, options.widthName);
+      const widthField = getLastFieldValue(data.series, options.widthName);
       imageWidth = Number(widthField) ? Number(widthField) : imageWidth;
     }
 

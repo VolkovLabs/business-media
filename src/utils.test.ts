@@ -1,6 +1,6 @@
 import { FieldType } from '@grafana/data';
 
-import { base64toBlob, getMediaData } from './utils';
+import { base64toBlob, getFieldValues } from './utils';
 
 /**
  * base64toBlob
@@ -21,8 +21,8 @@ describe('base64toBlob', () => {
 /**
  * getMediaData
  */
-describe('getMediaData', () => {
-  it('Should return media data from data frames', () => {
+describe('getFieldValues', () => {
+  it('Should return field values', () => {
     const dataFrames = [
       {
         fields: [
@@ -40,13 +40,13 @@ describe('getMediaData', () => {
       },
     ] as any;
 
-    const mediaData = getMediaData(dataFrames, 'media');
+    const mediaData = getFieldValues(dataFrames, 'media');
     expect(mediaData).toHaveLength(3);
     expect(mediaData[0]).toEqual(dataFrames[0].fields[1].values[0]);
     expect(mediaData[1]).toEqual(dataFrames[0].fields[1].values[1]);
   });
 
-  it('Should return media data from data frames with string type', () => {
+  it('Should take field with right type', () => {
     const dataFrames = [
       {
         fields: [
@@ -60,7 +60,7 @@ describe('getMediaData', () => {
       },
     ] as any;
 
-    const mediaData = getMediaData(dataFrames, 'media');
+    const mediaData = getFieldValues(dataFrames, 'media', FieldType.string);
 
     expect(mediaData).toHaveLength(0);
     expect(mediaData).toEqual([]);
