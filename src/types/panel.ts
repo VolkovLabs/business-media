@@ -1,4 +1,4 @@
-import { ImageSizeMode } from './image';
+import { ImageSizeMode, MediaFormat } from './image';
 import { ButtonType, ZoomType } from './toolbar';
 
 /**
@@ -14,6 +14,27 @@ export enum ImageScale {
  * Options
  */
 export interface PanelOptions {
+  /**
+   * Formats
+   *
+   * @type {MediaFormat}
+   */
+  formats: MediaFormat[];
+
+  /**
+   * Video url
+   *
+   * @type {string}
+   */
+  videoUrl: string;
+
+  /**
+   * Image url
+   *
+   * @type {string}
+   */
+  imageUrl: string;
+
   /**
    * Field name
    *

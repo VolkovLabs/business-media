@@ -1,17 +1,17 @@
 import 'react-medium-image-zoom/dist/styles.css';
 
 import { css, cx } from '@emotion/css';
-import { FieldType, PanelProps } from '@grafana/data';
+import { PanelProps } from '@grafana/data';
 import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { saveAs } from 'file-saver';
-import { Base64 } from 'js-base64';
 import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
-import { IMAGE_TYPES_SYMBOLS, TEST_IDS } from '../../constants';
-import { ButtonType, ImageSizeMode, PanelOptions, SupportedFileType, ZoomType } from '../../types';
-import { base64toBlob } from '../../utils';
+import { TEST_IDS } from '../../constants';
+import { useMediaData } from '../../hooks';
+import { ButtonType, ImageSizeMode, MediaFormat, PanelOptions, SupportedFileType, ZoomType } from '../../types';
+import { base64toBlob, getLastFieldValue } from '../../utils';
 import { getStyles } from './ImagePanel.styles';
 
 /**
@@ -23,6 +23,11 @@ interface Props extends PanelProps<PanelOptions> {}
  * Image Panel
  */
 export const ImagePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
+  /**
+   * Styles
+   */
+  const styles = useStyles2(getStyles);
+
   /**
    * States
    */
@@ -39,36 +44,18 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   const descriptionRef = useRef<HTMLDivElement>(null);
 
   /**
-   * Image values
+   * Use media data
    */
-  const values = useMemo(() => {
-    return (
-      data.series
-        .map((series) =>
-          series.fields.find(
-            (field) => field.type === FieldType.string && (!options.name || field.name === options.name)
-          )
-        )
-        .map((field) => field?.values)
-        .filter((item) => !!item)[0] || []
-    );
-  }, [data.series, options.name]);
+  const { description, imageUrl, hasFormatSupport, media, isNavigationShown, type, values, videoUrl } = useMediaData({
+    options,
+    data,
+    currentIndex,
+  });
 
   /**
-   * Image descriptions
+   * Is Image Supported
    */
-  const descriptions = useMemo(() => {
-    if (!options.description) {
-      return [];
-    }
-
-    return (
-      data.series
-        .map((series) => series.fields.find((field) => field.name === options.description))
-        .map((field) => field?.values)
-        .filter((item) => !!item)[0] || []
-    );
-  }, [data.series, options.description]);
+  const isImageSupported = hasFormatSupport(MediaFormat.IMAGE);
 
   /**
    * Is Toolbar Shown
@@ -127,16 +114,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }, [width, height, options.toolbar, options.buttons, options.zoomType]);
 
   /**
-   * If Navigation Shown
-   */
-  const navigationShown = options.toolbar && options.buttons?.includes(ButtonType.NAVIGATION);
-
-  /**
    * Calculate description height when panel width, height, descriptions or description field changed
    */
   useEffect(() => {
     setDescriptionHeight(descriptionRef.current?.clientHeight || 0);
-  }, [width, height, options.description, descriptions, currentIndex, navigationShown]);
+  }, [width, height, options.description, description, currentIndex, isNavigationShown]);
 
   /**
    * Reset zoom when panel size is changed to avoid wrong image transform if zoom in
@@ -146,69 +128,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }, [width, height, onResetZoomPanPinch]);
 
   /**
-   * Styles
-   */
-  const styles = useStyles2(getStyles);
-
-  /**
-   * Name and description field (string)
-   * Use first element if Navigation enabled, otherwise last
-   */
-  const resultIndex = navigationShown ? currentIndex : values.length - 1;
-
-  let img = values[resultIndex];
-  const description = descriptions[resultIndex];
-
-  /**
-   * Keep auto-scale if Auto
-   */
-  let imageHeight = options.heightMode === ImageSizeMode.AUTO ? height - toolbarHeight - descriptionHeight : 0;
-  let imageWidth = options.widthMode === ImageSizeMode.AUTO ? width : 0;
-
-  /**
-   * Height
-   */
-  if (options.heightMode === ImageSizeMode.CUSTOM) {
-    /**
-     * Field
-     */
-    if (options.heightName) {
-      const heightField = data.series
-        .map((series) =>
-          series.fields.find((field) => field.type === FieldType.number && field.name === options.heightName)
-        )
-        .map((field) => field?.values[field.values.length - 1])
-        .toString();
-      imageHeight = Number(heightField) ? Number(heightField) : imageHeight;
-    }
-
-    imageHeight = options.height ? options.height : imageHeight;
-  }
-
-  /**
-   * Width
-   */
-  if (options.widthMode === ImageSizeMode.CUSTOM) {
-    /**
-     * Field
-     */
-    if (options.widthName) {
-      const widthField = data.series
-        .map((series) =>
-          series.fields.find((field) => field.type === FieldType.number && field.name === options.widthName)
-        )
-        .map((field) => field?.values[field.values.length - 1])
-        .toString();
-      imageWidth = Number(widthField) ? Number(widthField) : imageWidth;
-    }
-
-    imageWidth = options.width ? options.width : imageWidth;
-  }
-
-  /**
    * Root Container
    */
-  const renderContainer = (child: JSX.Element) => (
+  const renderContainer = (child?: JSX.Element) => (
     <div
       data-testid={TEST_IDS.panel.root}
       className={cx(
@@ -229,81 +151,108 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   );
 
   /**
-   * No results
+   * Alert message
    */
-  if (!img) {
-    return renderContainer(
+  const renderAlertMessage = (text: string) => {
+    return (
       <Alert severity="warning" title="" data-testid={TEST_IDS.panel.warning}>
-        {options.noResultsMessage}
+        {text}
       </Alert>
     );
-  }
-
-  let type;
+  };
 
   /**
-   * Check if returned value already has header
+   * Keep auto-scale if Auto
    */
-  const m = img.match(/^data:(video\/\w+|audio\/\w+|image|application\/\w+)/);
-  if (!m?.length) {
+  let imageHeight = options.heightMode === ImageSizeMode.AUTO ? height - toolbarHeight - descriptionHeight : 0;
+  let imageWidth = options.widthMode === ImageSizeMode.AUTO ? width : 0;
+
+  /**
+   * Height
+   */
+  if (options.heightMode === ImageSizeMode.CUSTOM) {
     /**
-     * Encode to base64 if not
+     * Field
      */
-    if (!Base64.isValid(img)) {
-      img = Base64.encode(img);
+    if (options.heightName) {
+      const heightField = getLastFieldValue(data.series, options.heightName);
+      imageHeight = Number(heightField) ? Number(heightField) : imageHeight;
     }
 
+    imageHeight = options.height ? options.height : imageHeight;
+  }
+
+  /**
+   * Width
+   */
+  if (options.widthMode === ImageSizeMode.CUSTOM) {
     /**
-     * Set header
+     * Field
      */
-    type = IMAGE_TYPES_SYMBOLS[img.charAt(0)];
-    img = type ? `data:${type};base64,${img}` : `data:;base64,${img}`;
-  } else if (Object.values(SupportedFileType).includes(m[1] as SupportedFileType)) {
-    type = m[1];
+    if (options.widthName) {
+      const widthField = getLastFieldValue(data.series, options.widthName);
+      imageWidth = Number(widthField) ? Number(widthField) : imageWidth;
+    }
+
+    imageWidth = options.width ? options.width : imageWidth;
+  }
+
+  /**
+   * No selected formats
+   */
+  if (!options.formats.length) {
+    return renderContainer(renderAlertMessage('Support media formats not selected'));
+  }
+
+  /**
+   * No results
+   */
+  if (!media && !videoUrl && !imageUrl) {
+    return renderContainer(renderAlertMessage(options.noResultsMessage));
   }
 
   /**
    * Convert PDF base64 to Blob and display
    */
-  if (type === SupportedFileType.PDF) {
-    const blob = base64toBlob(img, SupportedFileType.PDF);
-    img = URL.createObjectURL(blob);
+  if (type === SupportedFileType.PDF && media) {
+    const blob = base64toBlob(media, SupportedFileType.PDF);
+    let currentPdfMedia = URL.createObjectURL(blob);
 
     /**
      * Disable toolbar
      */
     if (!options.toolbar) {
-      img += '#toolbar=0';
+      currentPdfMedia += '#toolbar=0';
+    }
+
+    /**
+     * Return message if pdf was not selected
+     */
+    if (!hasFormatSupport(MediaFormat.PDF)) {
+      return renderContainer(renderAlertMessage('PDF was not selected as a supported media format.'));
     }
 
     return renderContainer(
-      <iframe width={imageWidth || ''} height={imageHeight || ''} src={img} data-testid={TEST_IDS.panel.iframe} />
-    );
-  }
-
-  /**
-   * Display Video MP4 or WebM
-   */
-  if (type === SupportedFileType.MP4 || type === SupportedFileType.WEBM) {
-    return renderContainer(
-      <video
-        muted={options.autoPlay}
+      <iframe
         width={imageWidth || ''}
         height={imageHeight || ''}
-        controls={options.controls}
-        loop={options.infinityPlay}
-        autoPlay={options.autoPlay}
-        data-testid={TEST_IDS.panel.video}
-      >
-        <source src={img} />
-      </video>
+        src={currentPdfMedia}
+        data-testid={TEST_IDS.panel.iframe}
+      />
     );
   }
 
   /**
    * Display Audio OGG or MP3
    */
-  if (type === SupportedFileType.MP3 || type === SupportedFileType.OGG) {
+  if (!imageUrl && (type === SupportedFileType.MP3 || type === SupportedFileType.OGG)) {
+    /**
+     * Return message if audio was not selected
+     */
+    if (!hasFormatSupport(MediaFormat.AUDIO)) {
+      return renderContainer(renderAlertMessage('Audio was not selected as a supported media format.'));
+    }
+
     return renderContainer(
       <audio
         controls={options.controls}
@@ -311,9 +260,40 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         data-testid={TEST_IDS.panel.audio}
         loop={options.infinityPlay}
       >
-        <source src={img} />
+        <source src={media} />
       </audio>
     );
+  }
+
+  let video;
+  let isThisVideo = false;
+
+  /**
+   * Display Video MP4 or WebM
+   */
+  if (type === SupportedFileType.MP4 || type === SupportedFileType.WEBM || videoUrl) {
+    isThisVideo = true;
+
+    /**
+     * Return message if video was not selected
+     */
+    if (!hasFormatSupport(MediaFormat.VIDEO)) {
+      video = renderAlertMessage('Video was not selected as a supported media format.');
+    } else {
+      video = (
+        <video
+          muted={options.autoPlay}
+          width={imageWidth || ''}
+          height={imageHeight || ''}
+          controls={options.controls}
+          loop={options.infinityPlay}
+          autoPlay={options.autoPlay}
+          data-testid={videoUrl ? TEST_IDS.panel.videoUrl : TEST_IDS.panel.video}
+        >
+          <source src={videoUrl || media} />
+        </video>
+      );
+    }
   }
 
   /**
@@ -323,8 +303,8 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
     <img
       width={imageWidth || ''}
       height={imageHeight || ''}
-      src={img}
-      data-testid={TEST_IDS.panel.image}
+      src={imageUrl || media}
+      data-testid={imageUrl ? TEST_IDS.panel.imageUrl : TEST_IDS.panel.image}
       alt=""
       style={{ imageRendering: options.scale }}
     />
@@ -337,6 +317,13 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
         {image}
       </a>
     );
+  }
+
+  /**
+   * Return message if image was not selected
+   */
+  if (!isImageSupported) {
+    image = renderAlertMessage('Image was not selected as a supported media format.');
   }
 
   /**
@@ -362,7 +349,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
           onZoomChange={setIsZoomed}
           zoomImg={{
             alt: '',
-            src: img,
+            src: media,
           }}
           classDialog={styles.zoom}
         >
@@ -412,11 +399,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                   : undefined
               }
             >
-              {options.buttons.includes(ButtonType.DOWNLOAD) && (
+              {!isThisVideo && isImageSupported && options.buttons.includes(ButtonType.DOWNLOAD) && media && (
                 <ToolbarButton
                   icon="save"
                   onClick={() => {
-                    saveAs(img);
+                    saveAs(media);
                   }}
                   data-testid={TEST_IDS.panel.buttonDownload}
                 >
@@ -424,39 +411,44 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                 </ToolbarButton>
               )}
 
-              {options.buttons.includes(ButtonType.ZOOM) && options.zoomType !== ZoomType.PANPINCH && (
-                <ToolbarButton
-                  icon="search-plus"
-                  onClick={() => {
-                    setIsZoomed(true);
-                  }}
-                  data-testid={TEST_IDS.panel.buttonZoom}
-                />
-              )}
-              {options.buttons.includes(ButtonType.ZOOM) && options.zoomType === ZoomType.PANPINCH && (
-                <>
+              {!isThisVideo &&
+                isImageSupported &&
+                options.buttons.includes(ButtonType.ZOOM) &&
+                options.zoomType !== ZoomType.PANPINCH && (
                   <ToolbarButton
                     icon="search-plus"
-                    onClick={onZoomPanPinchIn}
-                    data-testid={TEST_IDS.panel.buttonZoomPanPinchIn}
+                    onClick={() => {
+                      setIsZoomed(true);
+                    }}
+                    data-testid={TEST_IDS.panel.buttonZoom}
                   />
-                  <ToolbarButton
-                    icon="search-minus"
-                    onClick={onZoomPanPinchOut}
-                    data-testid={TEST_IDS.panel.buttonZoomPanPinchOut}
-                  />
-                  <ToolbarButton
-                    icon="times-circle"
-                    onClick={onResetZoomPanPinch}
-                    data-testid={TEST_IDS.panel.buttonZoomPanPinchReset}
-                  />
-                </>
-              )}
+                )}
+              {!isThisVideo &&
+                isImageSupported &&
+                options.buttons.includes(ButtonType.ZOOM) &&
+                options.zoomType === ZoomType.PANPINCH && (
+                  <>
+                    <ToolbarButton
+                      icon="search-plus"
+                      onClick={onZoomPanPinchIn}
+                      data-testid={TEST_IDS.panel.buttonZoomPanPinchIn}
+                    />
+                    <ToolbarButton
+                      icon="search-minus"
+                      onClick={onZoomPanPinchOut}
+                      data-testid={TEST_IDS.panel.buttonZoomPanPinchOut}
+                    />
+                    <ToolbarButton
+                      icon="times-circle"
+                      onClick={onResetZoomPanPinch}
+                      data-testid={TEST_IDS.panel.buttonZoomPanPinchReset}
+                    />
+                  </>
+                )}
             </PageToolbar>
           </div>
         )}
-
-        {options.buttons.includes(ButtonType.ZOOM) ? renderZoomImage() : image}
+        {isThisVideo ? video : options.buttons.includes(ButtonType.ZOOM) ? renderZoomImage() : image}
       </>
     );
   }
@@ -464,5 +456,5 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Display Image
    */
-  return renderContainer(image);
+  return renderContainer(isThisVideo ? video : image);
 };

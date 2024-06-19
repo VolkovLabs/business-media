@@ -3,8 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { saveAs } from 'file-saver';
 import React from 'react';
 
-import { TEST_IDS } from '../../constants';
-import { ButtonType, ImageField, ImageSizeMode, ZoomType } from '../../types';
+import { DEFAULT_OPTIONS, TEST_IDS } from '../../constants';
+import { ButtonType, ImageField, ImageSizeMode, MediaFormat, ZoomType } from '../../types';
 import { ImagePanel } from './ImagePanel';
 
 /**
@@ -67,6 +67,7 @@ describe('Image Panel', () => {
         },
         options: {
           noResultsMessage: 'No results...',
+          formats: DEFAULT_OPTIONS.formats,
         },
       })
     );
@@ -74,6 +75,59 @@ describe('Image Panel', () => {
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent('No results...');
+  });
+
+  it('Should output alert message if formats was not selected', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [],
+            }),
+          ],
+        },
+        options: {
+          noResultsMessage: 'No results...',
+          formats: [],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent('Support media formats not selected');
+  });
+
+  it('Should output alert if the pdf was not selected, but is contained in the data ', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['JVBERi0xLjMKJcTl8uXrp/jQ0CiUlRU9GCg=='],
+                },
+              ],
+            }),
+          ],
+        },
+        options: {
+          formats: [MediaFormat.AUDIO, MediaFormat.IMAGE, MediaFormat.VIDEO],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent(
+      'PDF was not selected as a supported media format.'
+    );
   });
 
   it('Should render image', async () => {
@@ -93,11 +147,44 @@ describe('Image Panel', () => {
             }),
           ],
         },
+        options: {
+          formats: DEFAULT_OPTIONS.formats,
+        },
       })
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+  });
+
+  it('Should output alert if the image was not selected, but is contained in the data ', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
+                },
+              ],
+            }),
+          ],
+        },
+        options: {
+          formats: [MediaFormat.AUDIO, MediaFormat.VIDEO],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent(
+      'Image was not selected as a supported media format.'
+    );
   });
 
   it('Should render application', async () => {
@@ -116,6 +203,9 @@ describe('Image Panel', () => {
               ],
             }),
           ],
+        },
+        options: {
+          formats: DEFAULT_OPTIONS.formats,
         },
       })
     );
@@ -141,6 +231,9 @@ describe('Image Panel', () => {
             }),
           ],
         },
+        options: {
+          formats: DEFAULT_OPTIONS.formats,
+        },
       })
     );
 
@@ -164,6 +257,9 @@ describe('Image Panel', () => {
               ],
             }),
           ],
+        },
+        options: {
+          formats: DEFAULT_OPTIONS.formats,
         },
       })
     );
@@ -189,6 +285,9 @@ describe('Image Panel', () => {
             }),
           ],
         },
+        options: {
+          formats: DEFAULT_OPTIONS.formats,
+        },
       })
     );
 
@@ -213,7 +312,11 @@ describe('Image Panel', () => {
             }),
           ],
         },
-        options: { name: '', url: 'test' },
+        options: {
+          name: '',
+          url: 'test',
+          formats: DEFAULT_OPTIONS.formats,
+        },
         replaceVariables: (str: string) => str,
       })
     );
@@ -246,7 +349,12 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { name: ImageField.IMG, widthMode: ImageSizeMode.AUTO, heightMode: ImageSizeMode.AUTO },
+          options: {
+            name: ImageField.IMG,
+            widthMode: ImageSizeMode.AUTO,
+            heightMode: ImageSizeMode.AUTO,
+            formats: DEFAULT_OPTIONS.formats,
+          },
           height: 50,
           width: 50,
         })
@@ -287,6 +395,7 @@ describe('Image Panel', () => {
             heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
+            formats: DEFAULT_OPTIONS.formats,
           },
           height: 200,
           width: 200,
@@ -328,6 +437,7 @@ describe('Image Panel', () => {
             heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
+            formats: DEFAULT_OPTIONS.formats,
           },
           height: 200,
           width: 200,
@@ -364,6 +474,7 @@ describe('Image Panel', () => {
             heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
+            formats: DEFAULT_OPTIONS.formats,
           },
           height: 200,
           width: 200,
@@ -402,6 +513,7 @@ describe('Image Panel', () => {
         heightMode: ImageSizeMode.AUTO,
         toolbar: true,
         buttons: [ButtonType.DOWNLOAD],
+        formats: DEFAULT_OPTIONS.formats,
       };
 
       it('Should update image height if panel size changed', async () => {
@@ -535,6 +647,7 @@ describe('Image Panel', () => {
             heightMode: ImageSizeMode.CUSTOM,
             widthName: ImageField.WIDTH,
             heightName: ImageField.HEIGHT,
+            formats: DEFAULT_OPTIONS.formats,
             width: 20,
             height: 20,
           },
@@ -574,6 +687,7 @@ describe('Image Panel', () => {
             name: ImageField.IMG,
             widthMode: ImageSizeMode.CUSTOM,
             heightMode: ImageSizeMode.CUSTOM,
+            formats: DEFAULT_OPTIONS.formats,
             width: 20,
             height: 20,
           },
@@ -625,6 +739,7 @@ describe('Image Panel', () => {
             heightMode: ImageSizeMode.CUSTOM,
             widthName: ImageField.WIDTH,
             heightName: ImageField.HEIGHT,
+            formats: DEFAULT_OPTIONS.formats,
           },
         })
       );
@@ -662,6 +777,7 @@ describe('Image Panel', () => {
             name: ImageField.IMG,
             widthMode: ImageSizeMode.ORIGINAL,
             heightMode: ImageSizeMode.ORIGINAL,
+            formats: DEFAULT_OPTIONS.formats,
           },
         })
       );
@@ -691,11 +807,55 @@ describe('Image Panel', () => {
             }),
           ],
         },
+        options: {
+          formats: DEFAULT_OPTIONS.formats,
+        },
       })
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
+  });
+
+  it('Should render video with toolbar', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:video/mp4;base64,JVBERiiUlRU9GCg=='],
+                },
+              ],
+            }),
+          ],
+        },
+        options: {
+          toolbar: true,
+          buttons: [ButtonType.DOWNLOAD, ButtonType.NAVIGATION, ButtonType.ZOOM],
+          formats: DEFAULT_OPTIONS.formats,
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
+
+    /**
+     * Toolbar
+     * should not show download button for video
+     */
+    expect(screen.queryByTestId(TEST_IDS.panel.buttonDownload)).not.toBeInTheDocument();
+
+    /**
+     * Toolbar
+     * should not show zoom button for video
+     */
+    expect(screen.queryByTestId(TEST_IDS.panel.buttonZoom)).not.toBeInTheDocument();
   });
 
   it('Should render audio with header', async () => {
@@ -715,11 +875,148 @@ describe('Image Panel', () => {
             }),
           ],
         },
+        options: {
+          formats: DEFAULT_OPTIONS.formats,
+        },
       })
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.audio)).toBeInTheDocument();
+  });
+
+  it('Should render video from url', async () => {
+    render(
+      getComponent({
+        options: {
+          videoUrl: 'videoUrl',
+          name: '',
+          formats: DEFAULT_OPTIONS.formats,
+        },
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'videoUrl',
+                  values: ['https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'],
+                },
+              ],
+            }),
+          ],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toBeInTheDocument();
+  });
+
+  it('Should output alert if the video was not selected, but is contained in the data ', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:video/mp4;base64,JVBERiiUlRU9GCg=='],
+                },
+              ],
+            }),
+          ],
+        },
+        options: {
+          formats: [MediaFormat.AUDIO, MediaFormat.IMAGE],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent(
+      'Video was not selected as a supported media format.'
+    );
+  });
+
+  it('Should output alert if the audio was not selected, but is contained in the data ', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:audio/mp3;base64,SUQzAwAAAAABPlRJVDIAAAAVAAAB'],
+                },
+              ],
+            }),
+          ],
+        },
+        options: {
+          formats: [MediaFormat.VIDEO, MediaFormat.IMAGE],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent(
+      'Audio was not selected as a supported media format.'
+    );
+  });
+
+  it('Should render image from url', async () => {
+    render(
+      getComponent({
+        options: {
+          videoUrl: '',
+          name: '',
+          imageUrl: 'imageUrl',
+          formats: DEFAULT_OPTIONS.formats,
+        },
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:audio/mp3;base64,JVBERiiUlRU9GCg=='],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'videoUrl',
+                  values: ['https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'imageUrl',
+                  values: ['https://volkovlabs.io/img/index/main.svg'],
+                },
+              ],
+            }),
+          ],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.imageUrl)).toBeInTheDocument();
   });
 
   /**
@@ -744,7 +1041,7 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.DOWNLOAD] },
+          options: { toolbar: true, buttons: [ButtonType.DOWNLOAD], formats: DEFAULT_OPTIONS.formats },
         })
       );
 
@@ -772,7 +1069,7 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [] },
+          options: { toolbar: true, buttons: [], formats: DEFAULT_OPTIONS.formats },
         })
       );
 
@@ -797,7 +1094,7 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.ZOOM] },
+          options: { toolbar: true, buttons: [ButtonType.ZOOM], formats: DEFAULT_OPTIONS.formats },
         })
       );
 
@@ -827,7 +1124,12 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.ZOOM], zoomType: ZoomType.PANPINCH },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.ZOOM],
+            zoomType: ZoomType.PANPINCH,
+            formats: DEFAULT_OPTIONS.formats,
+          },
         })
       );
 
@@ -852,7 +1154,12 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.ZOOM], zoomType: ZoomType.PANPINCH },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.ZOOM],
+            zoomType: ZoomType.PANPINCH,
+            formats: DEFAULT_OPTIONS.formats,
+          },
         })
       );
 
@@ -887,7 +1194,7 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.NAVIGATION] },
+          options: { toolbar: true, buttons: [ButtonType.NAVIGATION], formats: DEFAULT_OPTIONS.formats },
         })
       );
 

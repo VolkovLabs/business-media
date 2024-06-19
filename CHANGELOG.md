@@ -4,8 +4,9 @@
 
 ### Features / Enhancements
 
-- Update video overview (#100)
-- Add plugin e2e tests and remove cypress (#101, #102, #103, #105)
+- Updated video overview (#100)
+- Added plugin e2e tests and remove cypress (#101, #102, #103, #105)
+- Added ability to load image, videos from URL and video toolbar (#111)
 
 ## 5.0.0 (2024-03-25)
 

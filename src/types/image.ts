@@ -30,3 +30,13 @@ export enum ImageSizeMode {
   ORIGINAL = 'original',
   CUSTOM = 'custom',
 }
+
+/**
+ * Media Format
+ */
+export enum MediaFormat {
+  IMAGE = 'image',
+  VIDEO = 'video',
+  AUDIO = 'audio',
+  PDF = 'pdf',
+}
