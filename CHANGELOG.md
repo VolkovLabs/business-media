@@ -7,6 +7,7 @@
 - Updated video overview (#100)
 - Added plugin e2e tests and remove cypress (#101, #102, #103, #105)
 - Added ability to load image, videos from URL and video toolbar (#111)
+- Update to Grafana 11 and dependencies (#114)
 
 ## 5.0.0 (2024-03-25)
 

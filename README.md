@@ -1,8 +1,8 @@
-# Base64 Image/Video/Audio/PDF panel for Grafana
+# Business Media panel for Grafana
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
-![Grafana](https://img.shields.io/badge/Grafana-10.4-orange)
+![Grafana](https://img.shields.io/badge/Grafana-11.0-orange)
 ![CI](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/CI/badge.svg)
 ![E2E](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/E2E/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel)
@@ -10,15 +10,15 @@
 
 ## Introduction
 
-Base64 Image/Video/Audio/PDF Panel is a Grafana plugin that renders PNG, JPG, GIF, MP4, WEBM, MP3, OGG, and PDF files encoded in the Base64 format.
+Business Media Panel is a Grafana plugin that renders PNG, JPG, GIF, MP4, WEBM, MP3, OGG, and PDF files encoded in the Base64 format.
 
-[![Display images and PDF on Grafana using Base64 Image/Video/Audio/PDF panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/img/overview.png)](https://youtu.be/hLMtsCWPOg8)
+[![Display images and PDF on Grafana using Business Media panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/img/overview.png)](https://youtu.be/hLMtsCWPOg8)
 
 ## Requirements
 
-The Base64 Image/Video/Audio/PDF Panel version requirements for Grafana are as follows:
+The Business Media Panel version requirements for Grafana are as follows:
 
-- Base64 Panel 5.X requires **Grafana 10** or **Grafana 11**.
+- Business Media Panel 5.X requires **Grafana 10** or **Grafana 11**.
 - Base64 Panel 4.X requires **Grafana 9** or **Grafana 10**.
 - Base64 Panel 3.X requires **Grafana 8.5** or **Grafana 9**.
 - Base64 Panel 2.X requires **Grafana 8**.
@@ -26,7 +26,7 @@ The Base64 Image/Video/Audio/PDF Panel version requirements for Grafana are as f
 
 ## Getting Started
 
-You can install Base64 Image/Video/Audio/PDF Panel from the [Grafana Plugins catalog](https://grafana.com/grafana/plugins/volkovlabs-image-panel/) or using the Grafana command line tool.
+You can install the Business Media Panel from the [Grafana Plugins [catalog](https://grafana.com/grafana/plugins/volkovlabs-image-panel/) or use the Grafana command line tool.
 
 For the latter, please use the following command.
 
@@ -42,7 +42,7 @@ grafana-cli plugins install volkovlabs-image-panel
 - You can fit image dimensions to the panel size, keep the original values, or adjust dimensions based on the manually supplied values.
 - Allows adding a URL with a title to navigate to other dashboards when clicking the image. URL supports dashboard variables.
 - Support for MP4 and WEBM video files with the definitions (`data:video/mp4;base64,ENCODED-CONTENT` and `data:video/webm;base64,ENCODED-CONTENT`)
-- Support for MP3 and OGG audio files with the efinitions (`data:audio/mp3;base64,ENCODED-CONTENT` and `data:audio/ogg;base64,ENCODED-CONTENT`)
+- Support for MP3 and OGG audio files with the definitions (`data:audio/mp3;base64,ENCODED-CONTENT` and `data:audio/ogg;base64,ENCODED-CONTENT`)
 - Provides a toolbar to download, zoom, and navigate between multiple images.
 
 ## Documentation
