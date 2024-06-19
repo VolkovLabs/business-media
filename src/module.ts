@@ -10,7 +10,7 @@ import {
   SUPPORT_FORMATS_OPTIONS,
   ZOOM_OPTIONS,
 } from './constants';
-import { ButtonType, ImageSizeMode, MediaFormat,PanelOptions } from './types';
+import { ButtonType, ImageSizeMode, MediaFormat, PanelOptions } from './types';
 
 /**
  * Panel Plugin
@@ -26,7 +26,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
   builder
     .addMultiSelect({
       path: 'formats',
-      name: 'Select support media formats',
+      name: 'Select media formats',
       settings: {
         options: SUPPORT_FORMATS_OPTIONS,
       },

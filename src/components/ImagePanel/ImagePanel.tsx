@@ -4,12 +4,12 @@ import { css, cx } from '@emotion/css';
 import { PanelProps } from '@grafana/data';
 import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { saveAs } from 'file-saver';
-import { useMediaData } from 'hooks';
 import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { TEST_IDS } from '../../constants';
+import { useMediaData } from '../../hooks';
 import { ButtonType, ImageSizeMode, MediaFormat, PanelOptions, SupportedFileType, ZoomType } from '../../types';
 import { base64toBlob, getLastFieldValue } from '../../utils';
 import { getStyles } from './ImagePanel.styles';
