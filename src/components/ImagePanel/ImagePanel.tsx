@@ -349,7 +349,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
           onZoomChange={setIsZoomed}
           zoomImg={{
             alt: '',
-            src: media,
+            src: imageUrl || media,
           }}
           classDialog={styles.zoom}
         >

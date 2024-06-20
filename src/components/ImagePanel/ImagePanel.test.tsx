@@ -1106,6 +1106,50 @@ describe('Image Panel', () => {
       expect(screen.getByTestId(TEST_IDS.panel.zoomedImage)).toBeInTheDocument();
     });
 
+    it('Should show zoom button for image with url', () => {
+      const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
+      const imageUrl = 'https://volkovlabs.io/img/index/main.svg';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image],
+                  },
+                  {
+                    type: FieldType.string,
+                    name: 'imageUrl',
+                    values: [imageUrl],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.ZOOM],
+            formats: DEFAULT_OPTIONS.formats,
+            videoUrl: '',
+            name: '',
+            imageUrl: 'imageUrl',
+          },
+        })
+      );
+
+      expect(screen.getByTestId(TEST_IDS.panel.buttonZoom)).toBeInTheDocument();
+      expect(screen.queryByTestId(TEST_IDS.panel.zoomedImage)).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoom));
+
+      expect(screen.getByTestId(TEST_IDS.panel.zoomedImage)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.zoomedImage)).toHaveAttribute('src', imageUrl);
+    });
+
     it('Should show pan pinch zoom controls for image', () => {
       const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
       render(
