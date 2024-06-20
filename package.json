@@ -5,6 +5,7 @@
     "@grafana/data": "^11.0.0",
     "@grafana/runtime": "^11.0.0",
     "@grafana/ui": "^11.0.0",
+    "@volkovlabs/grafana-utils": "^1.4.3",
     "buffer": "^6.0.3",
     "file-saver": "^2.0.5",
     "js-base64": "^3.7.7",

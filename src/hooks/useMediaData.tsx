@@ -1,10 +1,10 @@
 import { FieldType, PanelData } from '@grafana/data';
+import { findField, getFieldValues } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 import { useCallback, useMemo } from 'react';
 
 import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from '../constants';
 import { ButtonType, MediaFormat, PanelOptions, SupportedFileType } from '../types';
-import { findField, getFieldValues } from '../utils';
 
 /**
  * Use media data hook
