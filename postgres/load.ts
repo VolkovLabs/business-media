@@ -19,25 +19,52 @@ async function loadFile() {
    * Load PDF to Postgres
    */
   const pdfData = fs.readFileSync('./postgresql-14-US.pdf');
-  await client.query('INSERT INTO images VALUES($1, $2)', ['postgresql-14-US', pdfData]);
+
+  const existingRecordPdf = await client.query('SELECT * FROM images WHERE name = $1', ['postgresql-14-US']);
+
+  if (existingRecordPdf.rows.length > 0) {
+    console.log(`Record with name 'postgresql-14-US' already exists. Skipping insertion.`);
+  } else {
+    await client.query('INSERT INTO images VALUES($1, $2)', ['postgresql-14-US', pdfData]);
+  }
 
   /**
    * Load Image to Postgres
    */
   const imgData = fs.readFileSync('./image-panel.png');
-  await client.query('INSERT INTO images VALUES($1, $2)', ['image-panel', imgData]);
+  const existingRecordImg = await client.query('SELECT * FROM images WHERE name = $1', ['image-panel']);
+
+  if (existingRecordImg.rows.length > 0) {
+    console.log(`Record with name 'image-panel' already exists. Skipping insertion.`);
+  } else {
+    await client.query('INSERT INTO images VALUES($1, $2)', ['image-panel', imgData]);
+  }
 
   /**
    * Load Video to Postgres
    */
   const videoData = fs.readFileSync('./9.mp4');
-  await client.query('INSERT INTO videos VALUES($1, $2)', ['flow', videoData]);
+
+  const existingRecordVideo = await client.query('SELECT * FROM images WHERE name = $1', ['flow']);
+
+  if (existingRecordVideo.rows.length > 0) {
+    console.log(`Record with name 'flow' already exists. Skipping insertion.`);
+  } else {
+    await client.query('INSERT INTO videos VALUES($1, $2)', ['flow', videoData]);
+  }
 
   /**
    * Load Audio to Postgres
    */
   const audioData = fs.readFileSync('./call.mp3');
-  await client.query('INSERT INTO audios VALUES($1, $2)', ['call', audioData]);
+
+  const existingRecordAudio = await client.query('SELECT * FROM images WHERE name = $1', ['call']);
+
+  if (existingRecordAudio.rows.length > 0) {
+    console.log(`Record with name 'call' already exists. Skipping insertion.`);
+  } else {
+    await client.query('INSERT INTO audios VALUES($1, $2)', ['call', audioData]);
+  }
 
   /**
    * Check number of records
