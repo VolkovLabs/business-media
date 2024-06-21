@@ -17,6 +17,9 @@ services:
       - 5432:5432
     volumes:
       - ./postgres:/docker-entrypoint-initdb.d
+    profiles:
+      - dev
+      - main
 
   pdf-loader:
     build: ./postgres
@@ -27,6 +30,9 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    profiles:
+      - dev
+      - main
 
   grafana:
     container_name: grafana
