@@ -2,6 +2,11 @@ import { test, expect } from '@grafana/plugin-e2e';
 import { TEST_IDS } from '../src/constants';
 
 test.describe('Base64 Image/PDF panel', () => {
+  test('Check grafana version', async ({ grafanaVersion }) => {
+    console.log('Grafana version: ', grafanaVersion);
+    expect(grafanaVersion).toEqual(grafanaVersion);
+  });
+
   test('should display message in case panel data is empty', async ({ gotoDashboardPage, dashboardPage }) => {
     /**
      * Go To E2E dashboard
