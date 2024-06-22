@@ -9,6 +9,7 @@
 - Added ability to load image, videos from URL and video toolbar (#111)
 - Updated to Grafana 11 and dependencies (#114)
 - Updated to use frame utils from packages (#115)
+- Updated E2E workflow using Docker (#117)
 - Updated switch images when zoomed (#116)
 
 ## 5.0.0 (2024-03-25)
