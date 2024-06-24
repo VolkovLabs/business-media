@@ -3,8 +3,8 @@ import { findField, getFieldValues } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 import { useCallback, useMemo } from 'react';
 
-import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from '../constants';
-import { ButtonType, MediaFormat, PanelOptions, SupportedFileType } from '../types';
+import { ButtonType, MediaFormat, PanelOptions } from '../types';
+import { handleMediaData } from '../utils';
 
 /**
  * Use media data hook
@@ -76,6 +76,17 @@ export const useMediaData = ({
   }, [data.series, options.description]);
 
   /**
+   * Video posters
+   */
+  const videoPosters = useMemo(() => {
+    if (!options.videoPoster) {
+      return [];
+    }
+
+    return getFieldValues<string>(data.series, options.videoPoster, FieldType.string);
+  }, [data.series, options.videoPoster]);
+
+  /**
    * Use first element if Navigation enabled, otherwise last
    */
   const resultIndex = useMemo(
@@ -99,7 +110,7 @@ export const useMediaData = ({
    * Third priority
    * Media (base64)
    */
-  let media = useMemo((): string | undefined => values[resultIndex], [resultIndex, values]);
+  const media = useMemo((): string | undefined => values[resultIndex], [resultIndex, values]);
 
   /**
    * Description for media
@@ -107,42 +118,33 @@ export const useMediaData = ({
   const description = useMemo((): string | undefined => descriptions[resultIndex], [resultIndex, descriptions]);
 
   /**
-   * Type
+   * Video Poster
    */
-  let type;
+  const videoPoster = useMemo((): string => videoPosters[resultIndex] || '', [videoPosters, resultIndex]);
 
   /**
-   * Check if returned value already has header
+   * Type and media
    */
-  if (media) {
-    const mediaMatch = media.match(BASE64_MEDIA_HEADER_REGEX);
-    if (!mediaMatch?.length) {
-      /**
-       * Encode to base64 if not
-       */
+  const { currentMedia, type } = handleMediaData(media);
 
-      if (!Base64.isValid(media)) {
-        media = Base64.encode(media);
-      }
-
-      /**
-       * Set header
-       */
-      type = IMAGE_TYPES_SYMBOLS[media.charAt(0)];
-      media = type ? `data:${type};base64,${media}` : `data:;base64,${media}`;
-    } else if (Object.values(SupportedFileType).includes(mediaMatch[1] as SupportedFileType)) {
-      type = mediaMatch[1];
-    }
-  }
+  /**
+   * Video poster
+   */
+  const currentVideoPoster = videoPoster
+    ? Base64.isValid(videoPoster)
+      ? handleMediaData(videoPoster).currentMedia
+      : videoPoster
+    : '';
 
   return {
     description,
     imageUrl,
     hasFormatSupport,
-    media,
+    media: currentMedia,
     isNavigationShown,
     type,
     values,
     videoUrl,
+    videoPoster: currentVideoPoster,
   };
 };

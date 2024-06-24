@@ -1,3 +1,8 @@
+import { Base64 } from 'js-base64';
+
+import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from './constants';
+import { SupportedFileType } from './types';
+
 /**
  * Convert Base64 to Blob
  * @param data
@@ -22,4 +27,41 @@ export const base64toBlob = (data: string, contentType: string, sliceSize = 512)
   }
 
   return new Blob(byteArrays, { type: contentType });
+};
+
+/**
+ * Handle media data
+ * @param mediaField
+ */
+export const handleMediaData = (mediaField: string | undefined) => {
+  let currentMedia = mediaField;
+  let type;
+
+  if (mediaField) {
+    const mediaMatch = mediaField.match(BASE64_MEDIA_HEADER_REGEX);
+
+    if (!mediaMatch?.length) {
+      /**
+       * Encode to base64 if not
+       */
+
+      if (!Base64.isValid(mediaField)) {
+        currentMedia = Base64.encode(mediaField);
+      }
+
+      /**
+       * Set header
+       */
+      type = IMAGE_TYPES_SYMBOLS[mediaField.charAt(0)];
+
+      currentMedia = type ? `data:${type};base64,${currentMedia}` : `data:;base64,${currentMedia}`;
+    } else if (Object.values(SupportedFileType).includes(mediaMatch[1] as SupportedFileType)) {
+      type = mediaMatch[1];
+    }
+  }
+
+  return {
+    currentMedia,
+    type,
+  };
 };

@@ -919,6 +919,94 @@ describe('Image Panel', () => {
     expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toBeInTheDocument();
   });
 
+  it('Should render video with poster from url', async () => {
+    render(
+      getComponent({
+        options: {
+          videoUrl: 'videoUrl',
+          name: '',
+          formats: DEFAULT_OPTIONS.formats,
+          videoPoster: 'posterUrl',
+        },
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'videoUrl',
+                  values: ['https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'posterUrl',
+                  values: ['https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217'],
+                },
+              ],
+            }),
+          ],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toHaveAttribute(
+      'poster',
+      'https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217'
+    );
+  });
+
+  it('Should render video with Base64 poster', async () => {
+    render(
+      getComponent({
+        options: {
+          videoUrl: 'videoUrl',
+          name: '',
+          formats: DEFAULT_OPTIONS.formats,
+          videoPoster: 'posterImage',
+        },
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: ImageField.IMG,
+                  values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'videoUrl',
+                  values: ['https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4'],
+                },
+                {
+                  type: FieldType.string,
+                  name: 'posterImage',
+                  values: ['/9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
+                },
+              ],
+            }),
+          ],
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toHaveAttribute(
+      'poster',
+      'data:image/jpeg;base64,/9j/4AAQSkZJRAAdLxAACEAAIX/9k='
+    );
+  });
+
   it('Should output alert if the video was not selected, but is contained in the data ', async () => {
     render(
       getComponent({

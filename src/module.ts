@@ -183,6 +183,17 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       category: ['Video/Audio options'],
       defaultValue: DEFAULT_OPTIONS.infinityPlay,
       showIf: (config) => showVideoFormat(config) || showForAudioFormat(config),
+    })
+    .addFieldNamePicker({
+      path: 'videoPoster',
+      name: 'Poster Image',
+      description: 'Use URL or Base64 data for video poster preview',
+      settings: {
+        filter: (f: Field) => f.type === FieldType.string,
+        noFieldsMessage: 'No strings fields found',
+      },
+      category: ['Video/Audio options'],
+      showIf: (config) => showVideoFormat(config),
     });
 
   /**
