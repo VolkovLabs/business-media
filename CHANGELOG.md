@@ -1,13 +1,14 @@
 # Changelog
 
-## 5.1.0 (IN PROGRESS)
+## 5.1.0 (2024-06-23)
 
 ### Features / Enhancements
 
 - Updated video overview (#100)
 - Added plugin e2e tests and remove cypress (#101, #102, #103, #105)
-- Added ability to load image, videos from URL and video toolbar (#111)
+- Added ability to load image, videos from URL and video toolbar (#111, #116)
 - Updated to Grafana 11 and dependencies (#114)
+- Updated to use frame utils from packages (#115)
 - Updated E2E workflow using Docker (#117)
 
 ## 5.0.0 (2024-03-25)

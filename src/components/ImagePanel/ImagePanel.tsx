@@ -350,7 +350,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
           onZoomChange={setIsZoomed}
           zoomImg={{
             alt: '',
-            src: media,
+            src: imageUrl || media,
           }}
           classDialog={styles.zoom}
         >
@@ -404,7 +404,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
                 <ToolbarButton
                   icon="save"
                   onClick={() => {
-                    saveAs(media);
+                    saveAs(imageUrl || media);
                   }}
                   data-testid={TEST_IDS.panel.buttonDownload}
                 >
