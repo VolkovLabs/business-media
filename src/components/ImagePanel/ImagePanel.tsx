@@ -129,6 +129,15 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   }, [width, height, onResetZoomPanPinch]);
 
   /**
+   * Update current index on data series decrease
+   */
+  useEffect(() => {
+    if (currentIndex > values?.length - 1) {
+      setCurrentIndex(values?.length - 1);
+    }
+  }, [currentIndex, data.series, values?.length]);
+
+  /**
    * Root Container
    */
   const renderContainer = (child?: JSX.Element) => (
