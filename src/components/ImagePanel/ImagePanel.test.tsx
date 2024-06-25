@@ -1322,5 +1322,69 @@ describe('Image Panel', () => {
 
       expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
     });
+
+    it('Should change current index correctly if data series change', () => {
+      const image1 = 'abc';
+      const image2 = 'bar';
+      const image3 = 'baz';
+      const { rerender } = render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image1, image2, image3],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: { toolbar: true, buttons: [ButtonType.NAVIGATION], formats: DEFAULT_OPTIONS.formats },
+        })
+      );
+
+      /**
+       * Check if first value is rendered
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+
+      /**
+       * Go to last image
+       */
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
+
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+
+      /**
+       * Rerender with update data
+       */
+      rerender(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image1, image2],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: { toolbar: true, buttons: [ButtonType.NAVIGATION], formats: DEFAULT_OPTIONS.formats },
+        })
+      );
+
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
+    });
   });
 });
