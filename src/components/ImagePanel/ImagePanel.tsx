@@ -47,11 +47,12 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Use media data
    */
-  const { description, imageUrl, hasFormatSupport, media, isNavigationShown, type, values, videoUrl } = useMediaData({
-    options,
-    data,
-    currentIndex,
-  });
+  const { description, imageUrl, hasFormatSupport, media, isNavigationShown, type, values, videoUrl, videoPoster } =
+    useMediaData({
+      options,
+      data,
+      currentIndex,
+    });
 
   /**
    * Is Image Supported
@@ -299,6 +300,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
           loop={options.infinityPlay}
           autoPlay={options.autoPlay}
           data-testid={videoUrl ? TEST_IDS.panel.videoUrl : TEST_IDS.panel.video}
+          poster={videoPoster}
         >
           <source src={videoUrl || media} />
         </video>

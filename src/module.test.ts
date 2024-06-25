@@ -2,7 +2,7 @@ import { Field, FieldType, PanelPlugin } from '@grafana/data';
 
 import { DEFAULT_OPTIONS } from './constants';
 import { plugin } from './module';
-import { ButtonType, ImageSizeMode, MediaFormat,PanelOptions } from './types';
+import { ButtonType, ImageSizeMode, MediaFormat, PanelOptions } from './types';
 
 /**
  * Test Field
@@ -276,6 +276,20 @@ describe('plugin', () => {
       plugin['optionsSupplier'](builder);
 
       expect(shownFields).toEqual([{ name: 'number', type: FieldType.number }]);
+    });
+
+    it('Should return only string fields for videoPoster', () => {
+      const fields: TestField[] = [
+        { name: 'string', type: FieldType.string },
+        { name: 'number', type: FieldType.number },
+      ];
+      const shownFields: TestField[] = [];
+
+      builder.addFieldNamePicker.mockImplementation(addFieldNameImplementation('videoPoster', fields, shownFields));
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownFields).toEqual([{ name: 'string', type: FieldType.string }]);
     });
   });
 });

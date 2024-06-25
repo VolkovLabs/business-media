@@ -160,4 +160,11 @@ export interface PanelOptions {
    * @type {string}
    */
   noResultsMessage: string;
+
+  /**
+   * Poster for video preview
+   *
+   * @type {string}
+   */
+  videoPoster?: string;
 }
