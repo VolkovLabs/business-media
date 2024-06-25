@@ -54,6 +54,10 @@ describe('Image Panel', () => {
     Object.defineProperty(HTMLElement.prototype, 'clientHeight', { configurable: true, value: elementHeight });
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('Should output message', async () => {
     render(
       getComponent({
@@ -1023,7 +1027,7 @@ describe('Image Panel', () => {
    * Toolbar
    */
   describe('Toolbar', () => {
-    it('Should show download button for image', () => {
+    it('Should show download button for image and download image with base64 source type if url not specified', () => {
       const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
       render(
         getComponent({
@@ -1049,7 +1053,49 @@ describe('Image Panel', () => {
 
       fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonDownload));
 
-      expect(saveAs).toHaveBeenCalledWith(`data:image/jpeg;base64,${image}`);
+      expect(saveAs).toHaveBeenCalledWith('data:image/jpeg;base64,/9j/4AAQSkZJRAAdLxAACEAAIX/9k=');
+    });
+
+    it('Should show download button for image and download image with url source', () => {
+      const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
+      const imageUrl = 'https://volkovlabs.io/img/index/main.svg';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image],
+                  },
+                  {
+                    type: FieldType.string,
+                    name: 'imageUrl',
+                    values: [imageUrl],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.DOWNLOAD],
+            formats: DEFAULT_OPTIONS.formats,
+            videoUrl: '',
+            name: '',
+            imageUrl: 'imageUrl',
+          },
+        })
+      );
+
+      expect(screen.getByTestId(TEST_IDS.panel.buttonDownload)).toBeInTheDocument();
+
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonDownload));
+
+      expect(saveAs).toHaveBeenCalledWith(imageUrl);
     });
 
     it('Should not show download button', () => {
@@ -1104,6 +1150,50 @@ describe('Image Panel', () => {
       fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoom));
 
       expect(screen.getByTestId(TEST_IDS.panel.zoomedImage)).toBeInTheDocument();
+    });
+
+    it('Should show zoom button for image with url', () => {
+      const image = '/9j/4AAQSkZJRAAdLxAACEAAIX/9k=';
+      const imageUrl = 'https://volkovlabs.io/img/index/main.svg';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image],
+                  },
+                  {
+                    type: FieldType.string,
+                    name: 'imageUrl',
+                    values: [imageUrl],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.ZOOM],
+            formats: DEFAULT_OPTIONS.formats,
+            videoUrl: '',
+            name: '',
+            imageUrl: 'imageUrl',
+          },
+        })
+      );
+
+      expect(screen.getByTestId(TEST_IDS.panel.buttonZoom)).toBeInTheDocument();
+      expect(screen.queryByTestId(TEST_IDS.panel.zoomedImage)).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonZoom));
+
+      expect(screen.getByTestId(TEST_IDS.panel.zoomedImage)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.zoomedImage)).toHaveAttribute('src', imageUrl);
     });
 
     it('Should show pan pinch zoom controls for image', () => {
