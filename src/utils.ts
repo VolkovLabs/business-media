@@ -1,3 +1,6 @@
+import { DataFrame, FieldType, LinkModel } from '@grafana/data';
+import { findField } from '@volkovlabs/grafana-utils';
+
 /**
  * Convert Base64 to Blob
  * @param data
@@ -22,4 +25,23 @@ export const base64toBlob = (data: string, contentType: string, sliceSize = 512)
   }
 
   return new Blob(byteArrays, { type: contentType });
+};
+
+/**
+ * Get Data link for current value
+ * @param frames
+ * @param optionName
+ * @param currentIndex
+ */
+export const getDataLink = (frames: DataFrame[], optionName: string, currentIndex: number): LinkModel | null => {
+  const field = findField(
+    frames,
+    (field) => field.type === FieldType.string && (!optionName || field.name === optionName)
+  );
+
+  if (field && field?.getLinks) {
+    return field?.getLinks({ valueRowIndex: currentIndex })[0];
+  }
+
+  return null;
 };
