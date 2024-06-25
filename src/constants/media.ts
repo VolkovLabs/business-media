@@ -1,4 +1,4 @@
-import { ImageScale, ImageSizeMode, MediaFormat,SupportedFileType } from '../types';
+import { ImageScale, ImageSizeMode, MediaFormat, SupportedFileType } from '../types';
 
 /**
  * Base64 symbols for Image Types

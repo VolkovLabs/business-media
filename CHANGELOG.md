@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.2.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Added poster for video (#120)
+- Update current index on data series decrease (#121)
+
 ## 5.1.0 (2024-06-23)
 
 ### Features / Enhancements

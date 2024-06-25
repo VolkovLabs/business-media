@@ -47,12 +47,22 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   /**
    * Use media data
    */
-  const { description, imageUrl, hasFormatSupport, media, isNavigationShown, type, values, videoUrl, link } =
-    useMediaData({
-      options,
-      data,
-      currentIndex,
-    });
+  const {
+    description,
+    imageUrl,
+    hasFormatSupport,
+    media,
+    isNavigationShown,
+    type,
+    values,
+    videoUrl,
+    link,
+    videoPoster,
+  } = useMediaData({
+    options,
+    data,
+    currentIndex,
+  });
 
   /**
    * Is Image Supported
@@ -128,6 +138,15 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   useEffect(() => {
     onResetZoomPanPinch();
   }, [width, height, onResetZoomPanPinch]);
+
+  /**
+   * Update current index on data series decrease
+   */
+  useEffect(() => {
+    if (currentIndex > values?.length - 1) {
+      setCurrentIndex(values?.length - 1);
+    }
+  }, [currentIndex, data.series, values?.length]);
 
   /**
    * Root Container
@@ -291,6 +310,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
           loop={options.infinityPlay}
           autoPlay={options.autoPlay}
           data-testid={videoUrl ? TEST_IDS.panel.videoUrl : TEST_IDS.panel.video}
+          poster={videoPoster}
         >
           <source src={videoUrl || media} />
         </video>
