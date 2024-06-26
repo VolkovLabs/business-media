@@ -1,5 +1,5 @@
 import { FieldType, toDataFrame } from '@grafana/data';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { saveAs } from 'file-saver';
 import React from 'react';
 
