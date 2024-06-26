@@ -2,6 +2,10 @@
 
 ## 5.2.0 (IN PROGRESS)
 
+### Breaking changes
+
+- Image links in panel options should be updated to use Data links.
+
 ### Features / Enhancements
 
 - Added poster for video (#120)
