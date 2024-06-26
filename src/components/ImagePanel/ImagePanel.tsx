@@ -23,7 +23,7 @@ interface Props extends PanelProps<PanelOptions> {}
 /**
  * Image Panel
  */
-export const ImagePanel: React.FC<Props> = ({ options, data, width, height, replaceVariables }) => {
+export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) => {
   /**
    * Styles
    */
@@ -47,12 +47,22 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   /**
    * Use media data
    */
-  const { description, imageUrl, hasFormatSupport, media, isNavigationShown, type, values, videoUrl, videoPoster } =
-    useMediaData({
-      options,
-      data,
-      currentIndex,
-    });
+  const {
+    description,
+    imageUrl,
+    hasFormatSupport,
+    media,
+    isNavigationShown,
+    type,
+    values,
+    videoUrl,
+    link,
+    videoPoster,
+  } = useMediaData({
+    options,
+    data,
+    currentIndex,
+  });
 
   /**
    * Is Image Supported
@@ -321,11 +331,16 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       style={{ imageRendering: options.scale }}
     />
   );
-  if (options.url) {
-    const url = replaceVariables(options.url);
 
+  if (link && link.href) {
     image = (
-      <a className={cx(styles.url)} href={url} title={options.title} data-testid={TEST_IDS.panel.imageLink}>
+      <a
+        className={cx(styles.url)}
+        href={link.href}
+        target={link.target}
+        title={link.title}
+        data-testid={TEST_IDS.panel.imageLink}
+      >
         {image}
       </a>
     );
