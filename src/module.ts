@@ -119,6 +119,23 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel).setNoPadding().s
       defaultValue: DEFAULT_OPTIONS.zoomType,
       category: ['Toolbar'],
       showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.ZOOM),
+    })
+    .addNumberInput({
+      path: 'autoPlayInterval',
+      name: 'Auto play Interval',
+      description: 'Set interval for auto play in sec. If not specified, 5 sec. set by default',
+      category: ['Toolbar'],
+      showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
+    })
+    .addRadio({
+      path: 'sliderAutoPlayInfinity',
+      name: 'Auto Play infinity',
+      settings: {
+        options: BOOLEAN_OPTIONS,
+      },
+      category: ['Toolbar'],
+      defaultValue: DEFAULT_OPTIONS.sliderAutoPlayInfinity,
+      showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
     });
 
   /**

@@ -167,4 +167,18 @@ export interface PanelOptions {
    * @type {string}
    */
   videoPoster?: string;
+
+  /**
+   * Poster for video preview
+   *
+   * @type {string}
+   */
+  autoPlayInterval?: number;
+
+  /**
+   * Infinity Play
+   *
+   * @type {boolean}
+   */
+  sliderAutoPlayInfinity: boolean;
 }

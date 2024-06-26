@@ -5,7 +5,7 @@ import { PanelProps } from '@grafana/data';
 import { Alert, PageToolbar, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { getLastFieldValue } from '@volkovlabs/grafana-utils';
 import { saveAs } from 'file-saver';
-import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { JSX, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
 import { ReactZoomPanPinchRef, TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
@@ -36,6 +36,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
   const [currentIndex, setCurrentIndex] = useState(0);
   const [toolbarHeight, setToolbarHeight] = useState(0);
   const [descriptionHeight, setDescriptionHeight] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   /**
    * References
@@ -137,6 +138,33 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       setCurrentIndex(values?.length - 1);
     }
   }, [currentIndex, data.series, values?.length]);
+
+  useEffect(() => {
+    let interval = 0;
+
+    if (isPlaying) {
+      const timer = options.autoPlayInterval ? options.autoPlayInterval * 1000 : 5000;
+
+      interval = window.setInterval(() => {
+        if (currentIndex === values?.length - 1 && !options.sliderAutoPlayInfinity) {
+          window.clearInterval(interval);
+          setIsPlaying((prevState) => !prevState);
+          return;
+        }
+
+        const index =
+          currentIndex === values?.length - 1
+            ? options.sliderAutoPlayInfinity
+              ? 0
+              : currentIndex + 1
+            : currentIndex + 1;
+
+        setCurrentIndex(index);
+      }, timer);
+    }
+
+    return () => window.clearInterval(interval);
+  }, [currentIndex, isPlaying, options.autoPlayInterval, options.sliderAutoPlayInfinity, values?.length]);
 
   /**
    * Root Container
@@ -370,6 +398,65 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       );
     };
 
+    const navigationButtons = () => {
+      let navigation: ReactNode[] = [];
+      if (options.buttons.includes(ButtonType.NAVIGATION)) {
+        navigation = [
+          ...navigation,
+          [
+            <ToolbarButton
+              key="previous"
+              icon="backward"
+              onClick={() => {
+                onChangeCurrentIndex('prev');
+              }}
+              data-testid={TEST_IDS.panel.buttonPrevious}
+              disabled={Math.max(values.length, 1) === 1}
+            >
+              Previous
+            </ToolbarButton>,
+            <div key="current">
+              {currentIndex + 1} of {Math.max(values.length, 1)}
+            </div>,
+            <ToolbarButton
+              key="next"
+              icon="forward"
+              onClick={() => {
+                onChangeCurrentIndex('next');
+              }}
+              data-testid={TEST_IDS.panel.buttonNext}
+              disabled={Math.max(values.length, 1) === 1}
+            >
+              Next
+            </ToolbarButton>,
+          ],
+        ];
+      }
+
+      if (options.buttons.includes(ButtonType.AUTOPLAY)) {
+        navigation.push(
+          <ToolbarButton
+            key={isPlaying ? 'pause' : 'play'}
+            icon={isPlaying ? 'pause' : currentIndex === values?.length - 1 ? 'repeat' : 'play'}
+            onClick={() => {
+              if (!isPlaying) {
+                if (currentIndex === values?.length - 1) {
+                  setCurrentIndex(0);
+                }
+              }
+
+              setIsPlaying((prevState) => !prevState);
+            }}
+            data-testid={isPlaying ? TEST_IDS.panel.buttonPause : TEST_IDS.panel.buttonPlay}
+            disabled={Math.max(values.length, 1) === 1}
+          >
+            {isPlaying ? 'Pause' : 'Play'}
+          </ToolbarButton>
+        );
+      }
+
+      return navigation;
+    };
     /**
      * Display Image with Toolbar
      */
@@ -379,37 +466,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
           <div ref={toolbarRef}>
             <PageToolbar
               forceShowLeftItems={options.buttons.includes(ButtonType.NAVIGATION)}
-              leftItems={
-                options.buttons.includes(ButtonType.NAVIGATION)
-                  ? [
-                      <ToolbarButton
-                        key="previous"
-                        icon="backward"
-                        onClick={() => {
-                          onChangeCurrentIndex('prev');
-                        }}
-                        data-testid={TEST_IDS.panel.buttonPrevious}
-                        disabled={Math.max(values.length, 1) === 1}
-                      >
-                        Previous
-                      </ToolbarButton>,
-                      <div key="current">
-                        {currentIndex + 1} of {Math.max(values.length, 1)}
-                      </div>,
-                      <ToolbarButton
-                        key="next"
-                        icon="forward"
-                        onClick={() => {
-                          onChangeCurrentIndex('next');
-                        }}
-                        data-testid={TEST_IDS.panel.buttonNext}
-                        disabled={Math.max(values.length, 1) === 1}
-                      >
-                        Next
-                      </ToolbarButton>,
-                    ]
-                  : undefined
-              }
+              leftItems={options.buttons.includes(ButtonType.NAVIGATION) ? navigationButtons() : undefined}
             >
               {!isThisVideo && isImageSupported && options.buttons.includes(ButtonType.DOWNLOAD) && media && (
                 <ToolbarButton
