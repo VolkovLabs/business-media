@@ -56,7 +56,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       .addFieldNamePicker({
         path: 'description',
         name: 'Field description',
-        description: `Name of the field with file description. If not specified, the description won't be shown.`,
+        description: `Name of the field with descriptions. If not specified, the description won't be shown.`,
         settings: {
           filter: (f: Field) => f.type === FieldType.string,
           noFieldsMessage: 'No strings fields found',
@@ -76,35 +76,35 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       .addFieldNamePicker({
         path: 'videoUrl',
         name: 'Video URL',
-        description: 'Use URL for video instead base64. If not specified, base64 field will be taken. First priority',
+        description: 'If not specified, Base64 field will be taken. First priority.',
         settings: {
           filter: (f: Field) => f.type === FieldType.string,
           noFieldsMessage: 'No strings fields found',
         },
-        category: ['Source'],
+        category: ['Media'],
         showIf: (config) => showVideoFormat(config),
       })
       .addFieldNamePicker({
         path: 'imageUrl',
         name: 'Image URL',
-        description: 'Use URL for image instead base64. If not specified, base64 field will be taken. Second priority',
+        description: 'If not specified, Base64 field will be taken. Second priority.',
         settings: {
           filter: (f: Field) => f.type === FieldType.string,
           noFieldsMessage: 'No strings fields found',
         },
-        category: ['Source'],
+        category: ['Media'],
         showIf: (config) => showForImageFormat(config),
       })
       .addFieldNamePicker({
         path: 'name',
-        name: 'Field name',
+        name: 'Base64 encoded',
         description:
-          'Name of the field with encoded image, video, audio or PDF. If not specified, first field will be taken. Third priority',
+          'Name of the field with encoded image, video, audio, and PDF. If not specified, first field will be taken. Third priority.',
         settings: {
           filter: (f: Field) => f.type === FieldType.string,
           noFieldsMessage: 'No strings fields found',
         },
-        category: ['Source'],
+        category: ['Media'],
       });
 
     /**
@@ -122,7 +122,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       })
       .addMultiSelect({
         path: 'buttons',
-        name: 'Select buttons to display on toolbar. Images only.',
+        name: 'Select buttons to display on toolbar.',
         settings: {
           options: BUTTONS_OPTIONS,
         },
@@ -147,7 +147,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
     builder.addSelect({
       path: 'scale',
       name: 'Scale Algorithm',
-      category: ['Image Options'],
+      category: ['Image'],
       settings: {
         options: IMAGE_SCALE_OPTIONS,
       },
@@ -166,7 +166,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
         settings: {
           options: BOOLEAN_OPTIONS,
         },
-        category: ['Video/Audio options'],
+        category: ['Video/Audio'],
         defaultValue: DEFAULT_OPTIONS.controls,
         showIf: (config) => showVideoFormat(config) || showForAudioFormat(config),
       })
@@ -177,7 +177,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
         settings: {
           options: BOOLEAN_OPTIONS,
         },
-        category: ['Video/Audio options'],
+        category: ['Video/Audio'],
         defaultValue: DEFAULT_OPTIONS.autoPlay,
         showIf: (config) => showVideoFormat(config) || showForAudioFormat(config),
       })
@@ -188,7 +188,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
         settings: {
           options: BOOLEAN_OPTIONS,
         },
-        category: ['Video/Audio options'],
+        category: ['Video/Audio'],
         defaultValue: DEFAULT_OPTIONS.infinityPlay,
         showIf: (config) => showVideoFormat(config) || showForAudioFormat(config),
       })
@@ -200,7 +200,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
           filter: (f: Field) => f.type === FieldType.string,
           noFieldsMessage: 'No strings fields found',
         },
-        category: ['Video/Audio options'],
+        category: ['Video/Audio'],
         showIf: (config) => showVideoFormat(config),
       });
 
