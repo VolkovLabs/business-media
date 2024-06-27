@@ -146,20 +146,18 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height, repl
       const timer = options.autoPlayInterval ? options.autoPlayInterval * 1000 : 5000;
 
       interval = window.setInterval(() => {
-        if (currentIndex === values?.length - 1 && !options.sliderAutoPlayInfinity) {
-          window.clearInterval(interval);
-          setIsPlaying((prevState) => !prevState);
+        if (currentIndex === values?.length - 1) {
+          if (!options.sliderAutoPlayInfinity) {
+            window.clearInterval(interval);
+            setIsPlaying((prevState) => !prevState);
+            return;
+          }
+
+          setCurrentIndex(0);
           return;
         }
 
-        const index =
-          currentIndex === values?.length - 1
-            ? options.sliderAutoPlayInfinity
-              ? 0
-              : currentIndex + 1
-            : currentIndex + 1;
-
-        setCurrentIndex(index);
+        setCurrentIndex(currentIndex + 1);
       }, timer);
     }
 
