@@ -411,12 +411,18 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
       );
     };
 
-    const navigationButtons = () => {
-      let navigation: ReactNode[] = [];
+    /**
+     * Get Toolbar Left Buttons
+     */
+    const getToolbarLeftButtons = () => {
+      const buttons: ReactNode[] = [];
+
+      /**
+       * Navigation
+       */
       if (options.buttons.includes(ButtonType.NAVIGATION)) {
-        navigation = [
-          ...navigation,
-          [
+        buttons.push(
+          ...[
             <ToolbarButton
               key="previous"
               icon="backward"
@@ -442,12 +448,15 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
             >
               Next
             </ToolbarButton>,
-          ],
-        ];
+          ]
+        );
       }
 
+      /**
+       * Autoplay
+       */
       if (options.buttons.includes(ButtonType.AUTOPLAY)) {
-        navigation.push(
+        buttons.push(
           <ToolbarButton
             key={isPlaying ? 'pause' : 'play'}
             icon={isPlaying ? 'pause' : currentIndex === values?.length - 1 ? 'repeat' : 'play'}
@@ -468,8 +477,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
         );
       }
 
-      return navigation;
+      return buttons;
     };
+
     /**
      * Display Image with Toolbar
      */
@@ -479,7 +489,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
           <div ref={toolbarRef}>
             <PageToolbar
               forceShowLeftItems={options.buttons.includes(ButtonType.NAVIGATION)}
-              leftItems={options.buttons.includes(ButtonType.NAVIGATION) ? navigationButtons() : undefined}
+              leftItems={options.buttons.includes(ButtonType.NAVIGATION) ? getToolbarLeftButtons() : undefined}
             >
               {!isThisVideo && isImageSupported && options.buttons.includes(ButtonType.DOWNLOAD) && media && (
                 <ToolbarButton
