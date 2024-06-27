@@ -92,20 +92,6 @@ export interface PanelOptions {
   height: number;
 
   /**
-   * URL
-   *
-   * @type {string}
-   */
-  url: string;
-
-  /**
-   * Title for URL
-   *
-   * @type {string}
-   */
-  title: string;
-
-  /**
    * Controls
    *
    * @type {boolean}

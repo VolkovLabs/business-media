@@ -4,7 +4,7 @@ import { Base64 } from 'js-base64';
 import { useCallback, useMemo } from 'react';
 
 import { ButtonType, MediaFormat, PanelOptions } from '../types';
-import { handleMediaData } from '../utils';
+import { getDataLink, handleMediaData } from '../utils';
 
 /**
  * Use media data hook
@@ -118,6 +118,14 @@ export const useMediaData = ({
   const description = useMemo((): string | undefined => descriptions[resultIndex], [resultIndex, descriptions]);
 
   /**
+   * Link for image
+   */
+  const link = useMemo(
+    () => getDataLink(data.series, options.name, currentIndex),
+    [currentIndex, data.series, options.name]
+  );
+
+  /**
    * Video Poster
    */
   const videoPoster = useMemo((): string => videoPosters[resultIndex] || '', [videoPosters, resultIndex]);
@@ -146,5 +154,6 @@ export const useMediaData = ({
     values,
     videoUrl,
     videoPoster: currentVideoPoster,
+    link,
   };
 };

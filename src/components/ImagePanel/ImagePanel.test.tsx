@@ -316,6 +316,7 @@ describe('Image Panel', () => {
                   type: FieldType.string,
                   name: 'raw',
                   values: ['?PNGIHDR 3z??	pHYs'],
+                  getLinks: () => [{ href: 'link1', title: 'test title', target: '_blank' }],
                 },
               ],
             }),
@@ -333,6 +334,9 @@ describe('Image Panel', () => {
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.imageLink)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.imageLink)).toHaveAttribute('target', '_blank');
+    expect(screen.getByTestId(TEST_IDS.panel.imageLink)).toHaveAttribute('href', 'link1');
+    expect(screen.getByTestId(TEST_IDS.panel.imageLink)).toHaveAttribute('title', 'test title');
   });
 
   describe('Image height', () => {
