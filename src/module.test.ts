@@ -133,7 +133,7 @@ describe('plugin', () => {
 
       plugin['optionsSupplier'](builder);
 
-      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['autoPlayInterval', 'sliderAutoPlayInfinity']));
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['autoPlayInterval', 'autoPlayInfinity']));
     });
 
     it('Should not show heightName and height inputs only for heightMode!=CUSTOM', () => {

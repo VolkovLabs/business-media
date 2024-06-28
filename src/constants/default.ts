@@ -17,7 +17,7 @@ export const DEFAULT_OPTIONS: PanelOptions = {
   name: '',
   noResultsMessage: 'Nothing to display...',
   scale: ImageScale.AUTO,
-  sliderAutoPlayInfinity: false,
+  autoPlayInfinity: false,
   toolbar: true,
   videoUrl: '',
   width: 0,

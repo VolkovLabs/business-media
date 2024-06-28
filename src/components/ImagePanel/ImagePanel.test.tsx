@@ -1626,7 +1626,7 @@ describe('Image Panel', () => {
             buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
             formats: DEFAULT_OPTIONS.formats,
             autoPlayInterval: 15,
-            sliderAutoPlayInfinity: false,
+            autoPlayInfinity: false,
           },
         })
       );
@@ -1696,7 +1696,7 @@ describe('Image Panel', () => {
             buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
             formats: DEFAULT_OPTIONS.formats,
             autoPlayInterval: 15,
-            sliderAutoPlayInfinity: true,
+            autoPlayInfinity: true,
           },
         })
       );

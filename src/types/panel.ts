@@ -166,5 +166,5 @@ export interface PanelOptions {
    *
    * @type {boolean}
    */
-  sliderAutoPlayInfinity: boolean;
+  autoPlayInfinity: boolean;
 }

@@ -148,13 +148,13 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
         showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
       })
       .addRadio({
-        path: 'sliderAutoPlayInfinity',
+        path: 'autoPlayInfinity',
         name: 'Auto Play infinity',
         settings: {
           options: BOOLEAN_OPTIONS,
         },
         category: ['Toolbar'],
-        defaultValue: DEFAULT_OPTIONS.sliderAutoPlayInfinity,
+        defaultValue: DEFAULT_OPTIONS.autoPlayInfinity,
         showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
       });
 

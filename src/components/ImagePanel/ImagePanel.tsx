@@ -157,7 +157,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
 
       interval = window.setInterval(() => {
         if (currentIndex === values?.length - 1) {
-          if (!options.sliderAutoPlayInfinity) {
+          if (!options.autoPlayInfinity) {
             window.clearInterval(interval);
             setIsPlaying((prevState) => !prevState);
             return;
@@ -172,7 +172,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     }
 
     return () => window.clearInterval(interval);
-  }, [currentIndex, isPlaying, options.autoPlayInterval, options.sliderAutoPlayInfinity, values?.length]);
+  }, [currentIndex, isPlaying, options.autoPlayInterval, options.autoPlayInfinity, values?.length]);
 
   /**
    * Root Container
