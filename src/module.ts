@@ -122,7 +122,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       })
       .addMultiSelect({
         path: 'buttons',
-        name: 'Select buttons to display on toolbar. Images only.',
+        name: 'Select buttons to display on toolbar.',
         settings: {
           options: BUTTONS_OPTIONS,
         },
@@ -143,7 +143,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       .addNumberInput({
         path: 'autoPlayInterval',
         name: 'Auto play Interval',
-        description: 'Set interval for auto play in sec. If not specified, 5 sec. set by default',
+        description: 'Set interval for auto play in seconds. If not specified, 5 seconds set by default.',
         category: ['Toolbar'],
         showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
       })
@@ -212,7 +212,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       .addFieldNamePicker({
         path: 'videoPoster',
         name: 'Poster Image',
-        description: 'Use URL or Base64 data for video poster preview',
+        description: 'Use URL or Base64 data for video poster preview.',
         settings: {
           filter: (f: Field) => f.type === FieldType.string,
           noFieldsMessage: 'No strings fields found',
