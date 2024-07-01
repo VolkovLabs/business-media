@@ -120,6 +120,22 @@ describe('plugin', () => {
       expect(shownOptionsPaths).toEqual(expect.arrayContaining(['heightName', 'height']));
     });
 
+    it('Should show auto play options', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addNumberInput.mockImplementation(
+        addInputImplementation({ toolbar: true, buttons: [ButtonType.AUTOPLAY], formats: [] }, shownOptionsPaths)
+      );
+
+      builder.addRadio.mockImplementation(
+        addInputImplementation({ toolbar: true, buttons: [ButtonType.AUTOPLAY], formats: [] }, shownOptionsPaths)
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['autoPlayInterval', 'autoPlayInfinity']));
+    });
+
     it('Should not show heightName and height inputs only for heightMode!=CUSTOM', () => {
       const shownOptionsPaths: string[] = [];
 

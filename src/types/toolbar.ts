@@ -2,6 +2,7 @@
  * Button Types
  */
 export enum ButtonType {
+  AUTOPLAY = 'autoplay',
   DOWNLOAD = 'download',
   NAVIGATION = 'navigation',
   ZOOM = 'zoom',

@@ -1,5 +1,5 @@
 import { FieldType, toDataFrame } from '@grafana/data';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { saveAs } from 'file-saver';
 import React from 'react';
 
@@ -37,6 +37,11 @@ jest.mock('react-medium-image-zoom', () => ({
     return isZoomed ? <img data-testid={TEST_IDS.panel.zoomedImage} src={zoomImg.src} alt="" /> : children;
   }),
 }));
+
+/**
+ * Mock timers
+ */
+jest.useFakeTimers();
 
 /**
  * Image Panel
@@ -1477,6 +1482,298 @@ describe('Image Panel', () => {
       );
 
       expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
+    });
+
+    it('Should show autoPlay button', () => {
+      const image1 = 'abc';
+      const image2 = 'bar';
+      const image3 = 'baz';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image1, image2, image3],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
+            formats: DEFAULT_OPTIONS.formats,
+            autoPlayInterval: 1,
+          },
+        })
+      );
+
+      /**
+       * Check if first value is rendered
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+
+      /**
+       * Check if autoPlay button
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPlay)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPlay)).toHaveTextContent('Play');
+
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonPlay));
+
+      /**
+       * Check if autoPlay button change text correctly
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPause)).toHaveTextContent('Pause');
+    });
+
+    it('Should show autoPlay button and repeat slideshow again', () => {
+      const image1 = 'abc';
+      const image2 = 'bar';
+      const image3 = 'baz';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image1, image2, image3],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
+            formats: DEFAULT_OPTIONS.formats,
+          },
+        })
+      );
+
+      /**
+       * Check if first value is rendered
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+
+      /**
+       * Check if autoPlay button
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPlay)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPlay)).toHaveTextContent('Play');
+
+      /**
+       * Set last slide
+       */
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
+
+      /**
+       * Check if last value is rendered
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+
+      /**
+       * Start autoplay from last slide
+       */
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonPlay));
+
+      /**
+       * Check if first value is rendered again
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+    });
+  });
+
+  /**
+   * Auto play
+   */
+  describe('UseEffect for auto-play', () => {
+    it('Should update currentIndex and stop playing when reaching the last slide', async () => {
+      const image1 = 'abc';
+      const image2 = 'bar';
+      const image3 = 'baz';
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image1, image2, image3],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
+            formats: DEFAULT_OPTIONS.formats,
+            autoPlayInterval: 15,
+            autoPlayInfinity: false,
+          },
+        })
+      );
+
+      /**
+       * Check if first value is rendered
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+
+      /**
+       * Check if autoPlay button
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPlay)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPlay)).toHaveTextContent('Play');
+
+      await act(() => fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonPlay)));
+
+      /**
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
+
+      /**
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+
+      /**
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      /**
+       * Should not change slide
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+    });
+
+    it('Should update currentIndex and playing next slide if infinity', async () => {
+      const image1 = 'abc';
+      const image2 = 'bar';
+      const image3 = 'baz';
+
+      render(
+        getComponent({
+          data: {
+            series: [
+              toDataFrame({
+                name: 'data',
+                fields: [
+                  {
+                    type: FieldType.string,
+                    name: ImageField.IMG,
+                    values: [image1, image2, image3],
+                  },
+                ],
+              }),
+            ],
+          },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
+            formats: DEFAULT_OPTIONS.formats,
+            autoPlayInterval: 15,
+            autoPlayInfinity: true,
+          },
+        })
+      );
+
+      /**
+       * Check if first value is rendered
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+
+      /**
+       * Set Next Slide
+       */
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
+      fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonNext));
+
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+
+      /**
+       * Check if autoPlay button
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPlay)).toBeInTheDocument();
+      expect(screen.getByTestId(TEST_IDS.panel.buttonPlay)).toHaveTextContent('Play');
+
+      await act(() => fireEvent.click(screen.getByTestId(TEST_IDS.panel.buttonPlay)));
+
+      /**
+       * Infinity simulation
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
+
+      /**
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+
+      /**
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
+
+      /**
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      /**
+       * Should change slide
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image2}`);
+
+      /**
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      /**
+       * Should change slide
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image3}`);
+
+      /**
+       * Run timer
+       */
+      await act(() => jest.runOnlyPendingTimersAsync());
+
+      /**
+       * Should change slide
+       */
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('src', `data:;base64,${image1}`);
     });
   });
 });

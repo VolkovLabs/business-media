@@ -139,6 +139,23 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
         defaultValue: DEFAULT_OPTIONS.zoomType,
         category: ['Toolbar'],
         showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.ZOOM),
+      })
+      .addNumberInput({
+        path: 'autoPlayInterval',
+        name: 'Auto play Interval',
+        description: 'Set interval for auto play in seconds. If not specified, 5 seconds by default.',
+        category: ['Toolbar'],
+        showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
+      })
+      .addRadio({
+        path: 'autoPlayInfinity',
+        name: 'Auto Play infinity',
+        settings: {
+          options: BOOLEAN_OPTIONS,
+        },
+        category: ['Toolbar'],
+        defaultValue: DEFAULT_OPTIONS.autoPlayInfinity,
+        showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
       });
 
     /**
@@ -195,7 +212,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       .addFieldNamePicker({
         path: 'videoPoster',
         name: 'Poster Image',
-        description: 'Use URL or Base64 data for video poster preview',
+        description: 'Use URL or Base64 data for video poster preview.',
         settings: {
           filter: (f: Field) => f.type === FieldType.string,
           noFieldsMessage: 'No strings fields found',

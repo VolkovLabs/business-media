@@ -6,6 +6,8 @@ export const TEST_IDS = {
     audio: 'data-testid panel audio',
     buttonDownload: 'data-testid panel button-download',
     buttonNext: 'data-testid panel button-next',
+    buttonPause: 'data-testid panel button-pause',
+    buttonPlay: 'data-testid panel button-play',
     buttonPrevious: 'data-testid panel button-previous',
     buttonZoom: 'data-testid panel button-zoom',
     buttonZoomPanPinchIn: 'data-testid panel button-zoom-pan-pinch-in',

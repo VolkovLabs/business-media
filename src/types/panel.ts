@@ -153,4 +153,18 @@ export interface PanelOptions {
    * @type {string}
    */
   videoPoster?: string;
+
+  /**
+   * Auto play interval
+   *
+   * @type {string}
+   */
+  autoPlayInterval?: number;
+
+  /**
+   * Infinity Auto Play
+   *
+   * @type {boolean}
+   */
+  autoPlayInfinity: boolean;
 }
