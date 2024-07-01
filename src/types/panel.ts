@@ -155,14 +155,14 @@ export interface PanelOptions {
   videoPoster?: string;
 
   /**
-   * Poster for video preview
+   * Auto play interval
    *
    * @type {string}
    */
   autoPlayInterval?: number;
 
   /**
-   * Infinity Play
+   * Infinity Auto Play
    *
    * @type {boolean}
    */
