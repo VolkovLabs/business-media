@@ -143,7 +143,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       .addNumberInput({
         path: 'autoPlayInterval',
         name: 'Auto play Interval',
-        description: 'Set interval for auto play in seconds. If not specified, 5 seconds set by default.',
+        description: 'Set interval for auto play in seconds. If not specified, 5 seconds by default.',
         category: ['Toolbar'],
         showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
       })
