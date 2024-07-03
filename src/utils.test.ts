@@ -146,14 +146,14 @@ describe('getMediaValue', () => {
     });
   });
 
-  it('should return null for rows without values', () => {
+  it('Should return null for rows without values', () => {
     const result = getMediaValue([], [], 0, false);
     expect(result).toEqual({
       type: null,
     });
   });
 
-  it('should remove PDF toolbar when isEnablePdfToolbar is false', () => {
+  it('Should remove PDF toolbar when isEnablePdfToolbar is false', () => {
     const mediaSources = [
       {
         field: 'media1',
@@ -168,7 +168,7 @@ describe('getMediaValue', () => {
     expect(result.url).toContain('#toolbar=0');
   });
 
-  it('should not remove PDF toolbar when isEnablePdfToolbar is true', () => {
+  it('Should not remove PDF toolbar when isEnablePdfToolbar is true', () => {
     const mediaSources = [
       {
         field: 'media1',
