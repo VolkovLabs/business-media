@@ -1,6 +1,7 @@
 import { FieldType } from '@grafana/data';
+import { MediaFormat } from 'types';
 
-import { base64toBlob, getDataLink } from './utils';
+import { base64toBlob, getDataLink, getMediaValue, reorder } from './utils';
 
 /**
  * base64toBlob
@@ -45,13 +46,20 @@ describe('getDataLink', () => {
     },
   ] as any;
 
+  const mediaSource = {
+    field: 'field1',
+  };
+
   it('Should return the first link when a matching string field is found', () => {
-    const link = getDataLink(frames, 'field1', 0);
+    const link = getDataLink(frames, mediaSource, 0);
     expect(link).toEqual({ link: 'link1' });
   });
 
   it('Should return null when no matching string field is found', () => {
-    const link = getDataLink(frames, 'field4', 0);
+    const mediaSourceWithNonExistentField = {
+      field: 'field4',
+    };
+    const link = getDataLink(frames, mediaSourceWithNonExistentField, 0);
     expect(link).toBeNull();
   });
 
@@ -66,12 +74,129 @@ describe('getDataLink', () => {
         ],
       },
     ] as any;
-    const link = getDataLink(framesWithoutGetLinks, 'field1', 0);
+    const link = getDataLink(framesWithoutGetLinks, mediaSource, 0);
     expect(link).toBeNull();
   });
 
   test('Should return the first link when no optionName is provided', () => {
-    const link = getDataLink(frames, '', 0);
+    const mediaSourceWithoutField = {
+      field: undefined,
+    };
+    const link = getDataLink(frames, mediaSourceWithoutField, 0);
     expect(link).toEqual({ link: 'link1' });
+  });
+});
+
+describe('getMediaValue', () => {
+  const series = [
+    {
+      fields: [
+        {
+          name: 'media1',
+          values: [
+            'data:application/pdf;base64,JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nDPQM1Qo5ypUMABxQQEhhXLuxAogTgkXAgBZ/QcKZW5kc3RyZWFtCmVuZG9iago...',
+          ],
+        },
+        {
+          name: 'media2',
+          values: ['https://example.com/image.jpg'],
+        },
+      ],
+    },
+  ] as any;
+
+  it('Should return media value for a valid PDF media item', () => {
+    const mediaSources = [
+      {
+        field: 'media1',
+        type: MediaFormat.PDF,
+      },
+      {
+        field: 'media2',
+        type: MediaFormat.IMAGE,
+      },
+    ] as any;
+
+    const result = getMediaValue(series, mediaSources, 0, false);
+    expect(result).toEqual({
+      field: 'media1',
+      type: MediaFormat.PDF,
+      url: expect.stringContaining(
+        'data:application/pdf;base64,JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nDPQM1Qo5ypUMABxQQEhhXLuxAogTgkXAgBZ/QcKZW5kc3RyZWFtCmVuZG9iago...#toolbar=0'
+      ),
+    });
+  });
+
+  it('Should return media value for a valid image media item', () => {
+    const mediaSources = [
+      {
+        field: 'media2',
+        type: MediaFormat.IMAGE,
+      },
+      {
+        field: 'media1',
+        type: MediaFormat.PDF,
+      },
+    ] as any;
+    const result = getMediaValue(series, mediaSources, 0, false);
+    expect(result).toEqual({
+      field: 'media2',
+      type: MediaFormat.IMAGE,
+      url: 'https://example.com/image.jpg',
+    });
+  });
+
+  it('should return null for rows without values', () => {
+    const result = getMediaValue([], [], 0, false);
+    expect(result).toEqual({
+      type: null,
+    });
+  });
+
+  it('should remove PDF toolbar when isEnablePdfToolbar is false', () => {
+    const mediaSources = [
+      {
+        field: 'media1',
+        type: MediaFormat.PDF,
+      },
+      {
+        field: 'media2',
+        type: MediaFormat.IMAGE,
+      },
+    ] as any;
+    const result = getMediaValue(series, mediaSources, 0, false);
+    expect(result.url).toContain('#toolbar=0');
+  });
+
+  it('should not remove PDF toolbar when isEnablePdfToolbar is true', () => {
+    const mediaSources = [
+      {
+        field: 'media1',
+        type: MediaFormat.PDF,
+      },
+      {
+        field: 'media2',
+        type: MediaFormat.IMAGE,
+      },
+    ] as any;
+    const result = getMediaValue(series, mediaSources, 0, true);
+    expect(result.url).not.toContain('#toolbar=0');
+  });
+});
+
+describe('Reorder', () => {
+  it('Should move element up', () => {
+    expect(reorder([1, 2, 3], 0, 1)).toEqual([2, 1, 3]);
+  });
+
+  it('Should move element down', () => {
+    expect(reorder([1, 2, 3], 2, 1)).toEqual([1, 3, 2]);
+  });
+
+  it('Should not mutate original array', () => {
+    const array = [1, 2, 3];
+    const result = reorder(array, 2, 1);
+
+    expect(array !== result).toBeTruthy();
   });
 });

@@ -40,3 +40,12 @@ export enum MediaFormat {
   AUDIO = 'audio',
   PDF = 'pdf',
 }
+
+/**
+ * Media Source element
+ */
+export interface MediaSourceElement {
+  type?: string | null;
+  url?: string;
+  field?: string;
+}

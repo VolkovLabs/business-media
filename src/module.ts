@@ -1,13 +1,12 @@
 import { Field, FieldConfigProperty, FieldType, PanelPlugin } from '@grafana/data';
 
-import { ImagePanel } from './components';
+import { ImagePanel, MediaSourcesEditor } from './components';
 import {
   BOOLEAN_OPTIONS,
   BUTTONS_OPTIONS,
   DEFAULT_OPTIONS,
   IMAGE_SCALE_OPTIONS,
   SIZE_MODE_OPTIONS,
-  SUPPORT_FORMATS_OPTIONS,
   ZOOM_OPTIONS,
 } from './constants';
 import { getMigratedOptions } from './migration';
@@ -39,24 +38,34 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
     /**
      * Visibility
      */
-    const showForAudioFormat = (config: PanelOptions) => config.formats.includes(MediaFormat.AUDIO);
-    const showForImageFormat = (config: PanelOptions) => config.formats.includes(MediaFormat.IMAGE);
-    const showVideoFormat = (config: PanelOptions) => config.formats.includes(MediaFormat.VIDEO);
+    const showForAudioFormat = (config: PanelOptions) =>
+      config.mediaSources && config.mediaSources.some((source) => source.type === MediaFormat.AUDIO);
+    const showForImageFormat = (config: PanelOptions) =>
+      config.mediaSources && config.mediaSources.some((source) => source.type === MediaFormat.IMAGE);
+    const showVideoFormat = (config: PanelOptions) =>
+      config.mediaSources && config.mediaSources.some((source) => source.type === MediaFormat.VIDEO);
+
+    /**
+     * Source
+     */
+    builder.addCustomEditor({
+      id: 'mediaSources',
+      path: 'mediaSources',
+      name: 'Media Sources',
+      description: 'Media Sources',
+      editor: MediaSourcesEditor,
+      settings: {
+        filterByType: [FieldType.string],
+      },
+      defaultValue: DEFAULT_OPTIONS.mediaSources,
+    });
 
     builder
-      .addMultiSelect({
-        path: 'formats',
-        name: 'Select media formats',
-        settings: {
-          options: SUPPORT_FORMATS_OPTIONS,
-        },
-        defaultValue: DEFAULT_OPTIONS.formats as unknown,
-      })
-
       .addFieldNamePicker({
         path: 'description',
         name: 'Field description',
         description: `Name of the field with descriptions. If not specified, the description won't be shown.`,
+        category: ['Text Options'],
         settings: {
           filter: (f: Field) => f.type === FieldType.string,
           noFieldsMessage: 'No strings fields found',
@@ -65,46 +74,9 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       .addTextInput({
         path: 'noResultsMessage',
         name: 'No Results Message',
+        category: ['Text Options'],
         description: 'Specifies no results message text.',
         defaultValue: DEFAULT_OPTIONS.noResultsMessage,
-      });
-
-    /**
-     * Source
-     */
-    builder
-      .addFieldNamePicker({
-        path: 'videoUrl',
-        name: 'Video URL',
-        description: 'If not specified, Base64 field will be taken. First priority.',
-        settings: {
-          filter: (f: Field) => f.type === FieldType.string,
-          noFieldsMessage: 'No strings fields found',
-        },
-        category: ['Media'],
-        showIf: (config) => showVideoFormat(config),
-      })
-      .addFieldNamePicker({
-        path: 'imageUrl',
-        name: 'Image URL',
-        description: 'If not specified, Base64 field will be taken. Second priority.',
-        settings: {
-          filter: (f: Field) => f.type === FieldType.string,
-          noFieldsMessage: 'No strings fields found',
-        },
-        category: ['Media'],
-        showIf: (config) => showForImageFormat(config),
-      })
-      .addFieldNamePicker({
-        path: 'name',
-        name: 'Base64 encoded',
-        description:
-          'Name of the field with encoded image, video, audio, and PDF. If not specified, first field will be taken. Third priority.',
-        settings: {
-          filter: (f: Field) => f.type === FieldType.string,
-          noFieldsMessage: 'No strings fields found',
-        },
-        category: ['Media'],
       });
 
     /**
@@ -113,7 +85,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
     builder
       .addRadio({
         path: 'toolbar',
-        name: 'Set appropriate controls. The default toolbar of the reader is used for PDF',
+        name: 'Set appropriate controls',
         settings: {
           options: BOOLEAN_OPTIONS,
         },
@@ -129,6 +101,15 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
         defaultValue: DEFAULT_OPTIONS.buttons as unknown,
         category: ['Toolbar'],
         showIf: (options: PanelOptions) => options.toolbar,
+      })
+      .addRadio({
+        path: 'pdfToolbar',
+        name: 'Set display PDF reader toolbar',
+        settings: {
+          options: BOOLEAN_OPTIONS,
+        },
+        category: ['Toolbar'],
+        defaultValue: DEFAULT_OPTIONS.toolbar,
       })
       .addRadio({
         path: 'zoomType',

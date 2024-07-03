@@ -1,4 +1,5 @@
-import { ImageSizeMode, MediaFormat } from './image';
+import { MediaSourceType } from './editor';
+import { ImageSizeMode } from './image';
 import { ButtonType, ZoomType } from './toolbar';
 
 /**
@@ -14,34 +15,6 @@ export enum ImageScale {
  * Options
  */
 export interface PanelOptions {
-  /**
-   * Formats
-   *
-   * @type {MediaFormat}
-   */
-  formats: MediaFormat[];
-
-  /**
-   * Video url
-   *
-   * @type {string}
-   */
-  videoUrl: string;
-
-  /**
-   * Image url
-   *
-   * @type {string}
-   */
-  imageUrl: string;
-
-  /**
-   * Field name
-   *
-   * @type {string}
-   */
-  name: string;
-
   /**
    * Field description
    *
@@ -167,4 +140,18 @@ export interface PanelOptions {
    * @type {boolean}
    */
   autoPlayInfinity: boolean;
+
+  /**
+   * Media Sources
+   *
+   * @type {MediaSourceType[]}
+   */
+  mediaSources: MediaSourceType[];
+
+  /**
+   * PDF Toolbar
+   *
+   * @type {boolean}
+   */
+  pdfToolbar: boolean;
 }

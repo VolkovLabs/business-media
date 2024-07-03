@@ -6,15 +6,9 @@ import { GrafanaTheme2 } from '@grafana/data';
  */
 export const getStyles = (theme: GrafanaTheme2) => {
   return {
-    wrapper: css`
-      position: relative;
-    `,
-    url: css`
-      display: block;
-    `,
-    description: css`
-      text-align: center;
-      padding: ${theme.spacing(0.5)};
+    zoom: css`
+      [data-rmiz-modal-overlay='visible'] {
+        background-color: ${theme.colors.background.primary};
     `,
   };
 };

@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 2,
   "links": [
     {
       "asDropdown": false,
@@ -67,17 +68,29 @@
       "id": 6,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "27cd42a2-013b-4114-b951-a7c11827a69a",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -117,17 +130,29 @@
       "id": 2,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "a013ad91-68d6-43b7-aee9-fe2f3bed270f",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -169,17 +194,29 @@
       "id": 3,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "e4e81f41-3c8b-4441-8cf9-4f3fbfb39f14",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -215,17 +252,29 @@
       "id": 5,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "a6a299f0-6852-427c-896a-72d88159682c",
+            "type": "pdf"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": false,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -261,17 +310,34 @@
       "id": 4,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "123",
+            "id": "7a917a66-b81e-4ddd-bec1-f7a6d232f162",
+            "type": "image"
+          },
+          {
+            "field": "img",
+            "id": "a8f3b0fb-507c-4ed2-9c38-85e03485bc2e",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -330,18 +396,30 @@
       "id": 7,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": ["download", "navigation", "zoom"],
         "controls": true,
         "description": "test",
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "ea2aa954-f391-438d-9264-edb5328dad5f",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "datasource": {
@@ -389,17 +467,29 @@
       "id": 8,
       "options": {
         "autoPlay": true,
-        "buttons": [],
+        "autoPlayInfinity": false,
+        "buttons": ["navigation", "zoom"],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "dfd2ab36-86b2-4a36-86b8-1356156fac58",
+            "type": "pdf"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -453,17 +543,29 @@
       "id": 15,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 200,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "1b9125a3-a64e-4acc-8521-cd6b6d0212d1",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 200,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -506,17 +608,29 @@
       "id": 16,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "1fc12526-f5c7-4c5a-bf3e-a81ec3932f5e",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 100,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -559,17 +673,29 @@
       "id": 17,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 200,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "69d319bb-8077-497b-a2a4-a11c1bfd0cd0",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -629,21 +755,31 @@
       "id": 18,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "custom",
         "heightName": "width",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "18b5d2c2-c932-46df-8d2c-d2e7a10d1e47",
+            "type": "image"
+          }
+        ],
         "name": "img",
-        "title": "Title",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
-        "url": "d/O4tc_E6Gz",
         "width": 0,
         "widthMode": "custom",
         "widthName": "height",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -699,18 +835,30 @@
       "id": 23,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "5cdac565-570d-49de-ba74-074dfa5511a0",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "custom",
         "widthName": "width",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -759,18 +907,30 @@
       "id": 24,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "custom",
         "heightName": "height",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "ddfe2aec-be50-4f08-be72-9cc15577165c",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -819,15 +979,29 @@
       "id": 25,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
         "controls": true,
         "height": 100,
         "heightMode": "custom",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "ec58c49e-6f03-4d93-ac09-558e0f74d9f1",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 100,
-        "widthMode": "custom"
+        "widthMode": "custom",
+        "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -882,16 +1056,30 @@
       "id": 26,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
         "controls": true,
         "height": 100,
         "heightMode": "custom",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "df57dfa0-a3fa-4bd4-8adc-b4e5bb06a676",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "custom",
-        "widthName": "width"
+        "widthName": "width",
+        "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -940,16 +1128,30 @@
       "id": 27,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "custom",
         "heightName": "height",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "5817d568-c2fd-4783-abe3-67a121a5099e",
+            "type": "image"
+          }
+        ],
         "name": "img",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 200,
-        "widthMode": "custom"
+        "widthMode": "custom",
+        "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -1011,19 +1213,31 @@
       "id": 28,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "custom",
         "heightName": "width",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "f384b12c-4dc9-4752-a470-0a2143809b0c",
+            "type": "image"
+          }
+        ],
         "name": "img",
-        "title": "Title",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
-        "url": "d/O4tc_E6Gz?image=${myImages}",
         "width": 0,
         "widthMode": "custom",
-        "widthName": "height"
+        "widthName": "height",
+        "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "repeat": "myImages",
       "repeatDirection": "h",
       "targets": [
@@ -1069,8 +1283,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": ["image"],
   "templating": {
     "list": [
@@ -1116,6 +1329,6 @@
   "timezone": "",
   "title": "Images",
   "uid": "O4tc_E6Gz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

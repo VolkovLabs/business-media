@@ -3,7 +3,7 @@ import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
 import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from './constants';
-import { SupportedFileType } from './types';
+import { MediaFormat, MediaSourceElement, MediaSourceType, SupportedFileType } from './types';
 
 /**
  * Convert Base64 to Blob
@@ -37,10 +37,14 @@ export const base64toBlob = (data: string, contentType: string, sliceSize = 512)
  * @param optionName
  * @param currentIndex
  */
-export const getDataLink = (frames: DataFrame[], optionName: string, currentIndex: number): LinkModel | null => {
+export const getDataLink = (
+  frames: DataFrame[],
+  mediaSource: MediaSourceElement,
+  currentIndex: number
+): LinkModel | null => {
   const field = findField(
     frames,
-    (field) => field.type === FieldType.string && (!optionName || field.name === optionName)
+    (field) => field.type === FieldType.string && (!mediaSource.field || field.name === mediaSource.field)
   );
 
   if (field && field?.getLinks) {
@@ -54,7 +58,7 @@ export const getDataLink = (frames: DataFrame[], optionName: string, currentInde
  * Handle media data
  * @param mediaField
  */
-export const handleMediaData = (mediaField: string | undefined) => {
+export const handleMediaData = (mediaField: string) => {
   let currentMedia = mediaField;
   let type;
 
@@ -62,14 +66,6 @@ export const handleMediaData = (mediaField: string | undefined) => {
     const mediaMatch = mediaField.match(BASE64_MEDIA_HEADER_REGEX);
 
     if (!mediaMatch?.length) {
-      /**
-       * Encode to base64 if not
-       */
-
-      if (!Base64.isValid(mediaField)) {
-        currentMedia = Base64.encode(mediaField);
-      }
-
       /**
        * Set header
        */
@@ -84,5 +80,84 @@ export const handleMediaData = (mediaField: string | undefined) => {
   return {
     currentMedia,
     type,
+  };
+};
+
+/**
+ * Reorder
+ * @param list
+ * @param startIndex
+ * @param endIndex
+ */
+export const reorder = <T>(list: T[], startIndex: number, endIndex: number) => {
+  const result = Array.from(list);
+
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+/**
+ * Get media value
+ * @param series
+ * @param mediaSources
+ * @param currentIndex
+ * @param isEnablePdfToolbar
+ */
+export const getMediaValue = (
+  series: DataFrame[],
+  mediaSources: MediaSourceType[],
+  currentIndex: number,
+  isEnablePdfToolbar: boolean
+) => {
+  if (series && series.length) {
+    for (const item of mediaSources) {
+      const mediaItem = series[0].fields.find((media) => media.name === item.field);
+
+      if (mediaItem && mediaItem.values[currentIndex]) {
+        let currentUrl;
+
+        if (Base64.isValid(mediaItem.values[currentIndex])) {
+          /**
+           * Base64 format handle
+           */
+          currentUrl = handleMediaData(mediaItem.values[currentIndex]).currentMedia;
+
+          /**
+           * Handle case for PDF
+           */
+          if (item.type === MediaFormat.PDF) {
+            const blob = base64toBlob(currentUrl, SupportedFileType.PDF);
+            currentUrl = URL.createObjectURL(blob);
+          }
+        } else {
+          /**
+           * Use value from url
+           */
+          currentUrl = mediaItem.values[currentIndex];
+        }
+
+        /**
+         * Remove toolbar for PDF default reader
+         */
+        if (item.type === MediaFormat.PDF && !isEnablePdfToolbar) {
+          currentUrl += '#toolbar=0';
+        }
+
+        return {
+          type: item.type,
+          url: currentUrl,
+          field: item.field,
+        };
+      }
+    }
+  }
+
+  /**
+   * Return null for rows without values
+   */
+  return {
+    type: null,
   };
 };
