@@ -52,7 +52,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       id: 'mediaSources',
       path: 'mediaSources',
       name: 'Media Sources',
-      description: 'Media Sources',
+      description: 'Fields priority in data frame row to show media.',
       editor: MediaSourcesEditor,
       settings: {
         filterByType: [FieldType.string],
