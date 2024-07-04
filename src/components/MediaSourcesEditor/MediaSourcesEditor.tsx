@@ -2,7 +2,7 @@ import { FieldType, StandardEditorProps } from '@grafana/data';
 import { Button, Icon, InlineField, InlineFieldRow, Select, useTheme2 } from '@grafana/ui';
 import { DragDropContext, Draggable, DraggingStyle, Droppable, DropResult, NotDraggingStyle } from '@hello-pangea/dnd';
 import { Collapse } from '@volkovlabs/components';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { MEDIA_TYPES_OPTIONS, TEST_IDS } from '../../constants';
@@ -112,13 +112,17 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
   /**
    * Options
    */
-  const options = context.data
-    .flatMap((frame) => frame.fields)
-    .filter((field) => item.settings?.filterByType.includes(field.type))
-    .map((field) => ({
-      label: field.name,
-      value: field.name,
-    }));
+  const options = useMemo(
+    () =>
+      context.data
+        .flatMap((frame) => frame.fields)
+        .filter((field) => item.settings?.filterByType.includes(field.type))
+        .map((field) => ({
+          label: field.name,
+          value: field.name,
+        })),
+    [context.data, item.settings?.filterByType]
+  );
 
   /**
    * Return
