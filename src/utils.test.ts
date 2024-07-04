@@ -48,6 +48,7 @@ describe('getDataLink', () => {
 
   const mediaSource = {
     field: 'field1',
+    type: MediaFormat.IMAGE,
   };
 
   it('Should return the first link when a matching string field is found', () => {
@@ -58,6 +59,7 @@ describe('getDataLink', () => {
   it('Should return null when no matching string field is found', () => {
     const mediaSourceWithNonExistentField = {
       field: 'field4',
+      type: MediaFormat.VIDEO,
     };
     const link = getDataLink(frames, mediaSourceWithNonExistentField, 0);
     expect(link).toBeNull();
@@ -81,6 +83,7 @@ describe('getDataLink', () => {
   test('Should return the first link when no optionName is provided', () => {
     const mediaSourceWithoutField = {
       field: undefined,
+      type: MediaFormat.VIDEO,
     };
     const link = getDataLink(frames, mediaSourceWithoutField, 0);
     expect(link).toEqual({ link: 'link1' });

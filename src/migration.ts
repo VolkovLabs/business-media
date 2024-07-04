@@ -1,7 +1,7 @@
 import { PanelModel } from '@grafana/data';
 import semver from 'semver';
 
-import { MediaFormat, PanelOptions } from './types';
+import { MediaFormat, MediaSourceConfig, PanelOptions } from './types';
 
 /**
  * Outdated Panel Options
@@ -82,13 +82,13 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
    * Add mediaSources
    */
   if (panel.pluginVersion && semver.lt(panel.pluginVersion, '5.2.0')) {
-    const mediaSources = [];
+    const mediaSources: MediaSourceConfig[] = [];
 
     /**
      * Migrate videoUrl
      */
     if (options.hasOwnProperty('videoUrl')) {
-      const videoSource = { type: MediaFormat.VIDEO, id: 'video-1-5-2-0-ver', field: options.videoUrl };
+      const videoSource = { type: MediaFormat.VIDEO, id: 'video-1-5-2-0-ver', field: options.videoUrl ?? '' };
       mediaSources.push(videoSource);
       delete options.videoUrl;
     }
@@ -97,7 +97,7 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
      * Migrate imageUrl
      */
     if (options.hasOwnProperty('imageUrl')) {
-      const imageSource = { type: MediaFormat.IMAGE, id: 'image-1-5-2-0-ver', field: options.imageUrl };
+      const imageSource = { type: MediaFormat.IMAGE, id: 'image-1-5-2-0-ver', field: options.imageUrl ?? '' };
       mediaSources.push(imageSource);
       delete options.imageUrl;
     }
@@ -106,7 +106,7 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
      * Migrate name
      */
     if (options.hasOwnProperty('name')) {
-      const imageSource = { type: MediaFormat.IMAGE, id: 'image-2-5-2-0-ver', field: options.name };
+      const imageSource = { type: MediaFormat.IMAGE, id: 'image-2-5-2-0-ver', field: options.name ?? '' };
       mediaSources.push(imageSource);
       delete options.name;
     }

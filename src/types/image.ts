@@ -42,10 +42,55 @@ export enum MediaFormat {
 }
 
 /**
+ * Media Source Config
+ */
+export interface MediaSourceConfig {
+  /**
+   * Field
+   *
+   * @type {field}
+   */
+  field: string;
+
+  /**
+   * ID
+   *
+   * @type {string}
+   */
+  id: string;
+
+  /**
+   * Type
+   *
+   * @type {MediaFormat}
+   */
+  type: MediaFormat;
+}
+
+/**
  * Media Source element
  */
-export interface MediaSourceElement {
-  type?: string | null;
-  url?: string;
-  field?: string;
-}
+export type MediaSourceElement =
+  | {
+      /**
+       * Type
+       *
+       * @type {MediaFormat}
+       */
+      type: MediaFormat;
+
+      /**
+       * URL
+       *
+       * @type {string}
+       */
+      url?: string;
+
+      /**
+       * Field
+       *
+       * @type {string}
+       */
+      field?: string;
+    }
+  | { type: null; url?: never; field?: never };

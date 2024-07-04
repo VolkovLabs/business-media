@@ -117,12 +117,12 @@ describe('Series Editor', () => {
       {
         field: 'imgUrl',
         id: 'img1',
-        type: 'image',
+        type: MediaFormat.IMAGE,
       },
       {
         field: 'videoURL',
         id: 'vid1',
-        type: 'video',
+        type: MediaFormat.VIDEO,
       },
     ];
 
@@ -298,9 +298,6 @@ describe('Series Editor', () => {
 
       expect(selectors.root()).toBeInTheDocument();
       expect(selectors.buttonAddNew()).toBeInTheDocument();
-
-      fireEvent.change(selectors.fieldNameNew(), { target: { value: 'audioURL' } });
-
       expect(selectors.buttonAddNew()).toBeDisabled();
     });
   });

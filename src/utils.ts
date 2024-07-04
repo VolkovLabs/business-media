@@ -3,7 +3,7 @@ import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
 import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from './constants';
-import { MediaFormat, MediaSourceElement, MediaSourceType, SupportedFileType } from './types';
+import { MediaFormat, MediaSourceConfig, MediaSourceElement, SupportedFileType } from './types';
 
 /**
  * Convert Base64 to Blob
@@ -34,7 +34,7 @@ export const base64toBlob = (data: string, contentType: string, sliceSize = 512)
 /**
  * Get Data link for current value
  * @param frames
- * @param optionName
+ * @param mediaSource
  * @param currentIndex
  */
 export const getDataLink = (
@@ -107,7 +107,7 @@ export const reorder = <T>(list: T[], startIndex: number, endIndex: number) => {
  */
 export const getMediaValue = (
   series: DataFrame[],
-  mediaSources: MediaSourceType[],
+  mediaSources: MediaSourceConfig[],
   currentIndex: number,
   isEnablePdfToolbar: boolean
 ) => {
@@ -116,7 +116,7 @@ export const getMediaValue = (
       const mediaItem = series[0].fields.find((media) => media.name === item.field);
 
       if (mediaItem && mediaItem.values[currentIndex]) {
-        let currentUrl;
+        let currentUrl: string;
 
         if (Base64.isValid(mediaItem.values[currentIndex])) {
           /**

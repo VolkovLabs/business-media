@@ -6,7 +6,7 @@ import React, { useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { MEDIA_TYPES_OPTIONS, TEST_IDS } from '../../constants';
-import { MediaSourceType } from '../../types';
+import { MediaFormat, MediaSourceConfig } from '../../types';
 import { reorder } from '../../utils';
 import { getStyles } from './MediaSourcesEditor.styles';
 
@@ -30,7 +30,7 @@ interface Settings {
 /**
  * Properties
  */
-interface Props extends StandardEditorProps<MediaSourceType[] | null, Settings> {}
+interface Props extends StandardEditorProps<MediaSourceConfig[] | null, Settings> {}
 
 /**
  * Media Sources
@@ -46,8 +46,9 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
    * States
    */
   const [sources, setSources] = useState(value || []);
-  const [newMediaSource, setNewMediaSource] = useState<{ type: string; field: string }>({
-    type: '',
+  const [newMediaSource, setNewMediaSource] = useState<MediaSourceConfig>({
+    id: uuidv4(),
+    type: MediaFormat.IMAGE,
     field: '',
   });
   const [collapseState, setCollapseState] = useState<Record<string, boolean>>({});
@@ -56,7 +57,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
    * Change Items
    */
   const onChangeSources = useCallback(
-    (sources: MediaSourceType[]) => {
+    (sources: MediaSourceConfig[]) => {
       setSources(sources);
       onChange(sources);
     },
@@ -88,22 +89,15 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
    */
   const onAddNewMediaSource = useCallback(() => {
     if (newMediaSource.field && newMediaSource.type) {
-      onChangeSources([
-        ...sources,
-        {
-          type: newMediaSource.type,
-          id: uuidv4(),
-          field: newMediaSource.field,
-        },
-      ]);
-      setNewMediaSource({ type: '', field: '' });
+      onChangeSources([...sources, newMediaSource]);
+      setNewMediaSource({ id: uuidv4(), type: MediaFormat.IMAGE, field: '' });
     }
-  }, [newMediaSource.field, newMediaSource.type, onChangeSources, sources]);
+  }, [newMediaSource, onChangeSources, sources]);
 
   /**
    * Toggle collapse state for sources
    */
-  const onToggleItem = useCallback((item: MediaSourceType) => {
+  const onToggleItem = useCallback((item: MediaSourceConfig) => {
     setCollapseState((prev) => ({
       ...prev,
       [item.id]: !prev[item.id],
@@ -176,7 +170,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
                                     if (source.id === item.id) {
                                       return {
                                         ...source,
-                                        type: element.value,
+                                        type: element.value!,
                                       };
                                     }
                                     return source;
@@ -198,7 +192,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
                                   if (source.id === item.id) {
                                     return {
                                       ...source,
-                                      field: element.value,
+                                      field: element.value!,
                                     };
                                   }
                                   return source;

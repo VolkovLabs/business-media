@@ -1,5 +1,4 @@
-import { MediaSourceType } from './editor';
-import { ImageSizeMode } from './image';
+import { ImageSizeMode, MediaSourceConfig } from './image';
 import { ButtonType, ZoomType } from './toolbar';
 
 /**
@@ -144,9 +143,9 @@ export interface PanelOptions {
   /**
    * Media Sources
    *
-   * @type {MediaSourceType[]}
+   * @type {MediaSourceConfig[]}
    */
-  mediaSources: MediaSourceType[];
+  mediaSources: MediaSourceConfig[];
 
   /**
    * PDF Toolbar

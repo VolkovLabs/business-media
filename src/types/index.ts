@@ -1,4 +1,3 @@
-export * from './editor';
 export * from './image';
 export * from './panel';
 export * from './toolbar';
