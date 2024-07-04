@@ -24,6 +24,11 @@ const getItemStyle = (isDragging: boolean, draggableStyle: DraggingStyle | NotDr
  * Settings
  */
 interface Settings {
+  /**
+   * Filter By Type
+   *
+   * @type {FieldType[]}
+   */
   filterByType: FieldType[];
 }
 
