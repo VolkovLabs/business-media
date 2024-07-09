@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -36,18 +36,22 @@
       "id": 2,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
         "infinityPlay": false,
+        "mediaSources": [],
         "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
         "scale": "auto",
         "toolbar": true,
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
+      "pluginVersion": "5.1.0",
       "title": "Empty",
       "type": "volkovlabs-image-panel"
     },
@@ -65,22 +69,29 @@
       "id": 1,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
         "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
         "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "img",
+            "id": "9ac920db-24c0-4dcd-b531-80b3c9063f44",
+            "type": "image"
+          }
+        ],
         "name": "img",
         "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
         "scale": "auto",
         "toolbar": true,
-        "url": "https://volkovlabs.io/plugins/volkovlabs-dynamictext-panel/code/",
-        "title": "Link Title",
         "width": 0,
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "7.5.7",
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "frame": {
@@ -117,6 +128,6 @@
   "timezone": "",
   "title": "E2E",
   "uid": "c8ee435b-d16b-4b27-9304-7062724c1feb",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

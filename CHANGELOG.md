@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.2.0 (IN PROGRESS)
+## 5.2.0 (2024-07-09)
 
 ### Breaking changes
 
@@ -12,6 +12,7 @@
 - Updated current index on data series decrease (#121)
 - Updated Image URL to data links (#122)
 - Added slideshow between mixed media (#123)
+- Media panel refactoring (#124)
 
 ## 5.1.0 (2024-06-23)
 

@@ -1,8 +1,7 @@
 import { FieldType } from '@grafana/data';
 import { renderHook } from '@testing-library/react';
-import { Base64 } from 'js-base64';
 
-import { MediaFormat } from '../types';
+import { ButtonType, MediaFormat } from '../types';
 import { useMediaData } from './useMediaData';
 
 /**
@@ -12,7 +11,6 @@ jest.mock('js-base64', () => ({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   Base64: {
     isValid: jest.fn((value) => value !== 'not_a_valid_base64_string'),
-    encode: jest.fn().mockImplementation((value) => `encoded_${value}`),
   },
 }));
 
@@ -24,12 +22,10 @@ describe('useMediaData', () => {
     jest.clearAllMocks();
   });
 
-  it('Should encode media if it is not a valid Base64 string', () => {
+  it('Should not encode media if it is not a valid Base64 string', () => {
     const invalidBase64Value = 'not_a_valid_base64_string';
-
     const options = {
-      formats: [MediaFormat.IMAGE],
-      imageUrl: 'imageUrl',
+      mediaSources: [{ type: MediaFormat.IMAGE, id: 'i1', field: 'image' }],
     } as any;
     const data = {
       series: [
@@ -47,19 +43,19 @@ describe('useMediaData', () => {
     const currentIndex = 0;
 
     const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
-    expect(Base64.isValid).toHaveBeenCalledWith(invalidBase64Value);
-    expect(Base64.encode).toHaveBeenCalledWith(invalidBase64Value);
-    expect(Base64.isValid).toHaveReturnedWith(false);
 
-    expect(result.current.media).toEqual('data:;base64,encoded_not_a_valid_base64_string');
+    expect(result.current.mediaSource).toEqual({
+      type: MediaFormat.IMAGE,
+      field: 'image',
+      url: invalidBase64Value,
+    });
   });
 
   it('Should not encode media if it is a valid Base64 string', () => {
     const validBase64Value = 'data:application/pdf;base64,JVBERiiUlRU9GCg==';
 
     const options = {
-      formats: [MediaFormat.IMAGE],
-      imageUrl: 'imageUrl',
+      mediaSources: [{ type: MediaFormat.IMAGE, id: 'i1', field: 'image' }],
     } as any;
     const data = {
       series: [
@@ -77,8 +73,141 @@ describe('useMediaData', () => {
     const currentIndex = 0;
 
     const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
-    expect(Base64.encode).not.toHaveBeenCalled();
 
-    expect(result.current.media).toEqual(validBase64Value);
+    expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
+    expect(result.current.description).toEqual(undefined);
+  });
+
+  it('Should return description', () => {
+    const validBase64Value = 'data:application/pdf;base64,JVBERiiUlRU9GCg==';
+
+    const options = {
+      mediaSources: [{ type: MediaFormat.IMAGE, id: 'i1', field: 'image' }],
+      description: 'description',
+    } as any;
+    const data = {
+      series: [
+        {
+          fields: [
+            {
+              type: FieldType.string,
+              name: 'image',
+              values: [validBase64Value],
+            },
+            {
+              type: FieldType.string,
+              name: 'description',
+              values: ['Description'],
+            },
+          ],
+          length: 1,
+        },
+      ],
+    } as any;
+    const currentIndex = 0;
+
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+
+    expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
+    expect(result.current.description).toEqual('Description');
+  });
+
+  it('Should return video poster', () => {
+    const validBase64Value = 'data:application/pdf;base64,JVBERiiUlRU9GCg==';
+
+    const options = {
+      mediaSources: [{ type: MediaFormat.IMAGE, id: 'i1', field: 'image' }],
+      videoPoster: 'poster',
+    } as any;
+    const data = {
+      series: [
+        {
+          fields: [
+            {
+              type: FieldType.string,
+              name: 'image',
+              values: [validBase64Value],
+            },
+            {
+              type: FieldType.string,
+              name: 'poster',
+              values: [validBase64Value],
+            },
+          ],
+          length: 1,
+        },
+      ],
+    } as any;
+    const currentIndex = 0;
+
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+
+    expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
+    expect(result.current.videoPoster).toEqual(validBase64Value);
+  });
+
+  it('Should return not Base64 video poster', () => {
+    const validBase64Value = 'data:application/pdf;base64,JVBERiiUlRU9GCg==';
+    const invalidBase64Value = 'not_a_valid_base64_string';
+
+    const options = {
+      mediaSources: [{ type: MediaFormat.IMAGE, id: 'i1', field: 'image' }],
+      videoPoster: 'poster',
+    } as any;
+    const data = {
+      series: [
+        {
+          fields: [
+            {
+              type: FieldType.string,
+              name: 'image',
+              values: [validBase64Value],
+            },
+            {
+              type: FieldType.string,
+              name: 'poster',
+              values: [invalidBase64Value],
+            },
+          ],
+          length: 1,
+        },
+      ],
+    } as any;
+    const currentIndex = 0;
+
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+
+    expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
+    expect(result.current.videoPoster).toEqual(invalidBase64Value);
+  });
+
+  it('Should be properly defined navigation', () => {
+    const validBase64Value = 'data:application/pdf;base64,JVBERiiUlRU9GCg==';
+
+    const options = {
+      mediaSources: [{ type: MediaFormat.IMAGE, id: 'i1', field: 'image' }],
+      buttons: [ButtonType.NAVIGATION],
+      toolbar: true,
+    } as any;
+    const data = {
+      series: [
+        {
+          fields: [
+            {
+              type: FieldType.string,
+              name: 'image',
+              values: [validBase64Value],
+            },
+          ],
+          length: 1,
+        },
+      ],
+    } as any;
+    const currentIndex = 0;
+
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+
+    expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
+    expect(result.current.isNavigationShown).toEqual(true);
   });
 });

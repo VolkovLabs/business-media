@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 3,
   "links": [
     {
       "asDropdown": false,
@@ -54,14 +55,29 @@
       "id": 2,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "encode",
+            "id": "966caf89-7cb1-4a8e-9eb7-cacfcc4a30ec",
+            "type": "pdf"
+          }
+        ],
         "name": "encode",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "datasource": {
@@ -109,14 +125,29 @@
       "id": 3,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "encode",
+            "id": "43bbba3f-9aca-4d1b-8ca9-dc16c3a3d394",
+            "type": "image"
+          }
+        ],
         "name": "encode",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "datasource": {
@@ -164,14 +195,29 @@
       "id": 4,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "concat",
+            "id": "9b9286f8-4d82-4131-a8dd-00f5c0a660d6",
+            "type": "video"
+          }
+        ],
         "name": "concat",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "datasource": {
@@ -219,14 +265,29 @@
       "id": 5,
       "options": {
         "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
         "controls": true,
         "height": 0,
         "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "concat",
+            "id": "9bed53f9-be4a-497c-82d3-ffcf2af0a3bb",
+            "type": "audio"
+          }
+        ],
         "name": "concat",
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
         "toolbar": true,
         "width": 0,
-        "widthMode": "auto"
+        "widthMode": "auto",
+        "zoomType": "default"
       },
+      "pluginVersion": "5.1.0",
       "targets": [
         {
           "datasource": {
@@ -262,8 +323,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 37,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": ["image"],
   "templating": {
     "list": []
@@ -276,6 +336,6 @@
   "timezone": "",
   "title": "Postgres",
   "uid": "GATG3GTnz",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

@@ -1,10 +1,10 @@
 import { FieldType, PanelData } from '@grafana/data';
-import { findField, getFieldValues } from '@volkovlabs/grafana-utils';
+import { getFieldValues } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import { ButtonType, MediaFormat, PanelOptions } from '../types';
-import { getDataLink, handleMediaData } from '../utils';
+import { ButtonType, PanelOptions } from '../types';
+import { getDataLink, getMediaValue, handleMediaData } from '../utils';
 
 /**
  * Use media data hook
@@ -19,16 +19,6 @@ export const useMediaData = ({
   currentIndex: number;
 }) => {
   /**
-   * Has format support
-   */
-  const hasFormatSupport = useCallback(
-    (format: MediaFormat): boolean => {
-      return options.formats.includes(format);
-    },
-    [options.formats]
-  );
-
-  /**
    * Is Navigation Shown
    */
   const isNavigationShown = useMemo(
@@ -37,32 +27,9 @@ export const useMediaData = ({
   );
 
   /**
-   * Image values
+   * Rows Length
    */
-  const values = useMemo((): string[] => {
-    return (
-      findField<string>(
-        data.series,
-        (field) => field.type === FieldType.string && (!options.name || field.name === options.name)
-      )?.values || []
-    );
-  }, [data.series, options.name]);
-
-  /**
-   * Video urls
-   */
-  const videoUrls = useMemo(
-    () => getFieldValues<string>(data.series, options.videoUrl, FieldType.string),
-    [data.series, options.videoUrl]
-  );
-
-  /**
-   * Image urls
-   */
-  const imageUrls = useMemo(
-    () => getFieldValues<string>(data.series, options.imageUrl, FieldType.string),
-    [data.series, options.imageUrl]
-  );
+  const rowsLength = useMemo(() => (data.series.length && data.series[0].length) || 0, [data.series]);
 
   /**
    * Image descriptions
@@ -90,27 +57,14 @@ export const useMediaData = ({
    * Use first element if Navigation enabled, otherwise last
    */
   const resultIndex = useMemo(
-    () => (isNavigationShown ? currentIndex : values.length - 1),
-    [currentIndex, isNavigationShown, values.length]
+    () => (isNavigationShown ? currentIndex : rowsLength - 1),
+    [currentIndex, isNavigationShown, rowsLength]
   );
 
-  /**
-   * First priority
-   * Url for video
-   */
-  const videoUrl = useMemo((): string | undefined => videoUrls[resultIndex], [resultIndex, videoUrls]);
-
-  /**
-   * Second priority
-   * Url for image
-   */
-  const imageUrl = useMemo((): string | undefined => imageUrls[resultIndex], [resultIndex, imageUrls]);
-
-  /**
-   * Third priority
-   * Media (base64)
-   */
-  const media = useMemo((): string | undefined => values[resultIndex], [resultIndex, values]);
+  const mediaSource = useMemo(
+    () => getMediaValue(data.series, options.mediaSources, currentIndex, options.pdfToolbar),
+    [currentIndex, data.series, options.mediaSources, options.pdfToolbar]
+  );
 
   /**
    * Description for media
@@ -121,19 +75,14 @@ export const useMediaData = ({
    * Link for image
    */
   const link = useMemo(
-    () => getDataLink(data.series, options.name, currentIndex),
-    [currentIndex, data.series, options.name]
+    () => getDataLink(data.series, mediaSource, currentIndex),
+    [currentIndex, data.series, mediaSource]
   );
 
   /**
    * Video Poster
    */
   const videoPoster = useMemo((): string => videoPosters[resultIndex] || '', [videoPosters, resultIndex]);
-
-  /**
-   * Type and media
-   */
-  const { currentMedia, type } = handleMediaData(media);
 
   /**
    * Video poster
@@ -146,14 +95,10 @@ export const useMediaData = ({
 
   return {
     description,
-    imageUrl,
-    hasFormatSupport,
-    media: currentMedia,
     isNavigationShown,
-    type,
-    values,
-    videoUrl,
+    rowsLength,
     videoPoster: currentVideoPoster,
     link,
+    mediaSource,
   };
 };

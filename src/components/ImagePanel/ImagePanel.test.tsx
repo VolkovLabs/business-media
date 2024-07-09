@@ -3,7 +3,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { saveAs } from 'file-saver';
 import React from 'react';
 
-import { DEFAULT_OPTIONS, TEST_IDS } from '../../constants';
+import { TEST_IDS } from '../../constants';
 import { ButtonType, ImageField, ImageSizeMode, MediaFormat, ZoomType } from '../../types';
 import { ImagePanel } from './ImagePanel';
 
@@ -76,7 +76,7 @@ describe('Image Panel', () => {
         },
         options: {
           noResultsMessage: 'No results...',
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [],
         },
       })
     );
@@ -86,30 +86,7 @@ describe('Image Panel', () => {
     expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent('No results...');
   });
 
-  it('Should output alert message if formats was not selected', async () => {
-    render(
-      getComponent({
-        data: {
-          series: [
-            toDataFrame({
-              name: 'data',
-              fields: [],
-            }),
-          ],
-        },
-        options: {
-          noResultsMessage: 'No results...',
-          formats: [],
-        },
-      })
-    );
-
-    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent('Support media formats not selected');
-  });
-
-  it('Should output alert if the pdf was not selected, but is contained in the data ', async () => {
+  it('Should output message if mediaSources not specified', async () => {
     render(
       getComponent({
         data: {
@@ -120,23 +97,22 @@ describe('Image Panel', () => {
                 {
                   type: FieldType.string,
                   name: ImageField.IMG,
-                  values: ['JVBERi0xLjMKJcTl8uXrp/jQ0CiUlRU9GCg=='],
+                  values: ['/9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
                 },
               ],
             }),
           ],
         },
         options: {
-          formats: [MediaFormat.AUDIO, MediaFormat.IMAGE, MediaFormat.VIDEO],
+          noResultsMessage: 'No results...',
+          mediaSources: [],
         },
       })
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
     expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent(
-      'PDF was not selected as a supported media format.'
-    );
+    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent('No results...');
   });
 
   it('Should render image', async () => {
@@ -157,7 +133,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
         },
       })
     );
@@ -166,7 +142,7 @@ describe('Image Panel', () => {
     expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
-  it('Should output alert if the image was not selected, but is contained in the data ', async () => {
+  it('Should render application pdf', async () => {
     render(
       getComponent({
         data: {
@@ -176,37 +152,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageField.IMG,
-                  values: ['9j/4AAQSkZJRAAdLxAACEAAIX/9k='],
-                },
-              ],
-            }),
-          ],
-        },
-        options: {
-          formats: [MediaFormat.AUDIO, MediaFormat.VIDEO],
-        },
-      })
-    );
-
-    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent(
-      'Image was not selected as a supported media format.'
-    );
-  });
-
-  it('Should render application', async () => {
-    render(
-      getComponent({
-        data: {
-          series: [
-            toDataFrame({
-              name: 'data',
-              fields: [
-                {
-                  type: FieldType.string,
-                  name: ImageField.IMG,
+                  name: 'pdf',
                   values: ['JVBERi0xLjMKJcTl8uXrp/jQ0CiUlRU9GCg=='],
                 },
               ],
@@ -214,7 +160,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.PDF, id: 'pdf1', field: 'pdf' }],
         },
       })
     );
@@ -241,7 +187,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
         },
       })
     );
@@ -260,7 +206,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageField.IMG,
+                  name: 'pdf',
                   values: ['data:application/pdf;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -268,7 +214,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.PDF, id: 'pdf1', field: 'pdf' }],
         },
       })
     );
@@ -295,7 +241,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: 'raw' }],
         },
       })
     );
@@ -325,7 +271,7 @@ describe('Image Panel', () => {
         options: {
           name: '',
           url: 'test',
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: 'raw' }],
         },
         replaceVariables: (str: string) => str,
       })
@@ -340,7 +286,7 @@ describe('Image Panel', () => {
   });
 
   describe('Image height', () => {
-    it('Should render raw image', async () => {
+    it('Should render raw image with correct width and height', async () => {
       render(
         getComponent({
           data: {
@@ -363,10 +309,9 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageField.IMG,
             widthMode: ImageSizeMode.AUTO,
             heightMode: ImageSizeMode.AUTO,
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: 'raw' }],
           },
           height: 50,
           width: 50,
@@ -403,12 +348,11 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageField.IMG,
             widthMode: ImageSizeMode.AUTO,
             heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: 'raw' }],
           },
           height: 200,
           width: 200,
@@ -444,13 +388,12 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageField.IMG,
             description: 'imageDescription',
             widthMode: ImageSizeMode.AUTO,
             heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
           },
           height: 200,
           width: 200,
@@ -481,13 +424,12 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageField.IMG,
             description: 'imageDescription',
             widthMode: ImageSizeMode.AUTO,
             heightMode: ImageSizeMode.AUTO,
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
           },
           height: 200,
           width: 200,
@@ -521,12 +463,11 @@ describe('Image Panel', () => {
         ],
       };
       const options = {
-        name: ImageField.IMG,
         widthMode: ImageSizeMode.AUTO,
         heightMode: ImageSizeMode.AUTO,
         toolbar: true,
         buttons: [ButtonType.DOWNLOAD],
-        formats: DEFAULT_OPTIONS.formats,
+        mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
       };
 
       it('Should update image height if panel size changed', async () => {
@@ -655,12 +596,11 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageField.IMG,
             widthMode: ImageSizeMode.CUSTOM,
             heightMode: ImageSizeMode.CUSTOM,
             widthName: ImageField.WIDTH,
             heightName: ImageField.HEIGHT,
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
             width: 20,
             height: 20,
           },
@@ -697,10 +637,9 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageField.IMG,
             widthMode: ImageSizeMode.CUSTOM,
             heightMode: ImageSizeMode.CUSTOM,
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
             width: 20,
             height: 20,
           },
@@ -747,12 +686,11 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageField.IMG,
             widthMode: ImageSizeMode.CUSTOM,
             heightMode: ImageSizeMode.CUSTOM,
             widthName: ImageField.WIDTH,
             heightName: ImageField.HEIGHT,
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
           },
         })
       );
@@ -787,10 +725,9 @@ describe('Image Panel', () => {
             ],
           },
           options: {
-            name: ImageField.IMG,
             widthMode: ImageSizeMode.ORIGINAL,
             heightMode: ImageSizeMode.ORIGINAL,
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
           },
         })
       );
@@ -813,7 +750,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageField.IMG,
+                  name: 'video',
                   values: ['data:video/mp4;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -821,7 +758,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.VIDEO, id: 'v1', field: 'video' }],
         },
       })
     );
@@ -840,7 +777,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageField.IMG,
+                  name: 'video',
                   values: ['data:video/mp4;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -850,7 +787,7 @@ describe('Image Panel', () => {
         options: {
           toolbar: true,
           buttons: [ButtonType.DOWNLOAD, ButtonType.NAVIGATION, ButtonType.ZOOM],
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.VIDEO, id: 'v1', field: 'video' }],
         },
       })
     );
@@ -881,7 +818,7 @@ describe('Image Panel', () => {
               fields: [
                 {
                   type: FieldType.string,
-                  name: ImageField.IMG,
+                  name: 'audio',
                   values: ['data:audio/mp3;base64,JVBERiiUlRU9GCg=='],
                 },
               ],
@@ -889,7 +826,7 @@ describe('Image Panel', () => {
           ],
         },
         options: {
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.AUDIO, id: 'v1', field: 'audio' }],
         },
       })
     );
@@ -902,9 +839,7 @@ describe('Image Panel', () => {
     render(
       getComponent({
         options: {
-          videoUrl: 'videoUrl',
-          name: '',
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.VIDEO, id: 'v1', field: 'videoUrl' }],
         },
         data: {
           series: [
@@ -929,16 +864,14 @@ describe('Image Panel', () => {
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
   });
 
   it('Should render video with poster from url', async () => {
     render(
       getComponent({
         options: {
-          videoUrl: 'videoUrl',
-          name: '',
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.VIDEO, id: 'v1', field: 'videoUrl' }],
           videoPoster: 'posterUrl',
         },
         data: {
@@ -969,8 +902,8 @@ describe('Image Panel', () => {
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toHaveAttribute(
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toHaveAttribute(
       'poster',
       'https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217'
     );
@@ -980,9 +913,7 @@ describe('Image Panel', () => {
     render(
       getComponent({
         options: {
-          videoUrl: 'videoUrl',
-          name: '',
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.VIDEO, id: 'v1', field: 'videoUrl' }],
           videoPoster: 'posterImage',
         },
         data: {
@@ -1013,70 +944,10 @@ describe('Image Panel', () => {
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.videoUrl)).toHaveAttribute(
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.video)).toHaveAttribute(
       'poster',
       'data:image/jpeg;base64,/9j/4AAQSkZJRAAdLxAACEAAIX/9k='
-    );
-  });
-
-  it('Should output alert if the video was not selected, but is contained in the data ', async () => {
-    render(
-      getComponent({
-        data: {
-          series: [
-            toDataFrame({
-              name: 'data',
-              fields: [
-                {
-                  type: FieldType.string,
-                  name: ImageField.IMG,
-                  values: ['data:video/mp4;base64,JVBERiiUlRU9GCg=='],
-                },
-              ],
-            }),
-          ],
-        },
-        options: {
-          formats: [MediaFormat.AUDIO, MediaFormat.IMAGE],
-        },
-      })
-    );
-
-    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent(
-      'Video was not selected as a supported media format.'
-    );
-  });
-
-  it('Should output alert if the audio was not selected, but is contained in the data ', async () => {
-    render(
-      getComponent({
-        data: {
-          series: [
-            toDataFrame({
-              name: 'data',
-              fields: [
-                {
-                  type: FieldType.string,
-                  name: ImageField.IMG,
-                  values: ['data:audio/mp3;base64,SUQzAwAAAAABPlRJVDIAAAAVAAAB'],
-                },
-              ],
-            }),
-          ],
-        },
-        options: {
-          formats: [MediaFormat.VIDEO, MediaFormat.IMAGE],
-        },
-      })
-    );
-
-    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.warning)).toHaveTextContent(
-      'Audio was not selected as a supported media format.'
     );
   });
 
@@ -1084,10 +955,7 @@ describe('Image Panel', () => {
     render(
       getComponent({
         options: {
-          videoUrl: '',
-          name: '',
-          imageUrl: 'imageUrl',
-          formats: DEFAULT_OPTIONS.formats,
+          mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: 'imageUrl' }],
         },
         data: {
           series: [
@@ -1117,7 +985,7 @@ describe('Image Panel', () => {
     );
 
     expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-    expect(screen.getByTestId(TEST_IDS.panel.imageUrl)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
   /**
@@ -1142,7 +1010,11 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.DOWNLOAD], formats: DEFAULT_OPTIONS.formats },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.DOWNLOAD],
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
+          },
         })
       );
 
@@ -1180,10 +1052,7 @@ describe('Image Panel', () => {
           options: {
             toolbar: true,
             buttons: [ButtonType.DOWNLOAD],
-            formats: DEFAULT_OPTIONS.formats,
-            videoUrl: '',
-            name: '',
-            imageUrl: 'imageUrl',
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: 'imageUrl' }],
           },
         })
       );
@@ -1212,7 +1081,11 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [], formats: DEFAULT_OPTIONS.formats },
+          options: {
+            toolbar: true,
+            buttons: [],
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
+          },
         })
       );
 
@@ -1237,7 +1110,11 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.ZOOM], formats: DEFAULT_OPTIONS.formats },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.ZOOM],
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
+          },
         })
       );
 
@@ -1276,10 +1153,7 @@ describe('Image Panel', () => {
           options: {
             toolbar: true,
             buttons: [ButtonType.ZOOM],
-            formats: DEFAULT_OPTIONS.formats,
-            videoUrl: '',
-            name: '',
-            imageUrl: 'imageUrl',
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: 'imageUrl' }],
           },
         })
       );
@@ -1315,7 +1189,7 @@ describe('Image Panel', () => {
             toolbar: true,
             buttons: [ButtonType.ZOOM],
             zoomType: ZoomType.PANPINCH,
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
           },
         })
       );
@@ -1345,7 +1219,7 @@ describe('Image Panel', () => {
             toolbar: true,
             buttons: [ButtonType.ZOOM],
             zoomType: ZoomType.PANPINCH,
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
           },
         })
       );
@@ -1381,7 +1255,11 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.NAVIGATION], formats: DEFAULT_OPTIONS.formats },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.NAVIGATION],
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
+          },
         })
       );
 
@@ -1440,7 +1318,11 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.NAVIGATION], formats: DEFAULT_OPTIONS.formats },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.NAVIGATION],
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
+          },
         })
       );
 
@@ -1477,7 +1359,11 @@ describe('Image Panel', () => {
               }),
             ],
           },
-          options: { toolbar: true, buttons: [ButtonType.NAVIGATION], formats: DEFAULT_OPTIONS.formats },
+          options: {
+            toolbar: true,
+            buttons: [ButtonType.NAVIGATION],
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
+          },
         })
       );
 
@@ -1507,7 +1393,7 @@ describe('Image Panel', () => {
           options: {
             toolbar: true,
             buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
             autoPlayInterval: 1,
           },
         })
@@ -1556,7 +1442,7 @@ describe('Image Panel', () => {
           options: {
             toolbar: true,
             buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
           },
         })
       );
@@ -1624,7 +1510,7 @@ describe('Image Panel', () => {
           options: {
             toolbar: true,
             buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
             autoPlayInterval: 15,
             autoPlayInfinity: false,
           },
@@ -1694,7 +1580,7 @@ describe('Image Panel', () => {
           options: {
             toolbar: true,
             buttons: [ButtonType.NAVIGATION, ButtonType.AUTOPLAY],
-            formats: DEFAULT_OPTIONS.formats,
+            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
             autoPlayInterval: 15,
             autoPlayInfinity: true,
           },

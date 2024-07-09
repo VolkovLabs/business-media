@@ -1,6 +1,5 @@
 import { Field, FieldType, PanelPlugin } from '@grafana/data';
 
-import { DEFAULT_OPTIONS } from './constants';
 import { plugin } from './module';
 import { ButtonType, ImageSizeMode, MediaFormat, PanelOptions } from './types';
 
@@ -31,6 +30,7 @@ describe('plugin', () => {
     addTextInput: jest.fn().mockImplementation(() => builder),
     addMultiSelect: jest.fn().mockImplementation(() => builder),
     addSelect: jest.fn().mockImplementation(() => builder),
+    addCustomEditor: jest.fn().mockImplementation(() => builder),
   };
 
   it('Should be instance of PanelPlugin', () => {
@@ -51,6 +51,7 @@ describe('plugin', () => {
     expect(builder.addRadio).toHaveBeenCalled();
     expect(builder.addTextInput).toHaveBeenCalled();
     expect(builder.addMultiSelect).toHaveBeenCalled();
+    expect(builder.addCustomEditor).toHaveBeenCalled();
   });
 
   describe('Input Visibility', () => {
@@ -79,10 +80,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM, formats: [] }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM, formats: [] }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -90,14 +91,44 @@ describe('plugin', () => {
       expect(shownOptionsPaths).toEqual(expect.arrayContaining(['widthName', 'width']));
     });
 
+    it('Should show controls for video', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addRadio.mockImplementation(
+        addInputImplementation(
+          { widthMode: ImageSizeMode.CUSTOM, mediaSources: [{ field: 'videoURL', id: 'v1', type: MediaFormat.VIDEO }] },
+          shownOptionsPaths
+        )
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['controls']));
+    });
+
+    it('Should show infinityPlay for audio', () => {
+      const shownOptionsPaths: string[] = [];
+
+      builder.addRadio.mockImplementation(
+        addInputImplementation(
+          { widthMode: ImageSizeMode.CUSTOM, mediaSources: [{ field: 'audio', id: 'a1', type: MediaFormat.AUDIO }] },
+          shownOptionsPaths
+        )
+      );
+
+      plugin['optionsSupplier'](builder);
+
+      expect(shownOptionsPaths).toEqual(expect.arrayContaining(['infinityPlay']));
+    });
+
     it('Should not show widthName and width inputs for widthMode!=CUSTOM', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeMode.AUTO, formats: [] }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.AUTO }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ widthMode: ImageSizeMode.AUTO, formats: [] }, shownOptionsPaths)
+        addInputImplementation({ widthMode: ImageSizeMode.AUTO }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -109,10 +140,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM, formats: [] }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM, formats: [] }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.CUSTOM }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -124,11 +155,11 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ toolbar: true, buttons: [ButtonType.AUTOPLAY], formats: [] }, shownOptionsPaths)
+        addInputImplementation({ toolbar: true, buttons: [ButtonType.AUTOPLAY] }, shownOptionsPaths)
       );
 
       builder.addRadio.mockImplementation(
-        addInputImplementation({ toolbar: true, buttons: [ButtonType.AUTOPLAY], formats: [] }, shownOptionsPaths)
+        addInputImplementation({ toolbar: true, buttons: [ButtonType.AUTOPLAY] }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -140,10 +171,10 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addFieldNamePicker.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeMode.AUTO, formats: [] }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.AUTO }, shownOptionsPaths)
       );
       builder.addNumberInput.mockImplementation(
-        addInputImplementation({ heightMode: ImageSizeMode.AUTO, formats: [] }, shownOptionsPaths)
+        addInputImplementation({ heightMode: ImageSizeMode.AUTO }, shownOptionsPaths)
       );
 
       plugin['optionsSupplier'](builder);
@@ -154,9 +185,7 @@ describe('plugin', () => {
     it('Should show buttons field if toolbar enabled', () => {
       const shownOptionsPaths: string[] = [];
 
-      builder.addMultiSelect.mockImplementation(
-        addInputImplementation({ toolbar: true, formats: [] }, shownOptionsPaths)
-      );
+      builder.addMultiSelect.mockImplementation(addInputImplementation({ toolbar: true }, shownOptionsPaths));
 
       plugin['optionsSupplier'](builder);
 
@@ -167,7 +196,14 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addRadio.mockImplementation(
-        addInputImplementation({ toolbar: true, buttons: [ButtonType.ZOOM], formats: [] }, shownOptionsPaths)
+        addInputImplementation(
+          {
+            toolbar: true,
+            buttons: [ButtonType.ZOOM],
+            mediaSources: [{ field: 'imageUrl', id: 'i1', type: MediaFormat.IMAGE }],
+          },
+          shownOptionsPaths
+        )
       );
 
       plugin['optionsSupplier'](builder);
@@ -175,28 +211,19 @@ describe('plugin', () => {
       expect(shownOptionsPaths).toEqual(expect.arrayContaining(['zoomType']));
     });
 
-    it('Should show the scale input', () => {
+    it('Should show the scale input only for image format', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addSelect.mockImplementation(
-        addInputImplementation({ formats: DEFAULT_OPTIONS.formats }, shownOptionsPaths)
+        addInputImplementation(
+          { mediaSources: [{ field: 'imageUrl', id: 'i1', type: MediaFormat.IMAGE }] },
+          shownOptionsPaths
+        )
       );
 
       plugin['optionsSupplier'](builder);
 
       expect(shownOptionsPaths).toEqual(expect.arrayContaining(['scale']));
-    });
-
-    it('Should show the scale input only for image format', () => {
-      const shownOptionsPaths: string[] = [];
-
-      builder.addSelect.mockImplementation(
-        addInputImplementation({ formats: [MediaFormat.AUDIO, MediaFormat.PDF, MediaFormat.VIDEO] }, shownOptionsPaths)
-      );
-
-      plugin['optionsSupplier'](builder);
-
-      expect(shownOptionsPaths).not.toEqual(expect.arrayContaining(['scale']));
     });
   });
 
@@ -209,48 +236,6 @@ describe('plugin', () => {
         }
         return builder;
       };
-
-    it('Should return only string fields for name', () => {
-      const fields: TestField[] = [
-        { name: 'string', type: FieldType.string },
-        { name: 'number', type: FieldType.number },
-      ];
-      const shownFields: TestField[] = [];
-
-      builder.addFieldNamePicker.mockImplementation(addFieldNameImplementation('name', fields, shownFields));
-
-      plugin['optionsSupplier'](builder);
-
-      expect(shownFields).toEqual([{ name: 'string', type: FieldType.string }]);
-    });
-
-    it('Should return only string fields for videoUrl', () => {
-      const fields: TestField[] = [
-        { name: 'string', type: FieldType.string },
-        { name: 'number', type: FieldType.number },
-      ];
-      const shownFields: TestField[] = [];
-
-      builder.addFieldNamePicker.mockImplementation(addFieldNameImplementation('videoUrl', fields, shownFields));
-
-      plugin['optionsSupplier'](builder);
-
-      expect(shownFields).toEqual([{ name: 'string', type: FieldType.string }]);
-    });
-
-    it('Should return only string fields for imageUrl', () => {
-      const fields: TestField[] = [
-        { name: 'string', type: FieldType.string },
-        { name: 'number', type: FieldType.number },
-      ];
-      const shownFields: TestField[] = [];
-
-      builder.addFieldNamePicker.mockImplementation(addFieldNameImplementation('imageUrl', fields, shownFields));
-
-      plugin['optionsSupplier'](builder);
-
-      expect(shownFields).toEqual([{ name: 'string', type: FieldType.string }]);
-    });
 
     it('Should return only string fields for description', () => {
       const fields: TestField[] = [

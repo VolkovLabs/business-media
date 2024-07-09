@@ -67,3 +67,13 @@ export const BOOLEAN_OPTIONS = [
  * Base64 media header regex
  */
 export const BASE64_MEDIA_HEADER_REGEX = /^data:(video\/\w+|audio\/\w+|image|application\/\w+)/;
+
+/**
+ * Media Types Options
+ */
+export const MEDIA_TYPES_OPTIONS = [
+  { value: MediaFormat.AUDIO, label: 'Audio' },
+  { value: MediaFormat.IMAGE, label: 'Image' },
+  { value: MediaFormat.PDF, label: 'PDF' },
+  { value: MediaFormat.VIDEO, label: 'Video' },
+];
