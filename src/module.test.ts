@@ -196,7 +196,14 @@ describe('plugin', () => {
       const shownOptionsPaths: string[] = [];
 
       builder.addRadio.mockImplementation(
-        addInputImplementation({ toolbar: true, buttons: [ButtonType.ZOOM], mediaSources: [] }, shownOptionsPaths)
+        addInputImplementation(
+          {
+            toolbar: true,
+            buttons: [ButtonType.ZOOM],
+            mediaSources: [{ field: 'imageUrl', id: 'i1', type: MediaFormat.IMAGE }],
+          },
+          shownOptionsPaths
+        )
       );
 
       plugin['optionsSupplier'](builder);

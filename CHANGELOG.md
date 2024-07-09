@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.2.0 (IN PROGRESS)
+## 5.2.0 (2024-07-09)
 
 ### Breaking changes
 

@@ -44,6 +44,8 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       config.mediaSources && config.mediaSources.some((source) => source.type === MediaFormat.IMAGE);
     const showVideoFormat = (config: PanelOptions) =>
       config.mediaSources && config.mediaSources.some((source) => source.type === MediaFormat.VIDEO);
+    const showForPdfFormat = (config: PanelOptions) =>
+      config.mediaSources && config.mediaSources.some((source) => source.type === MediaFormat.PDF);
 
     /**
      * Source
@@ -52,7 +54,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       id: 'mediaSources',
       path: 'mediaSources',
       name: 'Media Sources',
-      description: 'Fields priority in data frame row to show media.',
+      description: 'Defines priority to display Base64 encoded and URL media sources.',
       editor: MediaSourcesEditor,
       settings: {
         filterByType: [FieldType.string],
@@ -85,7 +87,7 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
     builder
       .addRadio({
         path: 'toolbar',
-        name: 'Set appropriate controls',
+        name: 'Display toolbar',
         settings: {
           options: BOOLEAN_OPTIONS,
         },
@@ -94,32 +96,14 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
       })
       .addMultiSelect({
         path: 'buttons',
-        name: 'Select buttons to display on toolbar.',
+        name: 'Features',
+        description: 'Select buttons to display on toolbar.',
         settings: {
           options: BUTTONS_OPTIONS,
         },
         defaultValue: DEFAULT_OPTIONS.buttons as unknown,
         category: ['Toolbar'],
         showIf: (options: PanelOptions) => options.toolbar,
-      })
-      .addRadio({
-        path: 'pdfToolbar',
-        name: 'Set display PDF reader toolbar',
-        settings: {
-          options: BOOLEAN_OPTIONS,
-        },
-        category: ['Toolbar'],
-        defaultValue: DEFAULT_OPTIONS.toolbar,
-      })
-      .addRadio({
-        path: 'zoomType',
-        name: 'Select zoom mode.',
-        settings: {
-          options: ZOOM_OPTIONS,
-        },
-        defaultValue: DEFAULT_OPTIONS.zoomType,
-        category: ['Toolbar'],
-        showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.ZOOM),
       })
       .addNumberInput({
         path: 'autoPlayInterval',
@@ -137,7 +121,32 @@ export const plugin = new PanelPlugin<PanelOptions>(ImagePanel)
         category: ['Toolbar'],
         defaultValue: DEFAULT_OPTIONS.autoPlayInfinity,
         showIf: (options: PanelOptions) => options.toolbar && options.buttons.includes(ButtonType.AUTOPLAY),
+      })
+      .addRadio({
+        path: 'zoomType',
+        name: 'Zoom mode for images',
+        settings: {
+          options: ZOOM_OPTIONS,
+        },
+        defaultValue: DEFAULT_OPTIONS.zoomType,
+        category: ['Toolbar'],
+        showIf: (options: PanelOptions) =>
+          showForImageFormat(options) && options.toolbar && options.buttons.includes(ButtonType.ZOOM),
       });
+
+    /**
+     * PDF Options
+     */
+    builder.addRadio({
+      path: 'pdfToolbar',
+      name: 'Reader toolbar',
+      settings: {
+        options: BOOLEAN_OPTIONS,
+      },
+      category: ['PDF'],
+      defaultValue: DEFAULT_OPTIONS.toolbar,
+      showIf: (config) => showForPdfFormat(config),
+    });
 
     /**
      * Image Options
