@@ -185,6 +185,133 @@ describe('getMediaValue', () => {
     const result = getMediaValue(series, mediaSources, 0, true);
     expect(result.url).not.toContain('#toolbar=0');
   });
+
+  it('Should return media value for a valid image media item without refId', () => {
+    const mediaSources = [
+      {
+        field: 'media2',
+        type: MediaFormat.IMAGE,
+        refId: '',
+      },
+      {
+        field: 'media1',
+        type: MediaFormat.PDF,
+        refId: '',
+      },
+    ] as any;
+    const result = getMediaValue(series, mediaSources, 0, false);
+    expect(result).toEqual({
+      field: 'media2',
+      type: MediaFormat.IMAGE,
+      url: 'https://example.com/image.jpg',
+    });
+  });
+
+  it('Should return media value for a correct frame with refId', () => {
+    const series = [
+      {
+        fields: [
+          {
+            name: 'media1',
+            values: [
+              'data:application/pdf;base64,JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nDPQM1Qo5ypUMABxQQEhhXLuxAogTgkXAgBZ/QcKZW5kc3RyZWFtCmVuZG9iago...',
+            ],
+          },
+          {
+            name: 'media2',
+            values: ['https://example.com/imageA.jpg'],
+          },
+        ],
+        refId: 'A',
+      },
+      {
+        fields: [
+          {
+            name: 'media1',
+            values: [
+              'data:application/pdf;base64,JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nDPQM1Qo5ypUMABxQQEhhXLuxAogTgkXAgBZ/QcKZW5kc3RyZWFtCmVuZG9iago...',
+            ],
+          },
+          {
+            name: 'media2',
+            values: ['https://example.com/imageB.jpg'],
+          },
+        ],
+        refId: 'B',
+      },
+    ] as any;
+
+    const mediaSources = [
+      {
+        field: 'media2',
+        type: MediaFormat.IMAGE,
+        refId: 'B',
+      },
+      {
+        field: 'media1',
+        type: MediaFormat.PDF,
+        refId: 'A',
+      },
+    ] as any;
+    const result = getMediaValue(series, mediaSources, 0, false);
+    expect(result).toEqual({
+      field: 'media2',
+      type: MediaFormat.IMAGE,
+      url: 'https://example.com/imageB.jpg',
+    });
+  });
+
+  it('Should nont return media value with incorrect refId`s and media refId`s', () => {
+    const series = [
+      {
+        fields: [
+          {
+            name: 'media1',
+            values: [
+              'data:application/pdf;base64,JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nDPQM1Qo5ypUMABxQQEhhXLuxAogTgkXAgBZ/QcKZW5kc3RyZWFtCmVuZG9iago...',
+            ],
+          },
+          {
+            name: 'media2',
+            values: ['https://example.com/imageA.jpg'],
+          },
+        ],
+        refId: 'A',
+      },
+      {
+        fields: [
+          {
+            name: 'media1',
+            values: [
+              'data:application/pdf;base64,JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nDPQM1Qo5ypUMABxQQEhhXLuxAogTgkXAgBZ/QcKZW5kc3RyZWFtCmVuZG9iago...',
+            ],
+          },
+          {
+            name: 'media2',
+            values: ['https://example.com/imageB.jpg'],
+          },
+        ],
+        refId: 'B',
+      },
+    ] as any;
+
+    const mediaSources = [
+      {
+        field: 'media2',
+        type: MediaFormat.IMAGE,
+        refId: 'c',
+      },
+      {
+        field: 'media1',
+        type: MediaFormat.PDF,
+        refId: 'D',
+      },
+    ] as any;
+    const result = getMediaValue(series, mediaSources, 0, false);
+    expect(result).toEqual({
+      type: null,
+    });
+  });
 });
 
 describe('Reorder', () => {
