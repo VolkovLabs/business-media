@@ -1,4 +1,4 @@
-import { DataFrame, FieldType, LinkModel } from '@grafana/data';
+import { DataFrame, FieldType, LinkModel, SelectableValue } from '@grafana/data';
 import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
@@ -164,4 +164,26 @@ export const getMediaValue = (
   return {
     type: null,
   };
+};
+
+/**
+ * Get Fields for multiple Queries
+ * @param data
+ * @param filterTypes
+ */
+export const multipleQueriesFields = (data: DataFrame[], filterTypes?: FieldType[]) => {
+  console.log('multipleQueriesFields data', data);
+  return data.reduce((acc: SelectableValue[], dataFrame) => {
+    console.log('multipleQueriesFields dataFrame', dataFrame);
+    return acc.concat(
+      dataFrame.fields
+        .filter((field) => (filterTypes ? filterTypes.includes(field.type) : true))
+        .map((field) => ({
+          value: `${dataFrame.refId ? `${dataFrame.refId}:` : ''}${field.name}`,
+          label: `${dataFrame.refId ? `${dataFrame.refId}:` : ''}${field.name}`,
+          refId: dataFrame.refId || '',
+          field: field.name,
+        }))
+    );
+  }, []);
 };

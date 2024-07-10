@@ -1,7 +1,7 @@
 import { FieldType } from '@grafana/data';
 import { MediaFormat } from 'types';
 
-import { base64toBlob, getDataLink, getMediaValue, reorder } from './utils';
+import { base64toBlob, getDataLink, getMediaValue, multipleQueriesFields, reorder } from './utils';
 
 /**
  * base64toBlob
@@ -19,6 +19,9 @@ describe('base64toBlob', () => {
   });
 });
 
+/**
+ * getDataLink
+ */
 describe('getDataLink', () => {
   const frames = [
     {
@@ -90,6 +93,9 @@ describe('getDataLink', () => {
   });
 });
 
+/**
+ * getMediaValue
+ */
 describe('getMediaValue', () => {
   const series = [
     {
@@ -314,6 +320,9 @@ describe('getMediaValue', () => {
   });
 });
 
+/**
+ * Reorder function
+ */
 describe('Reorder', () => {
   it('Should move element up', () => {
     expect(reorder([1, 2, 3], 0, 1)).toEqual([2, 1, 3]);
@@ -328,5 +337,107 @@ describe('Reorder', () => {
     const result = reorder(array, 2, 1);
 
     expect(array !== result).toBeTruthy();
+  });
+});
+
+/**
+ * multipleQueriesFields
+ */
+describe('multipleQueriesFields', () => {
+  it('Should return correct values and labels for fields with refId', () => {
+    const data = [
+      {
+        refId: 'A',
+        fields: [
+          { name: 'field1', type: 'string' },
+          { name: 'field2', type: 'number' },
+        ],
+      },
+      {
+        refId: 'B',
+        fields: [{ name: 'field3', type: 'boolean' }],
+      },
+    ] as any;
+
+    const result = multipleQueriesFields(data);
+
+    expect(result).toEqual([
+      {
+        value: 'A:field1',
+        label: 'A:field1',
+        refId: 'A',
+        field: 'field1',
+      },
+      {
+        value: 'A:field2',
+        label: 'A:field2',
+        refId: 'A',
+        field: 'field2',
+      },
+      {
+        value: 'B:field3',
+        label: 'B:field3',
+        refId: 'B',
+        field: 'field3',
+      },
+    ]);
+  });
+
+  it('Should return correct values and labels for fields without refId', () => {
+    const data = [
+      {
+        fields: [
+          { name: 'field1', type: 'string' },
+          { name: 'field2', type: 'number' },
+        ],
+      },
+    ] as any;
+
+    const result = multipleQueriesFields(data);
+
+    expect(result).toEqual([
+      {
+        value: 'field1',
+        label: 'field1',
+        refId: '',
+        field: 'field1',
+      },
+      {
+        value: 'field2',
+        label: 'field2',
+        refId: '',
+        field: 'field2',
+      },
+    ]);
+  });
+
+  it('Should filter fields based on provided types', () => {
+    const data = [
+      {
+        refId: 'A',
+        fields: [
+          { name: 'field1', type: FieldType.string },
+          { name: 'field2', type: FieldType.number },
+          { name: 'field3', type: FieldType.boolean },
+        ],
+      },
+    ] as any;
+
+    const result = multipleQueriesFields(data, [FieldType.string, FieldType.boolean]);
+
+    expect(result).toEqual([
+      {
+        value: 'A:field1',
+        label: 'A:field1',
+        refId: 'A',
+        field: 'field1',
+      },
+      {
+        value: 'A:field3',
+        label: 'A:field3',
+        refId: 'A',
+        field: 'field3',
+      },
+    ]);
   });
 });

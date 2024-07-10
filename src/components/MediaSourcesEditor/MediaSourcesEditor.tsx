@@ -1,4 +1,4 @@
-import { FieldType, SelectableValue, StandardEditorProps } from '@grafana/data';
+import { FieldType, StandardEditorProps } from '@grafana/data';
 import { Button, Icon, InlineField, InlineFieldRow, Select, useTheme2 } from '@grafana/ui';
 import { DragDropContext, Draggable, DraggingStyle, Droppable, DropResult, NotDraggingStyle } from '@hello-pangea/dnd';
 import { Collapse } from '@volkovlabs/components';
@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { MEDIA_TYPES_OPTIONS, TEST_IDS } from '../../constants';
 import { MediaFormat, MediaSourceConfig } from '../../types';
-import { reorder } from '../../utils';
+import { multipleQueriesFields, reorder } from '../../utils';
 import { getStyles } from './MediaSourcesEditor.styles';
 
 /**
@@ -111,26 +111,12 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
   }, []);
 
   /**
-   * Available Field Options
+   * Options
    */
-  const availableFieldOptions = useMemo(() => {
-    return context.data
-      .reduce((acc: SelectableValue[], dataFrame) => {
-        return acc.concat(
-          dataFrame.fields
-            .filter((field) => item.settings?.filterByType.includes(field.type))
-            .map((field) => ({
-              value: `${dataFrame.refId ? `${dataFrame.refId}:` : ''}${field.name}`,
-              label: `${dataFrame.refId ? `${dataFrame.refId}:` : ''}${field.name}`,
-              refId: dataFrame.refId,
-              field: field.name,
-            }))
-        );
-      }, [])
-      .filter((field) => {
-        return !sources.some((item) => item.field === field.fieldName && item.refId === field.refId);
-      });
-  }, [context.data, item.settings?.filterByType, sources]);
+  const options = useMemo(
+    () => multipleQueriesFields(context.data, item.settings?.filterByType),
+    [context.data, item.settings?.filterByType]
+  );
 
   /**
    * Return
@@ -217,7 +203,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
                                 });
                                 onChangeSources(updatedSources);
                               }}
-                              options={availableFieldOptions}
+                              options={options}
                               aria-label={TEST_IDS.mediaSourceEditor.fieldName}
                               data-testid={TEST_IDS.mediaSourceEditor.fieldName}
                             />
@@ -243,7 +229,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
                 type: event.value!,
               });
             }}
-            value={newMediaSource.type || null}
+            value={newMediaSource.type}
             options={MEDIA_TYPES_OPTIONS}
             aria-label={TEST_IDS.mediaSourceEditor.fieldTypeNew}
             data-testid={TEST_IDS.mediaSourceEditor.fieldTypeNew}
@@ -259,7 +245,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
               });
             }}
             value={newMediaSource.field || null}
-            options={availableFieldOptions}
+            options={options}
             aria-label={TEST_IDS.mediaSourceEditor.fieldNameNew}
             data-testid={TEST_IDS.mediaSourceEditor.fieldNameNew}
           />

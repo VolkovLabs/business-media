@@ -540,11 +540,13 @@ describe('Series Editor', () => {
           field: 'imgURL',
           id: 'img1',
           type: 'image',
+          refId: 'A',
         },
         {
           field: 'videoURL',
           id: 'video1',
           type: 'image',
+          refId: 'B',
         },
       ]);
 
