@@ -88,7 +88,12 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
      * Migrate videoUrl
      */
     if (options.hasOwnProperty('videoUrl')) {
-      const videoSource = { type: MediaFormat.VIDEO, id: 'video-1-5-2-0-ver', field: options.videoUrl ?? '' };
+      const videoSource = {
+        type: MediaFormat.VIDEO,
+        id: 'video-1-5-2-0-ver',
+        field: options.videoUrl ?? '',
+        refId: '',
+      };
       mediaSources.push(videoSource);
       delete options.videoUrl;
     }
@@ -97,7 +102,12 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
      * Migrate imageUrl
      */
     if (options.hasOwnProperty('imageUrl')) {
-      const imageSource = { type: MediaFormat.IMAGE, id: 'image-1-5-2-0-ver', field: options.imageUrl ?? '' };
+      const imageSource = {
+        type: MediaFormat.IMAGE,
+        id: 'image-1-5-2-0-ver',
+        field: options.imageUrl ?? '',
+        refId: '',
+      };
       mediaSources.push(imageSource);
       delete options.imageUrl;
     }
@@ -106,7 +116,7 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
      * Migrate name
      */
     if (options.hasOwnProperty('name')) {
-      const imageSource = { type: MediaFormat.IMAGE, id: 'image-2-5-2-0-ver', field: options.name ?? '' };
+      const imageSource = { type: MediaFormat.IMAGE, id: 'image-2-5-2-0-ver', field: options.name ?? '', refId: '' };
       mediaSources.push(imageSource);
       delete options.name;
     }

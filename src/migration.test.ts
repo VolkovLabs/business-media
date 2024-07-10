@@ -68,9 +68,9 @@ describe('5.2.0', () => {
     expect(migratedOptions).not.toHaveProperty('videoUrl');
     expect(migratedOptions).not.toHaveProperty('name');
     expect(migratedOptions.mediaSources).toEqual([
-      { type: MediaFormat.VIDEO, id: 'video-1-5-2-0-ver', field: 'videoURL' },
-      { type: MediaFormat.IMAGE, id: 'image-1-5-2-0-ver', field: 'imageURL' },
-      { type: MediaFormat.IMAGE, id: 'image-2-5-2-0-ver', field: 'imageField' },
+      { type: MediaFormat.VIDEO, id: 'video-1-5-2-0-ver', field: 'videoURL', refId: '' },
+      { type: MediaFormat.IMAGE, id: 'image-1-5-2-0-ver', field: 'imageURL', refId: '' },
+      { type: MediaFormat.IMAGE, id: 'image-2-5-2-0-ver', field: 'imageField', refId: '' },
     ]);
   });
 });
