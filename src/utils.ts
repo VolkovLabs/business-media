@@ -172,9 +172,7 @@ export const getMediaValue = (
  * @param filterTypes
  */
 export const multipleQueriesFields = (data: DataFrame[], filterTypes?: FieldType[]) => {
-  console.log('multipleQueriesFields data', data);
   return data.reduce((acc: SelectableValue[], dataFrame) => {
-    console.log('multipleQueriesFields dataFrame', dataFrame);
     return acc.concat(
       dataFrame.fields
         .filter((field) => (filterTypes ? filterTypes.includes(field.type) : true))
