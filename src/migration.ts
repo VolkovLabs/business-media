@@ -116,7 +116,12 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
      * Migrate name
      */
     if (options.hasOwnProperty('name')) {
-      const imageSource = { type: MediaFormat.IMAGE, id: 'image-2-5-2-0-ver', field: options.name ?? '', refId: '' };
+      const imageSource = {
+        type: MediaFormat.IMAGE,
+        id: 'image-2-5-2-0-ver',
+        field: options.name ?? '',
+        refId: '',
+      };
       mediaSources.push(imageSource);
       delete options.name;
     }
