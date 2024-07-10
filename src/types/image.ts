@@ -65,6 +65,13 @@ export interface MediaSourceConfig {
    * @type {MediaFormat}
    */
   type: MediaFormat;
+
+  /**
+   * Reference Id for Field
+   *
+   * @type {string}
+   */
+  refId: string;
 }
 
 /**

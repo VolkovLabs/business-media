@@ -113,7 +113,11 @@ export const getMediaValue = (
 ) => {
   if (series && series.length) {
     for (const item of mediaSources) {
-      const mediaItem = series[0].fields.find((media) => media.name === item.field);
+      const frame = series.find((sItem) =>
+        item.refId ? sItem.refId === item.refId : sItem.fields.some((field) => field.name === item.field)
+      );
+
+      const mediaItem = frame ? frame.fields.find((media) => media.name === item.field) : null;
 
       if (mediaItem && mediaItem.values[currentIndex]) {
         let currentUrl: string;

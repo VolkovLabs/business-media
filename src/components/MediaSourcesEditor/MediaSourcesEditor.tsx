@@ -1,4 +1,4 @@
-import { FieldType, StandardEditorProps } from '@grafana/data';
+import { FieldType, SelectableValue, StandardEditorProps } from '@grafana/data';
 import { Button, Icon, InlineField, InlineFieldRow, Select, useTheme2 } from '@grafana/ui';
 import { DragDropContext, Draggable, DraggingStyle, Droppable, DropResult, NotDraggingStyle } from '@hello-pangea/dnd';
 import { Collapse } from '@volkovlabs/components';
@@ -55,6 +55,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
     id: uuidv4(),
     type: MediaFormat.IMAGE,
     field: '',
+    refId: '',
   });
   const [collapseState, setCollapseState] = useState<Record<string, boolean>>({});
 
@@ -95,7 +96,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
   const onAddNewMediaSource = useCallback(() => {
     if (newMediaSource.field && newMediaSource.type) {
       onChangeSources([...sources, newMediaSource]);
-      setNewMediaSource({ id: uuidv4(), type: MediaFormat.IMAGE, field: '' });
+      setNewMediaSource({ id: uuidv4(), type: MediaFormat.IMAGE, field: '', refId: '' });
     }
   }, [newMediaSource, onChangeSources, sources]);
 
@@ -110,19 +111,26 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
   }, []);
 
   /**
-   * Options
+   * Available Field Options
    */
-  const options = useMemo(
-    () =>
-      context.data
-        .flatMap((frame) => frame.fields)
-        .filter((field) => item.settings?.filterByType.includes(field.type))
-        .map((field) => ({
-          label: field.name,
-          value: field.name,
-        })),
-    [context.data, item.settings?.filterByType]
-  );
+  const availableFieldOptions = useMemo(() => {
+    return context.data
+      .reduce((acc: SelectableValue[], dataFrame) => {
+        return acc.concat(
+          dataFrame.fields
+            .filter((field) => item.settings?.filterByType.includes(field.type))
+            .map((field) => ({
+              value: `${dataFrame.refId ? `${dataFrame.refId}:` : ''}${field.name}`,
+              label: `${dataFrame.refId ? `${dataFrame.refId}:` : ''}${field.name}`,
+              refId: dataFrame.refId,
+              field: field.name,
+            }))
+        );
+      }, [])
+      .filter((field) => {
+        return !sources.some((item) => item.field === field.fieldName && item.refId === field.refId);
+      });
+  }, [context.data, item.settings?.filterByType, sources]);
 
   /**
    * Return
@@ -195,20 +203,21 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
                           </InlineField>
                           <InlineField label="Field" grow={true}>
                             <Select
-                              value={item.field}
+                              value={`${item.refId ? `${item.refId}:` : ''}${item.field}`}
                               onChange={(element) => {
                                 const updatedSources = sources.map((source) => {
                                   if (source.id === item.id) {
                                     return {
                                       ...source,
-                                      field: element.value!,
+                                      field: element.field!,
+                                      refId: element.refId || '',
                                     };
                                   }
                                   return source;
                                 });
                                 onChangeSources(updatedSources);
                               }}
-                              options={options}
+                              options={availableFieldOptions}
                               aria-label={TEST_IDS.mediaSourceEditor.fieldName}
                               data-testid={TEST_IDS.mediaSourceEditor.fieldName}
                             />
@@ -245,16 +254,16 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
             onChange={(event) => {
               setNewMediaSource({
                 ...newMediaSource,
-                field: event.value!,
+                field: event.field!,
+                refId: event.refId || '',
               });
             }}
             value={newMediaSource.field || null}
-            options={options}
+            options={availableFieldOptions}
             aria-label={TEST_IDS.mediaSourceEditor.fieldNameNew}
             data-testid={TEST_IDS.mediaSourceEditor.fieldNameNew}
           />
         </InlineField>
-
         <Button
           icon="plus"
           title="Add Media source"
