@@ -1,12 +1,12 @@
 import { css, cx } from '@emotion/css';
 import { PanelProps } from '@grafana/data';
 import { Alert, useStyles2 } from '@grafana/ui';
-import { getLastFieldValue } from '@volkovlabs/grafana-utils';
 import React, { JSX, useEffect, useMemo, useRef, useState } from 'react';
 
 import { TEST_IDS } from '../../constants';
 import { useMediaData } from '../../hooks';
 import { ImageSizeMode, MediaFormat, PanelOptions } from '../../types';
+import { getValuesForMultiSeries } from '../../utils';
 import { Toolbar } from '../Toolbar';
 import { getStyles } from './ImagePanel.styles';
 
@@ -90,8 +90,11 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
      * Field
      */
     if (options.heightName) {
-      const heightField = getLastFieldValue(data.series, options.heightName);
-      imageHeight = Number(heightField) ? Number(heightField) : imageHeight;
+      const heightField = getValuesForMultiSeries(data.series, options.heightName);
+
+      imageHeight = Number(heightField[heightField.length - 1])
+        ? Number(heightField[heightField.length - 1])
+        : imageHeight;
     }
 
     imageHeight = options.height ? options.height : imageHeight;
@@ -105,8 +108,9 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
      * Field
      */
     if (options.widthName) {
-      const widthField = getLastFieldValue(data.series, options.widthName);
-      imageWidth = Number(widthField) ? Number(widthField) : imageWidth;
+      const widthField = getValuesForMultiSeries(data.series, options.widthName);
+
+      imageWidth = Number(widthField[widthField.length - 1]) ? Number(widthField[widthField.length - 1]) : imageWidth;
     }
 
     imageWidth = options.width ? options.width : imageWidth;

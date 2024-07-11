@@ -1,4 +1,4 @@
-import { DataFrame, FieldType, LinkModel, SelectableValue } from '@grafana/data';
+import { DataFrame, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
 import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
@@ -184,4 +184,26 @@ export const multipleQueriesFields = (data: DataFrame[], filterTypes?: FieldType
         }))
     );
   }, []);
+};
+
+/**
+ * Get Field values for multiple Queries
+ * @param series
+ * @param field
+ */
+export const getValuesForMultiSeries = (series: DataFrame[], fieldName: string) => {
+  const fieldMatcher = fieldMatchers.get(FieldMatcherID.byName);
+  const matcher = fieldMatcher.get(fieldName);
+
+  let currentValues: string[] = [];
+
+  for (const frame of series) {
+    frame.fields.forEach((field) => {
+      const match = matcher(field, frame, series);
+      if (match) {
+        currentValues = field.values;
+      }
+    });
+  }
+  return currentValues;
 };

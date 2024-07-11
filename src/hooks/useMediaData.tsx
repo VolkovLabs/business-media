@@ -1,10 +1,9 @@
-import { FieldType, PanelData } from '@grafana/data';
-import { getFieldValues } from '@volkovlabs/grafana-utils';
+import { PanelData } from '@grafana/data';
 import { Base64 } from 'js-base64';
 import { useMemo } from 'react';
 
 import { ButtonType, PanelOptions } from '../types';
-import { getDataLink, getMediaValue, handleMediaData } from '../utils';
+import { getDataLink, getMediaValue, getValuesForMultiSeries, handleMediaData } from '../utils';
 
 /**
  * Use media data hook
@@ -39,7 +38,7 @@ export const useMediaData = ({
       return [];
     }
 
-    return getFieldValues<string>(data.series, options.description, FieldType.string);
+    return getValuesForMultiSeries(data.series, options.description);
   }, [data.series, options.description]);
 
   /**
@@ -50,7 +49,7 @@ export const useMediaData = ({
       return [];
     }
 
-    return getFieldValues<string>(data.series, options.videoPoster, FieldType.string);
+    return getValuesForMultiSeries(data.series, options.videoPoster);
   }, [data.series, options.videoPoster]);
 
   /**
