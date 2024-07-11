@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 3,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -51,7 +51,7 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.1.0",
+      "pluginVersion": "5.2.0",
       "title": "Empty",
       "type": "volkovlabs-image-panel"
     },
@@ -78,11 +78,11 @@
         "mediaSources": [
           {
             "field": "img",
-            "id": "9ac920db-24c0-4dcd-b531-80b3c9063f44",
+            "id": "image-2-5-2-0-ver",
+            "refId": "A",
             "type": "image"
           }
         ],
-        "name": "img",
         "noResultsMessage": "Nothing to display...",
         "pdfToolbar": true,
         "scale": "auto",
@@ -91,7 +91,7 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.1.0",
+      "pluginVersion": "5.2.0",
       "targets": [
         {
           "frame": {

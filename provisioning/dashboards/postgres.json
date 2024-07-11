@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 1,
   "links": [
     {
       "asDropdown": false,
@@ -64,11 +64,11 @@
         "mediaSources": [
           {
             "field": "encode",
-            "id": "966caf89-7cb1-4a8e-9eb7-cacfcc4a30ec",
+            "id": "image-2-5-2-0-ver",
+            "refId": "",
             "type": "pdf"
           }
         ],
-        "name": "encode",
         "noResultsMessage": "Nothing to display...",
         "pdfToolbar": true,
         "scale": "auto",
@@ -77,7 +77,7 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.1.0",
+      "pluginVersion": "5.2.0",
       "targets": [
         {
           "datasource": {
@@ -134,11 +134,11 @@
         "mediaSources": [
           {
             "field": "encode",
-            "id": "43bbba3f-9aca-4d1b-8ca9-dc16c3a3d394",
+            "id": "image-2-5-2-0-ver",
+            "refId": "A",
             "type": "image"
           }
         ],
-        "name": "encode",
         "noResultsMessage": "Nothing to display...",
         "pdfToolbar": true,
         "scale": "auto",
@@ -147,7 +147,7 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.1.0",
+      "pluginVersion": "5.2.0",
       "targets": [
         {
           "datasource": {
@@ -204,11 +204,11 @@
         "mediaSources": [
           {
             "field": "concat",
-            "id": "9b9286f8-4d82-4131-a8dd-00f5c0a660d6",
+            "id": "image-2-5-2-0-ver",
+            "refId": "A",
             "type": "video"
           }
         ],
-        "name": "concat",
         "noResultsMessage": "Nothing to display...",
         "pdfToolbar": true,
         "scale": "auto",
@@ -217,7 +217,7 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.1.0",
+      "pluginVersion": "5.2.0",
       "targets": [
         {
           "datasource": {
@@ -274,11 +274,11 @@
         "mediaSources": [
           {
             "field": "concat",
-            "id": "9bed53f9-be4a-497c-82d3-ffcf2af0a3bb",
+            "id": "image-2-5-2-0-ver",
+            "refId": "A",
             "type": "audio"
           }
         ],
-        "name": "concat",
         "noResultsMessage": "Nothing to display...",
         "pdfToolbar": true,
         "scale": "auto",
@@ -287,7 +287,7 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.1.0",
+      "pluginVersion": "5.2.0",
       "targets": [
         {
           "datasource": {
@@ -336,6 +336,6 @@
   "timezone": "",
   "title": "Postgres",
   "uid": "GATG3GTnz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
