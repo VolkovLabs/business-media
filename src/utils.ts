@@ -1,4 +1,4 @@
-import { DataFrame, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
+import { DataFrame, Field, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
 import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
@@ -113,20 +113,25 @@ export const getMediaValue = (
 ) => {
   if (series && series.length) {
     for (const item of mediaSources) {
-      const frame = series.find((sItem) =>
-        item.refId ? sItem.refId === item.refId : sItem.fields.some((field) => field.name === item.field)
-      );
+      const mediaItem = findField(series, (field, frame: DataFrame) => {
+        if (item.refId) {
+          if (frame.refId === item.refId) {
+            return field.name === item.field;
+          }
+          return false;
+        } else {
+          return field.name === item.field;
+        }
+      });
 
-      const mediaItem = frame ? frame.fields.find((media) => media.name === item.field) : null;
-
-      if (mediaItem && mediaItem.values[currentIndex]) {
+      if (mediaItem && mediaItem?.values[currentIndex]) {
         let currentUrl: string;
 
         if (Base64.isValid(mediaItem.values[currentIndex])) {
           /**
            * Base64 format handle
            */
-          currentUrl = handleMediaData(mediaItem.values[currentIndex]).currentMedia;
+          currentUrl = handleMediaData(mediaItem?.values[currentIndex] as string).currentMedia;
 
           /**
            * Handle case for PDF
@@ -139,7 +144,7 @@ export const getMediaValue = (
           /**
            * Use value from url
            */
-          currentUrl = mediaItem.values[currentIndex];
+          currentUrl = mediaItem.values[currentIndex] as string;
         }
 
         /**
@@ -195,15 +200,9 @@ export const getValuesForMultiSeries = (series: DataFrame[], fieldName: string) 
   const fieldMatcher = fieldMatchers.get(FieldMatcherID.byName);
   const matcher = fieldMatcher.get(fieldName);
 
-  let currentValues: string[] = [];
+  const field = findField(series, (field, frame: DataFrame) => {
+    return matcher(field, frame, series);
+  });
 
-  for (const frame of series) {
-    frame.fields.forEach((field) => {
-      const match = matcher(field, frame, series);
-      if (match) {
-        currentValues = field.values;
-      }
-    });
-  }
-  return currentValues;
+  return field && field.values ? field.values : [];
 };
