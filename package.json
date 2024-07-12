@@ -19,7 +19,7 @@
     "tslib": "^2.6.3",
     "uuid": "^9.0.1"
   },
-  "description": "Base64 Image/PDF panel",
+  "description": "Business Media panel",
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@grafana/eslint-config": "^7.0.0",
