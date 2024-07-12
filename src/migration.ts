@@ -1,5 +1,6 @@
 import { PanelModel } from '@grafana/data';
 import semver from 'semver';
+import { v4 as uuidv4 } from 'uuid';
 
 import { MediaFormat, MediaSourceConfig, PanelOptions } from './types';
 
@@ -90,7 +91,7 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
     if (options.hasOwnProperty('videoUrl')) {
       const videoSource = {
         type: MediaFormat.VIDEO,
-        id: 'video-1-5-2-0-ver',
+        id: uuidv4(),
         field: options.videoUrl ?? '',
         refId: '',
       };
@@ -104,7 +105,7 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
     if (options.hasOwnProperty('imageUrl')) {
       const imageSource = {
         type: MediaFormat.IMAGE,
-        id: 'image-1-5-2-0-ver',
+        id: uuidv4(),
         field: options.imageUrl ?? '',
         refId: '',
       };
@@ -118,7 +119,7 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
     if (options.hasOwnProperty('name')) {
       const imageSource = {
         type: MediaFormat.IMAGE,
-        id: 'image-2-5-2-0-ver',
+        id: uuidv4(),
         field: options.name ?? '',
         refId: '',
       };

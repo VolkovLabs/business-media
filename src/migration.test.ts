@@ -1,6 +1,16 @@
 import { getMigratedOptions } from './migration';
 import { MediaFormat } from './types';
 
+/**
+ * Mock uuidv4
+ */
+jest.mock('uuid', () => ({
+  v4: () => 'new-media',
+}));
+
+/**
+ * Migration
+ */
 describe('Migration', () => {
   it('Remove url option', () => {
     const panel = {
@@ -68,9 +78,9 @@ describe('5.2.0', () => {
     expect(migratedOptions).not.toHaveProperty('videoUrl');
     expect(migratedOptions).not.toHaveProperty('name');
     expect(migratedOptions.mediaSources).toEqual([
-      { type: MediaFormat.VIDEO, id: 'video-1-5-2-0-ver', field: 'videoURL', refId: '' },
-      { type: MediaFormat.IMAGE, id: 'image-1-5-2-0-ver', field: 'imageURL', refId: '' },
-      { type: MediaFormat.IMAGE, id: 'image-2-5-2-0-ver', field: 'imageField', refId: '' },
+      { type: MediaFormat.VIDEO, id: 'new-media', field: 'videoURL', refId: '' },
+      { type: MediaFormat.IMAGE, id: 'new-media', field: 'imageURL', refId: '' },
+      { type: MediaFormat.IMAGE, id: 'new-media', field: 'imageField', refId: '' },
     ]);
   });
 });
