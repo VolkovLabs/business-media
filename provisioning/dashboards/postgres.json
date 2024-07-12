@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 1,
+  "id": 2,
   "links": [
     {
       "asDropdown": false,
@@ -64,8 +64,8 @@
         "mediaSources": [
           {
             "field": "encode",
-            "id": "image-2-5-2-0-ver",
-            "refId": "",
+            "id": "e0a66f59-b91a-4c01-8edf-0db2846bf8bc",
+            "refId": "A",
             "type": "pdf"
           }
         ],
@@ -134,7 +134,7 @@
         "mediaSources": [
           {
             "field": "encode",
-            "id": "image-2-5-2-0-ver",
+            "id": "654c0bec-5cc8-4009-a040-572578095fe4",
             "refId": "A",
             "type": "image"
           }
@@ -204,7 +204,7 @@
         "mediaSources": [
           {
             "field": "concat",
-            "id": "image-2-5-2-0-ver",
+            "id": "3febb2d5-1dc6-4168-b4db-e39a081445ca",
             "refId": "A",
             "type": "video"
           }
@@ -274,7 +274,7 @@
         "mediaSources": [
           {
             "field": "concat",
-            "id": "image-2-5-2-0-ver",
+            "id": "1bd52277-082f-4fd1-8c7a-8e3b840fd70e",
             "refId": "A",
             "type": "audio"
           }
@@ -336,6 +336,6 @@
   "timezone": "",
   "title": "Postgres",
   "uid": "GATG3GTnz",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

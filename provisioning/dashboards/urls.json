@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 3,
   "links": [
     {
       "asDropdown": false,
@@ -74,14 +74,7 @@
         "height": 0,
         "heightMode": "auto",
         "infinityPlay": false,
-        "mediaSources": [
-          {
-            "field": "img",
-            "id": "image-2-5-2-0-ver",
-            "refId": "",
-            "type": "image"
-          }
-        ],
+        "mediaSources": [],
         "noResultsMessage": "Nothing to display...",
         "pdfToolbar": true,
         "scale": "auto",
@@ -139,7 +132,7 @@
         "mediaSources": [
           {
             "field": "img",
-            "id": "image-2-5-2-0-ver",
+            "id": "57577e5c-bbb9-42ee-a4fa-081efad23c13",
             "refId": "A",
             "type": "image"
           }
@@ -197,13 +190,7 @@
         "mediaSources": [
           {
             "field": "imgUrl",
-            "id": "image-1-5-2-0-ver",
-            "refId": "A",
-            "type": "image"
-          },
-          {
-            "field": "img",
-            "id": "image-2-5-2-0-ver",
+            "id": "1ab88106-5ab2-43ff-8575-c8a2fc241872",
             "refId": "A",
             "type": "image"
           }
@@ -272,14 +259,14 @@
         "infinityPlay": false,
         "mediaSources": [
           {
-            "field": "imageUrl",
-            "id": "image-1-5-2-0-ver",
+            "field": "img",
+            "id": "601b96bb-c9ef-45f4-b03a-7e8d89872f39",
             "refId": "A",
             "type": "image"
           },
           {
-            "field": "img",
-            "id": "image-2-5-2-0-ver",
+            "field": "imageUrl",
+            "id": "be412513-4a30-459c-982b-283cb9b8f944",
             "refId": "A",
             "type": "image"
           }
@@ -362,21 +349,9 @@
         "mediaSources": [
           {
             "field": "videoUrl",
-            "id": "video-1-5-2-0-ver",
+            "id": "81de7504-2c27-413b-9534-5c7062a4b086",
             "refId": "A",
             "type": "video"
-          },
-          {
-            "field": "img",
-            "id": "image-1-5-2-0-ver",
-            "refId": "A",
-            "type": "image"
-          },
-          {
-            "field": "imgUrl",
-            "id": "image-2-5-2-0-ver",
-            "refId": "A",
-            "type": "image"
           }
         ],
         "noResultsMessage": "Nothing to display...",
@@ -458,19 +433,19 @@
         "mediaSources": [
           {
             "field": "videoUrl",
-            "id": "video-1-5-2-0-ver",
+            "id": "2cf89904-6624-4f38-87ec-fbf89d2f9e10",
             "refId": "A",
             "type": "video"
           },
           {
-            "field": "imageUrl",
-            "id": "image-1-5-2-0-ver",
+            "field": "img",
+            "id": "0313db50-9b10-40f9-b558-3b8cdf127e7f",
             "refId": "A",
             "type": "image"
           },
           {
-            "field": "img",
-            "id": "image-2-5-2-0-ver",
+            "field": "imageUrl",
+            "id": "0e4b1298-9bc2-46cd-8fc6-f8c767e0a746",
             "refId": "A",
             "type": "image"
           }
@@ -559,14 +534,20 @@
         "infinityPlay": false,
         "mediaSources": [
           {
-            "field": "imageUrl",
-            "id": "image-1-5-2-0-ver",
+            "field": "img",
+            "id": "7e6e1662-7884-42be-8309-bca6528b724a",
             "refId": "A",
             "type": "image"
           },
           {
             "field": "img",
-            "id": "image-2-5-2-0-ver",
+            "id": "9a2bba37-0723-4ec8-93db-cb89e2d70e04",
+            "refId": "A",
+            "type": "image"
+          },
+          {
+            "field": "imageUrl",
+            "id": "63655292-e6aa-4cec-8fc3-42fdc2d6d0e3",
             "refId": "A",
             "type": "image"
           }
@@ -649,21 +630,9 @@
         "mediaSources": [
           {
             "field": "videoUrl",
-            "id": "video-1-5-2-0-ver",
+            "id": "31601d1f-2d72-4afd-8d57-dd1aaac7f8aa",
             "refId": "A",
             "type": "video"
-          },
-          {
-            "field": "imgUrl",
-            "id": "image-1-5-2-0-ver",
-            "refId": "A",
-            "type": "image"
-          },
-          {
-            "field": "img",
-            "id": "image-2-5-2-0-ver",
-            "refId": "A",
-            "type": "image"
           }
         ],
         "noResultsMessage": "Nothing to display...",
@@ -744,19 +713,19 @@
         "mediaSources": [
           {
             "field": "videoUrl",
-            "id": "video-1-5-2-0-ver",
+            "id": "c2af0edf-a005-440a-987e-74d8696739a3",
             "refId": "A",
             "type": "video"
           },
           {
-            "field": "imageUrl",
-            "id": "image-1-5-2-0-ver",
+            "field": "img",
+            "id": "0965dd02-ddda-489a-a652-fd792b3aa502",
             "refId": "A",
             "type": "image"
           },
           {
-            "field": "img",
-            "id": "image-2-5-2-0-ver",
+            "field": "imageUrl",
+            "id": "042f3164-c111-4da6-afe1-4f70b1cd987d",
             "refId": "A",
             "type": "image"
           }
@@ -846,14 +815,14 @@
         "infinityPlay": false,
         "mediaSources": [
           {
-            "field": "imageUrl",
-            "id": "image-1-5-2-0-ver",
+            "field": "img",
+            "id": "1a85b7fa-4d66-4424-8a32-7b66d872e71d",
             "refId": "A",
             "type": "image"
           },
           {
-            "field": "img",
-            "id": "image-2-5-2-0-ver",
+            "field": "imageUrl",
+            "id": "35af8f69-93c6-4c25-a484-3304cda3339f",
             "refId": "A",
             "type": "image"
           }
@@ -936,21 +905,9 @@
         "mediaSources": [
           {
             "field": "videoUrl",
-            "id": "video-1-5-2-0-ver",
+            "id": "1fb6dbd7-734d-4787-8321-dccc8b191d28",
             "refId": "A",
             "type": "video"
-          },
-          {
-            "field": "imgUrl",
-            "id": "image-1-5-2-0-ver",
-            "refId": "A",
-            "type": "image"
-          },
-          {
-            "field": "img",
-            "id": "image-2-5-2-0-ver",
-            "refId": "A",
-            "type": "image"
           }
         ],
         "noResultsMessage": "Nothing to display...",
@@ -1027,7 +984,14 @@
         "height": 0,
         "heightMode": "auto",
         "infinityPlay": false,
-        "mediaSources": [],
+        "mediaSources": [
+          {
+            "field": "image1",
+            "id": "9db327e8-508f-4fe5-bf98-ed0b2a35552b",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
         "noResultsMessage": "Nothing to display...",
         "pdfToolbar": true,
         "scale": "auto",
@@ -1107,13 +1071,13 @@
         "mediaSources": [
           {
             "field": "image1",
-            "id": "b1318e42-a452-4899-96ec-3ef801a904ff",
+            "id": "51ce451a-14cc-4ea0-82fc-ca9c73b446f7",
             "refId": "A",
             "type": "image"
           },
           {
             "field": "image2",
-            "id": "90405cd7-bf3c-453a-ac64-d161053761e5",
+            "id": "eb722b6d-6011-4dbd-b5a6-c6c03a3e838d",
             "refId": "A",
             "type": "image"
           }
@@ -1176,7 +1140,14 @@
         "height": 0,
         "heightMode": "auto",
         "infinityPlay": false,
-        "mediaSources": [],
+        "mediaSources": [
+          {
+            "field": "image1",
+            "id": "e658f988-2353-4b17-9f04-730e587d1c73",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
         "noResultsMessage": "Nothing to display...",
         "pdfToolbar": true,
         "scale": "auto",
@@ -1256,7 +1227,7 @@
         "mediaSources": [
           {
             "field": "pdf",
-            "id": "bda4b6df-cc36-4d51-9dff-791b0ca4a782",
+            "id": "f534710e-7cc1-4c87-a008-ddcdc077fd91",
             "refId": "A",
             "type": "pdf"
           }

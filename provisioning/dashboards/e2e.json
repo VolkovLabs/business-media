@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 4,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -78,7 +78,7 @@
         "mediaSources": [
           {
             "field": "img",
-            "id": "image-2-5-2-0-ver",
+            "id": "baabd310-085a-475f-8206-fb17ee1efaed",
             "refId": "A",
             "type": "image"
           }
@@ -128,6 +128,6 @@
   "timezone": "",
   "title": "E2E",
   "uid": "c8ee435b-d16b-4b27-9304-7062724c1feb",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
