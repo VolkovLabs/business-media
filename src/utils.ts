@@ -1,4 +1,4 @@
-import { DataFrame, Field, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
+import { DataFrame, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
 import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
