@@ -267,7 +267,7 @@ describe('getMediaValue', () => {
     });
   });
 
-  it('Should nont return media value with incorrect refId`s and media refId`s', () => {
+  it('Should not return media value with incorrect refId`s and media refId`s', () => {
     const series = [
       {
         fields: [

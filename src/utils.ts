@@ -1,4 +1,4 @@
-import { DataFrame, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
+import { DataFrame, Field, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
 import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
@@ -113,9 +113,9 @@ export const getMediaValue = (
 ) => {
   if (series && series.length) {
     for (const item of mediaSources) {
-      const mediaItem = findField(series, (field, frame: DataFrame) => {
+      const mediaItem = findField<string>(series, (field, frame) => {
         if (item.refId) {
-          if (frame.refId === item.refId) {
+          if (frame?.refId === item.refId) {
             return field.name === item.field;
           }
           return false;
@@ -200,8 +200,8 @@ export const getValuesForMultiSeries = (series: DataFrame[], fieldName: string) 
   const fieldMatcher = fieldMatchers.get(FieldMatcherID.byName);
   const matcher = fieldMatcher.get(fieldName);
 
-  const field = findField(series, (field, frame: DataFrame) => {
-    return matcher(field, frame, series);
+  const field = findField<string>(series, (field, frame) => {
+    return matcher(field as Field, frame as DataFrame, series);
   });
 
   return field && field.values ? field.values : [];
