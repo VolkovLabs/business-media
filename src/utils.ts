@@ -1,4 +1,4 @@
-import { DataFrame, FieldType, LinkModel } from '@grafana/data';
+import { DataFrame, Field, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
 import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
@@ -113,16 +113,25 @@ export const getMediaValue = (
 ) => {
   if (series && series.length) {
     for (const item of mediaSources) {
-      const mediaItem = series[0].fields.find((media) => media.name === item.field);
+      const mediaItem = findField<string>(series, (field, frame) => {
+        if (item.refId) {
+          if (frame?.refId === item.refId) {
+            return field.name === item.field;
+          }
+          return false;
+        } else {
+          return field.name === item.field;
+        }
+      });
 
-      if (mediaItem && mediaItem.values[currentIndex]) {
+      if (mediaItem && mediaItem?.values[currentIndex]) {
         let currentUrl: string;
 
         if (Base64.isValid(mediaItem.values[currentIndex])) {
           /**
            * Base64 format handle
            */
-          currentUrl = handleMediaData(mediaItem.values[currentIndex]).currentMedia;
+          currentUrl = handleMediaData(mediaItem?.values[currentIndex] as string).currentMedia;
 
           /**
            * Handle case for PDF
@@ -135,7 +144,7 @@ export const getMediaValue = (
           /**
            * Use value from url
            */
-          currentUrl = mediaItem.values[currentIndex];
+          currentUrl = mediaItem.values[currentIndex] as string;
         }
 
         /**
@@ -160,4 +169,40 @@ export const getMediaValue = (
   return {
     type: null,
   };
+};
+
+/**
+ * Get Fields for multiple Queries
+ * @param data
+ * @param filterTypes
+ */
+export const multipleQueriesFields = (data: DataFrame[], filterTypes?: FieldType[]) => {
+  return data.reduce((acc: SelectableValue[], dataFrame) => {
+    return acc.concat(
+      dataFrame.fields
+        .filter((field) => (filterTypes ? filterTypes.includes(field.type) : true))
+        .map((field) => ({
+          value: `${dataFrame.refId ? `${dataFrame.refId}:` : ''}${field.name}`,
+          label: `${dataFrame.refId ? `${dataFrame.refId}:` : ''}${field.name}`,
+          refId: dataFrame.refId || '',
+          field: field.name,
+        }))
+    );
+  }, []);
+};
+
+/**
+ * Get Field values for multiple Queries
+ * @param series
+ * @param field
+ */
+export const getValuesForMultiSeries = (series: DataFrame[], fieldName: string) => {
+  const fieldMatcher = fieldMatchers.get(FieldMatcherID.byName);
+  const matcher = fieldMatcher.get(fieldName);
+
+  const field = findField<string>(series, (field, frame) => {
+    return matcher(field as Field, frame as DataFrame, series);
+  });
+
+  return field && field.values ? field.values : [];
 };

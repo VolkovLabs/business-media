@@ -96,7 +96,10 @@ describe('plugin', () => {
 
       builder.addRadio.mockImplementation(
         addInputImplementation(
-          { widthMode: ImageSizeMode.CUSTOM, mediaSources: [{ field: 'videoURL', id: 'v1', type: MediaFormat.VIDEO }] },
+          {
+            widthMode: ImageSizeMode.CUSTOM,
+            mediaSources: [{ field: 'videoURL', id: 'v1', type: MediaFormat.VIDEO, refId: 'A' }],
+          },
           shownOptionsPaths
         )
       );
@@ -111,7 +114,10 @@ describe('plugin', () => {
 
       builder.addRadio.mockImplementation(
         addInputImplementation(
-          { widthMode: ImageSizeMode.CUSTOM, mediaSources: [{ field: 'audio', id: 'a1', type: MediaFormat.AUDIO }] },
+          {
+            widthMode: ImageSizeMode.CUSTOM,
+            mediaSources: [{ field: 'audio', id: 'a1', type: MediaFormat.AUDIO, refId: 'A' }],
+          },
           shownOptionsPaths
         )
       );
@@ -200,7 +206,7 @@ describe('plugin', () => {
           {
             toolbar: true,
             buttons: [ButtonType.ZOOM],
-            mediaSources: [{ field: 'imageUrl', id: 'i1', type: MediaFormat.IMAGE }],
+            mediaSources: [{ field: 'imageUrl', id: 'i1', type: MediaFormat.IMAGE, refId: 'A' }],
           },
           shownOptionsPaths
         )
@@ -216,7 +222,7 @@ describe('plugin', () => {
 
       builder.addSelect.mockImplementation(
         addInputImplementation(
-          { mediaSources: [{ field: 'imageUrl', id: 'i1', type: MediaFormat.IMAGE }] },
+          { mediaSources: [{ field: 'imageUrl', id: 'i1', type: MediaFormat.IMAGE, refId: 'A' }] },
           shownOptionsPaths
         )
       );

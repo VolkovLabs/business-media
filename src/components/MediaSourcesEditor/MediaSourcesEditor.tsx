@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { MEDIA_TYPES_OPTIONS, TEST_IDS } from '../../constants';
 import { MediaFormat, MediaSourceConfig } from '../../types';
-import { reorder } from '../../utils';
+import { multipleQueriesFields, reorder } from '../../utils';
 import { getStyles } from './MediaSourcesEditor.styles';
 
 /**
@@ -55,6 +55,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
     id: uuidv4(),
     type: MediaFormat.IMAGE,
     field: '',
+    refId: '',
   });
   const [collapseState, setCollapseState] = useState<Record<string, boolean>>({});
 
@@ -95,7 +96,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
   const onAddNewMediaSource = useCallback(() => {
     if (newMediaSource.field && newMediaSource.type) {
       onChangeSources([...sources, newMediaSource]);
-      setNewMediaSource({ id: uuidv4(), type: MediaFormat.IMAGE, field: '' });
+      setNewMediaSource({ id: uuidv4(), type: MediaFormat.IMAGE, field: '', refId: '' });
     }
   }, [newMediaSource, onChangeSources, sources]);
 
@@ -113,14 +114,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
    * Options
    */
   const options = useMemo(
-    () =>
-      context.data
-        .flatMap((frame) => frame.fields)
-        .filter((field) => item.settings?.filterByType.includes(field.type))
-        .map((field) => ({
-          label: field.name,
-          value: field.name,
-        })),
+    () => multipleQueriesFields(context.data, item.settings?.filterByType),
     [context.data, item.settings?.filterByType]
   );
 
@@ -195,13 +189,14 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
                           </InlineField>
                           <InlineField label="Field" grow={true}>
                             <Select
-                              value={item.field}
+                              value={`${item.refId ? `${item.refId}:` : ''}${item.field}`}
                               onChange={(element) => {
                                 const updatedSources = sources.map((source) => {
                                   if (source.id === item.id) {
                                     return {
                                       ...source,
-                                      field: element.value!,
+                                      field: element.field!,
+                                      refId: element.refId || '',
                                     };
                                   }
                                   return source;
@@ -234,7 +229,7 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
                 type: event.value!,
               });
             }}
-            value={newMediaSource.type || null}
+            value={newMediaSource.type}
             options={MEDIA_TYPES_OPTIONS}
             aria-label={TEST_IDS.mediaSourceEditor.fieldTypeNew}
             data-testid={TEST_IDS.mediaSourceEditor.fieldTypeNew}
@@ -245,7 +240,8 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
             onChange={(event) => {
               setNewMediaSource({
                 ...newMediaSource,
-                field: event.value!,
+                field: event.field!,
+                refId: event.refId || '',
               });
             }}
             value={newMediaSource.field || null}
@@ -254,7 +250,6 @@ export const MediaSourcesEditor: React.FC<Props> = ({ item, value, onChange, con
             data-testid={TEST_IDS.mediaSourceEditor.fieldNameNew}
           />
         </InlineField>
-
         <Button
           icon="plus"
           title="Add Media source"

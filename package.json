@@ -5,7 +5,7 @@
     "@grafana/data": "^11.0.0",
     "@grafana/runtime": "^11.0.0",
     "@grafana/ui": "^11.0.0",
-    "@volkovlabs/grafana-utils": "^1.4.3",
+    "@volkovlabs/grafana-utils": "^1.4.4",
     "@hello-pangea/dnd": "^16.6.0",
     "@volkovlabs/components": "^2.2.0",
     "buffer": "^6.0.3",
@@ -19,7 +19,7 @@
     "tslib": "^2.6.3",
     "uuid": "^9.0.1"
   },
-  "description": "Base64 Image/PDF panel",
+  "description": "Business Media panel",
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@grafana/eslint-config": "^7.0.0",

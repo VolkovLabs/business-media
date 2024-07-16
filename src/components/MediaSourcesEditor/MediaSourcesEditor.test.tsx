@@ -118,11 +118,13 @@ describe('Series Editor', () => {
         field: 'imgUrl',
         id: 'img1',
         type: MediaFormat.IMAGE,
+        refId: '',
       },
       {
         field: 'videoURL',
         id: 'vid1',
         type: MediaFormat.VIDEO,
+        refId: '',
       },
     ];
 
@@ -538,11 +540,13 @@ describe('Series Editor', () => {
           field: 'imgURL',
           id: 'img1',
           type: 'image',
+          refId: 'A',
         },
         {
           field: 'videoURL',
           id: 'video1',
           type: 'image',
+          refId: 'B',
         },
       ]);
 
