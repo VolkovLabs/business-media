@@ -2,7 +2,7 @@
 
 ![Image Panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/src/img/image-panel.png)
 
-![Grafana](https://img.shields.io/badge/Grafana-11.0-orange)
+![Grafana](https://img.shields.io/badge/Grafana-11.1-orange)
 ![CI](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/CI/badge.svg)
 ![E2E](https://github.com/volkovlabs/volkovlabs-image-panel/workflows/E2E/badge.svg)
 [![codecov](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel/branch/main/graph/badge.svg?token=0m6f0ktUar)](https://codecov.io/gh/VolkovLabs/volkovlabs-image-panel)
@@ -10,7 +10,7 @@
 
 ## Introduction
 
-Business Media Panel is a Grafana plugin that renders PNG, JPG, GIF, MP4, WEBM, MP3, OGG, and PDF files encoded in the Base64 format.
+Business Media Panel is a Grafana plugin that renders PNG, JPG, GIF, MP4, WEBM, MP3, OGG, and PDF files encoded in the Base64 format and provided using URL.
 
 [![Display images and PDF on Grafana using Business Media panel](https://raw.githubusercontent.com/volkovlabs/volkovlabs-image-panel/main/img/overview.png)](https://youtu.be/hLMtsCWPOg8)
 

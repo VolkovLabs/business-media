@@ -10,7 +10,7 @@
       "name": "Volkov Labs",
       "url": "https://volkovlabs.io"
     },
-    "description": "Display Base64 encoded media files",
+    "description": "Display Base64 encoded and URL media files",
     "keywords": ["image", "base64", "jpg", "gif", "png", "pdf"],
     "links": [
       {

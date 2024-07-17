@@ -1,6 +1,6 @@
 # Changelog
 
-## 5.2.0 (2024-07-09)
+## 5.2.0 (2024-07-16)
 
 ### Breaking changes
 
@@ -14,6 +14,7 @@
 - Added slideshow between mixed media (#123)
 - Refactored Media panel (#124)
 - Added multiple queries support in Media Field and Poster Image (#127)
+- Updated to Grafana 11.1 and dependencies (#128)
 
 ## 5.1.0 (2024-06-23)
 
