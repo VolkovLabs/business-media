@@ -82,7 +82,7 @@ export const getMigratedOptions = (panel: PanelModel<OutdatedPanelOptions>): Pan
   /**
    * Add mediaSources
    */
-  if (panel.pluginVersion && semver.lt(panel.pluginVersion, '5.2.0')) {
+  if (panel.pluginVersion && !semver.eq(panel.pluginVersion, '5.2.0')) {
     const mediaSources: MediaSourceConfig[] = [];
 
     /**
