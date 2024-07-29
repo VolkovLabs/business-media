@@ -1,10 +1,11 @@
 # Changelog
 
-## 5.2.0 (2024-07-16)
+## 6.0.0 (2024-07-29)
 
 ### Breaking changes
 
 - Image links in panel options should be updated to use Data links.
+- PDF fields require to update the type of the media source to PDF.
 
 ### Features / Enhancements
 
