@@ -1,10 +1,11 @@
 # Changelog
 
-## 5.2.0 (2024-07-16)
+## 6.0.0 (2024-07-29)
 
 ### Breaking changes
 
 - Image links in panel options should be updated to use Data links.
+- PDF fields require to update the type of the media source to PDF.
 
 ### Features / Enhancements
 
@@ -15,6 +16,7 @@
 - Refactored Media panel (#124)
 - Added multiple queries support in Media Field and Poster Image (#127)
 - Updated to Grafana 11.1 and dependencies (#128)
+- Added PDF Breaking change and prepare 6.0.0 (#132)
 
 ## 5.1.0 (2024-06-23)
 
