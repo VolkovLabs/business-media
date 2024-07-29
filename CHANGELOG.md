@@ -16,6 +16,7 @@
 - Refactored Media panel (#124)
 - Added multiple queries support in Media Field and Poster Image (#127)
 - Updated to Grafana 11.1 and dependencies (#128)
+- Added PDF Breaking change and prepare 6.0.0 (#132)
 
 ## 5.1.0 (2024-06-23)
 
