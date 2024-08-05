@@ -77,7 +77,7 @@
     "start": "docker compose pull grafana && docker compose --profile dev up",
     "start:main": "docker compose pull grafana-main && docker compose --profile main up",
     "stop": "docker compose down",
-    "stop:e2e": "docker-compose -f test/docker-compose.yml down",
+    "stop:e2e": "docker compose -f test/docker compose.yml down",
     "test": "jest --watch --onlyChanged",
     "test:ci": "jest --maxWorkers 4 --coverage",
     "test:e2e": "npx playwright test",
