@@ -37,6 +37,7 @@ describe('useMediaData', () => {
               values: [invalidBase64Value],
             },
           ],
+          length: 1,
         },
       ],
     } as any;
@@ -67,6 +68,7 @@ describe('useMediaData', () => {
               values: [validBase64Value],
             },
           ],
+          length: 1,
         },
       ],
     } as any;
