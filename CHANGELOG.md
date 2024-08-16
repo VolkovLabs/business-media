@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.1.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Updated adding new render media sources (#137)
+
 ## 6.0.0 (2024-07-29)
 
 ### Breaking changes

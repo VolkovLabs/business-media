@@ -61,8 +61,8 @@ export const useMediaData = ({
   );
 
   const mediaSource = useMemo(
-    () => getMediaValue(data.series, options.mediaSources, currentIndex, options.pdfToolbar),
-    [currentIndex, data.series, options.mediaSources, options.pdfToolbar]
+    () => getMediaValue(data.series, options.mediaSources, resultIndex, options.pdfToolbar),
+    [data.series, options.mediaSources, options.pdfToolbar, resultIndex]
   );
 
   /**
