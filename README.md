@@ -47,11 +47,11 @@ grafana-cli plugins install volkovlabs-image-panel
 
 ## Documentation
 
-| Section                                                                            | Description                                                         |
-| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| [Supported formats](https://volkovlabs.io/plugins/volkovlabs-image-panel/formats/) | Explains what formats are supported and how to display media files. |
-| [Features](https://volkovlabs.io/plugins/volkovlabs-image-panel/features/)         | Demonstrates panel capabilities.                                    |
-| [Release Notes](https://volkovlabs.io/plugins/volkovlabs-image-panel/release/)     | Stay up to date with the latest features and updates.               |
+| Section                                                                    | Description                                                         |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| [Supported formats](https://volkovlabs.io/plugins/business-media/formats/) | Explains what formats are supported and how to display media files. |
+| [Features](https://volkovlabs.io/plugins/business-media/features/)         | Demonstrates panel capabilities.                                    |
+| [Release Notes](https://volkovlabs.io/plugins/business-media/release/)     | Stay up to date with the latest features and updates.               |
 
 ## Business Suite for Grafana
 
