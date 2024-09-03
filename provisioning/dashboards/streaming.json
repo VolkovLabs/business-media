@@ -33,6 +33,7 @@
         "y": 0
       },
       "id": 1,
+      "maxDataPoints": 12,
       "options": {
         "autoPlay": true,
         "autoPlayInfinity": false,
@@ -49,7 +50,7 @@
             "type": "image"
           }
         ],
-        "noResultsMessage": "Nothing to display...",
+        "noResultsMessage": "Loading...",
         "pdfToolbar": true,
         "scale": "auto",
         "toolbar": true,
@@ -99,6 +100,6 @@
   "timezone": "browser",
   "title": "Streaming",
   "uid": "adwsjy3xwc6iof",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }
