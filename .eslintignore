@@ -8,6 +8,7 @@ coverage/
 cypress/
 dist/
 postgres/
+websocket/
 
 # Playwright tests
 playwright.config.ts
