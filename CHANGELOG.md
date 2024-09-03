@@ -4,7 +4,8 @@
 
 ### Features / Enhancements
 
-- Updated adding new render media sources (#137)
+- Updated media sources state (#137)
+- Added Websocket server for streaming (#140)
 
 ## 6.0.0 (2024-07-29)
 
