@@ -1,6 +1,6 @@
 # Changelog
 
-## 6.1.0 (IN PROGRESS)
+## 6.1.0 (2024-09-05)
 
 ### Features / Enhancements
 
