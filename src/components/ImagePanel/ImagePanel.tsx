@@ -169,16 +169,16 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   if (mediaSource.type === MediaFormat.IMAGE) {
     let image = (
       <img
-        className={css`
-          max-width: ${imageElement.maxWidth};
-          max-height: ${imageElement.maxHeight};
-          width: ${imageElement.width};
-          height: ${imageElement.height};
-        `}
         src={mediaSource.url}
         data-testid={TEST_IDS.panel.image}
         alt=""
-        style={{ imageRendering: options.scale }}
+        style={{
+          imageRendering: options.scale,
+          maxWidth: imageElement.maxWidth,
+          maxHeight: imageElement.maxHeight,
+          width: imageElement.width,
+          height: imageElement.height,
+        }}
       />
     );
 
@@ -199,13 +199,13 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     if (options.heightMode === ImageSizeMode.SCROLL || options.widthMode === ImageSizeMode.SCROLL) {
       image = (
         <div
-          className={css`
-            width: ${imageContainer.width}px;
-            height: ${imageContainer.height}px;
-            overflow-x: ${imageContainer.overflowX};
-            overflow-y: ${imageContainer.overflowY};
-          `}
           data-testid={TEST_IDS.panel.imageScrollContainer}
+          style={{
+            width: imageContainer.width,
+            height: imageContainer.height,
+            overflowX: imageContainer.overflowX,
+            overflowY: imageContainer.overflowY,
+          }}
         >
           {image}
         </div>

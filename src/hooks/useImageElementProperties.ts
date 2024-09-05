@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { CSSProperties, useMemo } from 'react';
 
 import { ImageSizeMode, PanelOptions } from '../types';
 
@@ -25,14 +25,14 @@ export const useImageElementProperties = ({
   /**
    * Image container overflow-x property
    */
-  const containerOverflowX = useMemo(() => {
+  const containerOverflowX = useMemo((): CSSProperties['overflowX'] => {
     return options.widthMode === ImageSizeMode.SCROLL ? 'auto' : 'hidden';
   }, [options.widthMode]);
 
   /**
    * Image container overflow-y property
    */
-  const containerOverflowY = useMemo(() => {
+  const containerOverflowY = useMemo((): CSSProperties['overflowY'] => {
     return options.heightMode === ImageSizeMode.SCROLL ? 'auto' : 'hidden';
   }, [options.heightMode]);
 
