@@ -15,6 +15,7 @@ export const TEST_IDS = {
     buttonZoomPanPinchReset: 'data-testid panel button-zoom-pan-pinch-reset',
     iframe: 'data-testid panel iframe',
     image: 'data-testid panel image',
+    imageScrollContainer: 'data-testid panel image-scroll-container',
     imageLink: 'data-testid panel image-link',
     root: 'data-testid panel',
     video: 'data-testid panel video',

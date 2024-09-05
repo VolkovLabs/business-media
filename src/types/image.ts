@@ -29,6 +29,7 @@ export enum ImageSizeMode {
   AUTO = 'auto',
   ORIGINAL = 'original',
   CUSTOM = 'custom',
+  SCROLL = 'scroll',
 }
 
 /**

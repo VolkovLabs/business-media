@@ -250,6 +250,36 @@ describe('Image Panel', () => {
     expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
   });
 
+  it('Should render raw image with scroll container', async () => {
+    render(
+      getComponent({
+        data: {
+          series: [
+            toDataFrame({
+              name: 'data',
+              fields: [
+                {
+                  type: FieldType.string,
+                  name: 'raw',
+                  values: ['?PNGIHDR 3z??	pHYs'],
+                },
+              ],
+            }),
+          ],
+        },
+        options: {
+          mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: 'raw' }],
+          widthMode: ImageSizeMode.SCROLL,
+          heightMode: ImageSizeMode.SCROLL,
+        },
+      })
+    );
+
+    expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
+    expect(screen.getByTestId(TEST_IDS.panel.imageScrollContainer)).toBeInTheDocument();
+  });
+
   it('Should render raw image with URL', async () => {
     render(
       getComponent({
@@ -321,8 +351,8 @@ describe('Image Panel', () => {
       expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
       expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '50');
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '50');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`width: 50px`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: 50px`);
     });
 
     it('Should remove toolbar height from image height', async () => {
@@ -361,8 +391,8 @@ describe('Image Panel', () => {
 
       expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`width: 200px`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(200 - elementHeight).toString()}px`);
     });
 
     it('Should remove description height from image height', async () => {
@@ -402,8 +432,8 @@ describe('Image Panel', () => {
 
       expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight * 2).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`width: 200px`);
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(200 - elementHeight * 2).toString()}px`);
     });
 
     it('Should not remove description height if no description', async () => {
@@ -438,8 +468,8 @@ describe('Image Panel', () => {
 
       expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('width: 200px');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(200 - elementHeight).toString()}px`);
     });
 
     describe('Image height updates', () => {
@@ -482,9 +512,8 @@ describe('Image Panel', () => {
 
         expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
-
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('width: 200px');
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(200 - elementHeight).toString()}px`);
         /**
          * Rerender with updated panel size
          */
@@ -497,7 +526,7 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (300 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(300 - elementHeight).toString()}px`);
       });
 
       it('Should update image height if toolbar hidden', async () => {
@@ -512,8 +541,8 @@ describe('Image Panel', () => {
 
         expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`width: 200px`);
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(200 - elementHeight).toString()}px`);
 
         /**
          * Rerender with hidden toolbar
@@ -530,7 +559,7 @@ describe('Image Panel', () => {
           })
         );
 
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(200).toString()}px`);
       });
 
       it('Should update image height if only zoom enabled and it type changed', async () => {
@@ -550,8 +579,8 @@ describe('Image Panel', () => {
 
         expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '200');
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('width: 200px');
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(200 - elementHeight).toString()}px`);
 
         /**
          * Rerender with pan pinch zoom type
@@ -568,8 +597,7 @@ describe('Image Panel', () => {
             width: 200,
           })
         );
-
-        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', (200 - elementHeight).toString());
+        expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle(`height: ${(200 - elementHeight).toString()}px`);
       });
     });
 
@@ -610,47 +638,8 @@ describe('Image Panel', () => {
       expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
       expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
-    });
-
-    it('Should render image with custom size options', async () => {
-      render(
-        getComponent({
-          data: {
-            series: [
-              toDataFrame({
-                name: 'data',
-                fields: [
-                  {
-                    type: FieldType.string,
-                    name: 'raw',
-                    values: ['?PNGIHDR 3z??	pHYs'],
-                  },
-                  {
-                    type: FieldType.string,
-                    name: ImageField.IMG,
-                    values: ['data:image/jpg;base64,/9j/4AAQSkZJRgABA9k='],
-                  },
-                ],
-              }),
-            ],
-          },
-          options: {
-            widthMode: ImageSizeMode.CUSTOM,
-            heightMode: ImageSizeMode.CUSTOM,
-            mediaSources: [{ type: MediaFormat.IMAGE, id: 'img1', field: ImageField.IMG }],
-            width: 20,
-            height: 20,
-          },
-        })
-      );
-
-      expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
-
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('width: 20px');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('height: 20px');
     });
 
     it('Should render image with custom size fields', async () => {
@@ -698,8 +687,8 @@ describe('Image Panel', () => {
       expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
       expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '20');
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '20');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('width: 20px');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('height: 20px');
     });
 
     it('Should render image with original size', async () => {
@@ -735,8 +724,8 @@ describe('Image Panel', () => {
       expect(screen.getByTestId(TEST_IDS.panel.root)).toBeInTheDocument();
       expect(screen.getByTestId(TEST_IDS.panel.image)).toBeInTheDocument();
 
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('width', '');
-      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveAttribute('height', '');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('width: auto');
+      expect(screen.getByTestId(TEST_IDS.panel.image)).toHaveStyle('height: auto');
     });
   });
 
