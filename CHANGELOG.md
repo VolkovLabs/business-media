@@ -1,12 +1,13 @@
 # Changelog
 
-## 6.1.0 (IN PROGRESS)
+## 6.1.0 (2024-09-05)
 
 ### Features / Enhancements
 
 - Updated media sources state (#137)
 - Added Websocket server for streaming (#140)
 - Updated Grafana 11.2 dependencies (#141)
+- Added Scroll option for images (#142)
 
 ## 6.0.0 (2024-07-29)
 

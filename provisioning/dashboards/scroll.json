@@ -1,0 +1,481 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 6,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": ["image"],
+      "targetBlank": false,
+      "title": "Image",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "default": true,
+        "type": "marcusolsson-static-datasource",
+        "uid": "P1D2C73DC01F2359B"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 9,
+        "x": 0,
+        "y": 0
+      },
+      "id": 44,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
+        "controls": true,
+        "description": "Description",
+        "height": 250,
+        "heightMode": "scroll",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "image",
+            "id": "14c562d6-8932-48f4-a2bb-f66a27acc99c",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 700,
+        "widthMode": "custom",
+        "zoomType": "default"
+      },
+      "pluginVersion": "6.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "marcusolsson-static-datasource",
+            "uid": "P1D2C73DC01F2359B"
+          },
+          "frame": {
+            "fields": [
+              {
+                "config": {},
+                "name": "image",
+                "type": "string",
+                "values": [
+                  "https://images.pexels.com/photos/19774324/pexels-photo-19774324/free-photo-of-wooden-fence-on-green-hill.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                ]
+              },
+              {
+                "config": {},
+                "name": "Description",
+                "type": "string",
+                "values": ["Image taken from pexels.com"]
+              }
+            ],
+            "meta": {}
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Scroll Y axis",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "marcusolsson-static-datasource",
+        "uid": "P1D2C73DC01F2359B"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 6,
+        "x": 9,
+        "y": 0
+      },
+      "id": 48,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
+        "controls": true,
+        "description": "Description",
+        "height": 250,
+        "heightMode": "scroll",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "image",
+            "id": "14c562d6-8932-48f4-a2bb-f66a27acc99c",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 700,
+        "widthMode": "scroll",
+        "zoomType": "default"
+      },
+      "pluginVersion": "6.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "marcusolsson-static-datasource",
+            "uid": "P1D2C73DC01F2359B"
+          },
+          "frame": {
+            "fields": [
+              {
+                "config": {},
+                "name": "image",
+                "type": "string",
+                "values": [
+                  "https://images.pexels.com/photos/19774324/pexels-photo-19774324/free-photo-of-wooden-fence-on-green-hill.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                ]
+              },
+              {
+                "config": {},
+                "name": "Description",
+                "type": "string",
+                "values": ["Image taken from pexels.com"]
+              }
+            ],
+            "meta": {}
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Scroll X + Y axis",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "marcusolsson-static-datasource",
+        "uid": "P1D2C73DC01F2359B"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 6,
+        "x": 15,
+        "y": 0
+      },
+      "id": 46,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": ["zoom"],
+        "controls": true,
+        "description": "Description",
+        "height": 250,
+        "heightMode": "scroll",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "image",
+            "id": "14c562d6-8932-48f4-a2bb-f66a27acc99c",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 700,
+        "widthMode": "original",
+        "zoomType": "default"
+      },
+      "pluginVersion": "6.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "marcusolsson-static-datasource",
+            "uid": "P1D2C73DC01F2359B"
+          },
+          "frame": {
+            "fields": [
+              {
+                "config": {},
+                "name": "image",
+                "type": "string",
+                "values": [
+                  "https://images.pexels.com/photos/19774324/pexels-photo-19774324/free-photo-of-wooden-fence-on-green-hill.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                ]
+              },
+              {
+                "config": {},
+                "name": "Description",
+                "type": "string",
+                "values": ["Image taken from pexels.com"]
+              }
+            ],
+            "meta": {}
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Scroll Y axis with toolbar",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "marcusolsson-static-datasource",
+        "uid": "P1D2C73DC01F2359B"
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 2,
+        "x": 0,
+        "y": 11
+      },
+      "id": 49,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
+        "controls": true,
+        "description": "Description",
+        "height": 100,
+        "heightMode": "custom",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "image",
+            "id": "14c562d6-8932-48f4-a2bb-f66a27acc99c",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 700,
+        "widthMode": "scroll",
+        "zoomType": "default"
+      },
+      "pluginVersion": "6.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "marcusolsson-static-datasource",
+            "uid": "P1D2C73DC01F2359B"
+          },
+          "frame": {
+            "fields": [
+              {
+                "config": {},
+                "name": "image",
+                "type": "string",
+                "values": [
+                  "https://images.pexels.com/photos/19774324/pexels-photo-19774324/free-photo-of-wooden-fence-on-green-hill.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                ]
+              },
+              {
+                "config": {},
+                "name": "Description",
+                "type": "string",
+                "values": ["Image taken from pexels.com"]
+              }
+            ],
+            "meta": {}
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Scroll X axis",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "marcusolsson-static-datasource",
+        "uid": "P1D2C73DC01F2359B"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 2,
+        "y": 11
+      },
+      "id": 45,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
+        "controls": true,
+        "description": "Description",
+        "height": 250,
+        "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "image",
+            "id": "14c562d6-8932-48f4-a2bb-f66a27acc99c",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 700,
+        "widthMode": "scroll",
+        "zoomType": "default"
+      },
+      "pluginVersion": "6.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "marcusolsson-static-datasource",
+            "uid": "P1D2C73DC01F2359B"
+          },
+          "frame": {
+            "fields": [
+              {
+                "config": {},
+                "name": "image",
+                "type": "string",
+                "values": [
+                  "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c280be2d-de9f-469f-85f8-2effee43ee0c/dg6tc3i-e8cd7d08-8589-4b52-bbf4-673e223fb74f.jpg/v1/fill/w_900,h_450,q_75,strp/beautiful_nature_07_by_jonadav_dg6tc3i-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2MyODBiZTJkLWRlOWYtNDY5Zi04NWY4LTJlZmZlZTQzZWUwY1wvZGc2dGMzaS1lOGNkN2QwOC04NTg5LTRiNTItYmJmNC02NzNlMjIzZmI3NGYuanBnIiwiaGVpZ2h0IjoiPD00NTAiLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLndhdGVybWFyayJdLCJ3bWsiOnsicGF0aCI6Ilwvd21cL2MyODBiZTJkLWRlOWYtNDY5Zi04NWY4LTJlZmZlZTQzZWUwY1wvam9uYWRhdi00LnBuZyIsIm9wYWNpdHkiOjk1LCJwcm9wb3J0aW9ucyI6MC40NSwiZ3Jhdml0eSI6ImNlbnRlciJ9fQ._5Tbi3q66kBbiiG2dNJLeyX8JWd44s1U_RymNuHF2bk"
+                ]
+              },
+              {
+                "config": {},
+                "name": "Description",
+                "type": "string",
+                "values": ["Image taken from pexels.com"]
+              }
+            ],
+            "meta": {}
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Scroll X axis",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "marcusolsson-static-datasource",
+        "uid": "P1D2C73DC01F2359B"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 4,
+        "x": 6,
+        "y": 11
+      },
+      "id": 47,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": ["zoom"],
+        "controls": true,
+        "description": "Description",
+        "height": 250,
+        "heightMode": "scroll",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "image",
+            "id": "14c562d6-8932-48f4-a2bb-f66a27acc99c",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 700,
+        "widthMode": "scroll",
+        "zoomType": "default"
+      },
+      "pluginVersion": "6.1.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "marcusolsson-static-datasource",
+            "uid": "P1D2C73DC01F2359B"
+          },
+          "frame": {
+            "fields": [
+              {
+                "config": {},
+                "name": "image",
+                "type": "string",
+                "values": [
+                  "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c280be2d-de9f-469f-85f8-2effee43ee0c/dg6tc3i-e8cd7d08-8589-4b52-bbf4-673e223fb74f.jpg/v1/fill/w_900,h_450,q_75,strp/beautiful_nature_07_by_jonadav_dg6tc3i-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2MyODBiZTJkLWRlOWYtNDY5Zi04NWY4LTJlZmZlZTQzZWUwY1wvZGc2dGMzaS1lOGNkN2QwOC04NTg5LTRiNTItYmJmNC02NzNlMjIzZmI3NGYuanBnIiwiaGVpZ2h0IjoiPD00NTAiLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLndhdGVybWFyayJdLCJ3bWsiOnsicGF0aCI6Ilwvd21cL2MyODBiZTJkLWRlOWYtNDY5Zi04NWY4LTJlZmZlZTQzZWUwY1wvam9uYWRhdi00LnBuZyIsIm9wYWNpdHkiOjk1LCJwcm9wb3J0aW9ucyI6MC40NSwiZ3Jhdml0eSI6ImNlbnRlciJ9fQ._5Tbi3q66kBbiiG2dNJLeyX8JWd44s1U_RymNuHF2bk"
+                ]
+              },
+              {
+                "config": {},
+                "name": "Description",
+                "type": "string",
+                "values": ["Image taken from pexels.com"]
+              }
+            ],
+            "meta": {}
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Scroll Y + X axis with toolbar",
+      "type": "volkovlabs-image-panel"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Scroll",
+  "uid": "edwydj2opg6wwa",
+  "version": 20,
+  "weekStart": ""
+}

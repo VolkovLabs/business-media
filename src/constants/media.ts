@@ -17,6 +17,7 @@ export const IMAGE_TYPES_SYMBOLS: { [id: string]: string } = {
 export const SIZE_MODE_OPTIONS = [
   { value: ImageSizeMode.AUTO, label: 'Panel', description: 'Based on panel size' },
   { value: ImageSizeMode.ORIGINAL, label: 'Original' },
+  { value: ImageSizeMode.SCROLL, label: 'Original with scroll' },
   { value: ImageSizeMode.CUSTOM, label: 'Custom' },
 ];
 

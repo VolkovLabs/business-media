@@ -4,7 +4,7 @@ import { Alert, useStyles2 } from '@grafana/ui';
 import React, { JSX, useEffect, useMemo, useRef, useState } from 'react';
 
 import { TEST_IDS } from '../../constants';
-import { useMediaData } from '../../hooks';
+import { useImageElementProperties, useMediaData } from '../../hooks';
 import { ImageSizeMode, MediaFormat, PanelOptions } from '../../types';
 import { getValuesForMultiSeries } from '../../utils';
 import { Toolbar } from '../Toolbar';
@@ -117,6 +117,19 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   }
 
   /**
+   * Use properties for image element and container
+   */
+  const { imageContainer, imageElement } = useImageElementProperties({
+    options,
+    imageWidth,
+    imageHeight,
+    toolbarHeight,
+    descriptionHeight,
+    width,
+    height,
+  });
+
+  /**
    * Render Media Element
    */
   const renderElement = (child?: JSX.Element) => (
@@ -156,12 +169,16 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
   if (mediaSource.type === MediaFormat.IMAGE) {
     let image = (
       <img
-        width={imageWidth || ''}
-        height={imageHeight || ''}
         src={mediaSource.url}
         data-testid={TEST_IDS.panel.image}
         alt=""
-        style={{ imageRendering: options.scale }}
+        style={{
+          imageRendering: options.scale,
+          maxWidth: imageElement.maxWidth,
+          maxHeight: imageElement.maxHeight,
+          width: imageElement.width,
+          height: imageElement.height,
+        }}
       />
     );
 
@@ -176,6 +193,22 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
         >
           {image}
         </a>
+      );
+    }
+
+    if (options.heightMode === ImageSizeMode.SCROLL || options.widthMode === ImageSizeMode.SCROLL) {
+      image = (
+        <div
+          data-testid={TEST_IDS.panel.imageScrollContainer}
+          style={{
+            width: imageContainer.width,
+            height: imageContainer.height,
+            overflowX: imageContainer.overflowX,
+            overflowY: imageContainer.overflowY,
+          }}
+        >
+          {image}
+        </div>
       );
     }
 

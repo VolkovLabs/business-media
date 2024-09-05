@@ -194,7 +194,7 @@ export const multipleQueriesFields = (data: DataFrame[], filterTypes?: FieldType
 /**
  * Get Field values for multiple Queries
  * @param series
- * @param field
+ * @param fieldName
  */
 export const getValuesForMultiSeries = (series: DataFrame[], fieldName: string) => {
   const fieldMatcher = fieldMatchers.get(FieldMatcherID.byName);
