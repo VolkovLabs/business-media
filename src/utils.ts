@@ -113,51 +113,59 @@ export const getMediaValue = (
 ) => {
   if (series && series.length) {
     for (const item of mediaSources) {
-      const mediaItem = findField<string>(series, (field, frame) => {
-        if (item.refId) {
-          if (frame?.refId === item.refId) {
+      try {
+        const mediaItem = findField<string>(series, (field, frame) => {
+          if (item.refId) {
+            if (frame?.refId === item.refId) {
+              return field.name === item.field;
+            }
+            return false;
+          } else {
             return field.name === item.field;
           }
-          return false;
-        } else {
-          return field.name === item.field;
-        }
-      });
+        });
 
-      if (mediaItem && mediaItem?.values[currentIndex]) {
-        let currentUrl: string;
+        if (mediaItem && mediaItem?.values[currentIndex]) {
+          let currentUrl: string;
 
-        if (Base64.isValid(mediaItem.values[currentIndex])) {
-          /**
-           * Base64 format handle
-           */
-          currentUrl = handleMediaData(mediaItem?.values[currentIndex] as string).currentMedia;
+          if (Base64.isValid(mediaItem.values[currentIndex])) {
+            /**
+             * Base64 format handle
+             */
+            currentUrl = handleMediaData(mediaItem?.values[currentIndex] as string).currentMedia;
 
-          /**
-           * Handle case for PDF
-           */
-          if (item.type === MediaFormat.PDF) {
-            const blob = base64toBlob(currentUrl, SupportedFileType.PDF);
-            currentUrl = URL.createObjectURL(blob);
+            /**
+             * Handle case for PDF
+             */
+            if (item.type === MediaFormat.PDF) {
+              const blob = base64toBlob(currentUrl, SupportedFileType.PDF);
+              currentUrl = URL.createObjectURL(blob);
+            }
+          } else {
+            /**
+             * Use value from url
+             */
+            currentUrl = mediaItem.values[currentIndex] as string;
           }
-        } else {
+
           /**
-           * Use value from url
+           * Remove toolbar for PDF default reader
            */
-          currentUrl = mediaItem.values[currentIndex] as string;
-        }
+          if (item.type === MediaFormat.PDF && !isEnablePdfToolbar) {
+            currentUrl += '#toolbar=0';
+          }
 
-        /**
-         * Remove toolbar for PDF default reader
-         */
-        if (item.type === MediaFormat.PDF && !isEnablePdfToolbar) {
-          currentUrl += '#toolbar=0';
+          return {
+            type: item.type,
+            url: currentUrl,
+            field: item.field,
+          };
         }
-
+      } catch (e) {
+        /* no console is allowed */
         return {
-          type: item.type,
-          url: currentUrl,
-          field: item.field,
+          type: null,
+          error: e,
         };
       }
     }
