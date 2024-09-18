@@ -1,4 +1,4 @@
-import { FieldType } from '@grafana/data';
+import { FieldType, LoadingState } from '@grafana/data';
 import { renderHook } from '@testing-library/react';
 
 import { ButtonType, MediaFormat } from '../types';
@@ -22,6 +22,18 @@ describe('useMediaData', () => {
     jest.clearAllMocks();
   });
 
+  /**
+   * Default time range
+   */
+  const timeRange = {
+    from: '',
+    to: '',
+    raw: {
+      from: '',
+      to: '',
+    },
+  } as any;
+
   it('Should not encode media if it is not a valid Base64 string', () => {
     const invalidBase64Value = 'not_a_valid_base64_string';
     const options = {
@@ -43,7 +55,7 @@ describe('useMediaData', () => {
     } as any;
     const currentIndex = 0;
 
-    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex, timeRange }));
 
     expect(result.current.mediaSource).toEqual({
       type: MediaFormat.IMAGE,
@@ -74,7 +86,7 @@ describe('useMediaData', () => {
     } as any;
     const currentIndex = 0;
 
-    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex, timeRange }));
 
     expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
     expect(result.current.description).toEqual(undefined);
@@ -108,7 +120,7 @@ describe('useMediaData', () => {
     } as any;
     const currentIndex = 0;
 
-    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex, timeRange }));
 
     expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
     expect(result.current.description).toEqual('Description');
@@ -142,7 +154,7 @@ describe('useMediaData', () => {
     } as any;
     const currentIndex = 0;
 
-    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex, timeRange }));
 
     expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
     expect(result.current.videoPoster).toEqual(validBase64Value);
@@ -177,7 +189,7 @@ describe('useMediaData', () => {
     } as any;
     const currentIndex = 0;
 
-    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex, timeRange }));
 
     expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
     expect(result.current.videoPoster).toEqual(invalidBase64Value);
@@ -207,9 +219,81 @@ describe('useMediaData', () => {
     } as any;
     const currentIndex = 0;
 
-    const { result } = renderHook(() => useMediaData({ options, data, currentIndex }));
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex, timeRange }));
 
     expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
     expect(result.current.isNavigationShown).toEqual(true);
+  });
+
+  it('Should not set up data if state is loading', () => {
+    const validBase64Value = 'data:application/pdf;base64,JVBERiiUlRU9GCg==';
+
+    const options = {
+      mediaSources: [{ type: MediaFormat.IMAGE, id: 'i1', field: 'image' }],
+      description: 'description',
+    } as any;
+    const data = {
+      state: LoadingState.Loading,
+      timeRange: {},
+      series: [
+        {
+          fields: [
+            {
+              type: FieldType.string,
+              name: 'image',
+              values: [validBase64Value],
+            },
+            {
+              type: FieldType.string,
+              name: 'description',
+              values: ['Description'],
+            },
+          ],
+          length: 1,
+        },
+      ],
+    } as any;
+    const currentIndex = 0;
+
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex, timeRange }));
+
+    expect(result.current.description).toBeUndefined();
+  });
+
+  it('Should set up data if state is done', () => {
+    const validBase64Value = 'data:application/pdf;base64,JVBERiiUlRU9GCg==';
+
+    const options = {
+      mediaSources: [{ type: MediaFormat.IMAGE, id: 'i1', field: 'image' }],
+      description: 'description',
+    } as any;
+    const data = {
+      state: LoadingState.Done,
+      timeRange: {},
+      series: [
+        {
+          fields: [
+            {
+              type: FieldType.string,
+              name: 'image',
+              values: [validBase64Value],
+            },
+            {
+              type: FieldType.string,
+              name: 'description',
+              values: ['Description'],
+            },
+          ],
+          length: 1,
+        },
+      ],
+    } as any;
+    const currentIndex = 0;
+
+    const { result } = renderHook(() => useMediaData({ options, data, currentIndex, timeRange }));
+
+    expect(result.current.description).toBeDefined();
+    expect(result.current.mediaSource).toEqual({ field: 'image', type: MediaFormat.IMAGE, url: validBase64Value });
+    expect(result.current.description).toEqual('Description');
   });
 });

@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.2.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Updated Data state for timeout and errors (#145)
+
 ## 6.1.0 (2024-09-05)
 
 ### Features / Enhancements

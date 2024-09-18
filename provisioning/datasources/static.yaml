@@ -1,7 +1,7 @@
 apiVersion: 1
 
 datasources:
-  - name: Static
+  - name: Business Input
     type: marcusolsson-static-datasource
     access: proxy
     isDefault: true
@@ -18,3 +18,13 @@ datasources:
     editable: true
     jsonData:
       host: ws://host.docker.internal:8090
+  - name: Infinity
+    id: 4
+    uid: fdy98ad2ifhfkf
+    orgId: 1
+    type: yesoreyeram-infinity-datasource
+    basicAuth: false
+    isDefault: false
+    jsonData:
+      global_queries: []
+    readOnly: false

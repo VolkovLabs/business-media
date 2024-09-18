@@ -23,6 +23,130 @@
     {
       "datasource": {
         "default": false,
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "fdy98ad2ifhfkf"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 10,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
+        "controls": true,
+        "height": 0,
+        "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "url",
+            "id": "9e28a688-b6cc-46c7-96e7-e42c82ceeaf2",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 0,
+        "widthMode": "auto",
+        "zoomType": "default"
+      },
+      "pluginVersion": "6.1.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "fdy98ad2ifhfkf"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://jsonplaceholder.typicode.com/photos",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "jsonplaceholder photo",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "fdy98ad2ifhfkf"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 10,
+        "x": 10,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": ["navigation"],
+        "controls": true,
+        "height": 0,
+        "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "url",
+            "id": "9e28a688-b6cc-46c7-96e7-e42c82ceeaf2",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 0,
+        "widthMode": "auto",
+        "zoomType": "default"
+      },
+      "pluginVersion": "6.1.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "fdy98ad2ifhfkf"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://jsonplaceholder.typicode.com/photos",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "jsonplaceholder photo with toolabr",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "default": false,
         "type": "golioth-websocket-datasource",
         "uid": "LWj8ert4k"
       },
@@ -30,7 +154,7 @@
         "h": 13,
         "w": 10,
         "x": 0,
-        "y": 0
+        "y": 11
       },
       "id": 1,
       "maxDataPoints": 12,

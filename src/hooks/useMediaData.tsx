@@ -1,6 +1,6 @@
-import { PanelData } from '@grafana/data';
+import { LoadingState, PanelData, TimeRange } from '@grafana/data';
 import { Base64 } from 'js-base64';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { ButtonType, PanelOptions } from '../types';
 import { getDataLink, getMediaValue, getValuesForMultiSeries, handleMediaData } from '../utils';
@@ -12,11 +12,36 @@ export const useMediaData = ({
   options,
   data,
   currentIndex,
+  timeRange,
 }: {
   options: PanelOptions;
   data: PanelData;
   currentIndex: number;
+  timeRange: TimeRange;
 }) => {
+  /**
+   * Initial data
+   */
+  const [currentData, setCurrentData] = useState<PanelData>({
+    state: LoadingState.Loading,
+    series: [],
+    timeRange: timeRange,
+  });
+
+  /**
+   * Handle data
+   */
+  useEffect(() => {
+    /**
+     * Wait until Data Source return results
+     */
+    if (data.state && ![LoadingState.Done, LoadingState.Streaming].includes(data.state)) {
+      return;
+    }
+
+    setCurrentData(data);
+  }, [data]);
+
   /**
    * Is Navigation Shown
    */
@@ -28,7 +53,10 @@ export const useMediaData = ({
   /**
    * Rows Length
    */
-  const rowsLength = useMemo(() => (data.series.length && data.series[0].length) || 0, [data.series]);
+  const rowsLength = useMemo(
+    () => (currentData.series.length && currentData.series[0].length) || 0,
+    [currentData.series]
+  );
 
   /**
    * Image descriptions
@@ -38,8 +66,8 @@ export const useMediaData = ({
       return [];
     }
 
-    return getValuesForMultiSeries(data.series, options.description);
-  }, [data.series, options.description]);
+    return getValuesForMultiSeries(currentData.series, options.description);
+  }, [currentData.series, options.description]);
 
   /**
    * Video posters
@@ -49,8 +77,8 @@ export const useMediaData = ({
       return [];
     }
 
-    return getValuesForMultiSeries(data.series, options.videoPoster);
-  }, [data.series, options.videoPoster]);
+    return getValuesForMultiSeries(currentData.series, options.videoPoster);
+  }, [currentData.series, options.videoPoster]);
 
   /**
    * Use first element if Navigation enabled, otherwise last
@@ -61,8 +89,8 @@ export const useMediaData = ({
   );
 
   const mediaSource = useMemo(
-    () => getMediaValue(data.series, options.mediaSources, resultIndex, options.pdfToolbar),
-    [data.series, options.mediaSources, options.pdfToolbar, resultIndex]
+    () => getMediaValue(currentData.series, options.mediaSources, resultIndex, options.pdfToolbar),
+    [currentData.series, options.mediaSources, options.pdfToolbar, resultIndex]
   );
 
   /**
@@ -74,8 +102,8 @@ export const useMediaData = ({
    * Link for image
    */
   const link = useMemo(
-    () => getDataLink(data.series, mediaSource, currentIndex),
-    [currentIndex, data.series, mediaSource]
+    () => getDataLink(currentData.series, mediaSource, currentIndex),
+    [currentData.series, currentIndex, mediaSource]
   );
 
   /**
