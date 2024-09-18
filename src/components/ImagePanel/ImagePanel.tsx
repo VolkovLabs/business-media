@@ -18,7 +18,7 @@ interface Props extends PanelProps<PanelOptions> {}
 /**
  * Image Panel
  */
-export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) => {
+export const ImagePanel: React.FC<Props> = ({ timeRange, options, data, width, height }) => {
   /**
    * Styles
    */
@@ -44,6 +44,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
     options,
     data,
     currentIndex,
+    timeRange,
   });
 
   /**
@@ -71,7 +72,7 @@ export const ImagePanel: React.FC<Props> = ({ options, data, width, height }) =>
    * Update current index on data series decrease
    */
   useEffect(() => {
-    if (currentIndex > rowsLength - 1) {
+    if (rowsLength !== 0 && currentIndex > rowsLength - 1) {
       setCurrentIndex(rowsLength - 1);
     }
   }, [currentIndex, data.series, rowsLength]);
