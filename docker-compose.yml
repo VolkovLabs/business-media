@@ -17,6 +17,7 @@ services:
     profiles:
       - dev
       - main
+      - dependency
 
   pdf-loader:
     build: ./postgres
@@ -30,6 +31,7 @@ services:
     profiles:
       - dev
       - main
+      - dependency
 
   grafana:
     image: ghcr.io/volkovlabs/app:latest

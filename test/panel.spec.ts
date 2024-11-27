@@ -95,11 +95,6 @@ test.describe('Media panel', () => {
       const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
 
       /**
-       * Scroll to panel on viewport
-       */
-      await page.evaluate(() => window.scrollBy(0, 750));
-
-      /**
        * Panel loading...
        */
       await page.waitForTimeout(2500);
@@ -129,14 +124,9 @@ test.describe('Media panel', () => {
       const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
 
       /**
-       * Scroll to panel on viewport
-       */
-      await page.evaluate(() => window.scrollBy(0, 1050));
-
-      /**
        * Panel loading...
        */
-      await page.waitForTimeout(2500);
+      await page.waitForTimeout(1500);
 
       /**
        * Get panel
