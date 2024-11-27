@@ -76,6 +76,7 @@
     "sign": "npx --yes @grafana/sign-plugin@latest",
     "start": "docker compose pull grafana && docker compose --profile dev up",
     "start:main": "docker compose pull grafana-main && docker compose --profile main up",
+    "start:dep": "docker compose pull grafana-dep && docker compose --profile dependency up",
     "stop": "docker compose down",
     "stop:e2e": "docker compose -f test/docker compose.yml down",
     "test": "jest --watch --onlyChanged",
