@@ -1,49 +1,174 @@
 import { test, expect } from '@grafana/plugin-e2e';
-import { TEST_IDS } from '../src/constants';
+import { PanelHelper } from './utils';
 
-test.describe('Base64 Image/PDF panel', () => {
+test.describe('Media panel', () => {
   test('Check grafana version', async ({ grafanaVersion }) => {
     console.log('Grafana version: ', grafanaVersion);
     expect(grafanaVersion).toEqual(grafanaVersion);
   });
 
-  test('should display message in case panel data is empty', async ({ gotoDashboardPage, dashboardPage }) => {
+  test('Should add empty default image panel', async ({ readProvisionedDashboard, gotoDashboardPage }) => {
     /**
-     * Go To E2E dashboard
+     * Go To Panels dashboard e2e.json
      * return dashboardPage
      */
-    await gotoDashboardPage({ uid: 'c8ee435b-d16b-4b27-9304-7062724c1feb' });
+    const dashboard = await readProvisionedDashboard({ fileName: 'e2e.json' });
+    const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
 
     /**
-     * Find panel by title with no data
-     * Should be visible
+     * Add new visualization
      */
-    await expect(dashboardPage.getPanelByTitle('Empty').locator).toBeVisible();
+    const editPage = await dashboardPage.addPanel();
+    await editPage.setVisualization('Business Media');
+    await editPage.setPanelTitle('Business Images');
+    await editPage.backToDashboard();
 
     /**
-     * No Results Message should be visible
+     * Should add empty visualization without errors
      */
-    await expect(dashboardPage.getPanelByTitle('Empty').locator).toContainText('Nothing to display...');
+    const panel = new PanelHelper(dashboardPage, 'Business Images');
+    await panel.checkIfNoErrors();
+    await panel.checkPresence();
+    await panel.checkAlert();
+
+    /**
+     * Should display info message
+     */
+    await panel.checkAlertMessage('Nothing to display...');
   });
 
-  test('should display image', async ({ gotoDashboardPage, dashboardPage }) => {
-    /**
-     * Go To E2E dashboard
-     * return dashboardPage
-     */
-    await gotoDashboardPage({ uid: 'c8ee435b-d16b-4b27-9304-7062724c1feb' });
+  test.describe('Media types', () => {
+    test('Should display default image panel with base64 image', async ({
+      readProvisionedDashboard,
+      gotoDashboardPage,
+    }) => {
+      /**
+       * Go To Panels dashboard e2e.json
+       * return dashboardPage
+       */
+      const dashboard = await readProvisionedDashboard({ fileName: 'e2e.json' });
+      const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
 
-    /**
-     * Find panel with image
-     * Should be visible
-     */
-    await expect(dashboardPage.getPanelByTitle('PNG').locator).toBeVisible();
+      /**
+       * Get panel
+       */
+      const panel = new PanelHelper(dashboardPage, 'PNG');
 
-    /**
-     * Check and compare image
-     */
-    await expect(dashboardPage.getPanelByTitle('PNG').locator.getByTestId(TEST_IDS.panel.image)).toHaveScreenshot(
-      'actual-screenshot.png'
-    );
+      await panel.checkIfNoErrors();
+      await panel.checkPresence();
+
+      const imageView = panel.getImageView();
+      await imageView.checkPresence();
+      await imageView.compareScreenshot('base64-screenshot.png');
+    });
+
+    test('Should display default image panel with URL image', async ({
+      readProvisionedDashboard,
+      gotoDashboardPage,
+    }) => {
+      /**
+       * Go To Panels dashboard urls.json
+       * return dashboardPage
+       */
+      const dashboard = await readProvisionedDashboard({ fileName: 'urls.json' });
+      const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
+
+      /**
+       * Get panel
+       */
+      const panel = new PanelHelper(dashboardPage, 'Image from URL');
+
+      await panel.checkIfNoErrors();
+      await panel.checkPresence();
+
+      const imageView = panel.getImageView();
+      await imageView.checkPresence();
+      await imageView.compareScreenshot('url-screenshot.png');
+    });
+
+    test('Should display audio panel', async ({ readProvisionedDashboard, gotoDashboardPage, page }) => {
+      /**
+       * Go To Panels dashboard postgres.json
+       * return dashboardPage
+       */
+      const dashboard = await readProvisionedDashboard({ fileName: 'postgres.json' });
+      const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
+
+      /**
+       * Scroll to panel on viewport
+       */
+      await page.evaluate(() => window.scrollBy(0, 750));
+
+      /**
+       * Panel loading...
+       */
+      await page.waitForTimeout(2500);
+
+      /**
+       * Get panel
+       */
+      const panel = new PanelHelper(dashboardPage, 'Audio');
+
+      await panel.checkIfNoErrors();
+      await panel.checkPresence();
+
+      const audioView = panel.getAudioView();
+      await audioView.checkPresence();
+    });
+
+    test('Should display video panel with poster base64 image', async ({
+      readProvisionedDashboard,
+      gotoDashboardPage,
+      page,
+    }) => {
+      /**
+       * Go To Panels dashboard urls.json
+       * return dashboardPage
+       */
+      const dashboard = await readProvisionedDashboard({ fileName: 'urls.json' });
+      const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
+
+      /**
+       * Scroll to panel on viewport
+       */
+      await page.evaluate(() => window.scrollBy(0, 1050));
+
+      /**
+       * Panel loading...
+       */
+      await page.waitForTimeout(2500);
+
+      /**
+       * Get panel
+       */
+      const panel = new PanelHelper(dashboardPage, 'Video from URL with Base64 poster');
+
+      await panel.checkIfNoErrors();
+      await panel.checkPresence();
+
+      const videoView = panel.getVideoView();
+      await videoView.checkPresence();
+      await videoView.compareScreenshot('video-with-poster-screenshot.png');
+    });
+
+    test('Should display pdf panel', async ({ readProvisionedDashboard, gotoDashboardPage, page }) => {
+      /**
+       * Go To Panels dashboard panels.json
+       * return dashboardPage
+       */
+      const dashboard = await readProvisionedDashboard({ fileName: 'panels.json' });
+      const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
+
+      /**
+       * Get panel
+       */
+      const panel = new PanelHelper(dashboardPage, 'PDF');
+
+      await panel.checkIfNoErrors();
+      await panel.checkPresence();
+
+      const pdfView = panel.getPdfView();
+      await pdfView.checkPresence();
+    });
   });
 });
