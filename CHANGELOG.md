@@ -5,6 +5,7 @@
 ### Features / Enhancements
 
 - Updated Data state for timeout and errors (#145)
+- Updated E2E tests (#150)
 
 ## 6.1.0 (2024-09-05)
 
