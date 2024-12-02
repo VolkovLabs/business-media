@@ -95,11 +95,6 @@ test.describe('Media panel', () => {
       const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
 
       /**
-       * Panel loading...
-       */
-      await page.waitForTimeout(2500);
-
-      /**
        * Get panel
        */
       const panel = new PanelHelper(dashboardPage, 'Audio');
@@ -122,11 +117,6 @@ test.describe('Media panel', () => {
        */
       const dashboard = await readProvisionedDashboard({ fileName: 'urls.json' });
       const dashboardPage = await gotoDashboardPage({ uid: dashboard.uid });
-
-      /**
-       * Panel loading...
-       */
-      await page.waitForTimeout(1500);
 
       /**
        * Get panel
