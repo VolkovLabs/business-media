@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
   "links": [
     {
       "asDropdown": false,
@@ -47,12 +46,12 @@
         "uid": "P1D2C73DC01F2359A"
       },
       "gridPos": {
-        "h": 24,
+        "h": 3,
         "w": 12,
         "x": 0,
         "y": 0
       },
-      "id": 2,
+      "id": 5,
       "options": {
         "autoPlay": true,
         "autoPlayInfinity": false,
@@ -63,10 +62,10 @@
         "infinityPlay": false,
         "mediaSources": [
           {
-            "field": "encode",
-            "id": "e0a66f59-b91a-4c01-8edf-0db2846bf8bc",
+            "field": "concat",
+            "id": "1bd52277-082f-4fd1-8c7a-8e3b840fd70e",
             "refId": "A",
-            "type": "pdf"
+            "type": "audio"
           }
         ],
         "noResultsMessage": "Nothing to display...",
@@ -77,7 +76,6 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.2.0",
       "targets": [
         {
           "datasource": {
@@ -88,7 +86,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT encode(img, 'base64') from images where name='postgresql-14-US';",
+          "rawSql": "SELECT concat('data:audio/mp3;base64,', encode(audio, 'base64')) from audios where name='call';",
           "refId": "A",
           "select": [
             [
@@ -108,7 +106,7 @@
           ]
         }
       ],
-      "title": "Big PDF",
+      "title": "Audio",
       "type": "volkovlabs-image-panel"
     },
     {
@@ -117,7 +115,7 @@
         "uid": "P1D2C73DC01F2359A"
       },
       "gridPos": {
-        "h": 24,
+        "h": 27,
         "w": 12,
         "x": 12,
         "y": 0
@@ -147,7 +145,6 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.2.0",
       "targets": [
         {
           "datasource": {
@@ -187,10 +184,79 @@
         "uid": "P1D2C73DC01F2359A"
       },
       "gridPos": {
+        "h": 24,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      "id": 2,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
+        "controls": true,
+        "height": 0,
+        "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "encode",
+            "id": "e0a66f59-b91a-4c01-8edf-0db2846bf8bc",
+            "refId": "A",
+            "type": "pdf"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 0,
+        "widthMode": "auto",
+        "zoomType": "default"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P1D2C73DC01F2359A"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT encode(img, 'base64') from images where name='postgresql-14-US';",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Big PDF",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P1D2C73DC01F2359A"
+      },
+      "gridPos": {
         "h": 15,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 27
       },
       "id": 4,
       "options": {
@@ -217,7 +283,6 @@
         "widthMode": "auto",
         "zoomType": "default"
       },
-      "pluginVersion": "5.2.0",
       "targets": [
         {
           "datasource": {
@@ -250,80 +315,11 @@
       ],
       "title": "Video",
       "type": "volkovlabs-image-panel"
-    },
-    {
-      "datasource": {
-        "type": "postgres",
-        "uid": "P1D2C73DC01F2359A"
-      },
-      "gridPos": {
-        "h": 15,
-        "w": 12,
-        "x": 12,
-        "y": 24
-      },
-      "id": 5,
-      "options": {
-        "autoPlay": true,
-        "autoPlayInfinity": false,
-        "buttons": [],
-        "controls": true,
-        "height": 0,
-        "heightMode": "auto",
-        "infinityPlay": false,
-        "mediaSources": [
-          {
-            "field": "concat",
-            "id": "1bd52277-082f-4fd1-8c7a-8e3b840fd70e",
-            "refId": "A",
-            "type": "audio"
-          }
-        ],
-        "noResultsMessage": "Nothing to display...",
-        "pdfToolbar": true,
-        "scale": "auto",
-        "toolbar": true,
-        "width": 0,
-        "widthMode": "auto",
-        "zoomType": "default"
-      },
-      "pluginVersion": "5.2.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "P1D2C73DC01F2359A"
-          },
-          "format": "table",
-          "group": [],
-          "metricColumn": "none",
-          "rawQuery": true,
-          "rawSql": "SELECT concat('data:audio/mp3;base64,', encode(audio, 'base64')) from audios where name='call';",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": ["value"],
-                "type": "column"
-              }
-            ]
-          ],
-          "timeColumn": "time",
-          "where": [
-            {
-              "name": "$__timeFilter",
-              "params": [],
-              "type": "macro"
-            }
-          ]
-        }
-      ],
-      "title": "Audio",
-      "type": "volkovlabs-image-panel"
     }
   ],
   "refresh": "",
-  "schemaVersion": 39,
+  "schemaVersion": 38,
+  "style": "dark",
   "tags": ["image"],
   "templating": {
     "list": []
@@ -336,6 +332,6 @@
   "timezone": "",
   "title": "Postgres",
   "uid": "GATG3GTnz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

@@ -20,7 +20,7 @@ export default defineConfig({
   /**
    * Number of retry.
    */
-  retries: 6,
+  retries: 0,
 
   /**
    * Number of workers.
