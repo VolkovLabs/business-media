@@ -6,6 +6,7 @@
 
 - Updated Data state for timeout and errors (#145)
 - Updated E2E tests (#150)
+- Updated Grafana 11.3 dependencies (#151)
 
 ## 6.1.0 (2024-09-05)
 
