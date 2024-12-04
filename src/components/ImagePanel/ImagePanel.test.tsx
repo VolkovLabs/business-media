@@ -49,8 +49,11 @@ jest.useFakeTimers();
 describe('Image Panel', () => {
   window.URL.createObjectURL = jest.fn();
 
+  const defaultWidth = 300;
+  const defaultHeight = 300;
+
   const getComponent = ({ options = { name: '' }, data = { series: [] }, ...restProps }: any) => {
-    return <ImagePanel data={data} {...restProps} options={options} />;
+    return <ImagePanel data={data} width={defaultWidth} height={defaultHeight} {...restProps} options={options} />;
   };
 
   const elementHeight = 40;
