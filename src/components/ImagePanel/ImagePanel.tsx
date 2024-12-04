@@ -13,7 +13,7 @@ import { getStyles } from './ImagePanel.styles';
 /**
  * Properties
  */
-interface Props extends PanelProps<PanelOptions> {}
+type Props = PanelProps<PanelOptions>;
 
 /**
  * Image Panel

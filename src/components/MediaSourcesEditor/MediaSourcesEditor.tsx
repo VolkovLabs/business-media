@@ -35,7 +35,7 @@ interface Settings {
 /**
  * Properties
  */
-interface Props extends StandardEditorProps<MediaSourceConfig[] | null, Settings> {}
+type Props = StandardEditorProps<MediaSourceConfig[] | null, Settings>;
 
 /**
  * Media Sources

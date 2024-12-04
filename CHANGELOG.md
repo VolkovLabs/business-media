@@ -1,11 +1,12 @@
 # Changelog
 
-## 6.2.0 (IN PROGRESS)
+## 6.2.0 (2024-12-03)
 
 ### Features / Enhancements
 
 - Updated Data state for timeout and errors (#145)
 - Updated E2E tests (#150)
+- Updated Grafana 11.3 dependencies (#151)
 
 ## 6.1.0 (2024-09-05)
 
