@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.3.0 (IN PROGRESS)
+
+### Features / Enhancements
+
+- Updated console error during build (#152)
+
 ## 6.2.0 (2024-12-03)
 
 ### Features / Enhancements
