@@ -1,9 +1,31 @@
 import { DataFrame, Field, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
-import { findField } from '@volkovlabs/grafana-utils';
 import { Base64 } from 'js-base64';
 
 import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from './constants';
 import { MediaFormat, MediaSourceConfig, MediaSourceElement, SupportedFileType } from './types';
+
+/**
+ * Find field
+ */
+export const findField = <TValue = unknown>(
+  series: DataFrame[],
+  predicateFn: (field: Field, frame: DataFrame) => boolean
+): Field<TValue> | undefined => {
+  for (let i = 0; i < series.length; i += 1) {
+    const frame = series[i];
+
+    const field = frame.fields.find((field) => predicateFn(field, frame));
+
+    /**
+     * Field found
+     */
+    if (field) {
+      return field;
+    }
+  }
+
+  return undefined;
+};
 
 /**
  * Convert Base64 to Blob
