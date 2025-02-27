@@ -1,5 +1,5 @@
 import { DataFrame, Field, FieldMatcherID, fieldMatchers, FieldType, LinkModel, SelectableValue } from '@grafana/data';
-import { findField } from '@volkovlabs/grafana-utils';
+import { findField } from '@volkovlabs/components';
 import { Base64 } from 'js-base64';
 
 import { BASE64_MEDIA_HEADER_REGEX, IMAGE_TYPES_SYMBOLS } from './constants';

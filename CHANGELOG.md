@@ -5,6 +5,7 @@
 ### Features / Enhancements
 
 - Updated console error during build (#152)
+- Remove @volkovlabs/grafana-utils (#154)
 
 ## 6.2.0 (2024-12-03)
 
