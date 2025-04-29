@@ -1,11 +1,12 @@
 # Changelog
 
-## 6.3.0 (IN PROGRESS)
+## 6.3.0 (2025-04-28)
 
 ### Features / Enhancements
 
 - Updated console error during build (#152)
 - Remove @volkovlabs/grafana-utils (#154)
+- Updated Grafana 11.6 dependencies (#155)
 
 ## 6.2.0 (2024-12-03)
 

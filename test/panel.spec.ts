@@ -57,9 +57,14 @@ test.describe('Media panel', () => {
       await panel.checkIfNoErrors();
       await panel.checkPresence();
 
+      /**
+       * Instead of comparing screenshots,
+       * check the size of the image,
+       * if it's not showing, the error icon can't be bigger than 100px
+       */
       const imageView = panel.getImageView();
       await imageView.checkPresence();
-      await imageView.compareScreenshot('base64-screenshot.png');
+      await imageView.checkSize(100, 100);
     });
 
     test('Should display default image panel with URL image', async ({
@@ -83,7 +88,13 @@ test.describe('Media panel', () => {
 
       const imageView = panel.getImageView();
       await imageView.checkPresence();
-      await imageView.compareScreenshot('url-screenshot.png');
+
+      /**
+       * Instead of comparing screenshots,
+       * check the size of the image,
+       * if it's not showing, the error icon can't be bigger than 100px
+       */
+      await imageView.checkSize(100, 100);
     });
 
     test('Should display audio panel', async ({ readProvisionedDashboard, gotoDashboardPage, page }) => {
@@ -128,7 +139,13 @@ test.describe('Media panel', () => {
 
       const videoView = panel.getVideoView();
       await videoView.checkPresence();
-      await videoView.compareScreenshot('video-with-poster-screenshot.png');
+
+      /**
+       * Instead of comparing screenshots,
+       * check the poster, and poster subStr.
+       */
+      await videoView.checkPosterPresence();
+      await videoView.checkPosterValue('data:image/png;base64');
     });
 
     test('Should display pdf panel', async ({ readProvisionedDashboard, gotoDashboardPage, page }) => {

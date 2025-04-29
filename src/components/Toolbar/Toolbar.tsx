@@ -75,7 +75,7 @@ interface Props {
    *
    * @type {RefObject<HTMLDivElement>}
    */
-  toolbarRef: RefObject<HTMLDivElement>;
+  toolbarRef: RefObject<HTMLDivElement | null>;
 }
 
 /**
