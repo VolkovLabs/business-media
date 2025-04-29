@@ -28,6 +28,13 @@ class BaseView {
   public async compareScreenshot(name: string) {
     return expect(this.get(), this.getMsg(`Check name Screenshot`)).toHaveScreenshot(name);
   }
+
+  async checkSize(minWidth: number, minHeight: number): Promise<void> {
+    const box = await this.get().boundingBox();
+
+    expect(box!.width, this.getMsg(`Width should be more ${minWidth}`)).toBeGreaterThan(minWidth);
+    expect(box!.height, this.getMsg(`height should be more ${minWidth}`)).toBeGreaterThan(minHeight);
+  }
 }
 
 /**
@@ -45,6 +52,16 @@ class ImageViewHelper extends BaseView {
 class VideoViewHelper extends BaseView {
   constructor(parentLocator: Locator) {
     super(parentLocator.getByTestId(TEST_IDS.panel.video));
+  }
+
+  public async checkPosterPresence() {
+    const poster = await this.get().getAttribute('poster');
+    return expect(poster).not.toBeNull();
+  }
+
+  public async checkPosterValue(value) {
+    const poster = await this.get().getAttribute('poster');
+    return expect(poster).toContain(value);
   }
 }
 
@@ -88,6 +105,10 @@ export class PanelHelper {
 
   public async checkIfNoErrors() {
     return expect(this.panel.getErrorIcon(), this.getMsg('Check If No Errors')).not.toBeVisible();
+  }
+
+  public async getPanel() {
+    return this.panel;
   }
 
   public async checkPresence() {
