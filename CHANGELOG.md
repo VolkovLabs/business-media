@@ -1,260 +1,265 @@
 # Changelog
 
-## 6.3.0 (2025-04-28)
+All notable changes to this project will be documented in this file. This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### Features / Enhancements
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this changelog is maintained to provide a clear history of updates, features, and breaking changes for the Business Media plugin for Grafana.
 
-- Updated console error during build (#152)
-- Remove @volkovlabs/grafana-utils (#154)
-- Updated Grafana 11.6 dependencies (#155)
+## [Unreleased]
 
-## 6.2.0 (2024-12-03)
+- No unreleased changes at this time.
 
-### Features / Enhancements
+## [6.3.0] - 2025-05-05
 
-- Updated Data state for timeout and errors (#145)
-- Updated E2E tests (#150)
-- Updated Grafana 11.3 dependencies (#151)
+### Added
 
-## 6.1.0 (2024-09-05)
+- Updated console error messages during build ([#152](https://github.com/volkovlabs/business-media/pull/152)).
+- Removed dependency on `@volkovlabs/grafana-utils` ([#154](https://github.com/volkovlabs/business-media/pull/154)).
+- Updated dependencies to support Grafana 11.6 ([#155](https://github.com/volkovlabs/business-media/pull/155)).
 
-### Features / Enhancements
+## [6.2.0] - 2024-12-03
 
-- Updated media sources state (#137)
-- Added Websocket server for streaming (#140)
-- Updated Grafana 11.2 dependencies (#141)
-- Added Scroll option for images (#142)
+### Added
 
-## 6.0.0 (2024-07-29)
+- Improved data state handling for timeouts and errors ([#145](https://github.com/volkovlabs/business-media/pull/145)).
+- Updated end-to-end (E2E) tests for better coverage ([#150](https://github.com/volkovlabs/business-media/pull/150)).
+- Updated dependencies to support Grafana 11.3 ([#151](https://github.com/volkovlabs/business-media/pull/151)).
 
-### Breaking changes
+## [6.1.0] - 2024-09-05
 
-- Image links in panel options should be updated to use Data links.
-- PDF fields require to update the type of the media source to PDF.
+### Added
 
-### Features / Enhancements
+- Enhanced media sources state management ([#137](https://github.com/volkovlabs/business-media/pull/137)).
+- Introduced WebSocket server for streaming capabilities ([#140](https://github.com/volkovlabs/business-media/pull/140)).
+- Updated dependencies to support Grafana 11.2 ([#141](https://github.com/volkovlabs/business-media/pull/141)).
+- Added scroll option for images ([#142](https://github.com/volkovlabs/business-media/pull/142)).
 
-- Added poster for video (#120)
-- Updated current index on data series decrease (#121)
-- Updated Image URL to data links (#122)
-- Added slideshow between mixed media (#123)
-- Refactored Media panel (#124)
-- Added multiple queries support in Media Field and Poster Image (#127)
-- Updated to Grafana 11.1 and dependencies (#128)
-- Added PDF Breaking change and prepare 6.0.0 (#132)
+## [6.0.0] - 2024-07-29
 
-## 5.1.0 (2024-06-23)
+### Breaking Changes
 
-### Features / Enhancements
+- Image links in panel options must now use Data Links.
+- PDF fields require updating the media source type to PDF.
 
-- Updated video overview (#100)
-- Added plugin e2e tests and remove cypress (#101, #102, #103, #105)
-- Added ability to load image, videos from URL and video toolbar (#111, #116)
-- Updated to Grafana 11 and dependencies (#114)
-- Updated to use frame utils from packages (#115)
-- Updated E2E workflow using Docker (#117)
+### Added
 
-## 5.0.0 (2024-03-25)
+- Added poster support for videos ([#120](https://github.com/volkovlabs/business-media/pull/120)).
+- Updated current index handling on data series decrease ([#121](https://github.com/volkovlabs/business-media/pull/121)).
+- Converted Image URL to Data Links ([#122](https://github.com/volkovlabs/business-media/pull/122)).
+- Introduced slideshow functionality for mixed media ([#123](https://github.com/volkovlabs/business-media/pull/123)).
+- Refactored Media panel for improved performance ([#124](https://github.com/volkovlabs/business-media/pull/124)).
+- Added support for multiple queries in Media Field and Poster Image ([#127](https://github.com/volkovlabs/business-media/pull/127)).
+- Updated dependencies to support Grafana 11.1 ([#128](https://github.com/volkovlabs/business-media/pull/128)).
+- Documented PDF breaking changes and prepared for 6.0.0 release ([#132](https://github.com/volkovlabs/business-media/pull/132)).
 
-### Breaking changes
+## [5.1.0] - 2024-06-23
 
-- Requires Grafana 10 and Grafana 11
+### Added
 
-### Features / Enhancements
+- Updated video overview documentation ([#100](https://github.com/volkovlabs/business-media/pull/100)).
+- Added plugin E2E tests and removed Cypress dependency ([#101](https://github.com/volkovlabs/business-media/pull/101), [#102](https://github.com/volkovlabs/business-media/pull/102), [#103](https://github.com/volkovlabs/business-media/pull/103), [#105](https://github.com/volkovlabs/business-media/pull/105)).
+- Added support for loading images and videos from URLs, along with a video toolbar ([#111](https://github.com/volkovlabs/business-media/pull/111), [#116](https://github.com/volkovlabs/business-media/pull/116)).
+- Updated dependencies to support Grafana 11 ([#114](https://github.com/volkovlabs/business-media/pull/114)).
+- Updated to use frame utilities from packages ([#115](https://github.com/volkovlabs/business-media/pull/115)).
+- Improved E2E workflow using Docker ([#117](https://github.com/volkovlabs/business-media/pull/117)).
 
-- Added the ability to customize the alert message (#96)
-- Updated to Grafana 10.4.1 (#97)
-- Remove ArrayVector deprecated in Grafana 11 (#99)
+## [5.0.0] - 2024-03-25
 
-## 4.2.0 (2024-02-22)
+### Breaking Changes
 
-### Features / Enhancements
+- Requires Grafana 10 or Grafana 11.
 
-- Update ESLint configuration and refactoring (#92)
-- Update dependencies and Actions (#94)
-- Add infinity play option (#93)
+### Added
 
-## 4.1.0 (2023-10-29)
+- Added customization options for alert messages ([#96](https://github.com/volkovlabs/business-media/pull/96)).
+- Updated dependencies to support Grafana 10.4.1 ([#97](https://github.com/volkovlabs/business-media/pull/97)).
+- Removed deprecated `ArrayVector` in preparation for Grafana 11 ([#99](https://github.com/volkovlabs/business-media/pull/99)).
 
-### Features / Enhancements
+## [4.2.0] - 2024-02-22
 
-- Update ESLint configuration (#84)
-- Add Image Scale Algorithm option (#89)
-- Update to Plugin Tools 2.1.1 (#90)
-- Use Grafana Access Policy to sign plugin (#90)
-- Update to Grafana 10.1.5 (#90)
+### Added
 
-## 4.0.0 (2023-06-26)
+- Updated ESLint configuration and performed code refactoring ([#92](https://github.com/volkovlabs/business-media/pull/92)).
+- Updated dependencies and GitHub Actions ([#94](https://github.com/volkovlabs/business-media/pull/94)).
+- Added infinity play option for media playback ([#93](https://github.com/volkovlabs/business-media/pull/93)).
 
-### Breaking changes
+## [4.1.0] - 2023-10-29
 
-- Requires Grafana 9 and Grafana 10
+### Added
 
-### Features / Enhancements
+- Updated ESLint configuration for better code quality ([#84](https://github.com/volkovlabs/business-media/pull/84)).
+- Added Image Scale Algorithm option for better image rendering ([#89](https://github.com/volkovlabs/business-media/pull/89)).
+- Updated to Plugin Tools 2.1.1 and Grafana 10.1.5, and used Grafana Access Policy to sign the plugin ([#90](https://github.com/volkovlabs/business-media/pull/90)).
 
-- Add pan and pinch zooming option (#78)
-- Move pan pinch buttons to the toolbar (#79)
-- Update to Grafana 10.0.0 (#80)
-- Add description label (#82)
-- Remove Grafana 8.5 support (#83)
+## [4.0.0] - 2023-06-26
 
-## 3.6.0 (2023-06-06)
+### Breaking Changes
 
-### Features / Enhancements
+- Requires Grafana 9 or Grafana 10.
 
-- Update to Grafana 9.5.2 (#70)
-- Add E2E Cypress testing (#71)
-- Migrate to Plugin Tools 1.5.2 (#72, #73)
-- Update to Node 18 (#72)
-- Increase Test Coverage (#72)
-- Tested with Grafana 10 Preview (#74)
-- Add Toolbar to Download, Zoom and Navigation between images (#75, #76, #77)
+### Added
 
-## 3.5.0 (2023-03-07)
+- Added pan and pinch zooming options for images ([#78](https://github.com/volkovlabs/business-media/pull/78)).
+- Moved pan and pinch buttons to the toolbar for better usability ([#79](https://github.com/volkovlabs/business-media/pull/79)).
+- Updated dependencies to support Grafana 10.0.0 ([#80](https://github.com/volkovlabs/business-media/pull/80)).
+- Added description label for media items ([#82](https://github.com/volkovlabs/business-media/pull/82)).
+- Removed support for Grafana 8.5 ([#83](https://github.com/volkovlabs/business-media/pull/83)).
 
-### Features / Enhancements
+## [3.6.0] - 2023-06-06
 
-- Update CI and Release workflows (#64)
-- Update to Grafana 9.4.3 (#65)
-- Set NoPadding to use panel corner to corner (#66)
+### Added
 
-## 3.4.0 (2023-01-08) "New Year" edition
+- Updated dependencies to support Grafana 9.5.2 ([#70](https://github.com/volkovlabs/business-media/pull/70)).
+- Added E2E testing with Cypress ([#71](https://github.com/volkovlabs/business-media/pull/71)).
+- Migrated to Plugin Tools 1.5.2 and updated to Node 18 ([#72](https://github.com/volkovlabs/business-media/pull/72), [#73](https://github.com/volkovlabs/business-media/pull/73)).
+- Increased test coverage for better reliability ([#72](https://github.com/volkovlabs/business-media/pull/72)).
+- Tested compatibility with Grafana 10 Preview ([#74](https://github.com/volkovlabs/business-media/pull/74)).
+- Added toolbar for downloading, zooming, and navigating between images ([#75](https://github.com/volkovlabs/business-media/pull/75), [#76](https://github.com/volkovlabs/business-media/pull/76), [#77](https://github.com/volkovlabs/business-media/pull/77)).
 
-### Features / Enhancements
+## [3.5.0] - 2023-03-07
 
-- Update to Grafana 9.3.2 (#60)
-- Add Documentation links (#61)
-- Update README and documentation (#62)
+### Added
 
-## 3.3.0 (2022-10-30) "Halloween" edition
+- Updated CI and release workflows for better automation ([#64](https://github.com/volkovlabs/business-media/pull/64)).
+- Updated dependencies to support Grafana 9.4.3 ([#65](https://github.com/volkovlabs/business-media/pull/65)).
+- Set `NoPadding` to utilize panel space corner-to-corner ([#66](https://github.com/volkovlabs/business-media/pull/66)).
 
-### Features / Enhancements
+## [3.4.0] - 2023-01-08
 
-- Support for sanitized variables in URL field (#53)
-- Update CI to Node 16 and Synchronize with Release workflow (#55)
-- Update to Grafana 9.2.2 (#56)
+### Added
 
-## 3.2.0 (2022-10-05)
+- Updated dependencies to support Grafana 9.3.2 ([#60](https://github.com/volkovlabs/business-media/pull/60)).
+- Added documentation links for better user guidance ([#61](https://github.com/volkovlabs/business-media/pull/61)).
+- Updated README and documentation for clarity ([#62](https://github.com/volkovlabs/business-media/pull/62)).
 
-### Features / Enhancements
+## [3.3.0] - 2022-10-30
 
-- Update to Grafana 9.1.4 (#47)
-- Add Compatibility Check Workflow (#48)
-- Add option to disable PDF Toolbar (#50)
-- Update to Grafana 9.1.7 (#51)
+### Added
 
-## 3.1.0 (2022-08-13)
+- Added support for sanitized variables in URL fields ([#53](https://github.com/volkovlabs/business-media/pull/53)).
+- Updated CI to Node 16 and synchronized with release workflow ([#55](https://github.com/volkovlabs/business-media/pull/55)).
+- Updated dependencies to support Grafana 9.2.2 ([#56](https://github.com/volkovlabs/business-media/pull/56)).
 
-### Features / Enhancements
+## [3.2.0] - 2022-10-05
 
-- Update README and Provisioning dashboards (#43)
-- Add YouTube video in README (#44)
-- Rebuild based on 9.0.7 (#45)
-- Update Grafana Marketplace image (#46)
+### Added
 
-## 3.0.0 (2022-06-16)
+- Updated dependencies to support Grafana 9.1.4 ([#47](https://github.com/volkovlabs/business-media/pull/47)).
+- Added Compatibility Check Workflow for CI ([#48](https://github.com/volkovlabs/business-media/pull/48)).
+- Added option to disable PDF toolbar ([#50](https://github.com/volkovlabs/business-media/pull/50)).
+- Updated dependencies to support Grafana 9.1.7 ([#51](https://github.com/volkovlabs/business-media/pull/51)).
 
-### Breaking changes
+## [3.1.0] - 2022-08-13
 
-- Requires Grafana 8.5+ and 9.0+
+### Added
 
-### Features / Enhancements
+- Updated README and provisioning dashboards documentation ([#43](https://github.com/volkovlabs/business-media/pull/43)).
+- Added YouTube video in README for user guidance ([#44](https://github.com/volkovlabs/business-media/pull/44)).
+- Rebuilt based on Grafana 9.0.7 ([#45](https://github.com/volkovlabs/business-media/pull/45)).
+- Updated Grafana Marketplace image ([#46](https://github.com/volkovlabs/business-media/pull/46)).
 
-- Rebuild based on 9.0.0-beta3 (#36)
-- Update PDF loader to start in Docker (#38)
-- Support short Video encoded using Base64 (#39)
-- Support MP3, OGG Audio playback in Base64 (#40)
-- Add Options for Video/Audio Controls and Auto Play (#41)
-- Rebuild based on 9.0.0 (#42)
+## [3.0.0] - 2022-06-16
 
-## 2.6.0 (2022-04-26)
+### Breaking Changes
 
-### Features / Enhancements
+- Requires Grafana 8.5+ or 9.0+.
 
-- Rebuild using 8.3.6 (#32)
-- Rebuild using 8.4.0 and use PluginCheck v2 (#33)
-- Rebuild using 8.4.3 (#34)
-- Based on Grafana 8.5.0 (#35)
+### Added
 
-## 2.5.0 (2022-01-24)
+- Rebuilt based on Grafana 9.0.0-beta3 ([#36](https://github.com/volkovlabs/business-media/pull/36)).
+- Updated PDF loader to start in Docker environments ([#38](https://github.com/volkovlabs/business-media/pull/38)).
+- Added support for short videos encoded in Base64 ([#39](https://github.com/volkovlabs/business-media/pull/39)).
+- Added support for MP3 and OGG audio playback in Base64 ([#40](https://github.com/volkovlabs/business-media/pull/40)).
+- Added options for video/audio controls and autoplay ([#41](https://github.com/volkovlabs/business-media/pull/41)).
+- Rebuilt based on Grafana 9.0.0 ([#42](https://github.com/volkovlabs/business-media/pull/42)).
 
-### Features / Enhancements
+## [2.6.0] - 2022-04-26
 
-- Update README to add Grafana Marketplace (#29)
-- Rebuild using 8.3.4 (#28)
+### Added
 
-## 2.4.0 (2021-12-16)
+- Rebuilt using Grafana 8.3.6 ([#32](https://github.com/volkovlabs/business-media/pull/32)).
+- Rebuilt using Grafana 8.4.0 with PluginCheck v2 ([#33](https://github.com/volkovlabs/business-media/pull/33)).
+- Rebuilt using Grafana 8.4.3 ([#34](https://github.com/volkovlabs/business-media/pull/34)).
+- Based on Grafana 8.5.0 ([#35](https://github.com/volkovlabs/business-media/pull/35)).
 
-### Features / Enhancements
+## [2.5.0] - 2022-01-24
 
-- Upgrade to Grafana 8.2.5 (#22)
-- Upgrade to Grafana 8.3.0 (#23)
-- Update to Grafana 8.3.2 (#24)
-- Update Components naming (#25)
-- Supporting PDF documents more than 2Mb size (#26)
+### Added
 
-## 2.3.1 (2021-11-09)
+- Updated README to include Grafana Marketplace information ([#29](https://github.com/volkovlabs/business-media/pull/29)).
+- Rebuilt using Grafana 8.3.4 ([#28](https://github.com/volkovlabs/business-media/pull/28)).
 
-### Features / Enhancements
+## [2.4.0] - 2021-12-16
 
-- Add `display:block` to display href properly [https://github.com/grafana/grafana/issues/41445] (#21)
+### Added
 
-## 2.3.0 (2021-11-08)
+- Upgraded to Grafana 8.2.5 ([#22](https://github.com/volkovlabs/business-media/pull/22)).
+- Upgraded to Grafana 8.3.0 ([#23](https://github.com/volkovlabs/business-media/pull/23)).
+- Updated to Grafana 8.3.2 ([#24](https://github.com/volkovlabs/business-media/pull/24)).
+- Updated component naming for consistency ([#25](https://github.com/volkovlabs/business-media/pull/25)).
+- Added support for PDF documents larger than 2MB ([#26](https://github.com/volkovlabs/business-media/pull/26)).
 
-### Features / Enhancements
+## [2.3.1] - 2021-11-09
 
-- Navigate to another dashboard from image click (#19)
-- Upgrade to Grafana 8.2.3 (#20)
+### Added
 
-## 2.2.0 (2021-11-02)
+- Added `display:block` to properly display href links ([Grafana Issue #41445](https://github.com/grafana/grafana/issues/41445)) ([#21](https://github.com/volkovlabs/business-media/pull/21)).
 
-### Features / Enhancements
+## [2.3.0] - 2021-11-08
 
-- Upgrade to Grafana 8.1.5 (#16)
-- Upgrade to Grafana 8.2.0 (#17)
-- Upgrade to Grafana 8.2.2 (#18)
+### Added
 
-## 2.1.1 (2021-08-18)
+- Added navigation to other dashboards from image clicks ([#19](https://github.com/volkovlabs/business-media/pull/19)).
+- Upgraded to Grafana 8.2.3 ([#20](https://github.com/volkovlabs/business-media/pull/20)).
 
-### Features / Enhancements
+## [2.2.0] - 2021-11-02
 
-- Add Radio to select Image Size modes (#14)
+### Added
 
-## 2.1.0 (2021-08-12)
+- Upgraded to Grafana 8.1.5 ([#16](https://github.com/volkovlabs/business-media/pull/16)).
+- Upgraded to Grafana 8.2.0 ([#17](https://github.com/volkovlabs/business-media/pull/17)).
+- Upgraded to Grafana 8.2.2 ([#18](https://github.com/volkovlabs/business-media/pull/18)).
 
-### Features / Enhancements
+## [2.1.1] - 2021-08-18
 
-- Update README (#10)
-- Upgrade to Grafana 8.1.1 (#12)
-- Add Options and Fields to resize an image (#13)
+### Added
 
-## 2.0.0 (2021-06-19)
+- Added radio button to select image size modes ([#14](https://github.com/volkovlabs/business-media/pull/14)).
 
-### Breaking changes
+## [2.1.0] - 2021-08-12
 
-- Supports Grafana 8.0+, for Grafana 7.X use version 1.0.1 or 1.1.0
+### Added
 
-### Features / Enhancements
+- Updated README for better documentation ([#10](https://github.com/volkovlabs/business-media/pull/10)).
+- Upgraded to Grafana 8.1.1 ([#12](https://github.com/volkovlabs/business-media/pull/12)).
+- Added options and fields to resize images ([#13](https://github.com/volkovlabs/business-media/pull/13)).
 
-- Based on Grafana 8.0.2 (#9)
+## [2.0.0] - 2021-06-19
 
-## 1.1.0 (2021-06-19)
+### Breaking Changes
 
-### Features / Enhancements
+- Supports Grafana 8.0+ only. For Grafana 7.x, use version 1.0.1 or 1.1.0.
 
-- Display base64 image with header (#7)
-- Display base64 Image from InfluxDB (#6)
-- Increase tests coverage (#4)
+### Added
 
-## 1.0.1 (2021-06-07)
+- Based on Grafana 8.0.2 ([#9](https://github.com/volkovlabs/business-media/pull/9)).
 
-### Features / Enhancements
+## [1.1.0] - 2021-06-19
 
-- Add screenshots for Static and Redis data sources (#5)
+### Added
 
-## 1.0.0 (2021-06-07)
+- Added support for displaying Base64 images with headers ([#7](https://github.com/volkovlabs/business-media/pull/7)).
+- Added support for displaying Base64 images from InfluxDB ([#6](https://github.com/volkovlabs/business-media/pull/6)).
+- Increased test coverage for better reliability ([#4](https://github.com/volkovlabs/business-media/pull/4)).
 
-### Features / Enhancements
+## [1.0.1] - 2021-06-07
 
-- Initial release based on Grafana 7.5.7
-- Supports PNG, JPG, GIF and PDF
+### Added
+
+- Added screenshots for Static and Redis data sources ([#5](https://github.com/volkovlabs/business-media/pull/5)).
+
+## [1.0.0] - 2021-06-07
+
+### Added
+
+- Initial release based on Grafana 7.5.7.
+- Supports PNG, JPG, GIF, and PDF formats.

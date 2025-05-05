@@ -22,9 +22,9 @@
   "devDependencies": {
     "@babel/core": "^7.26.10",
     "@grafana/eslint-config": "^8.0.0",
-    "@grafana/plugin-e2e": "1.18.2",
+    "@grafana/plugin-e2e": "2.0.0",
     "@grafana/tsconfig": "^2.0.0",
-    "@playwright/test": "1.50.1",
+    "@playwright/test": "^1.52.0",
     "@stylistic/eslint-plugin-ts": "^2.13.0",
     "@swc/core": "^1.11.22",
     "@swc/helpers": "^0.5.17",
