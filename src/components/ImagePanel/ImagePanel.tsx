@@ -1,7 +1,7 @@
 import { css, cx } from '@emotion/css';
 import { PanelProps } from '@grafana/data';
 import { Alert, useStyles2 } from '@grafana/ui';
-import React, { JSX, useEffect, useMemo, useRef, useState } from 'react';
+import React, { JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { TEST_IDS } from '../../constants';
 import { useImageElementProperties, useMediaData } from '../../hooks';
@@ -133,15 +133,18 @@ export const ImagePanel: React.FC<Props> = ({ timeRange, options, data, width, h
   /**
    * Render Media Element
    */
-  const renderElement = (child?: JSX.Element) => (
-    <>
-      {child}
-      {description && (
-        <div ref={descriptionRef} className={styles.description}>
-          {description}
-        </div>
-      )}
-    </>
+  const renderElement = useCallback(
+    (child?: JSX.Element) => (
+      <>
+        {child}
+        {description && (
+          <div ref={descriptionRef} className={styles.description}>
+            {description}
+          </div>
+        )}
+      </>
+    ),
+    [description, styles.description]
   );
 
   /**
@@ -155,19 +158,14 @@ export const ImagePanel: React.FC<Props> = ({ timeRange, options, data, width, h
     );
   };
 
-  let mediaElement;
-
   /**
-   * Return no results
+   * Image Element
    */
-  if (!mediaSource.type) {
-    mediaElement = renderAlertMessage(options.noResultsMessage);
-  }
+  const imageRenderElement = useMemo(() => {
+    if (mediaSource.type !== MediaFormat.IMAGE) {
+      return null;
+    }
 
-  /**
-   * Image
-   */
-  if (mediaSource.type === MediaFormat.IMAGE) {
     let image = (
       <img
         src={mediaSource.url}
@@ -213,15 +211,36 @@ export const ImagePanel: React.FC<Props> = ({ timeRange, options, data, width, h
       );
     }
 
-    mediaElement = renderElement(image);
-  }
+    return image;
+  }, [
+    imageContainer.height,
+    imageContainer.overflowX,
+    imageContainer.overflowY,
+    imageContainer.width,
+    imageElement.height,
+    imageElement.maxHeight,
+    imageElement.maxWidth,
+    imageElement.width,
+    link,
+    mediaSource.type,
+    mediaSource.url,
+    options.heightMode,
+    options.scale,
+    options.widthMode,
+    styles.url,
+  ]);
 
   /**
-   * Video
+   * Video Element
    */
-  if (mediaSource.type === MediaFormat.VIDEO) {
-    const video = (
+  const videoElement = useMemo(() => {
+    if (mediaSource.type !== MediaFormat.VIDEO) {
+      return null;
+    }
+
+    return (
       <video
+        key={`${mediaSource.url}`}
         muted={options.autoPlay}
         width={imageWidth || ''}
         height={imageHeight || ''}
@@ -234,15 +253,26 @@ export const ImagePanel: React.FC<Props> = ({ timeRange, options, data, width, h
         <source src={mediaSource.url} />
       </video>
     );
-
-    mediaElement = renderElement(video);
-  }
+  }, [
+    imageHeight,
+    imageWidth,
+    mediaSource.type,
+    mediaSource.url,
+    options.autoPlay,
+    options.controls,
+    options.infinityPlay,
+    videoPoster,
+  ]);
 
   /**
-   * AUDIO
+   * Audio Element
    */
-  if (mediaSource.type === MediaFormat.AUDIO) {
-    const audio = (
+  const audioElement = useMemo(() => {
+    if (mediaSource.type !== MediaFormat.AUDIO) {
+      return null;
+    }
+
+    return (
       <audio
         controls={options.controls}
         autoPlay={options.autoPlay}
@@ -252,14 +282,16 @@ export const ImagePanel: React.FC<Props> = ({ timeRange, options, data, width, h
         <source src={mediaSource.url} />
       </audio>
     );
-
-    mediaElement = renderElement(audio);
-  }
+  }, [mediaSource.type, mediaSource.url, options.autoPlay, options.controls, options.infinityPlay]);
 
   /**
-   * PDF
+   * PDF Element
    */
-  if (mediaSource.type === MediaFormat.PDF) {
+  const pdfElement = useMemo(() => {
+    if (mediaSource.type !== MediaFormat.PDF) {
+      return null;
+    }
+
     const pdf = (
       <iframe
         width={imageWidth || ''}
@@ -268,9 +300,31 @@ export const ImagePanel: React.FC<Props> = ({ timeRange, options, data, width, h
         data-testid={TEST_IDS.panel.iframe}
       />
     );
+    return pdf;
+  }, [imageHeight, imageWidth, mediaSource.type, mediaSource.url]);
 
-    mediaElement = renderElement(pdf);
-  }
+  /**
+   * Final Media Element
+   */
+  const mediaElement = useMemo(() => {
+    /**
+     * Return no results
+     */
+    if (!mediaSource.type) {
+      return renderAlertMessage(options.noResultsMessage);
+    }
+
+    const element = imageRenderElement || videoElement || audioElement || pdfElement;
+    return element ? renderElement(element) : null;
+  }, [
+    audioElement,
+    imageRenderElement,
+    mediaSource.type,
+    options.noResultsMessage,
+    pdfElement,
+    renderElement,
+    videoElement,
+  ]);
 
   return (
     <div
