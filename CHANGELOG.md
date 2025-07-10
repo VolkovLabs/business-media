@@ -6,9 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [7.0.0] - 2025-07-10
 
+### Breaking Changes
+
+- Requires Grafana 11 or Grafana 12.
+
 ### Changed
 
 - Updated video render to support variable change ([#159](https://github.com/volkovlabs/business-media/pull/159)).
+- Updated dependencies to support Grafana 12.0
 
 ## [6.3.0] - 2025-05-05
 
