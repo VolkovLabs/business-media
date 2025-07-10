@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Updated video render to support variable change ([#159](https://github.com/volkovlabs/business-media/pull/159)).
-- Updated dependencies to support Grafana 12.0
+- Updated dependencies to support Grafana 12.0 ([#160](https://github.com/volkovlabs/business-media/pull/160)).
 
 ## [6.3.0] - 2025-05-05
 
