@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 1,
   "links": [
     {
       "asDropdown": false,
@@ -38,7 +39,6 @@
       "url": ""
     }
   ],
-  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
@@ -57,6 +57,10 @@
       "datasource": {
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 10,
@@ -111,6 +115,10 @@
       "datasource": {
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 10,
@@ -169,6 +177,10 @@
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 10,
         "w": 6,
@@ -187,7 +199,7 @@
         "mediaSources": [
           {
             "field": "imgUrl",
-            "id": "1ab88106-5ab2-43ff-8575-c8a2fc241872",
+            "id": "2cd282e1-5fdf-44a6-b98a-bb460aa0e958",
             "refId": "A",
             "type": "image"
           }
@@ -220,7 +232,7 @@
                 "config": {},
                 "name": "imgUrl",
                 "type": "string",
-                "values": ["https://volkovlabs.io/img/index/main.svg"]
+                "values": ["https://volkovlabs.io/img/plugins/logo.svg"]
               }
             ],
             "meta": {},
@@ -236,6 +248,10 @@
       "datasource": {
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 10,
@@ -322,7 +338,7 @@
                 "config": {},
                 "name": "imgUrl",
                 "type": "string",
-                "values": ["https://volkovlabs.io/img/index/main.svg"]
+                "values": ["https://volkovlabs.io/img/plugins/logo.svg"]
               },
               {
                 "config": {},
@@ -345,6 +361,10 @@
       "datasource": {
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 10,
@@ -426,6 +446,10 @@
       "datasource": {
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 12,
@@ -529,6 +553,10 @@
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 10,
         "w": 6,
@@ -618,6 +646,10 @@
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 10,
         "w": 8,
@@ -698,6 +730,10 @@
       "datasource": {
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 10,
@@ -794,6 +830,10 @@
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 13,
         "w": 6,
@@ -884,6 +924,10 @@
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 11,
         "w": 8,
@@ -963,6 +1007,10 @@
       "datasource": {
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 12,
@@ -1066,6 +1114,10 @@
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 6,
         "w": 6,
@@ -1121,7 +1173,7 @@
                 "config": {},
                 "name": "image2",
                 "type": "string",
-                "values": ["https://volkovlabs.io/img/index/main.svg"]
+                "values": ["https://volkovlabs.io/img/plugins/logo.svg"]
               }
             ],
             "meta": {}
@@ -1136,6 +1188,10 @@
       "datasource": {
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 13,
@@ -1222,6 +1278,10 @@
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 8,
         "w": 6,
@@ -1305,6 +1365,10 @@
         "type": "marcusolsson-static-datasource",
         "uid": "P1D2C73DC01F2359B"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 11,
         "w": 6,
@@ -1384,19 +1448,17 @@
       "type": "volkovlabs-image-panel"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 41,
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": true,
           "text": ["image1", "image2", "image3"],
           "value": ["image1", "image2", "image3"]
         },
-        "hide": 0,
         "includeAll": false,
         "multi": true,
         "name": "myImages",
@@ -1418,8 +1480,6 @@
           }
         ],
         "query": "image1, image2, image3",
-        "queryValue": "",
-        "skipUrlSync": false,
         "type": "custom"
       }
     ]
@@ -1432,6 +1492,5 @@
   "timezone": "",
   "title": "Mixed Media Source",
   "uid": "da25c362-746f-46c0-a1b0-a3e9a1862800",
-  "version": 1,
-  "weekStart": ""
+  "version": 1
 }
