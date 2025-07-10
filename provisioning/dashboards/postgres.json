@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 3,
   "links": [
     {
       "asDropdown": false,
@@ -38,12 +39,15 @@
       "url": ""
     }
   ],
-  "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "postgres",
         "uid": "P1D2C73DC01F2359A"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 3,
@@ -114,6 +118,10 @@
         "type": "postgres",
         "uid": "P1D2C73DC01F2359A"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 27,
         "w": 12,
@@ -182,6 +190,10 @@
       "datasource": {
         "type": "postgres",
         "uid": "P1D2C73DC01F2359A"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
       },
       "gridPos": {
         "h": 24,
@@ -252,9 +264,13 @@
         "type": "postgres",
         "uid": "P1D2C73DC01F2359A"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 15,
-        "w": 12,
+        "w": 24,
         "x": 0,
         "y": 27
       },
@@ -315,14 +331,215 @@
       ],
       "title": "Video",
       "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P1D2C73DC01F2359A"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 42
+      },
+      "id": 6,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
+        "controls": true,
+        "height": 0,
+        "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "image",
+            "id": "eba31675-8643-406b-9746-27e9165a5c77",
+            "refId": "A",
+            "type": "image"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 0,
+        "widthMode": "auto",
+        "zoomType": "default"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P1D2C73DC01F2359A"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT \n  id,\n  encode(image, 'base64') as image,\n  concat('data:video/mp4;base64,',encode(video, 'base64')) as video\nFROM media\nWHERE id='$media_id';",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Planet Image",
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P1D2C73DC01F2359A"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 12,
+        "y": 42
+      },
+      "id": 7,
+      "options": {
+        "autoPlay": true,
+        "autoPlayInfinity": false,
+        "buttons": [],
+        "controls": true,
+        "height": 0,
+        "heightMode": "auto",
+        "infinityPlay": false,
+        "mediaSources": [
+          {
+            "field": "video",
+            "id": "2dbade4b-de9f-42dd-9d95-9a77174d627d",
+            "refId": "A",
+            "type": "video"
+          }
+        ],
+        "noResultsMessage": "Nothing to display...",
+        "pdfToolbar": true,
+        "scale": "auto",
+        "toolbar": true,
+        "width": 0,
+        "widthMode": "auto",
+        "zoomType": "default"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P1D2C73DC01F2359A"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  id,\n  encode(image, 'base64') as image,\n  concat(\n    'data:video/mp4;base64,',\n    encode(video, 'base64')\n  ) as video\nFROM media\nWHERE id='$media_id';",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": ["value"],
+                "type": "column"
+              }
+            ]
+          ],
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "Planet Video",
+      "type": "volkovlabs-image-panel"
     }
   ],
+  "preload": false,
   "refresh": "",
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 41,
   "tags": ["image"],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "text": "22222222-2222-4222-8222-222222222222",
+          "value": "22222222-2222-4222-8222-222222222222"
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "P1D2C73DC01F2359A"
+        },
+        "definition": "select id from media;",
+        "label": "id",
+        "name": "media_id",
+        "options": [],
+        "query": "select id from media;",
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-6h",
@@ -332,6 +549,5 @@
   "timezone": "",
   "title": "Postgres",
   "uid": "GATG3GTnz",
-  "version": 1,
-  "weekStart": ""
+  "version": 1
 }

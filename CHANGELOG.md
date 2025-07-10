@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file. This projec
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this changelog is maintained to provide a clear history of updates, features, and breaking changes for the Business Media plugin for Grafana.
 
-## [Unreleased]
+## [7.0.0] - 2025-07-10
 
-- No unreleased changes at this time.
+### Changed
+
+- Updated video render to support variable change ([#159](https://github.com/volkovlabs/business-media/pull/159)).
 
 ## [6.3.0] - 2025-05-05
 
