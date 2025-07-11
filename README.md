@@ -2,7 +2,7 @@
 
 ![Media](https://raw.githubusercontent.com/volkovlabs/business-media/main/src/img/image-panel.png)
 
-[![Grafana](https://img.shields.io/badge/Grafana-11.6-orange)](https://grafana.com/)
+[![Grafana](https://img.shields.io/badge/Grafana-12.0-orange)](https://grafana.com/)
 [![CI](https://github.com/volkovlabs/business-media/workflows/CI/badge.svg)](https://github.com/volkovlabs/business-media/actions/workflows/ci.yml)
 [![E2E](https://github.com/volkovlabs/business-media/workflows/E2E/badge.svg)](https://github.com/volkovlabs/business-media/actions/workflows/e2e.yml)
 [![Codecov](https://codecov.io/gh/VolkovLabs/business-media/branch/main/graph/badge.svg)](https://codecov.io/gh/VolkovLabs/business-media)
@@ -28,6 +28,7 @@ Ensure your Grafana version meets the requirements for the Business Media panel:
 
 | Plugin Version       | Compatible Grafana Versions |
 | -------------------- | --------------------------- |
+| Business Media 7.X   | Grafana 11, Grafana 12      |
 | Business Media 6.X   | Grafana 10, Grafana 11      |
 | Business Media 5.X   | Grafana 10, Grafana 11      |
 | Base64 Image/PDF 4.X | Grafana 9, Grafana 10       |
