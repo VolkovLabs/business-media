@@ -75,13 +75,6 @@ Elevate your experience with [Business Suite Enterprise](https://volkovlabs.io/p
 - In-person consultations.
 - Access to exclusive Business Intelligence features.
 
-## 💬 Get in Touch
-
-We value your feedback and are eager to assist:
-
-- **Ask Questions or Report Issues**: Use [GitHub Issues](https://github.com/volkovlabs/business-media/issues).
-- **Watch Tutorials**: Subscribe to our [YouTube Channel](https://youtube.com/@volkovlabs) and leave comments.
-
 ## 📜 License
 
 This project is licensed under the Apache License Version 2.0. See the [LICENSE](https://github.com/volkovlabs/business-media/blob/main/LICENSE) file for details.
